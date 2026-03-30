@@ -1,0 +1,88 @@
+description: "CCR — Critical Thinking (CRI1–CRI5) rubric scoring on student text"
+
+openai_model: "openai:chat:gpt-4.1-mini"
+anthropic_model: "anthropic:messages:claude-sonnet-4-20250514"
+
+temperature: 0
+top_p: 1.0
+max_tokens: 900
+
+system_instruction: |
+  You are an AI model being evaluated in an automated benchmarking system.
+  Follow the task instructions exactly.
+  Return only the requested output format.
+  Do not include explanations outside the JSON structure.
+
+rubric: |
+  CCR Critical Thinking Rubric (Levels 1–4). For each subcompetency, assign a level and cite evidence quotes from the student text.
+
+  CRI1 — Identifying, clarifying, and organizing information
+  1: Information is disorganized or unclear.
+  2: Information is somewhat clear but lacks organization.
+  3: Information is clear and organized, but organization or clarity could be improved.
+  4: Information is clearly identified, well organized, and easy to follow.
+
+  CRI2 — Assessing validity and quality of information
+  1: No attempt to assess the quality or validity of information used.
+  2: Some critical assessment of information, but limited or shallow.
+  3: Assessment of information is present, but depth or justification could be improved.
+  4: Thorough assessment of information’s validity and quality, with clear justification.
+
+  CRI3 — Weighing pros and cons of alternative choices
+  1: No consideration of alternative choices or their implications.
+  2: Some discussion of alternative choices but lacks depth or balance.
+  3: Balanced analysis of pros and cons of alternatives, but depth or coverage could be improved.
+  4: Balanced analysis of pros and cons of alternatives, with thoughtful consideration of implications.
+
+  CRI4 — Applying sound reasoning to decision-making
+  1: Reasoning is flawed or lacks logical structure.
+  2: Reasoning is generally sound but has logical gaps.
+  3: Reasoning is sound but minor logical gaps are present.
+  4: Strong logical reasoning throughout, with clear and evidence-based decision-making.
+
+  CRI5 — Reflecting critically on one's own reasoning and assumptions
+  1: No reflection on personal reasoning or assumptions.
+  2: Some acknowledgment of reasoning or assumptions, though limited in depth.
+  3: Reflects on and critiques own reasoning and assumptions, but depth could be improved.
+  4: Deeply reflects on and critiques own reasoning and assumptions, showing willingness to question and adjust.
+
+task: |
+  Task:
+  Evaluate the student text using the CCR Critical Thinking rubric above.
+
+  Requirements:
+  1) Score each subcompetency CRI1, CRI2, CRI3, CRI4, CRI5 with a level from 1 to 4.
+  2) Provide 1–3 direct quotes from the student text as evidence for each score.
+  3) Provide a short overall summary of the student's critical thinking strengths and areas for improvement.
+
+  Output format (JSON only, no markdown):
+
+  {
+    "CRI1": {"level": <1-4>, "evidence": ["...","..."], "rationale": "..."},
+    "CRI2": {"level": <1-4>, "evidence": ["...","..."], "rationale": "..."},
+    "CRI3": {"level": <1-4>, "evidence": ["...","..."], "rationale": "..."},
+    "CRI4": {"level": <1-4>, "evidence": ["...","..."], "rationale": "..."},
+    "CRI5": {"level": <1-4>, "evidence": ["...","..."], "rationale": "..."},
+    "overall": {"summary": "..."}
+  }
+
+cases:
+
+  - id: "cri_student_recess_argument"
+
+    student_text: |
+      I think our school should have a longer recess. Right now it is only 15 minutes, and many students still feel tired when class starts again. If recess were about 25 minutes, students could rest and move their bodies, which might help them focus better in class.
+
+      There are some disadvantages too. If recess is longer, teachers might have less time to finish lessons. Some students might also get too excited and it could take longer for everyone to calm down after recess.
+
+      After thinking about both sides, I believe a slightly longer recess would be best because it helps students rest but still leaves enough time for learning.
+
+    assert_contains:
+      - "\"CRI1\""
+      - "\"CRI2\""
+      - "\"CRI3\""
+      - "\"CRI4\""
+      - "\"CRI5\""
+      - "\"overall\""
+
+    assert_case_sensitive: false

@@ -1,0 +1,108 @@
+name: Daily LLM Eval (OpenAI + Claude)
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 13:00 UTC = 10:00 GMT-3
+    - cron: "0 13 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-llm-eval
+  cancel-in-progress: false
+
+jobs:
+  run-eval:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Ensure results folders exist
+        run: mkdir -p results/history
+
+      - name: Build Promptfoo config
+        run: node scripts/build_promptfoo_config.mjs
+
+      # -------------------------------------------------------------------
+      # KEY FIX:
+      # - We allow Promptfoo to exit non-zero (FAILs or provider ERRORs)
+      # - We capture the exit code and continue the pipeline
+      # -------------------------------------------------------------------
+      - name: Run Promptfoo eval (do not fail workflow on FAIL/ERROR)
+        id: promptfoo
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          set +e
+          echo "Running Promptfoo eval..."
+          npx promptfoo eval -c promptfooconfig.yaml --output results/latest.json
+          EXIT_CODE=$?
+          echo "Promptfoo exit code: $EXIT_CODE"
+          echo "$EXIT_CODE" > results/last_promptfoo_exit_code.txt
+          # Never fail this step; FAILs are valid datapoints for our use case
+          exit 0
+
+      # -------------------------------------------------------------------
+      # Guardrail:
+      # If results/latest.json doesn't exist, something is genuinely broken.
+      # In that case, fail the job (we have no data to log/commit).
+      # -------------------------------------------------------------------
+      - name: Verify results were produced
+        run: |
+          if [ ! -f "results/latest.json" ]; then
+            echo "ERROR: results/latest.json not found. Eval did not produce results."
+            exit 1
+          fi
+
+      # -------------------------------------------------------------------
+      # Always post to Airtable, even if Promptfoo had FAILs or provider errors
+      # -------------------------------------------------------------------
+      - name: Post summary to Airtable (always)
+        if: always()
+        env:
+          AIRTABLE_PAT: ${{ secrets.AIRTABLE_PAT }}
+          AIRTABLE_BASE_ID: ${{ secrets.AIRTABLE_BASE_ID }}
+          AIRTABLE_TABLE_NAME: ${{ secrets.AIRTABLE_TABLE_NAME }}
+          GITHUB_RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: node scripts/post_to_airtable.mjs
+
+      # -------------------------------------------------------------------
+      # Commit results back to repo (history + latest + timestamp)
+      # -------------------------------------------------------------------
+      - name: Commit and push results (always)
+        if: always()
+        run: |
+          set -e
+
+          # Configure bot identity for commits
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Stage expected artifacts (adjust if your scripts produce more/less)
+          git add results/history || true
+          git add results/latest.json results/latest_timestamp.txt results/last_promptfoo_exit_code.txt || true
+
+          # Only commit if there are changes
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Daily eval results (run ${{ github.run_id }})"
+          git push

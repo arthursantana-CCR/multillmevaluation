@@ -1,0 +1,389 @@
+{
+  "evalId": "eval-Ocu-2026-02-22T18:43:09",
+  "results": {
+    "version": 3,
+    "timestamp": "2026-02-22T18:43:09.317Z",
+    "prompts": [
+      {
+        "id": "f577665b0660a238e5cb641d7811a2c019ea1573ad82a372bc3add9be51fcea5",
+        "raw": "What is the color of the sky?",
+        "label": "What is the color of the sky?",
+        "provider": "openai:chat:gpt-4.1-mini",
+        "metrics": {
+          "score": 1,
+          "testPassCount": 1,
+          "testFailCount": 0,
+          "testErrorCount": 0,
+          "assertPassCount": 1,
+          "assertFailCount": 0,
+          "totalLatencyMs": 1976,
+          "tokenUsage": {
+            "prompt": 15,
+            "completion": 60,
+            "cached": 0,
+            "total": 75,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0
+            },
+            "assertions": {
+              "total": 0,
+              "prompt": 0,
+              "completion": 0,
+              "cached": 0,
+              "numRequests": 0,
+              "completionDetails": {
+                "reasoning": 0,
+                "acceptedPrediction": 0,
+                "rejectedPrediction": 0
+              }
+            }
+          },
+          "namedScores": {},
+          "namedScoresCount": {},
+          "cost": 0.000102
+        }
+      },
+      {
+        "id": "f577665b0660a238e5cb641d7811a2c019ea1573ad82a372bc3add9be51fcea5",
+        "raw": "What is the color of the sky?",
+        "label": "What is the color of the sky?",
+        "provider": "anthropic:messages:claude-sonnet-4-20250514",
+        "metrics": {
+          "score": 1,
+          "testPassCount": 1,
+          "testFailCount": 0,
+          "testErrorCount": 0,
+          "assertPassCount": 1,
+          "assertFailCount": 0,
+          "totalLatencyMs": 3003,
+          "tokenUsage": {
+            "prompt": 15,
+            "completion": 87,
+            "cached": 0,
+            "total": 102,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0
+            },
+            "assertions": {
+              "total": 0,
+              "prompt": 0,
+              "completion": 0,
+              "cached": 0,
+              "numRequests": 0,
+              "completionDetails": {
+                "reasoning": 0,
+                "acceptedPrediction": 0,
+                "rejectedPrediction": 0
+              }
+            }
+          },
+          "namedScores": {},
+          "namedScoresCount": {},
+          "cost": 0.0013499999999999999
+        }
+      }
+    ],
+    "results": [
+      {
+        "cost": 0.000102,
+        "gradingResult": {
+          "pass": true,
+          "score": 1,
+          "reason": "All assertions passed",
+          "namedScores": {},
+          "tokensUsed": {
+            "total": 0,
+            "prompt": 0,
+            "completion": 0,
+            "cached": 0,
+            "numRequests": 0
+          },
+          "componentResults": [
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "contains",
+                "value": "blue"
+              }
+            }
+          ]
+        },
+        "id": "a774c2a8-2b48-424b-b385-4b2b331fc004",
+        "latencyMs": 1976,
+        "namedScores": {},
+        "prompt": {
+          "raw": "What is the color of the sky?",
+          "label": "What is the color of the sky?",
+          "config": {}
+        },
+        "promptId": "f577665b0660a238e5cb641d7811a2c019ea1573ad82a372bc3add9be51fcea5",
+        "promptIdx": 0,
+        "provider": {
+          "id": "openai:chat:gpt-4.1-mini",
+          "label": ""
+        },
+        "response": {
+          "output": "The color of the sky is typically blue during the day. This is because molecules in the Earth's atmosphere scatter sunlight in all directions, and blue light is scattered more than other colors due to its shorter wavelength. However, the sky can appear different colors at sunrise, sunset, or under various weather conditions.",
+          "tokenUsage": {
+            "total": 75,
+            "prompt": 15,
+            "completion": 60,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0
+            }
+          },
+          "cached": false,
+          "latencyMs": 1976,
+          "finishReason": "stop",
+          "cost": 0.000102,
+          "guardrails": {
+            "flagged": false
+          },
+          "metadata": {
+            "http": {
+              "status": 200,
+              "statusText": "OK",
+              "headers": {
+                "access-control-expose-headers": "X-Request-ID",
+                "alt-svc": "h3=\":443\"; ma=86400",
+                "cf-cache-status": "DYNAMIC",
+                "cf-ray": "9d20a09f8912318a-IAD",
+                "connection": "keep-alive",
+                "content-encoding": "br",
+                "content-type": "application/json",
+                "date": "Sun, 22 Feb 2026 18:43:11 GMT",
+                "openai-organization": "ccr-6gmybh",
+                "openai-processing-ms": "1039",
+                "openai-project": "proj_N3CIeLTQ88RMGBLPV6kV7yfK",
+                "openai-version": "2020-10-01",
+                "server": "cloudflare",
+                "set-cookie": "__cf_bm=nkaClEdbXGhjSQEQSyFTLLjaeietxm83TR9ePcV_Hno-1771785789.3680108-1.0.1.1-fTIni1h91JCKyKXVLAO_5gxBhAdOMBKKhesGGtiGo71PBs35Vd6Kcr4JDYjOG35KCZ7v9ZyXuqSf4W7RnBasXGGlNudDqEOQ3wlIJ_3UFFtUvTdDuQm9VICzbee5lGIZ; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Sun, 22 Feb 2026 19:13:11 GMT",
+                "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+                "transfer-encoding": "chunked",
+                "x-content-type-options": "nosniff",
+                "x-openai-proxy-wasm": "v0.1",
+                "x-ratelimit-limit-requests": "500",
+                "x-ratelimit-limit-tokens": "200000",
+                "x-ratelimit-remaining-requests": "499",
+                "x-ratelimit-remaining-tokens": "199990",
+                "x-ratelimit-reset-requests": "120ms",
+                "x-ratelimit-reset-tokens": "3ms",
+                "x-request-id": "req_59b04cc7375944ff809e806a7304a20a"
+              }
+            }
+          }
+        },
+        "score": 1,
+        "success": true,
+        "testCase": {
+          "assert": [
+            {
+              "type": "contains",
+              "value": "blue"
+            }
+          ],
+          "vars": {},
+          "options": {},
+          "metadata": {}
+        },
+        "testIdx": 0,
+        "vars": {},
+        "metadata": {
+          "http": {
+            "status": 200,
+            "statusText": "OK",
+            "headers": {
+              "access-control-expose-headers": "X-Request-ID",
+              "alt-svc": "h3=\":443\"; ma=86400",
+              "cf-cache-status": "DYNAMIC",
+              "cf-ray": "9d20a09f8912318a-IAD",
+              "connection": "keep-alive",
+              "content-encoding": "br",
+              "content-type": "application/json",
+              "date": "Sun, 22 Feb 2026 18:43:11 GMT",
+              "openai-organization": "ccr-6gmybh",
+              "openai-processing-ms": "1039",
+              "openai-project": "proj_N3CIeLTQ88RMGBLPV6kV7yfK",
+              "openai-version": "2020-10-01",
+              "server": "cloudflare",
+              "set-cookie": "__cf_bm=nkaClEdbXGhjSQEQSyFTLLjaeietxm83TR9ePcV_Hno-1771785789.3680108-1.0.1.1-fTIni1h91JCKyKXVLAO_5gxBhAdOMBKKhesGGtiGo71PBs35Vd6Kcr4JDYjOG35KCZ7v9ZyXuqSf4W7RnBasXGGlNudDqEOQ3wlIJ_3UFFtUvTdDuQm9VICzbee5lGIZ; HttpOnly; Secure; Path=/; Domain=api.openai.com; Expires=Sun, 22 Feb 2026 19:13:11 GMT",
+              "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+              "transfer-encoding": "chunked",
+              "x-content-type-options": "nosniff",
+              "x-openai-proxy-wasm": "v0.1",
+              "x-ratelimit-limit-requests": "500",
+              "x-ratelimit-limit-tokens": "200000",
+              "x-ratelimit-remaining-requests": "499",
+              "x-ratelimit-remaining-tokens": "199990",
+              "x-ratelimit-reset-requests": "120ms",
+              "x-ratelimit-reset-tokens": "3ms",
+              "x-request-id": "req_59b04cc7375944ff809e806a7304a20a"
+            }
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 0
+      },
+      {
+        "cost": 0.0013499999999999999,
+        "gradingResult": {
+          "pass": true,
+          "score": 1,
+          "reason": "All assertions passed",
+          "namedScores": {},
+          "tokensUsed": {
+            "total": 0,
+            "prompt": 0,
+            "completion": 0,
+            "cached": 0,
+            "numRequests": 0
+          },
+          "componentResults": [
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "contains",
+                "value": "blue"
+              }
+            }
+          ]
+        },
+        "id": "aad1f33e-5b94-4256-8d84-3899914fd82f",
+        "latencyMs": 3003,
+        "namedScores": {},
+        "prompt": {
+          "raw": "What is the color of the sky?",
+          "label": "What is the color of the sky?",
+          "config": {}
+        },
+        "promptId": "f577665b0660a238e5cb641d7811a2c019ea1573ad82a372bc3add9be51fcea5",
+        "promptIdx": 1,
+        "provider": {
+          "id": "anthropic:messages:claude-sonnet-4-20250514",
+          "label": ""
+        },
+        "response": {
+          "output": "The sky appears blue during a clear day. This blue color is caused by a phenomenon called Rayleigh scattering, where molecules in Earth's atmosphere scatter blue light from the sun more than other colors.\n\nOf course, the sky's appearance can change depending on conditions and time of day - it can appear red or orange during sunrise and sunset, gray during overcast weather, or dark during nighttime.",
+          "tokenUsage": {
+            "total": 102,
+            "prompt": 15,
+            "completion": 87
+          },
+          "finishReason": "stop",
+          "cost": 0.0013499999999999999
+        },
+        "score": 1,
+        "success": true,
+        "testCase": {
+          "assert": [
+            {
+              "type": "contains",
+              "value": "blue"
+            }
+          ],
+          "vars": {},
+          "options": {},
+          "metadata": {}
+        },
+        "testIdx": 0,
+        "vars": {},
+        "metadata": {
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 0
+      }
+    ],
+    "stats": {
+      "successes": 2,
+      "failures": 0,
+      "errors": 0,
+      "tokenUsage": {
+        "prompt": 30,
+        "completion": 147,
+        "cached": 0,
+        "total": 177,
+        "numRequests": 2,
+        "completionDetails": {
+          "reasoning": 0,
+          "acceptedPrediction": 0,
+          "rejectedPrediction": 0
+        },
+        "assertions": {
+          "total": 0,
+          "prompt": 0,
+          "completion": 0,
+          "cached": 0,
+          "numRequests": 0,
+          "completionDetails": {
+            "reasoning": 0,
+            "acceptedPrediction": 0,
+            "rejectedPrediction": 0
+          }
+        }
+      },
+      "durationMs": 3015,
+      "evaluationDurationMs": 3015
+    }
+  },
+  "config": {
+    "tags": {},
+    "description": "Multi-model sanity test - sky color (OpenAI + Claude)",
+    "prompts": [
+      "What is the color of the sky?"
+    ],
+    "providers": [
+      {
+        "id": "openai:chat:gpt-4.1-mini",
+        "config": {
+          "temperature": 0
+        }
+      },
+      {
+        "id": "anthropic:messages:claude-sonnet-4-20250514",
+        "config": {
+          "temperature": 0
+        }
+      }
+    ],
+    "tests": [
+      {
+        "assert": [
+          {
+            "type": "contains",
+            "value": "blue"
+          }
+        ]
+      }
+    ],
+    "scenarios": [],
+    "env": {},
+    "outputPath": [
+      "results/history/2026-02-22T18-41-34Z.json"
+    ],
+    "extensions": [],
+    "metadata": {},
+    "evaluateOptions": {}
+  },
+  "shareableUrl": null,
+  "metadata": {
+    "promptfooVersion": "0.120.25",
+    "nodeVersion": "v20.20.0",
+    "platform": "linux",
+    "arch": "x64",
+    "exportedAt": "2026-02-22T18:43:12.384Z",
+    "evaluationCreatedAt": "2026-02-22T18:43:09.317Z"
+  }
+}
