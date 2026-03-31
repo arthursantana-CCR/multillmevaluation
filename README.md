@@ -1,4 +1,4 @@
-# LLM Test Automation
+# LLM Test Automation (test)
 ### Promptfoo + GitHub Actions + Airtable
 
 This repository runs automated daily evaluations of multiple LLMs on the **same prompt suite**, stores raw evaluation results in Git, and logs a summary row per run in Airtable.
