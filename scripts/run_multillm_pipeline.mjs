@@ -374,7 +374,6 @@ async function callAnthropic({ model, systemInstruction, userPrompt, parameters 
       },
     ],
     temperature: parameters.temperature,
-    top_p: parameters.top_p,
     max_tokens: parameters.max_tokens,
   };
 
