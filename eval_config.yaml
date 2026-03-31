@@ -4,19 +4,19 @@ pipeline:
   models:
     - role: generator
       provider: anthropic
-      model: "anthropic:messages:claude-sonnet-4-20250514"
+      model: "claude-sonnet-4-6"
 
     - role: reviewer_1
       provider: google
-      model: "gemini-pro"
+      model: "gemini-2.5-flash"
 
     - role: reviewer_2
       provider: openai
-      model: "openai:chat:gpt-4.1-mini"
+      model: "gpt-4.1-mini"
 
     - role: final_reviewer
       provider: anthropic
-      model: "anthropic:messages:claude-sonnet-4-20250514"
+      model: "claude-sonnet-4-6"
 
 parameters:
   temperature: 0
