@@ -323,16 +323,18 @@ async function callOpenAI({ model, systemInstruction, userPrompt, parameters }) 
     throw new Error("Missing OPENAI_API_KEY.");
   }
 
-  const body = {
-    model,
-    messages: [
-      { role: "system", content: systemInstruction },
-      { role: "user", content: userPrompt },
-    ],
-    temperature: parameters.temperature,
-    top_p: parameters.top_p,
-    max_tokens: parameters.max_tokens,
-  };
+const body = {
+  model,
+  system: systemInstruction,
+  messages: [
+    {
+      role: "user",
+      content: userPrompt,
+    },
+  ],
+  temperature: parameters.temperature, // keep this
+  max_tokens: parameters.max_tokens,
+};
 
   const response = await fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
