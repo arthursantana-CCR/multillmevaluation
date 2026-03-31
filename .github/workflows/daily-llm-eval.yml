@@ -2,8 +2,9 @@ name: Daily Multi-LLM Evaluation
 
 
 on:
+  push:
   schedule:
-    - cron: "0 13 * * *"   # 10:00 GMT-3 / America-Sao_Paulo
+    - cron: "0 13 * * *"
   workflow_dispatch:
 
 permissions:
