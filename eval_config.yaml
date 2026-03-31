@@ -1,19 +1,36 @@
-description: "CCR — Critical Thinking (CRI1–CRI5) rubric scoring on student text"
+description: "Multi-LLM Sequential Evaluation — CCR Critical Thinking with Hallucination Control"
 
-openai_model: "openai:chat:gpt-4.1-mini"
-anthropic_model: "anthropic:messages:claude-sonnet-4-20250514"
+pipeline:
+  models:
+    - role: generator
+      provider: anthropic
+      model: "anthropic:messages:claude-sonnet-4-20250514"
 
-temperature: 0
-top_p: 1.0
-max_tokens: 900
+    - role: reviewer_1
+      provider: google
+      model: "gemini-pro"
+
+    - role: reviewer_2
+      provider: openai
+      model: "openai:chat:gpt-4.1-mini"
+
+    - role: final_reviewer
+      provider: anthropic
+      model: "anthropic:messages:claude-sonnet-4-20250514"
+
+parameters:
+  temperature: 0
+  top_p: 1.0
+  max_tokens: 900
 
 system_instruction: |
-  You are an AI model being evaluated in an automated benchmarking system.
-  Follow the task instructions exactly.
-  Return only the requested output format.
-  Do not include explanations outside the JSON structure.
+  You are part of a multi-step AI evaluation pipeline.
 
-rubric: |
+  Follow instructions strictly.
+  Output must always follow the required format.
+  Do not include any text outside the specified structure.
+
+task_rubric: |
   CCR Critical Thinking Rubric (Levels 1–4). For each subcompetency, assign a level and cite evidence quotes from the student text.
 
   CRI1 — Identifying, clarifying, and organizing information
@@ -46,23 +63,49 @@ rubric: |
   3: Reflects on and critiques own reasoning and assumptions, but depth could be improved.
   4: Deeply reflects on and critiques own reasoning and assumptions, showing willingness to question and adjust.
 
+hallucination_rubric: |
+  A hallucination is any content that is not supported by the input text, task, or general knowledge.
+
+  Types of hallucination:
+  - Unsupported claim: statement not grounded in the student text
+  - Fabricated evidence: quotes or references not present in the text
+  - Overgeneralization: conclusions that go beyond available evidence
+  - Misinterpretation: incorrect reading of the student text
+
+  Reviewer instructions:
+  - Identify whether hallucinations are present
+  - Count how many hallucinations are found
+  - Classify the type(s)
+  - Provide a brief justification
+  - Provide a fully corrected version of the answer
+  - Do not preserve hallucinated content
+
+  Output format (strict):
+
+  Hallucinations Found: <number>
+  Types: <list>
+  Justification: <short explanation>
+  Corrected Answer:
+  <final corrected answer only>
+
 task: |
   Task:
-  Evaluate the student text using the CCR Critical Thinking rubric above.
+  Evaluate the student text using the CCR Critical Thinking rubric.
 
   Requirements:
-  1) Score each subcompetency CRI1, CRI2, CRI3, CRI4, CRI5 with a level from 1 to 4.
-  2) Provide 1–3 direct quotes from the student text as evidence for each score.
-  3) Provide a short overall summary of the student's critical thinking strengths and areas for improvement.
+  1) Score CRI1–CRI5 (1–4)
+  2) Provide 1–3 quotes per competency
+  3) Provide short rationale per competency
+  4) Provide overall summary
 
-  Output format (JSON only, no markdown):
+  Output format (JSON only):
 
   {
-    "CRI1": {"level": <1-4>, "evidence": ["...","..."], "rationale": "..."},
-    "CRI2": {"level": <1-4>, "evidence": ["...","..."], "rationale": "..."},
-    "CRI3": {"level": <1-4>, "evidence": ["...","..."], "rationale": "..."},
-    "CRI4": {"level": <1-4>, "evidence": ["...","..."], "rationale": "..."},
-    "CRI5": {"level": <1-4>, "evidence": ["...","..."], "rationale": "..."},
+    "CRI1": {"level": <1-4>, "evidence": ["..."], "rationale": "..."},
+    "CRI2": {"level": <1-4>, "evidence": ["..."], "rationale": "..."},
+    "CRI3": {"level": <1-4>, "evidence": ["..."], "rationale": "..."},
+    "CRI4": {"level": <1-4>, "evidence": ["..."], "rationale": "..."},
+    "CRI5": {"level": <1-4>, "evidence": ["..."], "rationale": "..."},
     "overall": {"summary": "..."}
   }
 
@@ -76,13 +119,3 @@ cases:
       There are some disadvantages too. If recess is longer, teachers might have less time to finish lessons. Some students might also get too excited and it could take longer for everyone to calm down after recess.
 
       After thinking about both sides, I believe a slightly longer recess would be best because it helps students rest but still leaves enough time for learning.
-
-    assert_contains:
-      - "\"CRI1\""
-      - "\"CRI2\""
-      - "\"CRI3\""
-      - "\"CRI4\""
-      - "\"CRI5\""
-      - "\"overall\""
-
-    assert_case_sensitive: false
