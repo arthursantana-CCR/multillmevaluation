@@ -2,7 +2,7 @@ import fs from "fs";
 
 const pat = process.env.AIRTABLE_PAT;
 const baseId = process.env.AIRTABLE_BASE_ID;
-const tableName = process.env.AIRTABLE_TABLE_NAME || "DailyRuns";
+const tableName = process.env.AIRTABLE_TABLE_NAME || "Runs";
 
 if (!pat || !baseId) {
   throw new Error("Missing AIRTABLE_PAT or AIRTABLE_BASE_ID env vars.");
@@ -10,196 +10,113 @@ if (!pat || !baseId) {
 
 const latest = JSON.parse(fs.readFileSync("results/latest.json", "utf8"));
 
-// ---- Timestamp ----
-const exportedAt =
-  latest?.metadata?.exportedAt ||
-  latest?.results?.timestamp ||
-  new Date().toISOString();
-
-// ---- Get result rows (Promptfoo export v3) ----
-const rows = Array.isArray(latest?.results?.results) ? latest.results.results : [];
-
-// ---- Extract prompt(s) (works with "{{prompt}}" templating) ----
-function extractPromptsForRun(obj) {
-  const rs = Array.isArray(obj?.results?.results) ? obj.results.results : [];
-  const prompts = rs.map(r => String(r?.prompt?.raw || "").trim()).filter(Boolean);
-
-  const seen = new Set();
-  const unique = [];
-  for (const p of prompts) {
-    if (!seen.has(p)) {
-      seen.add(p);
-      unique.push(p);
-    }
-  }
-  return unique;
+function buildModelSequenceText(pipeline) {
+  const seq = Array.isArray(pipeline?.model_sequence) ? pipeline.model_sequence : [];
+  return seq.map((m) => m.model || `${m.provider}:${m.role}`).join(" → ");
 }
 
-const runPrompts = extractPromptsForRun(latest);
-const prompt =
-  runPrompts.length === 1 ? runPrompts[0] : runPrompts.join("\n");
+function getGitHubRunUrl() {
+  const repository = process.env.GITHUB_REPOSITORY;
+  const runId = process.env.GITHUB_RUN_ID;
 
-// ---- Helpers ----
-function providerId(r) {
-  return String(r?.provider?.id || "");
-}
-
-function caseId(r) {
-  // We set metadata.case_id in the generated promptfoo config.
-  // Depending on promptfoo version, it may land in different places.
-  return (
-    r?.metadata?.case_id ||
-    r?.testCase?.metadata?.case_id ||
-    r?.vars?.case_id ||
-    "no_case_id"
-  );
-}
-
-function modelOutput(r) {
-  // Prefer the actual model output
-  const out = r?.response?.output;
-  if (typeof out === "string" && out.trim() !== "") return out.trim();
-
-  // Fallbacks (rare, but protects against version differences)
-  const alt =
-    r?.response?.text ||
-    r?.response?.content ||
-    r?.response?.message ||
-    r?.output ||
-    "";
-  return String(alt || "").trim();
-}
-
-function passed(r) {
-  if (typeof r?.gradingResult?.pass === "boolean") return r.gradingResult.pass;
-  if (typeof r?.success === "boolean") return r.success;
-  return false;
-}
-
-function groupByProviderPrefix(prefix) {
-  const p = prefix.toLowerCase();
-  return rows.filter(r => providerId(r).toLowerCase().startsWith(p));
-}
-
-function summarizeProvider(prefix) {
-  const providerRows = groupByProviderPrefix(prefix);
-
-  if (providerRows.length === 0) {
-    return {
-      model: "",
-      output: "",
-      allPassed: false,
-    };
+  if (!repository || !runId) {
+    return "";
   }
 
-  const model = providerId(providerRows[0]);
+  return `https://github.com/${repository}/actions/runs/${runId}`;
+}
 
-  // Build a readable multi-case output:
-  // [case_id] <model output>
-  const outputs = providerRows.map(r => {
-    const cid = caseId(r);
-    const out = modelOutput(r);
+function toLongText(value) {
+  if (value == null) return "";
+  if (typeof value === "string") return value;
+  return JSON.stringify(value, null, 2);
+}
 
-    // If output is missing for some reason, still show something useful.
-    const safeOut = out !== "" ? out : "(no model output captured)";
-    return `[${cid}] ${safeOut}`;
+function formatReviewerOutput(stage) {
+  if (!stage) return "";
+
+  const parsed = stage.parsed_review || {};
+  const hallucinations =
+    parsed.hallucinations_found == null ? "Unknown" : String(parsed.hallucinations_found);
+  const types =
+    Array.isArray(parsed.types) && parsed.types.length > 0 ? parsed.types.join(", ") : "None";
+  const justification = parsed.justification || "";
+  const correctedAnswer = parsed.corrected_answer || "";
+
+  return [
+    `Hallucinations Found: ${hallucinations}`,
+    `Types: ${types}`,
+    `Justification: ${justification}`,
+    "",
+    "Corrected Answer:",
+    correctedAnswer,
+  ].join("\n");
+}
+
+async function createRecords(records) {
+  const url = `https://api.airtable.com/v0/${baseId}/${encodeURIComponent(tableName)}`;
+
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${pat}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ records }),
   });
 
-  const allPassed = providerRows.every(r => passed(r));
+  const data = await response.json();
 
-  return {
-    model,
-    output: outputs.join("\n\n"),
-    allPassed,
-  };
+  if (!response.ok) {
+    throw new Error(`Airtable API error: ${response.status} ${JSON.stringify(data)}`);
+  }
+
+  return data;
 }
 
-// ---- Token helpers ----
-function tokenUsage(r) {
-  // Promptfoo v3 typically exposes tokens here:
-  // r.response.tokenUsage.{prompt, completion, total}
-  // Fallback to metrics.tokenUsage if needed.
-  const tu = r?.response?.tokenUsage || r?.metrics?.tokenUsage || null;
+async function main() {
+  const runId = latest?.run_id || new Date().toISOString();
+  const runTimeUtc = latest?.run_time_utc || new Date().toISOString();
+  const modelSequence = buildModelSequenceText(latest?.pipeline);
+  const githubRunUrl = getGitHubRunUrl();
+  const cases = Array.isArray(latest?.cases) ? latest.cases : [];
 
-  const prompt = Number(tu?.prompt ?? 0);
-  const completion = Number(tu?.completion ?? 0);
+  if (cases.length === 0) {
+    throw new Error("No cases found in results/latest.json");
+  }
 
-  // Some providers include total; if not, compute it.
-  const total = Number(tu?.total ?? (prompt + completion));
+  const records = cases.map((caseItem) => {
+    const input = caseItem?.input || {};
+    const outputs = caseItem?.outputs || {};
 
-  const numRequests = Number(tu?.numRequests ?? 0);
+    return {
+      fields: {
+        RunID: runId,
+        RunTimeUTC: runTimeUtc,
+        CaseID: caseItem?.case_id || "",
+        Prompt: toLongText(input.prompt_text || ""),
+        Generator_Output: toLongText(outputs?.generator_output?.raw_text || ""),
+        Reviewer_1_Output: formatReviewerOutput(outputs?.reviewer_1_output),
+        Reviewer_2_Output: formatReviewerOutput(outputs?.reviewer_2_output),
+        Final_Reviewer_Output: formatReviewerOutput(outputs?.final_reviewer_output),
+        Final_Output: toLongText(outputs?.final_output || ""),
+        Model_Sequence: modelSequence,
+        GitHub_Run_URL: githubRunUrl,
+      },
+    };
+  });
 
-  return { prompt, completion, total, numRequests };
+  const batchSize = 10;
+  for (let i = 0; i < records.length; i += batchSize) {
+    const batch = records.slice(i, i + batchSize);
+    await createRecords(batch);
+  }
+
+  console.log(`Posted ${records.length} Airtable record(s) to table '${tableName}'.`);
 }
 
-function summarizeTokensForProvider(prefix) {
-  const providerRows = groupByProviderPrefix(prefix);
-
-  return providerRows.reduce(
-    (acc, r) => {
-      const tu = tokenUsage(r);
-      acc.prompt += tu.prompt;
-      acc.completion += tu.completion;
-      acc.total += tu.total;
-      acc.numRequests += tu.numRequests;
-      return acc;
-    },
-    { prompt: 0, completion: 0, total: 0, numRequests: 0 }
-  );
-}
-
-const openai = summarizeProvider("openai:");
-const claude = summarizeProvider("anthropic:");
-
-const openaiTokens = summarizeTokensForProvider("openai:");
-const claudeTokens = summarizeTokensForProvider("anthropic:");
-
-const githubRunUrl =
-  process.env.GITHUB_RUN_URL ||
-  `https://github.com/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`;
-
-// ---- Airtable fields ----
-const fields = {
-  RunID: exportedAt,
-  RunTimeUTC: exportedAt,
-  Prompt: prompt,
-
-  OpenAI_Model: openai.model,
-  OpenAI_Output: openai.output,     // ✅ always show the model outputs
-  OpenAI_Passed: openai.allPassed,  // ✅ unchecked if any case fails
-
-  // ✅ Token fields (OpenAI)
-  OpenAI_Input_Tokens: openaiTokens.prompt,
-  OpenAI_Output_Tokens: openaiTokens.completion,
-  OpenAI_Total_Tokens: openaiTokens.total,
-
-  Claude_Model: claude.model,
-  Claude_Output: claude.output,
-  Claude_Passed: claude.allPassed,
-
-  // ✅ Token fields (Claude)
-  Claude_Input_Tokens: claudeTokens.prompt,
-  Claude_Output_Tokens: claudeTokens.completion,
-  Claude_Total_Tokens: claudeTokens.total,
-
-  GitHub_Run_URL: githubRunUrl,
-};
-
-// ---- POST to Airtable ----
-const url = `https://api.airtable.com/v0/${baseId}/${encodeURIComponent(tableName)}`;
-
-const res = await fetch(url, {
-  method: "POST",
-  headers: {
-    Authorization: `Bearer ${pat}`,
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({ records: [{ fields }] }),
+main().catch((error) => {
+  console.error("Failed to post results to Airtable.");
+  console.error(error);
+  process.exit(1);
 });
-
-const text = await res.text();
-if (!res.ok) {
-  throw new Error(`Airtable POST failed: ${res.status} ${res.statusText}\n${text}`);
-}
-
-console.log("✅ Posted to Airtable:", text);
