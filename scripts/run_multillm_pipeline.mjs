@@ -325,14 +325,13 @@ async function callOpenAI({ model, systemInstruction, userPrompt, parameters }) 
 
 const body = {
   model,
-  system: systemInstruction,
   messages: [
     {
       role: "user",
       content: userPrompt,
     },
   ],
-  temperature: parameters.temperature, // keep this
+  temperature: parameters.temperature,
   max_tokens: parameters.max_tokens,
 };
 
