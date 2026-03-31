@@ -1,18 +1,17 @@
 {
-  "name": "llmtestautomation",
+  "name": "multillmevaluation",
   "version": "1.0.0",
+  "description": "Multi-LLM sequential evaluation pipeline with hallucination correction and Airtable logging",
+  "type": "module",
   "main": "index.js",
-  "devDependencies": {
-    "promptfoo": "^0.120.24"
-  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "run": "node scripts/run_multillm_pipeline.mjs",
+    "post": "node scripts/post_to_airtable.mjs"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
-    "js-yaml": "^4.1.1"
+    "yaml": "^2.3.4"
   }
 }
