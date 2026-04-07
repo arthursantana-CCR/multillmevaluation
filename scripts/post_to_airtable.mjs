@@ -10,10 +10,15 @@ if (!pat || !baseId) {
 
 const latest = JSON.parse(fs.readFileSync("results/latest.json", "utf8"));
 
-// ✅ FIXED: read correct model_sequence
+// ✅ Model sequence formatter
 function buildModelSequenceText(modelSequenceArray) {
   const seq = Array.isArray(modelSequenceArray) ? modelSequenceArray : [];
   return seq.join(" → ");
+}
+
+// ✅ Architecture (NEW)
+function getArchitecture(latest) {
+  return latest?.architecture || "sequential";
 }
 
 function getGitHubRunUrl() {
@@ -79,8 +84,8 @@ async function main() {
   const runId = latest?.run_id || new Date().toISOString();
   const runTimeUtc = latest?.run_time_utc || new Date().toISOString();
 
-  // ✅ FIXED
   const modelSequence = buildModelSequenceText(latest?.model_sequence);
+  const architecture = getArchitecture(latest);
 
   const githubRunUrl = getGitHubRunUrl();
   const cases = Array.isArray(latest?.cases) ? latest.cases : [];
@@ -98,17 +103,23 @@ async function main() {
         RunTimeUTC: runTimeUtc,
         CaseID: caseItem?.case_id || "",
 
-        // ✅ FIXED PROMPT
         Prompt: toLongText(caseItem?.prompt || ""),
 
-        Generator_Output: toLongText(outputs?.generator_output?.raw_text || ""),
-        Reviewer_1_Output: formatReviewerOutput(outputs?.reviewer_1_output),
-        Reviewer_2_Output: formatReviewerOutput(outputs?.reviewer_2_output),
-        Final_Reviewer_Output: formatReviewerOutput(outputs?.final_reviewer_output),
-        Final_Output: toLongText(outputs?.final_output || ""),
+        // ✅ Architecture (NEW FIELD)
+        architecture: architecture,
 
-        // ✅ FIXED MODEL SEQUENCE
-        Model_Sequence: modelSequence,
+        // ✅ Generator (UNCHANGED)
+        Generator_Output: toLongText(outputs?.generator_output?.raw_text || ""),
+
+        // ✅ NEW STANDARDIZED FIELDS
+        model_1_output: formatReviewerOutput(outputs?.reviewer_1_output),
+        model_2_output: formatReviewerOutput(outputs?.reviewer_2_output),
+        model_3_output: formatReviewerOutput(outputs?.final_reviewer_output),
+
+        final_output: toLongText(outputs?.final_output || ""),
+
+        // ✅ Sequence
+        model_sequence: modelSequence,
 
         GitHub_Run_URL: githubRunUrl,
       },
