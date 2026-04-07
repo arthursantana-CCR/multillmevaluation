@@ -59,6 +59,10 @@ async function main() {
   const runResult = {
     run_id: runId,
     run_time_utc: runTimeUtc,
+
+    // ✅ NEW FIELD (architecture)
+    architecture: config?.pipeline?.architecture || "sequential",
+
     model_sequence: buildModelSequence(config.pipeline.models),
     cases: caseResults,
   };
