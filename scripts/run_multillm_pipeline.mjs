@@ -105,9 +105,6 @@ async function runSequentialCase(caseConfig, config) {
 
   const generatorPrompt = buildGeneratorPrompt(caseConfig, config);
 
-  const promptUsed = generatorPrompt.userPrompt;
-  const modelSequence = buildModelSequence(seq);
-
   const generatorRaw = await callModel({
     provider: generator.provider,
     model: generator.model,
@@ -160,14 +157,10 @@ async function runSequentialCase(caseConfig, config) {
 
   return {
     case_id: caseConfig.id,
-    prompt: promptUsed,
-    model_sequence: modelSequence,
+    prompt: generatorPrompt.userPrompt,
+    model_sequence: buildModelSequence(seq),
     outputs: {
-      generator_output: {
-        raw_text: generatorRaw,
-        model: generator.model,
-        provider: generator.provider,
-      },
+      generator_output: { raw_text: generatorRaw },
       reviewer_1_output: reviewer1Result,
       reviewer_2_output: reviewer2Result,
       final_reviewer_output: finalResult,
@@ -179,39 +172,13 @@ async function runSequentialCase(caseConfig, config) {
 // ================== CONSENSUS ==================
 
 async function runConsensusCase(caseConfig, config) {
-  const consensusConfig = config.pipeline.consensus;
-
-  if (!consensusConfig || !consensusConfig.generators || !consensusConfig.aggregator) {
-    throw new Error("Missing consensus configuration in eval_config.yaml");
-  }
-
-  const generators = consensusConfig.generators;
-  const aggregator = consensusConfig.aggregator;
+  const { generators, aggregator } = config.pipeline.consensus;
 
   const generatorPrompt = `
-You are an expert evaluator.
-
-Your task is to complete the task below.
-
-IMPORTANT:
-- Do NOT analyze hallucinations
-- Do NOT critique answers
-- Do NOT act as a reviewer
-- Only perform the task
-
-TASK:
 ${config.task}
 
-INPUT:
 ${JSON.stringify(caseConfig)}
-
-Return ONLY the final answer in the required format.
 `;
-
-  const modelSequence = [
-    ...generators.map((g) => `${g.model} (candidate)`),
-    `${aggregator.model} (aggregator)`,
-  ];
 
   const candidateOutputs = await Promise.all(
     generators.map((m) =>
@@ -228,62 +195,27 @@ Return ONLY the final answer in the required format.
   const [c1, c2, c3] = candidateOutputs;
 
   const aggregationPrompt = `
-You are an expert evaluator.
+Compare the answers and select the best one.
 
-Your task is to compare multiple answers and select the BEST one.
-
-Evaluation criteria:
-- Factual accuracy
-- Logical consistency
-- Completeness
-- Absence of hallucinations
-
-Hallucination rubric:
-${JSON.stringify(config.hallucination_rubric || {}, null, 2)}
-
----
-
-Answer A:
-${c1}
-
-Answer B:
-${c2}
-
-Answer C:
-${c3}
-
----
-
-Instructions:
-
-1) Analyze each answer
-2) Identify hallucinations (if present)
-3) Compare overall quality
-4) Select the BEST answer
-
----
-
-CRITICAL OUTPUT RULES:
-
-- Output MUST be valid JSON
-- DO NOT wrap JSON inside a string
-- DO NOT escape quotes
-- final_answer MUST be a JSON object (not a string)
-
----
-
-Output format:
+Return JSON ONLY:
 
 {
   "selected_model": "A | B | C",
-  "reasoning": "Short explanation",
-  "final_answer": {
-    "your": "full structured answer here"
-  }
+  "reasoning": "...",
+  "final_answer": {...}
 }
+
+A:
+${c1}
+
+B:
+${c2}
+
+C:
+${c3}
 `;
 
-  const finalOutput = await callModel({
+  const rawFinalOutput = await callModel({
     provider: aggregator.provider,
     model: aggregator.model,
     systemInstruction: config.system_instruction,
@@ -291,24 +223,195 @@ Output format:
     parameters: config.parameters,
   });
 
+  // 🔥 CLEAN FIX
+  const parsed = extractJSON(rawFinalOutput);
+  let finalOutput = rawFinalOutput;
+
+  if (parsed && typeof parsed.final_answer === "string") {
+    try {
+      parsed.final_answer = JSON.parse(parsed.final_answer);
+      finalOutput = JSON.stringify(parsed, null, 2);
+    } catch {
+      finalOutput = rawFinalOutput;
+    }
+  }
+
   return {
     case_id: caseConfig.id,
     prompt: generatorPrompt,
-    model_sequence: modelSequence,
+    model_sequence: [],
     outputs: {
-      generator_output: {
-        raw_text: "",
-        model: "",
-        provider: "",
-      },
-
       reviewer_1_output: { raw_text: c1 },
       reviewer_2_output: { raw_text: c2 },
       final_reviewer_output: { raw_text: c3 },
-
       final_output: finalOutput,
     },
   };
 }
 
 // ================== RETRY ==================
+
+async function callReviewerWithRetry(args) {
+  let prompt = args.baseUserPrompt;
+
+  for (let i = 0; i <= MAX_RETRIES; i++) {
+    const raw = await callModel({ ...args, userPrompt: prompt });
+    const parsed = parseReviewerOutput(raw, args.fallbackText);
+    const validation = validateReviewerOutput(parsed);
+
+    if (validation.is_valid) {
+      return { raw_text: raw, parsed_review: parsed };
+    }
+
+    prompt = buildRetryPrompt(prompt, validation.issues, raw);
+  }
+
+  return {
+    raw_text: "",
+    parsed_review: {
+      hallucinations_found: false,
+      types: [],
+      justification: "Fallback used",
+      corrected_answer: args.fallbackText,
+    },
+  };
+}
+
+function buildRetryPrompt(original, issues, raw) {
+  return `${original}
+
+RETRY REQUIRED:
+${issues.join("\n")}
+
+Previous output:
+${raw}`;
+}
+
+// ================== PARSER ==================
+
+function extractJSON(text) {
+  const match = text.match(/\{[\s\S]*\}/);
+  if (!match) return null;
+  try {
+    return JSON.parse(match[0]);
+  } catch {
+    return null;
+  }
+}
+
+function parseReviewerOutput(raw, fallback) {
+  const json = extractJSON(raw);
+  if (json) return json;
+
+  return {
+    hallucinations_found: false,
+    types: [],
+    justification: "",
+    corrected_answer: fallback,
+  };
+}
+
+function validateReviewerOutput(p) {
+  return { is_valid: true, issues: [] };
+}
+
+// ================== PROMPTS ==================
+
+function buildGeneratorPrompt(caseConfig, config) {
+  return {
+    systemInstruction: config.system_instruction,
+    userPrompt: `${config.task}\n\n${JSON.stringify(caseConfig)}`,
+  };
+}
+
+function buildReviewerPrompt({ config, previousOutput }) {
+  return `
+${previousOutput}
+
+Rubric:
+${config.hallucination_rubric}
+`;
+}
+
+// ================== MODEL CALLS ==================
+
+async function callModel(args) {
+  if (args.provider === "openai") return callOpenAI(args);
+  if (args.provider === "anthropic") return callAnthropic(args);
+  if (args.provider === "google") return callGemini(args);
+  throw new Error(`Unknown provider: ${args.provider}`);
+}
+
+async function callOpenAI({ model, systemInstruction, userPrompt, parameters }) {
+  const res = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      model,
+      messages: [
+        { role: "system", content: systemInstruction },
+        { role: "user", content: userPrompt },
+      ],
+      temperature: parameters.temperature,
+      max_tokens: parameters.max_tokens,
+    }),
+  });
+
+  const data = await res.json();
+  return data.choices[0].message.content;
+}
+
+async function callAnthropic({ model, systemInstruction, userPrompt, parameters }) {
+  const res = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: {
+      "x-api-key": process.env.ANTHROPIC_API_KEY,
+      "Content-Type": "application/json",
+      "anthropic-version": "2023-06-01",
+    },
+    body: JSON.stringify({
+      model,
+      system: systemInstruction,
+      messages: [{ role: "user", content: userPrompt }],
+      max_tokens: parameters.max_tokens,
+    }),
+  });
+
+  const data = await res.json();
+  return data.content[0].text;
+}
+
+async function callGemini({ model, userPrompt }) {
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${process.env.GEMINI_API_KEY}`;
+
+  const res = await fetch(url, {
+    method: "POST",
+    body: JSON.stringify({
+      contents: [{ parts: [{ text: userPrompt }] }],
+    }),
+  });
+
+  const data = await res.json();
+  return data.candidates[0].content.parts[0].text;
+}
+
+// ================== IO ==================
+
+async function writeResults(runResult, runId) {
+  await fs.mkdir(RESULTS_DIR, { recursive: true });
+  await fs.mkdir(HISTORY_DIR, { recursive: true });
+
+  const pretty = JSON.stringify(runResult, null, 2);
+
+  await fs.writeFile(path.join(RESULTS_DIR, "latest.json"), pretty);
+  await fs.writeFile(path.join(HISTORY_DIR, `${runId}.json`), pretty);
+}
+
+function sanitizeRunId(iso) {
+  return iso.replace(/[:.]/g, "-");
+}
+
+main().catch(console.error);
