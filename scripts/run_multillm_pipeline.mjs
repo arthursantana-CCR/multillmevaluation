@@ -116,24 +116,28 @@ function validateConfig(config) {
 function validateReviewerOutput(parsed) {
   const issues = [];
 
-  if (parsed.hallucinations_found === null) {
-    issues.push("missing_hallucination_flag");
+  if (typeof parsed.hallucinations_found !== "boolean") {
+    issues.push("missing_or_invalid_hallucination_flag");
   }
 
   if (!Array.isArray(parsed.types)) {
     issues.push("types_not_array");
   }
 
-  if (!parsed.justification || parsed.justification.length < 5) {
+  if (!parsed.justification || parsed.justification.trim().length < 5) {
     issues.push("empty_or_short_justification");
   }
 
-  if (!parsed.corrected_answer || parsed.corrected_answer.length < 10) {
+  if (!parsed.corrected_answer || parsed.corrected_answer.trim().length < 10) {
     issues.push("missing_or_short_corrected_answer");
   }
 
   if (!endsLikeCompleteText(parsed.corrected_answer)) {
     issues.push("possible_truncation");
+  }
+
+  if (parsed.types.some((item) => typeof item !== "string" || !item.trim())) {
+    issues.push("invalid_types_entries");
   }
 
   return {
@@ -206,7 +210,9 @@ async function callReviewerWithRetry({
     justification:
       "Fallback applied because reviewer output remained invalid after retry.",
     corrected_answer: String(fallbackText ?? "").trim(),
+    parse_mode: "fallback",
   };
+
   const fallbackValidation = {
     is_valid: false,
     issues: ["fallback_used_after_failed_retries"],
@@ -243,11 +249,15 @@ function buildRetryPrompt({ originalPrompt, invalidRawText, validationIssues }) 
     ...validationIssues.map((issue) => `- ${issue}`),
     "",
     "You MUST regenerate your answer using the EXACT required format.",
-    "Do not omit any section.",
-    "Do not rename headers.",
+    "Output TWO sections only:",
+    "1) A valid JSON object",
+    "2) A human-readable summary",
+    "The JSON must come FIRST.",
+    "Do not omit any required key.",
+    "Do not rename keys.",
     "CORRECTED ANSWER must always be present and complete.",
-    "If no hallucinations are found, return TYPES: [] and include the unchanged answer under CORRECTED ANSWER.",
-    "Do not output any commentary outside the required format.",
+    "If no hallucinations are found, set \"hallucinations_found\" to false, set \"types\" to [], and include the unchanged answer under \"corrected_answer\".",
+    "Do not output commentary outside the required two sections.",
     "",
     "Previous invalid output:",
     invalidRawText.trim(),
@@ -274,8 +284,6 @@ async function runCase(caseConfig, config) {
     parameters: config.parameters,
   });
 
-  // ---------------- REVIEWER 1 ----------------
-
   const reviewer1Prompt = buildReviewerPrompt({
     caseConfig,
     config,
@@ -293,8 +301,6 @@ async function runCase(caseConfig, config) {
     fallbackText: generatorRaw,
   });
 
-  // ---------------- REVIEWER 2 ----------------
-
   const reviewer2Prompt = buildReviewerPrompt({
     caseConfig,
     config,
@@ -311,8 +317,6 @@ async function runCase(caseConfig, config) {
     parameters: config.parameters,
     fallbackText: reviewer1Result.parsed_review.corrected_answer,
   });
-
-  // ---------------- FINAL REVIEWER ----------------
 
   const finalReviewerPrompt = buildReviewerPrompt({
     caseConfig,
@@ -406,6 +410,16 @@ function parseReviewerOutput(rawText, fallbackText = "") {
   const text = String(rawText ?? "").trim();
   const fallback = String(fallbackText ?? "").trim();
 
+  const jsonBlock = extractFirstJSONObject(text);
+  if (jsonBlock) {
+    try {
+      const parsedJson = JSON.parse(jsonBlock);
+      return normalizeReviewerJson(parsedJson, fallback);
+    } catch {
+      // continue to header-based fallback parsing
+    }
+  }
+
   const hallucinations = extractHeader(text, "HALLUCINATIONS FOUND");
   const typesRaw = extractHeader(text, "TYPES");
   const justification = extractSection(text, "JUSTIFICATION", "CORRECTED ANSWER");
@@ -416,7 +430,65 @@ function parseReviewerOutput(rawText, fallbackText = "") {
     types: normalizeTypes(typesRaw),
     justification: justification || "",
     corrected_answer: corrected || fallback,
+    parse_mode: "header_fallback",
   };
+}
+
+function normalizeReviewerJson(parsedJson, fallback) {
+  const normalized = {
+    hallucinations_found: normalizeHallucinationsFromJson(parsedJson.hallucinations_found),
+    types: normalizeTypesFromJson(parsedJson.types),
+    justification:
+      typeof parsedJson.justification === "string" ? parsedJson.justification.trim() : "",
+    corrected_answer:
+      typeof parsedJson.corrected_answer === "string" && parsedJson.corrected_answer.trim()
+        ? parsedJson.corrected_answer.trim()
+        : fallback,
+    parse_mode: "json",
+  };
+
+  return normalized;
+}
+
+function extractFirstJSONObject(text) {
+  const source = String(text ?? "");
+  const start = source.indexOf("{");
+  if (start === -1) return null;
+
+  let depth = 0;
+  let inString = false;
+  let escaped = false;
+
+  for (let i = start; i < source.length; i += 1) {
+    const char = source[i];
+
+    if (escaped) {
+      escaped = false;
+      continue;
+    }
+
+    if (char === "\\") {
+      escaped = true;
+      continue;
+    }
+
+    if (char === '"') {
+      inString = !inString;
+      continue;
+    }
+
+    if (inString) continue;
+
+    if (char === "{") depth += 1;
+    if (char === "}") {
+      depth -= 1;
+      if (depth === 0) {
+        return source.slice(start, i + 1);
+      }
+    }
+  }
+
+  return null;
 }
 
 function extractHeader(text, header) {
@@ -445,6 +517,15 @@ function normalizeHallucinations(value) {
   if (/^yes$/i.test(raw)) return true;
   if (/^no$/i.test(raw)) return false;
   if (/^\d+$/.test(raw)) return Number(raw) > 0;
+  if (/^true$/i.test(raw)) return true;
+  if (/^false$/i.test(raw)) return false;
+  return null;
+}
+
+function normalizeHallucinationsFromJson(value) {
+  if (typeof value === "boolean") return value;
+  if (typeof value === "number") return value > 0;
+  if (typeof value === "string") return normalizeHallucinations(value);
   return null;
 }
 
@@ -456,6 +537,21 @@ function normalizeTypes(value) {
     .map((v) => v.trim())
     .filter(Boolean)
     .filter((v) => v !== "[]");
+}
+
+function normalizeTypesFromJson(value) {
+  if (Array.isArray(value)) {
+    return value
+      .map((item) => String(item).trim())
+      .filter(Boolean)
+      .filter((item) => item !== "[]");
+  }
+
+  if (typeof value === "string") {
+    return normalizeTypes(value);
+  }
+
+  return [];
 }
 
 function escapeRegex(value) {
@@ -507,6 +603,35 @@ function buildReviewerPrompt({ caseConfig, config, previousRole, previousModel, 
       "Your job is to review the previous answer for hallucinations according to the rubric below.",
       "If hallucinations are found, fully correct them.",
       "If no hallucinations are found, keep the answer substantively the same and return it as the corrected answer.",
+      "",
+      "You MUST output EXACTLY TWO SECTIONS in this order:",
+      "1) A valid JSON object",
+      "2) A human-readable summary",
+      "",
+      "The JSON object MUST come FIRST and MUST follow this exact schema:",
+      "{",
+      '  "hallucinations_found": boolean,',
+      '  "types": string[],',
+      '  "justification": string,',
+      '  "corrected_answer": string',
+      "}",
+      "",
+      "Rules for the JSON block:",
+      '- Do NOT include extra keys',
+      "- Do NOT include trailing commas",
+      '- If no hallucinations are found, set "hallucinations_found" to false',
+      '- If no hallucinations are found, set "types" to []',
+      '- "corrected_answer" must always be present and complete',
+      "",
+      "After the JSON block, include this human-readable summary format:",
+      "HALLUCINATIONS FOUND: <YES or NO>",
+      "TYPES: <comma-separated list OR []>",
+      "JUSTIFICATION:",
+      "<brief explanation>",
+      "CORRECTED ANSWER:",
+      "<fully corrected answer>",
+      "",
+      "Do not include any other text outside these two sections.",
       "",
       "Hallucination Rubric:",
       config.hallucination_rubric.trim(),
@@ -736,6 +861,7 @@ function buildRunResult({ config, runId, runTimeUtc, caseResults }) {
       retry_policy: {
         max_retries_per_reviewer: MAX_RETRIES,
       },
+      parser_mode: "json_first_with_header_fallback",
     },
     cases: caseResults,
   };
