@@ -188,7 +188,6 @@ async function runConsensusCase(caseConfig, config) {
   const generators = consensusConfig.generators;
   const aggregator = consensusConfig.aggregator;
 
-  // ---------- GENERATOR PROMPT (FIXED) ----------
   const generatorPrompt = `
 You are an expert evaluator.
 
@@ -214,7 +213,6 @@ Return ONLY the final answer in the required format.
     `${aggregator.model} (aggregator)`,
   ];
 
-  // ---------- PARALLEL GENERATION ----------
   const candidateOutputs = await Promise.all(
     generators.map((m) =>
       callModel({
@@ -229,17 +227,17 @@ Return ONLY the final answer in the required format.
 
   const [c1, c2, c3] = candidateOutputs;
 
-  // ---------- AGGREGATOR PROMPT (FIXED) ----------
+  // ✅ UPDATED AGGREGATOR PROMPT (SMART + STRUCTURED)
   const aggregationPrompt = `
 You are an expert evaluator.
 
-Your job is to compare multiple answers and select the BEST one.
+Your task is to compare multiple answers and select the BEST one.
 
-Evaluation criteria:
-- Factual accuracy
-- Logical consistency
-- Completeness
-- Absence of hallucinations
+You MUST follow these evaluation criteria:
+1) Factual accuracy
+2) Logical consistency
+3) Completeness
+4) Absence of hallucinations
 
 Hallucination rubric:
 ${JSON.stringify(config.hallucination_rubric || {}, null, 2)}
@@ -259,12 +257,22 @@ ${c3}
 
 Instructions:
 
-1) Analyze each answer
-2) Identify hallucinations (if present)
-3) Compare overall quality
+1) Analyze each answer carefully
+2) Identify hallucinations (if any)
+3) Compare quality across answers
 4) Select the BEST answer
 
-Return ONLY the best answer.
+---
+
+Output format (STRICT JSON ONLY):
+
+{
+  "selected_model": "A | B | C",
+  "reasoning": "Short explanation of why this answer is best",
+  "final_answer": "<FULL selected answer>"
+}
+
+DO NOT include anything outside JSON.
 `;
 
   const finalOutput = await callModel({
