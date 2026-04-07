@@ -50,15 +50,13 @@ async function main() {
     caseResults.push(caseResult);
   }
 
-  const runResult = buildRunResult({
-    config,
-    runId,
-    runTimeUtc,
-    caseResults,
-  });
+  const runResult = {
+    run_id: runId,
+    run_time_utc: runTimeUtc,
+    cases: caseResults,
+  };
 
-  await writeResults(runResult, runId, runTimeUtc);
-
+  await writeResults(runResult, runId);
   console.log(`Run complete: ${runId}`);
 }
 
@@ -78,12 +76,12 @@ function validateConfig(config) {
 // ================== CASE ==================
 
 async function runCase(caseConfig, config) {
-  const sequence = config.pipeline.models;
+  const seq = config.pipeline.models;
 
-  const generator = sequence.find((m) => m.role === "generator");
-  const r1 = sequence.find((m) => m.role === "reviewer_1");
-  const r2 = sequence.find((m) => m.role === "reviewer_2");
-  const rf = sequence.find((m) => m.role === "final_reviewer");
+  const generator = seq.find((m) => m.role === "generator");
+  const r1 = seq.find((m) => m.role === "reviewer_1");
+  const r2 = seq.find((m) => m.role === "reviewer_2");
+  const rf = seq.find((m) => m.role === "final_reviewer");
 
   const generatorPrompt = buildGeneratorPrompt(caseConfig, config);
 
@@ -96,7 +94,6 @@ async function runCase(caseConfig, config) {
   });
 
   // ---------- REVIEWER 1 ----------
-
   const reviewer1Result = await callReviewerWithRetry({
     provider: r1.provider,
     model: r1.model,
@@ -114,7 +111,6 @@ async function runCase(caseConfig, config) {
   reviewer1Result.parsed_review.severity = classifySeverity(r1Score);
 
   // ---------- REVIEWER 2 ----------
-
   const reviewer2Result = await callReviewerWithRetry({
     provider: r2.provider,
     model: r2.model,
@@ -131,8 +127,7 @@ async function runCase(caseConfig, config) {
   reviewer2Result.parsed_review.score = r2Score;
   reviewer2Result.parsed_review.severity = classifySeverity(r2Score);
 
-  // ---------- FINAL REVIEWER ----------
-
+  // ---------- FINAL ----------
   const finalResult = await callReviewerWithRetry({
     provider: rf.provider,
     model: rf.model,
@@ -155,48 +150,40 @@ async function runCase(caseConfig, config) {
     reviewer1Result.parsed_review.corrected_answer ||
     generatorRaw;
 
-  const pipelineMetrics = {
-    reviewer_1_score: r1Score,
-    reviewer_2_score: r2Score,
-    final_score: finalScore,
-    improvement: r1Score - finalScore,
-  };
-
   return {
     case_id: caseConfig.id,
     outputs: {
-      generator_output: generatorRaw,
+      generator_output: {
+        raw_text: generatorRaw,
+        model: generator.model,
+        provider: generator.provider,
+      },
       reviewer_1_output: reviewer1Result,
       reviewer_2_output: reviewer2Result,
       final_reviewer_output: finalResult,
       final_output: finalOutput,
-      pipeline_metrics: pipelineMetrics,
+      pipeline_metrics: {
+        reviewer_1_score: r1Score,
+        reviewer_2_score: r2Score,
+        final_score: finalScore,
+        improvement: r1Score - finalScore,
+      },
     },
   };
 }
 
 // ================== RETRY ==================
 
-async function callReviewerWithRetry({
-  provider,
-  model,
-  systemInstruction,
-  baseUserPrompt,
-  parameters,
-  fallbackText,
-}) {
-  let prompt = baseUserPrompt;
+async function callReviewerWithRetry(args) {
+  let prompt = args.baseUserPrompt;
 
   for (let i = 0; i <= MAX_RETRIES; i++) {
     const raw = await callModel({
-      provider,
-      model,
-      systemInstruction,
+      ...args,
       userPrompt: prompt,
-      parameters,
     });
 
-    const parsed = parseReviewerOutput(raw, fallbackText);
+    const parsed = parseReviewerOutput(raw, args.fallbackText);
     const validation = validateReviewerOutput(parsed);
 
     if (validation.is_valid) {
@@ -212,7 +199,7 @@ async function callReviewerWithRetry({
       hallucinations_found: false,
       types: [],
       justification: "Fallback used",
-      corrected_answer: fallbackText,
+      corrected_answer: args.fallbackText,
     },
   };
 }
@@ -220,11 +207,11 @@ async function callReviewerWithRetry({
 function buildRetryPrompt(original, issues, raw) {
   return `${original}
 
-RETRY REQUIRED.
-Issues:
+RETRY REQUIRED:
 ${issues.join("\n")}
 
-Fix formatting and output VALID JSON + summary.
+Fix output format strictly.
+
 Previous output:
 ${raw}`;
 }
@@ -287,19 +274,15 @@ function buildGeneratorPrompt(caseConfig, config) {
 
 function buildReviewerPrompt({ config, previousOutput }) {
   return `
-Review the answer.
+Return JSON + summary.
 
-OUTPUT FORMAT:
-
-1) JSON:
+JSON schema:
 {
  "hallucinations_found": boolean,
  "types": string[],
  "justification": string,
  "corrected_answer": string
 }
-
-2) SUMMARY
 
 Previous Output:
 ${previousOutput}
@@ -309,16 +292,75 @@ ${config.hallucination_rubric}
 `;
 }
 
-// ================== MODEL ==================
+// ================== MODEL CALLS ==================
 
-async function callModel({ provider, model, systemInstruction, userPrompt, parameters }) {
-  // simplified for clarity (same as your previous implementation)
-  return "Mock response"; // replace with real calls
+async function callModel(args) {
+  if (args.provider === "openai") return callOpenAI(args);
+  if (args.provider === "anthropic") return callAnthropic(args);
+  if (args.provider === "google") return callGemini(args);
+
+  throw new Error(`Unknown provider: ${args.provider}`);
+}
+
+async function callOpenAI({ model, systemInstruction, userPrompt, parameters }) {
+  const res = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      model,
+      messages: [
+        { role: "system", content: systemInstruction },
+        { role: "user", content: userPrompt },
+      ],
+      temperature: parameters.temperature,
+      max_tokens: parameters.max_tokens,
+    }),
+  });
+
+  const data = await res.json();
+  return data.choices[0].message.content;
+}
+
+async function callAnthropic({ model, systemInstruction, userPrompt, parameters }) {
+  const res = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: {
+      "x-api-key": process.env.ANTHROPIC_API_KEY,
+      "Content-Type": "application/json",
+      "anthropic-version": "2023-06-01",
+    },
+    body: JSON.stringify({
+      model,
+      system: systemInstruction,
+      messages: [{ role: "user", content: userPrompt }],
+      max_tokens: parameters.max_tokens,
+    }),
+  });
+
+  const data = await res.json();
+  return data.content[0].text;
+}
+
+async function callGemini({ model, systemInstruction, userPrompt, parameters }) {
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${process.env.GEMINI_API_KEY}`;
+
+  const res = await fetch(url, {
+    method: "POST",
+    body: JSON.stringify({
+      contents: [{ parts: [{ text: userPrompt }] }],
+    }),
+  });
+
+  const data = await res.json();
+  return data.candidates[0].content.parts[0].text;
 }
 
 // ================== IO ==================
 
-async function writeResults(runResult, runId, runTimeUtc) {
+async function writeResults(runResult, runId) {
   await fs.mkdir(RESULTS_DIR, { recursive: true });
   await fs.mkdir(HISTORY_DIR, { recursive: true });
 
@@ -326,14 +368,6 @@ async function writeResults(runResult, runId, runTimeUtc) {
 
   await fs.writeFile(path.join(RESULTS_DIR, "latest.json"), pretty);
   await fs.writeFile(path.join(HISTORY_DIR, `${runId}.json`), pretty);
-}
-
-function buildRunResult({ config, runId, runTimeUtc, caseResults }) {
-  return {
-    run_id: runId,
-    run_time_utc: runTimeUtc,
-    cases: caseResults,
-  };
 }
 
 function sanitizeRunId(iso) {
