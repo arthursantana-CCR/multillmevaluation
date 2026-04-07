@@ -38,77 +38,39 @@ async function loadConfig(configPath) {
   return YAML.parse(raw);
 }
 
-function validateConfig(config) {
-  if (!config || typeof config !== "object") {
-    throw new Error("Invalid config: expected a YAML object.");
+// ---------------- VALIDATION ----------------
+
+function validateReviewerOutput(parsed) {
+  const issues = [];
+
+  if (parsed.hallucinations_found === null) {
+    issues.push("missing_hallucination_flag");
   }
 
-  if (!config.description || typeof config.description !== "string") {
-    throw new Error("Invalid config: 'description' is required.");
+  if (!Array.isArray(parsed.types)) {
+    issues.push("types_not_array");
   }
 
-  if (!config.pipeline || !Array.isArray(config.pipeline.models) || config.pipeline.models.length === 0) {
-    throw new Error("Invalid config: 'pipeline.models' must be a non-empty array.");
+  if (!parsed.justification || parsed.justification.length < 5) {
+    issues.push("empty_or_short_justification");
   }
 
-  const allowedRoles = new Set(["generator", "reviewer_1", "reviewer_2", "final_reviewer"]);
-  const seenRoles = new Set();
-
-  for (const modelDef of config.pipeline.models) {
-    if (!modelDef.role || !allowedRoles.has(modelDef.role)) {
-      throw new Error(
-        `Invalid config: each pipeline model must have a valid 'role'. Got: ${modelDef.role ?? "undefined"}`
-      );
-    }
-    if (seenRoles.has(modelDef.role)) {
-      throw new Error(`Invalid config: duplicate pipeline role '${modelDef.role}'.`);
-    }
-    seenRoles.add(modelDef.role);
-
-    if (!modelDef.provider || typeof modelDef.provider !== "string") {
-      throw new Error(`Invalid config: model '${modelDef.role}' is missing 'provider'.`);
-    }
-    if (!modelDef.model || typeof modelDef.model !== "string") {
-      throw new Error(`Invalid config: model '${modelDef.role}' is missing 'model'.`);
-    }
+  if (!parsed.corrected_answer || parsed.corrected_answer.length < 10) {
+    issues.push("missing_or_short_corrected_answer");
   }
 
-  for (const requiredRole of allowedRoles) {
-    if (!seenRoles.has(requiredRole)) {
-      throw new Error(`Invalid config: missing required pipeline role '${requiredRole}'.`);
-    }
+  // Truncation heuristic
+  if (!/[.!?]$/.test(parsed.corrected_answer.trim())) {
+    issues.push("possible_truncation");
   }
 
-  if (!config.parameters || typeof config.parameters !== "object") {
-    throw new Error("Invalid config: 'parameters' is required.");
-  }
-
-  if (!config.system_instruction || typeof config.system_instruction !== "string") {
-    throw new Error("Invalid config: 'system_instruction' is required.");
-  }
-
-  if (!config.task_rubric || typeof config.task_rubric !== "string") {
-    throw new Error("Invalid config: 'task_rubric' is required.");
-  }
-
-  if (!config.hallucination_rubric || typeof config.hallucination_rubric !== "string") {
-    throw new Error("Invalid config: 'hallucination_rubric' is required.");
-  }
-
-  if (!config.task || typeof config.task !== "string") {
-    throw new Error("Invalid config: 'task' is required.");
-  }
-
-  if (!Array.isArray(config.cases) || config.cases.length === 0) {
-    throw new Error("Invalid config: 'cases' must be a non-empty array.");
-  }
-
-  for (const caseConfig of config.cases) {
-    if (!caseConfig.id || typeof caseConfig.id !== "string") {
-      throw new Error("Invalid config: every case must have an 'id'.");
-    }
-  }
+  return {
+    is_valid: issues.length === 0,
+    issues,
+  };
 }
+
+// ---------------- MAIN CASE ----------------
 
 async function runCase(caseConfig, config) {
   const sequence = config.pipeline.models;
@@ -128,65 +90,68 @@ async function runCase(caseConfig, config) {
     parameters: config.parameters,
   });
 
-  const reviewer1Prompt = buildReviewerPrompt({
-    caseConfig,
-    config,
-    previousRole: generatorModel.role,
-    previousModel: generatorModel.model,
-    previousOutput: generatorRaw,
-  });
+  // ---------------- REVIEWER 1 ----------------
 
   const reviewer1Raw = await callModel({
     provider: reviewer1Model.provider,
     model: reviewer1Model.model,
-    systemInstruction: reviewer1Prompt.systemInstruction,
-    userPrompt: reviewer1Prompt.userPrompt,
+    systemInstruction: config.system_instruction,
+    userPrompt: buildReviewerPrompt({
+      caseConfig,
+      config,
+      previousRole: generatorModel.role,
+      previousModel: generatorModel.model,
+      previousOutput: generatorRaw,
+    }).userPrompt,
     parameters: config.parameters,
   });
 
   const reviewer1Parsed = parseReviewerOutput(reviewer1Raw, generatorRaw);
+  const reviewer1Validation = validateReviewerOutput(reviewer1Parsed);
 
-  const reviewer2Prompt = buildReviewerPrompt({
-    caseConfig,
-    config,
-    previousRole: reviewer1Model.role,
-    previousModel: reviewer1Model.model,
-    previousOutput: reviewer1Parsed.corrected_answer || generatorRaw,
-  });
+  // ---------------- REVIEWER 2 ----------------
 
   const reviewer2Raw = await callModel({
     provider: reviewer2Model.provider,
     model: reviewer2Model.model,
-    systemInstruction: reviewer2Prompt.systemInstruction,
-    userPrompt: reviewer2Prompt.userPrompt,
+    systemInstruction: config.system_instruction,
+    userPrompt: buildReviewerPrompt({
+      caseConfig,
+      config,
+      previousRole: reviewer1Model.role,
+      previousModel: reviewer1Model.model,
+      previousOutput: reviewer1Parsed.corrected_answer,
+    }).userPrompt,
     parameters: config.parameters,
   });
 
   const reviewer2Parsed = parseReviewerOutput(
     reviewer2Raw,
-    reviewer1Parsed.corrected_answer || generatorRaw
+    reviewer1Parsed.corrected_answer
   );
+  const reviewer2Validation = validateReviewerOutput(reviewer2Parsed);
 
-  const finalReviewerPrompt = buildReviewerPrompt({
-    caseConfig,
-    config,
-    previousRole: reviewer2Model.role,
-    previousModel: reviewer2Model.model,
-    previousOutput: reviewer2Parsed.corrected_answer || reviewer1Parsed.corrected_answer || generatorRaw,
-  });
+  // ---------------- FINAL REVIEWER ----------------
 
   const finalReviewerRaw = await callModel({
     provider: finalReviewerModel.provider,
     model: finalReviewerModel.model,
-    systemInstruction: finalReviewerPrompt.systemInstruction,
-    userPrompt: finalReviewerPrompt.userPrompt,
+    systemInstruction: config.system_instruction,
+    userPrompt: buildReviewerPrompt({
+      caseConfig,
+      config,
+      previousRole: reviewer2Model.role,
+      previousModel: reviewer2Model.model,
+      previousOutput: reviewer2Parsed.corrected_answer,
+    }).userPrompt,
     parameters: config.parameters,
   });
 
   const finalReviewerParsed = parseReviewerOutput(
     finalReviewerRaw,
-    reviewer2Parsed.corrected_answer || reviewer1Parsed.corrected_answer || generatorRaw
+    reviewer2Parsed.corrected_answer
   );
+  const finalValidation = validateReviewerOutput(finalReviewerParsed);
 
   const finalOutput =
     finalReviewerParsed.corrected_answer ||
@@ -212,26 +177,88 @@ async function runCase(caseConfig, config) {
         provider: reviewer1Model.provider,
         model: reviewer1Model.model,
         raw_text: reviewer1Raw,
-        parsed_review: reviewer1Parsed,
+        parsed_review: {
+          ...reviewer1Parsed,
+          validation: reviewer1Validation,
+        },
       },
       reviewer_2_output: {
         role: reviewer2Model.role,
         provider: reviewer2Model.provider,
         model: reviewer2Model.model,
         raw_text: reviewer2Raw,
-        parsed_review: reviewer2Parsed,
+        parsed_review: {
+          ...reviewer2Parsed,
+          validation: reviewer2Validation,
+        },
       },
       final_reviewer_output: {
         role: finalReviewerModel.role,
         provider: finalReviewerModel.provider,
         model: finalReviewerModel.model,
         raw_text: finalReviewerRaw,
-        parsed_review: finalReviewerParsed,
+        parsed_review: {
+          ...finalReviewerParsed,
+          validation: finalValidation,
+        },
       },
       final_output: finalOutput,
     },
   };
 }
+
+// ---------------- PARSER (FIXED) ----------------
+
+function parseReviewerOutput(rawText, fallbackText = "") {
+  const text = String(rawText ?? "").trim();
+  const fallback = String(fallbackText ?? "").trim();
+
+  const hallucinations = extractHeader(text, "HALLUCINATIONS FOUND");
+  const typesRaw = extractHeader(text, "TYPES");
+  const justification = extractSection(text, "JUSTIFICATION", "CORRECTED ANSWER");
+  const corrected = extractSection(text, "CORRECTED ANSWER");
+
+  return {
+    hallucinations_found: normalizeHallucinations(hallucinations),
+    types: normalizeTypes(typesRaw),
+    justification: justification || "",
+    corrected_answer: corrected || fallback,
+  };
+}
+
+function extractHeader(text, header) {
+  const match = text.match(new RegExp(`${header}:\\s*(.+)`, "i"));
+  return match?.[1]?.trim() || "";
+}
+
+function extractSection(text, start, end = null) {
+  const startRegex = new RegExp(`${start}:`, "i");
+  const startMatch = startRegex.exec(text);
+  if (!startMatch) return "";
+
+  const rest = text.slice(startMatch.index + startMatch[0].length);
+
+  if (!end) return rest.trim();
+
+  const endRegex = new RegExp(`${end}:`, "i");
+  const endMatch = endRegex.exec(rest);
+
+  return endMatch ? rest.slice(0, endMatch.index).trim() : rest.trim();
+}
+
+function normalizeHallucinations(value) {
+  if (/yes/i.test(value)) return true;
+  if (/no/i.test(value)) return false;
+  if (/^\d+$/.test(value)) return Number(value) > 0;
+  return null;
+}
+
+function normalizeTypes(value) {
+  if (!value || value === "[]" || /none/i.test(value)) return [];
+  return value.split(",").map((v) => v.trim()).filter(Boolean);
+}
+
+// ---------------- UTIL ----------------
 
 function extractCaseInput(caseConfig) {
   const input = {};
@@ -244,353 +271,38 @@ function extractCaseInput(caseConfig) {
 
 function buildGeneratorPrompt(caseConfig, config) {
   const caseFields = formatCaseFields(caseConfig);
-
   return {
     systemInstruction: config.system_instruction,
-    userPrompt: [
-      "You are the generator in a multi-LLM evaluation pipeline.",
-      "",
-      "Use the rubric and task below to produce the initial answer.",
-      "Return only the requested output format.",
-      "",
-      "Task Rubric:",
-      config.task_rubric.trim(),
-      "",
-      "Task:",
-      config.task.trim(),
-      "",
-      "Case Input:",
-      caseFields,
-    ].join("\n"),
+    userPrompt: `You are the generator...\n\n${config.task}\n\n${caseFields}`,
   };
 }
 
 function buildReviewerPrompt({ caseConfig, config, previousRole, previousModel, previousOutput }) {
   const caseFields = formatCaseFields(caseConfig);
-
   return {
     systemInstruction: config.system_instruction,
-    userPrompt: [
-      "You are a reviewer/editor in a multi-LLM evaluation pipeline.",
-      "",
-      "Your job is to review the previous answer for hallucinations according to the rubric below.",
-      "If hallucinations are found, fully correct them.",
-      "If no hallucinations are found, keep the answer substantively the same and return it as the corrected answer.",
-      "",
-      "Hallucination Rubric:",
-      config.hallucination_rubric.trim(),
-      "",
-      "Original Task Rubric:",
-      config.task_rubric.trim(),
-      "",
-      "Original Task:",
-      config.task.trim(),
-      "",
-      "Case Input:",
-      caseFields,
-      "",
-      `Previous Stage Role: ${previousRole}`,
-      `Previous Stage Model: ${previousModel}`,
-      "",
-      "Previous Output:",
-      previousOutput,
-    ].join("\n"),
+    userPrompt: `Review the answer.\n\n${config.hallucination_rubric}\n\nPrevious Output:\n${previousOutput}`,
   };
 }
 
 function formatCaseFields(caseConfig) {
-  const lines = [];
-  for (const [key, value] of Object.entries(caseConfig)) {
-    if (key === "id") continue;
-
-    if (typeof value === "string") {
-      lines.push(`${key}:`);
-      lines.push(value);
-      lines.push("");
-    } else {
-      lines.push(`${key}: ${JSON.stringify(value, null, 2)}`);
-      lines.push("");
-    }
-  }
-  return lines.join("\n").trim();
+  return Object.entries(caseConfig)
+    .filter(([k]) => k !== "id")
+    .map(([k, v]) => `${k}:\n${v}`)
+    .join("\n\n");
 }
 
-async function callModel({ provider, model, systemInstruction, userPrompt, parameters }) {
-  switch (provider) {
-    case "openai":
-      return callOpenAI({ model, systemInstruction, userPrompt, parameters });
-    case "anthropic":
-      return callAnthropic({ model, systemInstruction, userPrompt, parameters });
-    case "google":
-      return callGemini({ model, systemInstruction, userPrompt, parameters });
-    default:
-      throw new Error(`Unsupported provider: ${provider}`);
-  }
-}
+// ---------------- IO ----------------
 
-async function callOpenAI({ model, systemInstruction, userPrompt, parameters }) {
-  const apiKey = process.env.OPENAI_API_KEY;
-  if (!apiKey) {
-    throw new Error("Missing OPENAI_API_KEY.");
-  }
+async function writeResults(runResult, runId, runTimeUtc) {
+  await fs.mkdir(RESULTS_DIR, { recursive: true });
+  await fs.mkdir(HISTORY_DIR, { recursive: true });
 
-  const body = {
-    model,
-    messages: [
-      {
-        role: "system",
-        content: systemInstruction,
-      },
-      {
-        role: "user",
-        content: userPrompt,
-      },
-    ],
-    temperature: parameters.temperature,
-    max_tokens: parameters.max_tokens,
-  };
+  const pretty = JSON.stringify(runResult, null, 2);
 
-  const response = await fetch("https://api.openai.com/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${apiKey}`,
-    },
-    body: JSON.stringify(body),
-  });
-
-  const data = await response.json();
-  if (!response.ok) {
-    throw new Error(`OpenAI API error: ${response.status} ${JSON.stringify(data)}`);
-  }
-
-  const text = data?.choices?.[0]?.message?.content;
-  if (!text) {
-    throw new Error("OpenAI API returned no message content.");
-  }
-
-  return text.trim();
-}
-
-async function callAnthropic({ model, systemInstruction, userPrompt, parameters }) {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey) {
-    throw new Error("Missing ANTHROPIC_API_KEY.");
-  }
-
-  const body = {
-    model,
-    system: systemInstruction,
-    messages: [
-      {
-        role: "user",
-        content: userPrompt,
-      },
-    ],
-    temperature: parameters.temperature,
-    max_tokens: parameters.max_tokens,
-  };
-
-  const response = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "x-api-key": apiKey,
-      "anthropic-version": "2023-06-01",
-    },
-    body: JSON.stringify(body),
-  });
-
-  const data = await response.json();
-  if (!response.ok) {
-    throw new Error(`Anthropic API error: ${response.status} ${JSON.stringify(data)}`);
-  }
-
-  const text = Array.isArray(data?.content)
-    ? data.content
-        .filter((item) => item?.type === "text")
-        .map((item) => item.text)
-        .join("\n")
-    : "";
-
-  if (!text) {
-    throw new Error("Anthropic API returned no text content.");
-  }
-
-  return text.trim();
-}
-
-async function callGemini({ model, systemInstruction, userPrompt, parameters }) {
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) {
-    throw new Error("Missing GEMINI_API_KEY.");
-  }
-
-  const normalizedModel = normalizeGeminiModelName(model);
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${normalizedModel}:generateContent`;
-
-  const body = {
-    systemInstruction: {
-      parts: [{ text: systemInstruction }],
-    },
-    contents: [
-      {
-        role: "user",
-        parts: [{ text: userPrompt }],
-      },
-    ],
-    generationConfig: {
-      temperature: parameters.temperature,
-      topP: parameters.top_p,
-      maxOutputTokens: parameters.max_tokens,
-    },
-  };
-
-  const response = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "x-goog-api-key": apiKey,
-    },
-    body: JSON.stringify(body),
-  });
-
-  const data = await response.json();
-  if (!response.ok) {
-    throw new Error(`Gemini API error: ${response.status} ${JSON.stringify(data)}`);
-  }
-
-  const text = data?.candidates?.[0]?.content?.parts
-    ?.map((part) => part?.text || "")
-    .join("\n")
-    .trim();
-
-  if (!text) {
-    throw new Error("Gemini API returned no text content.");
-  }
-
-  return text;
-}
-
-function normalizeGeminiModelName(model) {
-  return model.startsWith("models/") ? model.slice("models/".length) : model;
-}
-
-function parseReviewerOutput(rawText, fallbackText = "") {
-  const text = String(rawText ?? "").trim();
-  const fallback = String(fallbackText ?? "").trim();
-
-  const hallucinationsLine = extractHeaderValue(text, [
-    "HALLUCINATIONS FOUND",
-    "Hallucinations Found",
-  ]);
-
-  const typesLine = extractHeaderValue(text, [
-    "TYPES",
-    "Types",
-  ]);
-
-  const justification = extractSection(text, [
-    "JUSTIFICATION",
-    "Justification",
-  ], [
-    "CORRECTED ANSWER",
-    "Corrected Answer",
-  ]);
-
-  const correctedAnswer = extractSection(text, [
-    "CORRECTED ANSWER",
-    "Corrected Answer",
-  ], []);
-
-  const hallucinationsFound = normalizeHallucinationsFound(hallucinationsLine);
-  const types = normalizeTypes(typesLine);
-
-  const finalCorrectedAnswer = correctedAnswer || fallback;
-
-  return {
-    hallucinations_found: hallucinationsFound,
-    types,
-    justification: justification || "",
-    corrected_answer: finalCorrectedAnswer,
-  };
-}
-
-function extractHeaderValue(text, headerNames) {
-  for (const header of headerNames) {
-    const regex = new RegExp(`^\\s*${escapeRegex(header)}\\s*:\\s*(.+?)\\s*$`, "im");
-    const match = text.match(regex);
-    if (match?.[1]) {
-      return match[1].trim();
-    }
-  }
-  return "";
-}
-
-function extractSection(text, startHeaders, endHeaders) {
-  for (const startHeader of startHeaders) {
-    const startRegex = new RegExp(`^\\s*${escapeRegex(startHeader)}\\s*:\\s*`, "im");
-    const startMatch = startRegex.exec(text);
-
-    if (!startMatch) continue;
-
-    const sectionStart = startMatch.index + startMatch[0].length;
-    const remaining = text.slice(sectionStart);
-
-    if (!endHeaders || endHeaders.length === 0) {
-      return remaining.trim();
-    }
-
-    let earliestEndIndex = -1;
-
-    for (const endHeader of endHeaders) {
-      const endRegex = new RegExp(`^\\s*${escapeRegex(endHeader)}\\s*:`, "im");
-      const endMatch = endRegex.exec(remaining);
-      if (endMatch && (earliestEndIndex === -1 || endMatch.index < earliestEndIndex)) {
-        earliestEndIndex = endMatch.index;
-      }
-    }
-
-    if (earliestEndIndex === -1) {
-      return remaining.trim();
-    }
-
-    return remaining.slice(0, earliestEndIndex).trim();
-  }
-
-  return "";
-}
-
-function normalizeHallucinationsFound(value) {
-  const raw = String(value ?? "").trim();
-  if (!raw) return null;
-
-  if (/^yes$/i.test(raw)) return true;
-  if (/^no$/i.test(raw)) return false;
-
-  if (/^\d+$/.test(raw)) {
-    return Number(raw) > 0;
-  }
-
-  return null;
-}
-
-function normalizeTypes(value) {
-  const raw = String(value ?? "").trim();
-
-  if (!raw) return [];
-  if (raw === "[]") return [];
-  if (/^none$/i.test(raw)) return [];
-
-  return raw
-    .split(",")
-    .map((item) => item.trim())
-    .filter(Boolean)
-    .filter((item) => item !== "[]");
-}
-
-function escapeRegex(text) {
-  return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  await fs.writeFile(path.join(RESULTS_DIR, "latest.json"), pretty);
+  await fs.writeFile(path.join(RESULTS_DIR, "latest_timestamp.txt"), runTimeUtc);
+  await fs.writeFile(path.join(HISTORY_DIR, `${runId}.json`), pretty);
 }
 
 function buildRunResult({ config, runId, runTimeUtc, caseResults }) {
@@ -598,35 +310,8 @@ function buildRunResult({ config, runId, runTimeUtc, caseResults }) {
     run_id: runId,
     run_time_utc: runTimeUtc,
     description: config.description,
-    pipeline: {
-      model_sequence: config.pipeline.models.map((item) => ({
-        role: item.role,
-        provider: item.provider,
-        model: item.model,
-      })),
-      parameters: {
-        temperature: config.parameters.temperature,
-        top_p: config.parameters.top_p,
-        max_tokens: config.parameters.max_tokens,
-      },
-    },
     cases: caseResults,
   };
-}
-
-async function writeResults(runResult, runId, runTimeUtc) {
-  await fs.mkdir(RESULTS_DIR, { recursive: true });
-  await fs.mkdir(HISTORY_DIR, { recursive: true });
-
-  const latestPath = path.join(RESULTS_DIR, "latest.json");
-  const latestTimestampPath = path.join(RESULTS_DIR, "latest_timestamp.txt");
-  const historyPath = path.join(HISTORY_DIR, `${runId}.json`);
-
-  const pretty = JSON.stringify(runResult, null, 2);
-
-  await fs.writeFile(latestPath, pretty, "utf8");
-  await fs.writeFile(latestTimestampPath, runTimeUtc, "utf8");
-  await fs.writeFile(historyPath, pretty, "utf8");
 }
 
 function sanitizeRunId(isoString) {
