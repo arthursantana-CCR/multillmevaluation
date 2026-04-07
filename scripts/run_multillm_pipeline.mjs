@@ -228,16 +228,16 @@ Return ONLY the final answer in the required format.
   const [c1, c2, c3] = candidateOutputs;
 
   // ✅ UPDATED AGGREGATOR PROMPT (SMART + STRUCTURED)
-  const aggregationPrompt = `
+const aggregationPrompt = `
 You are an expert evaluator.
 
 Your task is to compare multiple answers and select the BEST one.
 
-You MUST follow these evaluation criteria:
-1) Factual accuracy
-2) Logical consistency
-3) Completeness
-4) Absence of hallucinations
+Evaluation criteria:
+- Factual accuracy
+- Logical consistency
+- Completeness
+- Absence of hallucinations
 
 Hallucination rubric:
 ${JSON.stringify(config.hallucination_rubric || {}, null, 2)}
@@ -257,20 +257,32 @@ ${c3}
 
 Instructions:
 
-1) Analyze each answer carefully
-2) Identify hallucinations (if any)
-3) Compare quality across answers
+1) Analyze each answer
+2) Identify hallucinations (if present)
+3) Compare overall quality
 4) Select the BEST answer
 
 ---
 
-Output format (STRICT JSON ONLY):
+CRITICAL OUTPUT RULES:
+
+- Output MUST be valid JSON
+- DO NOT wrap JSON inside a string
+- DO NOT escape quotes
+- final_answer MUST be a JSON object (not a string)
+
+---
+
+Output format:
 
 {
   "selected_model": "A | B | C",
-  "reasoning": "Short explanation of why this answer is best",
-  "final_answer": "<FULL selected answer>"
+  "reasoning": "Short explanation",
+  "final_answer": {
+    "your": "full structured answer here"
+  }
 }
+`;
 
 DO NOT include anything outside JSON.
 `;
