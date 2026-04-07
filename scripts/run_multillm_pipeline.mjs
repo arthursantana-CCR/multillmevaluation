@@ -179,14 +179,25 @@ async function runSequentialCase(caseConfig, config) {
 // ================== CONSENSUS ==================
 
 async function runConsensusCase(caseConfig, config) {
-  const models = config.pipeline.models;
+  const consensusConfig = config.pipeline.consensus;
+
+  if (!consensusConfig || !consensusConfig.generators || !consensusConfig.aggregator) {
+    throw new Error("Missing consensus configuration in eval_config.yaml");
+  }
+
+  const generators = consensusConfig.generators;
+  const aggregator = consensusConfig.aggregator;
 
   const prompt = `${config.task}\n\n${JSON.stringify(caseConfig)}`;
-  const modelSequence = buildModelSequence(models);
 
-  // ---------- PARALLEL ----------
+  const modelSequence = [
+    ...generators.map((g) => `${g.model} (candidate)`),
+    `${aggregator.model} (aggregator)`,
+  ];
+
+  // ---------- PARALLEL GENERATION ----------
   const candidateOutputs = await Promise.all(
-    models.map((m) =>
+    generators.map((m) =>
       callModel({
         provider: m.provider,
         model: m.model,
@@ -200,8 +211,6 @@ async function runConsensusCase(caseConfig, config) {
   const [c1, c2, c3] = candidateOutputs;
 
   // ---------- AGGREGATOR ----------
-  const aggregator = config.pipeline.aggregator;
-
   const aggregationPrompt = `
 You are an expert evaluator.
 
@@ -237,9 +246,11 @@ Return ONLY the final improved answer.
         model: "",
         provider: "",
       },
+
       reviewer_1_output: { raw_text: c1 },
       reviewer_2_output: { raw_text: c2 },
       final_reviewer_output: { raw_text: c3 },
+
       final_output: finalOutput,
     },
   };
