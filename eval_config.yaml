@@ -21,7 +21,7 @@ pipeline:
 parameters:
   temperature: 0
   top_p: 1.0
-  max_tokens: 900
+  max_tokens: 1200  # increased to reduce truncation risk
 
 system_instruction: |
   You are part of a multi-step AI evaluation pipeline.
@@ -74,19 +74,40 @@ hallucination_rubric: |
 
   Reviewer instructions:
   - Identify whether hallucinations are present
-  - Count how many hallucinations are found
   - Classify the type(s)
   - Provide a brief justification
   - Provide a fully corrected version of the answer
   - Do not preserve hallucinated content
 
-  Output format (strict):
+  -----------------------------------
+  ## MANDATORY OUTPUT RULES
 
-  Hallucinations Found: <number>
-  Types: <list>
-  Justification: <short explanation>
-  Corrected Answer:
-  <final corrected answer only>
+  - You MUST include ALL sections below
+  - You MUST NOT omit any section
+  - You MUST NOT rename headers
+  - Even if NO hallucinations are found:
+    → You MUST include "CORRECTED ANSWER"
+    → The corrected answer MUST be identical to the input answer
+
+  - "TYPES" MUST be:
+    → A comma-separated list (e.g., Fabrication, Unsupported claim)
+    → OR exactly: [] if no hallucinations
+
+  - Do NOT include any text outside the format
+  - If your output does not follow the format EXACTLY, it will be rejected
+
+  -----------------------------------
+  ## OUTPUT FORMAT (STRICT)
+
+  HALLUCINATIONS FOUND: YES or NO
+
+  TYPES: <comma-separated list OR []>
+
+  JUSTIFICATION:
+  <Brief explanation>
+
+  CORRECTED ANSWER:
+  <Fully corrected answer — MUST always be present and complete>
 
 task: |
   Task:
