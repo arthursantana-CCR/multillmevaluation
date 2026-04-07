@@ -1,7 +1,7 @@
 description: "Multi-LLM Evaluation — CCR Critical Thinking with Hallucination Control"
 
 pipeline:
-  architecture: sequential  # "sequential" | "consensus" (switch here)
+  architecture: consensus  # "sequential" | "consensus" (switch here)
 
   # ================== SEQUENTIAL ==================
   # Used when architecture = sequential
@@ -36,8 +36,8 @@ pipeline:
         model: "gpt-4.1-mini"
 
     aggregator:
-      provider: openai
-      model: "gpt-4.1-mini"
+      provider: anthropic
+      model: "claude-sonnet-4-6"
 
 parameters:
   temperature: 0
