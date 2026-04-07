@@ -10,13 +10,13 @@ if (!pat || !baseId) {
 
 const latest = JSON.parse(fs.readFileSync("results/latest.json", "utf8"));
 
-// ✅ Model sequence formatter
+// ================== HELPERS ==================
+
 function buildModelSequenceText(modelSequenceArray) {
   const seq = Array.isArray(modelSequenceArray) ? modelSequenceArray : [];
   return seq.join(" → ");
 }
 
-// ✅ Architecture (NEW)
 function getArchitecture(latest) {
   return latest?.architecture || "sequential";
 }
@@ -37,6 +37,8 @@ function toLongText(value) {
   if (typeof value === "string") return value;
   return JSON.stringify(value, null, 2);
 }
+
+// ================== FORMATTERS ==================
 
 function formatReviewerOutput(stage) {
   if (!stage) return "";
@@ -59,6 +61,14 @@ function formatReviewerOutput(stage) {
   ].join("\n");
 }
 
+// ✅ NEW: consensus formatter
+function formatConsensusOutput(stage) {
+  if (!stage) return "";
+  return toLongText(stage.raw_text || "");
+}
+
+// ================== AIRTABLE ==================
+
 async function createRecords(records) {
   const url = `https://api.airtable.com/v0/${baseId}/${encodeURIComponent(tableName)}`;
 
@@ -80,6 +90,8 @@ async function createRecords(records) {
   return data;
 }
 
+// ================== MAIN ==================
+
 async function main() {
   const runId = latest?.run_id || new Date().toISOString();
   const runTimeUtc = latest?.run_time_utc || new Date().toISOString();
@@ -97,6 +109,22 @@ async function main() {
   const records = cases.map((caseItem) => {
     const outputs = caseItem?.outputs || {};
 
+    // ✅ SWITCH BASED ON ARCHITECTURE
+    const model1 =
+      architecture === "consensus"
+        ? formatConsensusOutput(outputs?.reviewer_1_output)
+        : formatReviewerOutput(outputs?.reviewer_1_output);
+
+    const model2 =
+      architecture === "consensus"
+        ? formatConsensusOutput(outputs?.reviewer_2_output)
+        : formatReviewerOutput(outputs?.reviewer_2_output);
+
+    const model3 =
+      architecture === "consensus"
+        ? formatConsensusOutput(outputs?.final_reviewer_output)
+        : formatReviewerOutput(outputs?.final_reviewer_output);
+
     return {
       fields: {
         RunID: runId,
@@ -105,20 +133,19 @@ async function main() {
 
         Prompt: toLongText(caseItem?.prompt || ""),
 
-        // ✅ Architecture (NEW FIELD)
+        // ✅ Architecture
         architecture: architecture,
 
-        // ✅ Generator (UNCHANGED)
+        // ✅ Generator (unchanged)
         Generator_Output: toLongText(outputs?.generator_output?.raw_text || ""),
 
-        // ✅ NEW STANDARDIZED FIELDS
-        model_1_output: formatReviewerOutput(outputs?.reviewer_1_output),
-        model_2_output: formatReviewerOutput(outputs?.reviewer_2_output),
-        model_3_output: formatReviewerOutput(outputs?.final_reviewer_output),
+        // ✅ FIXED FIELDS
+        model_1_output: model1,
+        model_2_output: model2,
+        model_3_output: model3,
 
         final_output: toLongText(outputs?.final_output || ""),
 
-        // ✅ Sequence
         model_sequence: modelSequence,
 
         GitHub_Run_URL: githubRunUrl,
