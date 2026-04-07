@@ -35,6 +35,12 @@ function classifySeverity(score) {
   return "high";
 }
 
+// ================== HELPERS ==================
+
+function buildModelSequence(sequence) {
+  return sequence.map((m) => `${m.model} (${m.role})`);
+}
+
 // ================== MAIN ==================
 
 async function main() {
@@ -53,6 +59,7 @@ async function main() {
   const runResult = {
     run_id: runId,
     run_time_utc: runTimeUtc,
+    model_sequence: buildModelSequence(config.pipeline.models),
     cases: caseResults,
   };
 
@@ -84,6 +91,9 @@ async function runCase(caseConfig, config) {
   const rf = seq.find((m) => m.role === "final_reviewer");
 
   const generatorPrompt = buildGeneratorPrompt(caseConfig, config);
+
+  const promptUsed = generatorPrompt.userPrompt;
+  const modelSequence = buildModelSequence(seq);
 
   const generatorRaw = await callModel({
     provider: generator.provider,
@@ -152,6 +162,8 @@ async function runCase(caseConfig, config) {
 
   return {
     case_id: caseConfig.id,
+    prompt: promptUsed,
+    model_sequence: modelSequence,
     outputs: {
       generator_output: {
         raw_text: generatorRaw,
@@ -344,7 +356,7 @@ async function callAnthropic({ model, systemInstruction, userPrompt, parameters 
   return data.content[0].text;
 }
 
-async function callGemini({ model, systemInstruction, userPrompt, parameters }) {
+async function callGemini({ model, userPrompt }) {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${process.env.GEMINI_API_KEY}`;
 
   const res = await fetch(url, {
