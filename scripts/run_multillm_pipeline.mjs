@@ -144,14 +144,14 @@ async function runCase(caseConfig, config) {
     parameters: config.parameters,
   });
 
-  const reviewer1Parsed = parseReviewerOutput(reviewer1Raw);
+  const reviewer1Parsed = parseReviewerOutput(reviewer1Raw, generatorRaw);
 
   const reviewer2Prompt = buildReviewerPrompt({
     caseConfig,
     config,
     previousRole: reviewer1Model.role,
     previousModel: reviewer1Model.model,
-    previousOutput: reviewer1Parsed.corrected_answer || reviewer1Raw,
+    previousOutput: reviewer1Parsed.corrected_answer || generatorRaw,
   });
 
   const reviewer2Raw = await callModel({
@@ -162,14 +162,17 @@ async function runCase(caseConfig, config) {
     parameters: config.parameters,
   });
 
-  const reviewer2Parsed = parseReviewerOutput(reviewer2Raw);
+  const reviewer2Parsed = parseReviewerOutput(
+    reviewer2Raw,
+    reviewer1Parsed.corrected_answer || generatorRaw
+  );
 
   const finalReviewerPrompt = buildReviewerPrompt({
     caseConfig,
     config,
     previousRole: reviewer2Model.role,
     previousModel: reviewer2Model.model,
-    previousOutput: reviewer2Parsed.corrected_answer || reviewer2Raw,
+    previousOutput: reviewer2Parsed.corrected_answer || reviewer1Parsed.corrected_answer || generatorRaw,
   });
 
   const finalReviewerRaw = await callModel({
@@ -180,8 +183,16 @@ async function runCase(caseConfig, config) {
     parameters: config.parameters,
   });
 
-  const finalReviewerParsed = parseReviewerOutput(finalReviewerRaw);
-  const finalOutput = finalReviewerParsed.corrected_answer || finalReviewerRaw;
+  const finalReviewerParsed = parseReviewerOutput(
+    finalReviewerRaw,
+    reviewer2Parsed.corrected_answer || reviewer1Parsed.corrected_answer || generatorRaw
+  );
+
+  const finalOutput =
+    finalReviewerParsed.corrected_answer ||
+    reviewer2Parsed.corrected_answer ||
+    reviewer1Parsed.corrected_answer ||
+    generatorRaw;
 
   return {
     case_id: caseConfig.id,
@@ -323,17 +334,21 @@ async function callOpenAI({ model, systemInstruction, userPrompt, parameters }) 
     throw new Error("Missing OPENAI_API_KEY.");
   }
 
-const body = {
-  model,
-  messages: [
-    {
-      role: "user",
-      content: userPrompt,
-    },
-  ],
-  temperature: parameters.temperature,
-  max_tokens: parameters.max_tokens,
-};
+  const body = {
+    model,
+    messages: [
+      {
+        role: "system",
+        content: systemInstruction,
+      },
+      {
+        role: "user",
+        content: userPrompt,
+      },
+    ],
+    temperature: parameters.temperature,
+    max_tokens: parameters.max_tokens,
+  };
 
   const response = await fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
@@ -461,37 +476,121 @@ function normalizeGeminiModelName(model) {
   return model.startsWith("models/") ? model.slice("models/".length) : model;
 }
 
-function parseReviewerOutput(rawText) {
-  const text = rawText.trim();
+function parseReviewerOutput(rawText, fallbackText = "") {
+  const text = String(rawText ?? "").trim();
+  const fallback = String(fallbackText ?? "").trim();
 
-  const hallucinationsMatch = text.match(/Hallucinations Found:\s*([^\n\r]+)/i);
-  const typesMatch = text.match(/Types:\s*([^\n\r]+)/i);
-  const justificationMatch = text.match(/Justification:\s*([\s\S]*?)\n\s*Corrected Answer:\s*/i);
-  const correctedAnswerMatch = text.match(/Corrected Answer:\s*([\s\S]*)$/i);
+  const hallucinationsLine = extractHeaderValue(text, [
+    "HALLUCINATIONS FOUND",
+    "Hallucinations Found",
+  ]);
 
-  const hallucinationsRaw = hallucinationsMatch?.[1]?.trim() ?? "";
-  const hallucinationsFound =
-    hallucinationsRaw === ""
-      ? null
-      : Number.isFinite(Number(hallucinationsRaw))
-      ? Number(hallucinationsRaw)
-      : null;
+  const typesLine = extractHeaderValue(text, [
+    "TYPES",
+    "Types",
+  ]);
 
-  const typesRaw = typesMatch?.[1]?.trim() ?? "";
-  const types =
-    typesRaw === "" || /^none$/i.test(typesRaw)
-      ? []
-      : typesRaw.split(",").map((item) => item.trim()).filter(Boolean);
+  const justification = extractSection(text, [
+    "JUSTIFICATION",
+    "Justification",
+  ], [
+    "CORRECTED ANSWER",
+    "Corrected Answer",
+  ]);
 
-  const justification = justificationMatch?.[1]?.trim() ?? "";
-  const correctedAnswer = correctedAnswerMatch?.[1]?.trim() || text;
+  const correctedAnswer = extractSection(text, [
+    "CORRECTED ANSWER",
+    "Corrected Answer",
+  ], []);
+
+  const hallucinationsFound = normalizeHallucinationsFound(hallucinationsLine);
+  const types = normalizeTypes(typesLine);
+
+  const finalCorrectedAnswer = correctedAnswer || fallback;
 
   return {
     hallucinations_found: hallucinationsFound,
     types,
-    justification,
-    corrected_answer: correctedAnswer,
+    justification: justification || "",
+    corrected_answer: finalCorrectedAnswer,
   };
+}
+
+function extractHeaderValue(text, headerNames) {
+  for (const header of headerNames) {
+    const regex = new RegExp(`^\\s*${escapeRegex(header)}\\s*:\\s*(.+?)\\s*$`, "im");
+    const match = text.match(regex);
+    if (match?.[1]) {
+      return match[1].trim();
+    }
+  }
+  return "";
+}
+
+function extractSection(text, startHeaders, endHeaders) {
+  for (const startHeader of startHeaders) {
+    const startRegex = new RegExp(`^\\s*${escapeRegex(startHeader)}\\s*:\\s*`, "im");
+    const startMatch = startRegex.exec(text);
+
+    if (!startMatch) continue;
+
+    const sectionStart = startMatch.index + startMatch[0].length;
+    const remaining = text.slice(sectionStart);
+
+    if (!endHeaders || endHeaders.length === 0) {
+      return remaining.trim();
+    }
+
+    let earliestEndIndex = -1;
+
+    for (const endHeader of endHeaders) {
+      const endRegex = new RegExp(`^\\s*${escapeRegex(endHeader)}\\s*:`, "im");
+      const endMatch = endRegex.exec(remaining);
+      if (endMatch && (earliestEndIndex === -1 || endMatch.index < earliestEndIndex)) {
+        earliestEndIndex = endMatch.index;
+      }
+    }
+
+    if (earliestEndIndex === -1) {
+      return remaining.trim();
+    }
+
+    return remaining.slice(0, earliestEndIndex).trim();
+  }
+
+  return "";
+}
+
+function normalizeHallucinationsFound(value) {
+  const raw = String(value ?? "").trim();
+  if (!raw) return null;
+
+  if (/^yes$/i.test(raw)) return true;
+  if (/^no$/i.test(raw)) return false;
+
+  if (/^\d+$/.test(raw)) {
+    return Number(raw) > 0;
+  }
+
+  return null;
+}
+
+function normalizeTypes(value) {
+  const raw = String(value ?? "").trim();
+
+  if (!raw) return [];
+  if (raw === "[]") return [];
+  if (/^none$/i.test(raw)) return [];
+
+  return raw
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean)
+    .filter((item) => item !== "[]");
+}
+
+function escapeRegex(text) {
+  return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
 function buildRunResult({ config, runId, runTimeUtc, caseResults }) {
