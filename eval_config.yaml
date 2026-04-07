@@ -1,6 +1,10 @@
-description: "Multi-LLM Sequential Evaluation — CCR Critical Thinking with Hallucination Control"
+description: "Multi-LLM Evaluation — CCR Critical Thinking with Hallucination Control"
 
 pipeline:
+  architecture: sequential  # "sequential" | "consensus" (switch here)
+
+  # ================== SEQUENTIAL ==================
+  # Used when architecture = sequential
   models:
     - role: generator
       provider: anthropic
@@ -18,10 +22,27 @@ pipeline:
       provider: anthropic
       model: "claude-sonnet-4-6"
 
+  # ================== CONSENSUS ==================
+  # Used when architecture = consensus
+  consensus:
+    generators:
+      - provider: anthropic
+        model: "claude-sonnet-4-6"
+
+      - provider: google
+        model: "gemini-2.5-flash"
+
+      - provider: openai
+        model: "gpt-4.1-mini"
+
+    aggregator:
+      provider: openai
+      model: "gpt-4.1-mini"
+
 parameters:
   temperature: 0
   top_p: 1.0
-  max_tokens: 1200  # increased to reduce truncation risk
+  max_tokens: 1200
 
 system_instruction: |
   You are part of a multi-step AI evaluation pipeline.
