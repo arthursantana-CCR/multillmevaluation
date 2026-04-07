@@ -10,9 +10,10 @@ if (!pat || !baseId) {
 
 const latest = JSON.parse(fs.readFileSync("results/latest.json", "utf8"));
 
-function buildModelSequenceText(pipeline) {
-  const seq = Array.isArray(pipeline?.model_sequence) ? pipeline.model_sequence : [];
-  return seq.map((m) => m.model || `${m.provider}:${m.role}`).join(" → ");
+// ✅ FIXED: read correct model_sequence
+function buildModelSequenceText(modelSequenceArray) {
+  const seq = Array.isArray(modelSequenceArray) ? modelSequenceArray : [];
+  return seq.join(" → ");
 }
 
 function getGitHubRunUrl() {
@@ -77,7 +78,10 @@ async function createRecords(records) {
 async function main() {
   const runId = latest?.run_id || new Date().toISOString();
   const runTimeUtc = latest?.run_time_utc || new Date().toISOString();
-  const modelSequence = buildModelSequenceText(latest?.pipeline);
+
+  // ✅ FIXED
+  const modelSequence = buildModelSequenceText(latest?.model_sequence);
+
   const githubRunUrl = getGitHubRunUrl();
   const cases = Array.isArray(latest?.cases) ? latest.cases : [];
 
@@ -86,7 +90,6 @@ async function main() {
   }
 
   const records = cases.map((caseItem) => {
-    const input = caseItem?.input || {};
     const outputs = caseItem?.outputs || {};
 
     return {
@@ -94,13 +97,19 @@ async function main() {
         RunID: runId,
         RunTimeUTC: runTimeUtc,
         CaseID: caseItem?.case_id || "",
-        Prompt: toLongText(input.prompt_text || ""),
+
+        // ✅ FIXED PROMPT
+        Prompt: toLongText(caseItem?.prompt || ""),
+
         Generator_Output: toLongText(outputs?.generator_output?.raw_text || ""),
         Reviewer_1_Output: formatReviewerOutput(outputs?.reviewer_1_output),
         Reviewer_2_Output: formatReviewerOutput(outputs?.reviewer_2_output),
         Final_Reviewer_Output: formatReviewerOutput(outputs?.final_reviewer_output),
         Final_Output: toLongText(outputs?.final_output || ""),
+
+        // ✅ FIXED MODEL SEQUENCE
         Model_Sequence: modelSequence,
+
         GitHub_Run_URL: githubRunUrl,
       },
     };
