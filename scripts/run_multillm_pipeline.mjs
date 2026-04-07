@@ -38,7 +38,7 @@ function classifySeverity(score) {
 // ================== HELPERS ==================
 
 function buildModelSequence(sequence) {
-  return sequence.map((m) => `${m.model} (${m.role})`);
+  return sequence.map((m) => `${m.model} (${m.role || "candidate"})`);
 }
 
 // ================== MAIN ==================
@@ -59,10 +59,7 @@ async function main() {
   const runResult = {
     run_id: runId,
     run_time_utc: runTimeUtc,
-
-    // ✅ NEW FIELD (architecture)
     architecture: config?.pipeline?.architecture || "sequential",
-
     model_sequence: buildModelSequence(config.pipeline.models),
     cases: caseResults,
   };
@@ -84,9 +81,21 @@ function validateConfig(config) {
   }
 }
 
-// ================== CASE ==================
+// ================== CASE ROUTER ==================
 
 async function runCase(caseConfig, config) {
+  const architecture = config?.pipeline?.architecture || "sequential";
+
+  if (architecture === "consensus") {
+    return runConsensusCase(caseConfig, config);
+  }
+
+  return runSequentialCase(caseConfig, config);
+}
+
+// ================== SEQUENTIAL ==================
+
+async function runSequentialCase(caseConfig, config) {
   const seq = config.pipeline.models;
 
   const generator = seq.find((m) => m.role === "generator");
@@ -107,7 +116,6 @@ async function runCase(caseConfig, config) {
     parameters: config.parameters,
   });
 
-  // ---------- REVIEWER 1 ----------
   const reviewer1Result = await callReviewerWithRetry({
     provider: r1.provider,
     model: r1.model,
@@ -120,11 +128,6 @@ async function runCase(caseConfig, config) {
     fallbackText: generatorRaw,
   });
 
-  const r1Score = scoreHallucinations(reviewer1Result.parsed_review.types);
-  reviewer1Result.parsed_review.score = r1Score;
-  reviewer1Result.parsed_review.severity = classifySeverity(r1Score);
-
-  // ---------- REVIEWER 2 ----------
   const reviewer2Result = await callReviewerWithRetry({
     provider: r2.provider,
     model: r2.model,
@@ -137,11 +140,6 @@ async function runCase(caseConfig, config) {
     fallbackText: reviewer1Result.parsed_review.corrected_answer,
   });
 
-  const r2Score = scoreHallucinations(reviewer2Result.parsed_review.types);
-  reviewer2Result.parsed_review.score = r2Score;
-  reviewer2Result.parsed_review.severity = classifySeverity(r2Score);
-
-  // ---------- FINAL ----------
   const finalResult = await callReviewerWithRetry({
     provider: rf.provider,
     model: rf.model,
@@ -153,10 +151,6 @@ async function runCase(caseConfig, config) {
     parameters: config.parameters,
     fallbackText: reviewer2Result.parsed_review.corrected_answer,
   });
-
-  const finalScore = scoreHallucinations(finalResult.parsed_review.types);
-  finalResult.parsed_review.score = finalScore;
-  finalResult.parsed_review.severity = classifySeverity(finalScore);
 
   const finalOutput =
     finalResult.parsed_review.corrected_answer ||
@@ -178,12 +172,75 @@ async function runCase(caseConfig, config) {
       reviewer_2_output: reviewer2Result,
       final_reviewer_output: finalResult,
       final_output: finalOutput,
-      pipeline_metrics: {
-        reviewer_1_score: r1Score,
-        reviewer_2_score: r2Score,
-        final_score: finalScore,
-        improvement: r1Score - finalScore,
+    },
+  };
+}
+
+// ================== CONSENSUS ==================
+
+async function runConsensusCase(caseConfig, config) {
+  const models = config.pipeline.models;
+
+  const prompt = `${config.task}\n\n${JSON.stringify(caseConfig)}`;
+  const modelSequence = buildModelSequence(models);
+
+  // ---------- PARALLEL ----------
+  const candidateOutputs = await Promise.all(
+    models.map((m) =>
+      callModel({
+        provider: m.provider,
+        model: m.model,
+        systemInstruction: config.system_instruction,
+        userPrompt: prompt,
+        parameters: config.parameters,
+      })
+    )
+  );
+
+  const [c1, c2, c3] = candidateOutputs;
+
+  // ---------- AGGREGATOR ----------
+  const aggregator = config.pipeline.aggregator;
+
+  const aggregationPrompt = `
+You are an expert evaluator.
+
+Compare the following answers and produce the best final answer.
+
+Answer A:
+${c1}
+
+Answer B:
+${c2}
+
+Answer C:
+${c3}
+
+Return ONLY the final improved answer.
+`;
+
+  const finalOutput = await callModel({
+    provider: aggregator.provider,
+    model: aggregator.model,
+    systemInstruction: config.system_instruction,
+    userPrompt: aggregationPrompt,
+    parameters: config.parameters,
+  });
+
+  return {
+    case_id: caseConfig.id,
+    prompt,
+    model_sequence: modelSequence,
+    outputs: {
+      generator_output: {
+        raw_text: "",
+        model: "",
+        provider: "",
       },
+      reviewer_1_output: { raw_text: c1 },
+      reviewer_2_output: { raw_text: c2 },
+      final_reviewer_output: { raw_text: c3 },
+      final_output: finalOutput,
     },
   };
 }
