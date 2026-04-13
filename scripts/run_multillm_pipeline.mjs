@@ -8,33 +8,6 @@ const RESULTS_DIR = path.resolve("results");
 const HISTORY_DIR = path.resolve("results/history");
 const MAX_RETRIES = 1;
 
-// ================== SCORING ==================
-
-function scoreHallucinations(types) {
-  const weights = {
-    fabrication: 2,
-    unsupported_inference: 1,
-    contradiction: 2,
-    irrelevant: 0.5,
-  };
-
-  let score = 0;
-
-  for (const type of types || []) {
-    const key = String(type).toLowerCase().replace(/\s+/g, "_");
-    score += weights[key] ?? 1;
-  }
-
-  return score;
-}
-
-function classifySeverity(score) {
-  if (score === 0) return "none";
-  if (score <= 1) return "low";
-  if (score <= 3) return "medium";
-  return "high";
-}
-
 // ================== HELPERS ==================
 
 function buildModelSequence(sequence) {
@@ -56,45 +29,27 @@ async function main() {
     caseResults.push(caseResult);
   }
 
+  // ✅ FIXED: correct placement
+  let modelSequence = [];
+
+  if (config.pipeline.architecture === "sequential") {
+    modelSequence = buildModelSequence(config.pipeline.models);
+  } else if (config.pipeline.architecture === "consensus") {
+    const gens = config.pipeline.consensus.generators;
+    const agg = config.pipeline.consensus.aggregator;
+
+    modelSequence = [
+      ...gens.map((m, i) => `${m.model} (generator_${i + 1})`),
+      `${agg.model} (aggregator)`,
+    ];
+  }
+
   const runResult = {
     run_id: runId,
     run_time_utc: runTimeUtc,
     architecture: config?.pipeline?.architecture || "sequential",
-let modelSequence = [];
-
-if (config.pipeline.architecture === "sequential") {
-  modelSequence = buildModelSequence(config.pipeline.models);
-} else if (config.pipeline.architecture === "consensus") {
-  const gens = config.pipeline.consensus.generators;
-  const agg = config.pipeline.consensus.aggregator;
-
-  modelSequence = [
-    ...gens.map((m, i) => `${m.model} (generator_${i + 1})`),
-    `${agg.model} (aggregator)`,
-  ];
-}
-
-let modelSequence = [];
-
-if (config.pipeline.architecture === "sequential") {
-  modelSequence = buildModelSequence(config.pipeline.models);
-} else if (config.pipeline.architecture === "consensus") {
-  const gens = config.pipeline.consensus.generators;
-  const agg = config.pipeline.consensus.aggregator;
-
-  modelSequence = [
-    ...gens.map((m, i) => `${m.model} (generator_${i + 1})`),
-    `${agg.model} (aggregator)`,
-  ];
-}
-
-const runResult = {
-  run_id: runId,
-  run_time_utc: runTimeUtc,
-  architecture: config?.pipeline?.architecture || "sequential",
-  model_sequence: modelSequence,
-  cases: caseResults,
-};
+    model_sequence: modelSequence,
+    cases: caseResults,
   };
 
   await writeResults(runResult, runId);
@@ -109,7 +64,7 @@ async function loadConfig(configPath) {
 }
 
 function validateConfig(config) {
-  if (!config.pipeline || !config.pipeline.models) {
+  if (!config.pipeline) {
     throw new Error("Missing pipeline config");
   }
 }
@@ -256,7 +211,6 @@ ${c3}
     parameters: config.parameters,
   });
 
-  // 🔥 CLEAN FIX
   const parsed = extractJSON(rawFinalOutput);
   let finalOutput = rawFinalOutput;
 
@@ -269,17 +223,18 @@ ${c3}
     }
   }
 
-return {
-  case_id: caseConfig.id,
-  prompt: generatorPrompt,
-  model_sequence: [],
-  outputs: {
-    candidate_1: { raw_text: c1 },
-    candidate_2: { raw_text: c2 },
-    candidate_3: { raw_text: c3 },
-    final_output: finalOutput,
-  },
-};
+  return {
+    case_id: caseConfig.id,
+    prompt: generatorPrompt,
+    model_sequence: [],
+    outputs: {
+      candidate_1: { raw_text: c1 },
+      candidate_2: { raw_text: c2 },
+      candidate_3: { raw_text: c3 },
+      final_output: finalOutput,
+    },
+  };
+}
 
 // ================== RETRY ==================
 
@@ -309,44 +264,6 @@ async function callReviewerWithRetry(args) {
   };
 }
 
-function buildRetryPrompt(original, issues, raw) {
-  return `${original}
-
-RETRY REQUIRED:
-${issues.join("\n")}
-
-Previous output:
-${raw}`;
-}
-
-// ================== PARSER ==================
-
-function extractJSON(text) {
-  const match = text.match(/\{[\s\S]*\}/);
-  if (!match) return null;
-  try {
-    return JSON.parse(match[0]);
-  } catch {
-    return null;
-  }
-}
-
-function parseReviewerOutput(raw, fallback) {
-  const json = extractJSON(raw);
-  if (json) return json;
-
-  return {
-    hallucinations_found: false,
-    types: [],
-    justification: "",
-    corrected_answer: fallback,
-  };
-}
-
-function validateReviewerOutput(p) {
-  return { is_valid: true, issues: [] };
-}
-
 // ================== PROMPTS ==================
 
 function buildGeneratorPrompt(caseConfig, config) {
@@ -357,7 +274,6 @@ function buildGeneratorPrompt(caseConfig, config) {
     };
   }
 
-  // default: evaluation behavior
   return {
     systemInstruction: config.system_instruction,
     userPrompt: `${config.task}\n\n${JSON.stringify(caseConfig)}`,
@@ -380,62 +296,6 @@ async function callModel(args) {
   if (args.provider === "anthropic") return callAnthropic(args);
   if (args.provider === "google") return callGemini(args);
   throw new Error(`Unknown provider: ${args.provider}`);
-}
-
-async function callOpenAI({ model, systemInstruction, userPrompt, parameters }) {
-  const res = await fetch("https://api.openai.com/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      model,
-      messages: [
-        { role: "system", content: systemInstruction },
-        { role: "user", content: userPrompt },
-      ],
-      temperature: parameters.temperature,
-      max_tokens: parameters.max_tokens,
-    }),
-  });
-
-  const data = await res.json();
-  return data.choices[0].message.content;
-}
-
-async function callAnthropic({ model, systemInstruction, userPrompt, parameters }) {
-  const res = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: {
-      "x-api-key": process.env.ANTHROPIC_API_KEY,
-      "Content-Type": "application/json",
-      "anthropic-version": "2023-06-01",
-    },
-    body: JSON.stringify({
-      model,
-      system: systemInstruction,
-      messages: [{ role: "user", content: userPrompt }],
-      max_tokens: parameters.max_tokens,
-    }),
-  });
-
-  const data = await res.json();
-  return data.content[0].text;
-}
-
-async function callGemini({ model, userPrompt }) {
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${process.env.GEMINI_API_KEY}`;
-
-  const res = await fetch(url, {
-    method: "POST",
-    body: JSON.stringify({
-      contents: [{ parts: [{ text: userPrompt }] }],
-    }),
-  });
-
-  const data = await res.json();
-  return data.candidates[0].content.parts[0].text;
 }
 
 // ================== IO ==================
