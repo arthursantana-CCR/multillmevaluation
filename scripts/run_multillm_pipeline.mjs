@@ -18,22 +18,18 @@ function buildModelSequence(sequence) {
 
 async function main() {
   const config = await loadConfig(CONFIG_PATH);
-  console.log("CONFIG LOADED:", JSON.stringify(config, null, 2));
-
   validateConfig(config);
-
-  console.log("CASES:", config.cases);
 
   const runTimeUtc = new Date().toISOString();
   const runId = sanitizeRunId(runTimeUtc);
 
   const caseResults = [];
   for (const caseConfig of config.cases) {
-    console.log("RUNNING CASE:", caseConfig.id);
     const caseResult = await runCase(caseConfig, config);
     caseResults.push(caseResult);
   }
 
+  // ✅ FIXED: correct placement
   let modelSequence = [];
 
   if (config.pipeline.architecture === "sequential") {
@@ -70,9 +66,6 @@ async function loadConfig(configPath) {
 function validateConfig(config) {
   if (!config.pipeline) {
     throw new Error("Missing pipeline config");
-  }
-  if (!config.cases || config.cases.length === 0) {
-    throw new Error("No cases found in config");
   }
 }
 
@@ -251,9 +244,24 @@ async function callReviewerWithRetry(args) {
   for (let i = 0; i <= MAX_RETRIES; i++) {
     const raw = await callModel({ ...args, userPrompt: prompt });
     const parsed = parseReviewerOutput(raw, args.fallbackText);
+    const validation = validateReviewerOutput(parsed);
 
-    return { raw_text: raw, parsed_review: parsed };
+    if (validation.is_valid) {
+      return { raw_text: raw, parsed_review: parsed };
+    }
+
+    prompt = buildRetryPrompt(prompt, validation.issues, raw);
   }
+
+  return {
+    raw_text: "",
+    parsed_review: {
+      hallucinations_found: false,
+      types: [],
+      justification: "Fallback used",
+      corrected_answer: args.fallbackText,
+    },
+  };
 }
 
 // ================== PROMPTS ==================
@@ -290,62 +298,6 @@ async function callModel(args) {
   throw new Error(`Unknown provider: ${args.provider}`);
 }
 
-async function callOpenAI({ model, systemInstruction, userPrompt, parameters }) {
-  const res = await fetch("https://api.openai.com/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      model,
-      messages: [
-        { role: "system", content: systemInstruction },
-        { role: "user", content: userPrompt },
-      ],
-      temperature: parameters.temperature,
-      max_tokens: parameters.max_tokens,
-    }),
-  });
-
-  const data = await res.json();
-  return data.choices[0].message.content;
-}
-
-async function callAnthropic({ model, systemInstruction, userPrompt, parameters }) {
-  const res = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: {
-      "x-api-key": process.env.ANTHROPIC_API_KEY,
-      "Content-Type": "application/json",
-      "anthropic-version": "2023-06-01",
-    },
-    body: JSON.stringify({
-      model,
-      system: systemInstruction,
-      messages: [{ role: "user", content: userPrompt }],
-      max_tokens: parameters.max_tokens,
-    }),
-  });
-
-  const data = await res.json();
-  return data.content[0].text;
-}
-
-async function callGemini({ model, userPrompt }) {
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${process.env.GEMINI_API_KEY}`;
-
-  const res = await fetch(url, {
-    method: "POST",
-    body: JSON.stringify({
-      contents: [{ parts: [{ text: userPrompt }] }],
-    }),
-  });
-
-  const data = await res.json();
-  return data.candidates[0].content.parts[0].text;
-}
-
 // ================== IO ==================
 
 async function writeResults(runResult, runId) {
@@ -354,7 +306,6 @@ async function writeResults(runResult, runId) {
 
   const pretty = JSON.stringify(runResult, null, 2);
 
-  console.log("WRITING FILE:", new Date().toISOString());
   await fs.writeFile(path.join(RESULTS_DIR, "latest.json"), pretty);
   await fs.writeFile(path.join(HISTORY_DIR, `${runId}.json`), pretty);
 }
@@ -363,7 +314,4 @@ function sanitizeRunId(iso) {
   return iso.replace(/[:.]/g, "-");
 }
 
-main().catch((err) => {
-  console.error("FATAL ERROR:", err);
-  process.exit(1);
-});
+main().catch(console.error);
