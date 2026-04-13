@@ -297,6 +297,61 @@ async function callModel(args) {
   if (args.provider === "google") return callGemini(args);
   throw new Error(`Unknown provider: ${args.provider}`);
 }
+async function callOpenAI({ model, systemInstruction, userPrompt, parameters }) {
+  const res = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      model,
+      messages: [
+        { role: "system", content: systemInstruction },
+        { role: "user", content: userPrompt },
+      ],
+      temperature: parameters.temperature,
+      max_tokens: parameters.max_tokens,
+    }),
+  });
+
+  const data = await res.json();
+  return data.choices[0].message.content;
+}
+
+async function callAnthropic({ model, systemInstruction, userPrompt, parameters }) {
+  const res = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: {
+      "x-api-key": process.env.ANTHROPIC_API_KEY,
+      "Content-Type": "application/json",
+      "anthropic-version": "2023-06-01",
+    },
+    body: JSON.stringify({
+      model,
+      system: systemInstruction,
+      messages: [{ role: "user", content: userPrompt }],
+      max_tokens: parameters.max_tokens,
+    }),
+  });
+
+  const data = await res.json();
+  return data.content[0].text;
+}
+
+async function callGemini({ model, userPrompt }) {
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${process.env.GEMINI_API_KEY}`;
+
+  const res = await fetch(url, {
+    method: "POST",
+    body: JSON.stringify({
+      contents: [{ parts: [{ text: userPrompt }] }],
+    }),
+  });
+
+  const data = await res.json();
+  return data.candidates[0].content.parts[0].text;
+}
 
 // ================== IO ==================
 
