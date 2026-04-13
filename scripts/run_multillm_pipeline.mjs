@@ -306,6 +306,7 @@ async function writeResults(runResult, runId) {
 
   const pretty = JSON.stringify(runResult, null, 2);
 
+  console.log("WRITING FILE:", new Date().toISOString());
   await fs.writeFile(path.join(RESULTS_DIR, "latest.json"), pretty);
   await fs.writeFile(path.join(HISTORY_DIR, `${runId}.json`), pretty);
 }
