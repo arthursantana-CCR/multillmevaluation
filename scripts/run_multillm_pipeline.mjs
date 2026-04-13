@@ -18,18 +18,22 @@ function buildModelSequence(sequence) {
 
 async function main() {
   const config = await loadConfig(CONFIG_PATH);
+  console.log("CONFIG LOADED:", JSON.stringify(config, null, 2));
+
   validateConfig(config);
+
+  console.log("CASES:", config.cases);
 
   const runTimeUtc = new Date().toISOString();
   const runId = sanitizeRunId(runTimeUtc);
 
   const caseResults = [];
   for (const caseConfig of config.cases) {
+    console.log("RUNNING CASE:", caseConfig.id);
     const caseResult = await runCase(caseConfig, config);
     caseResults.push(caseResult);
   }
 
-  // ✅ FIXED: correct placement
   let modelSequence = [];
 
   if (config.pipeline.architecture === "sequential") {
@@ -66,6 +70,9 @@ async function loadConfig(configPath) {
 function validateConfig(config) {
   if (!config.pipeline) {
     throw new Error("Missing pipeline config");
+  }
+  if (!config.cases || config.cases.length === 0) {
+    throw new Error("No cases found in config");
   }
 }
 
@@ -244,24 +251,9 @@ async function callReviewerWithRetry(args) {
   for (let i = 0; i <= MAX_RETRIES; i++) {
     const raw = await callModel({ ...args, userPrompt: prompt });
     const parsed = parseReviewerOutput(raw, args.fallbackText);
-    const validation = validateReviewerOutput(parsed);
 
-    if (validation.is_valid) {
-      return { raw_text: raw, parsed_review: parsed };
-    }
-
-    prompt = buildRetryPrompt(prompt, validation.issues, raw);
+    return { raw_text: raw, parsed_review: parsed };
   }
-
-  return {
-    raw_text: "",
-    parsed_review: {
-      hallucinations_found: false,
-      types: [],
-      justification: "Fallback used",
-      corrected_answer: args.fallbackText,
-    },
-  };
 }
 
 // ================== PROMPTS ==================
@@ -297,6 +289,7 @@ async function callModel(args) {
   if (args.provider === "google") return callGemini(args);
   throw new Error(`Unknown provider: ${args.provider}`);
 }
+
 async function callOpenAI({ model, systemInstruction, userPrompt, parameters }) {
   const res = await fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
@@ -370,4 +363,7 @@ function sanitizeRunId(iso) {
   return iso.replace(/[:.]/g, "-");
 }
 
-main().catch(console.error);
+main().catch((err) => {
+  console.error("FATAL ERROR:", err);
+  process.exit(1);
+});
