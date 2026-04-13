@@ -1,5 +1,7 @@
 description: "Multi-LLM Evaluation — Lesson Plan Generation with Hallucination Control"
 
+task_type: "generation"   # or "evaluation"
+
 pipeline:
   architecture: sequential
 
