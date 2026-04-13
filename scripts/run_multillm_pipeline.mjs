@@ -318,6 +318,14 @@ function validateReviewerOutput(p) {
 // ================== PROMPTS ==================
 
 function buildGeneratorPrompt(caseConfig, config) {
+  if (config.task_type === "generation") {
+    return {
+      systemInstruction: config.system_instruction,
+      userPrompt: config.task,
+    };
+  }
+
+  // default: evaluation behavior
   return {
     systemInstruction: config.system_instruction,
     userPrompt: `${config.task}\n\n${JSON.stringify(caseConfig)}`,
