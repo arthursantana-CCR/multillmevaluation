@@ -61,7 +61,6 @@ function formatReviewerOutput(stage) {
   ].join("\n");
 }
 
-// ✅ NEW: consensus formatter
 function formatConsensusOutput(stage) {
   if (!stage) return "";
   return toLongText(stage.raw_text || "");
@@ -109,45 +108,36 @@ async function main() {
   const records = cases.map((caseItem) => {
     const outputs = caseItem?.outputs || {};
 
-    // ✅ SWITCH BASED ON ARCHITECTURE
-    const model1 =
-      architecture === "consensus"
-        ? formatConsensusOutput(outputs?.reviewer_1_output)
-        : formatReviewerOutput(outputs?.reviewer_1_output);
+    let model1 = "";
+    let model2 = "";
+    let model3 = "";
+    let generatorOutput = "";
 
-    const model2 =
-      architecture === "consensus"
-        ? formatConsensusOutput(outputs?.reviewer_2_output)
-        : formatReviewerOutput(outputs?.reviewer_2_output);
-
-    const model3 =
-      architecture === "consensus"
-        ? formatConsensusOutput(outputs?.final_reviewer_output)
-        : formatReviewerOutput(outputs?.final_reviewer_output);
+    if (architecture === "consensus") {
+      model1 = formatConsensusOutput(outputs?.candidate_1);
+      model2 = formatConsensusOutput(outputs?.candidate_2);
+      model3 = formatConsensusOutput(outputs?.candidate_3);
+      generatorOutput = "";
+    } else {
+      model1 = formatReviewerOutput(outputs?.reviewer_1_output);
+      model2 = formatReviewerOutput(outputs?.reviewer_2_output);
+      model3 = formatReviewerOutput(outputs?.final_reviewer_output);
+      generatorOutput = toLongText(outputs?.generator_output?.raw_text || "");
+    }
 
     return {
       fields: {
         RunID: runId,
         RunTimeUTC: runTimeUtc,
         CaseID: caseItem?.case_id || "",
-
         Prompt: toLongText(caseItem?.prompt || ""),
-
-        // ✅ Architecture
         architecture: architecture,
-
-        // ✅ Generator (unchanged)
-        Generator_Output: toLongText(outputs?.generator_output?.raw_text || ""),
-
-        // ✅ FIXED FIELDS
+        Generator_Output: generatorOutput,
         model_1_output: model1,
         model_2_output: model2,
         model_3_output: model3,
-
         final_output: toLongText(outputs?.final_output || ""),
-
         model_sequence: modelSequence,
-
         GitHub_Run_URL: githubRunUrl,
       },
     };
