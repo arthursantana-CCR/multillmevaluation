@@ -74,13 +74,27 @@ if (config.pipeline.architecture === "sequential") {
   ];
 }
 
+let modelSequence = [];
+
+if (config.pipeline.architecture === "sequential") {
+  modelSequence = buildModelSequence(config.pipeline.models);
+} else if (config.pipeline.architecture === "consensus") {
+  const gens = config.pipeline.consensus.generators;
+  const agg = config.pipeline.consensus.aggregator;
+
+  modelSequence = [
+    ...gens.map((m, i) => `${m.model} (generator_${i + 1})`),
+    `${agg.model} (aggregator)`,
+  ];
+}
+
 const runResult = {
   run_id: runId,
   run_time_utc: runTimeUtc,
   architecture: config?.pipeline?.architecture || "sequential",
   model_sequence: modelSequence,
   cases: caseResults,
-};    cases: caseResults,
+};
   };
 
   await writeResults(runResult, runId);
