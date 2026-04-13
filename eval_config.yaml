@@ -1,6 +1,6 @@
 description: "Multi-LLM Evaluation — Lesson Plan Generation with Hallucination Control"
 
-task_type: "generation"   # or "evaluation"
+task_type: "generation"
 
 pipeline:
   architecture: sequential
@@ -80,3 +80,8 @@ task: |
   Generate a 55-minute lesson to teach the following standard for middle school students in a traditional classroom setting:
 
   CCSS.ELA-Literacy.W.7.1 — Write arguments to support claims with clear reasons and relevant evidence, including acknowledging alternate or opposing claims and organizing reasoning logically.
+
+# ✅ THIS WAS MISSING — REQUIRED FOR PIPELINE TO RUN
+cases:
+  - id: "lesson_plan_1"
+    input: "N/A"
