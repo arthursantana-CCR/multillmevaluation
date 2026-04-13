@@ -1,10 +1,8 @@
-description: "Multi-LLM Evaluation — CCR Critical Thinking with Hallucination Control"
+description: "Multi-LLM Evaluation — Lesson Plan Generation with Hallucination Control"
 
 pipeline:
-  architecture: sequential  # "sequential" | "consensus" (switch here)
+  architecture: sequential
 
-  # ================== SEQUENTIAL ==================
-  # Used when architecture = sequential
   models:
     - role: generator
       provider: anthropic
@@ -22,16 +20,12 @@ pipeline:
       provider: anthropic
       model: "claude-sonnet-4-6"
 
-  # ================== CONSENSUS ==================
-  # Used when architecture = consensus
   consensus:
     generators:
       - provider: anthropic
         model: "claude-sonnet-4-6"
-
       - provider: google
         model: "gemini-2.5-flash"
-
       - provider: openai
         model: "gpt-4.1-mini"
 
@@ -45,21 +39,20 @@ parameters:
   max_tokens: 1200
 
 system_instruction: |
-  You are part of a multi-step AI evaluation pipeline.
+  You are part of a multi-step AI generation pipeline.
 
   Follow instructions strictly.
   Output must always follow the required format.
   Do not include any text outside the specified structure.
 
-
 hallucination_rubric: |
-  A hallucination is any content that is not supported by the input text, task, or general knowledge.
+  A hallucination is any content that is not supported by the task, provided inputs, or widely accepted general knowledge.
 
   Types of hallucination:
-  - Unsupported claim: statement not grounded in the student text
-  - Fabricated evidence: quotes or references not present in the text
-  - Overgeneralization: conclusions that go beyond available evidence
-  - Misinterpretation: incorrect reading of the student text
+  - Unsupported claim: statement not grounded in the task or input
+  - Fabricated reference: invented source, citation, or requirement
+  - Overgeneralization: conclusion that goes beyond the task requirements
+  - Misinterpretation: incorrect reading of the instructional goal or standard
 
   Reviewer instructions:
   - Identify whether hallucinations are present
@@ -82,6 +75,6 @@ hallucination_rubric: |
   <Fully corrected answer — MUST always be present and complete>
 
 task: |
+  Generate a 55-minute lesson to teach the following standard for middle school students in a traditional classroom setting:
 
-"Generate a 55-minute lesson to teach the following standard for middle school students in a traditional classroom setting:
-CCSS.ELA-Literacy.W.7.1 — Write arguments to support claims with clear reasons and relevant evidence, including acknowledging alternate or opposing claims and organizing reasoning logically.
+  CCSS.ELA-Literacy.W.7.1 — Write arguments to support claims with clear reasons and relevant evidence, including acknowledging alternate or opposing claims and organizing reasoning logically.
