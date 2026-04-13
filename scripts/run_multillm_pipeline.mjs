@@ -60,8 +60,27 @@ async function main() {
     run_id: runId,
     run_time_utc: runTimeUtc,
     architecture: config?.pipeline?.architecture || "sequential",
-    model_sequence: buildModelSequence(config.pipeline.models),
-    cases: caseResults,
+let modelSequence = [];
+
+if (config.pipeline.architecture === "sequential") {
+  modelSequence = buildModelSequence(config.pipeline.models);
+} else if (config.pipeline.architecture === "consensus") {
+  const gens = config.pipeline.consensus.generators;
+  const agg = config.pipeline.consensus.aggregator;
+
+  modelSequence = [
+    ...gens.map((m, i) => `${m.model} (generator_${i + 1})`),
+    `${agg.model} (aggregator)`,
+  ];
+}
+
+const runResult = {
+  run_id: runId,
+  run_time_utc: runTimeUtc,
+  architecture: config?.pipeline?.architecture || "sequential",
+  model_sequence: modelSequence,
+  cases: caseResults,
+};    cases: caseResults,
   };
 
   await writeResults(runResult, runId);
@@ -236,18 +255,17 @@ ${c3}
     }
   }
 
-  return {
-    case_id: caseConfig.id,
-    prompt: generatorPrompt,
-    model_sequence: [],
-    outputs: {
-      reviewer_1_output: { raw_text: c1 },
-      reviewer_2_output: { raw_text: c2 },
-      final_reviewer_output: { raw_text: c3 },
-      final_output: finalOutput,
-    },
-  };
-}
+return {
+  case_id: caseConfig.id,
+  prompt: generatorPrompt,
+  model_sequence: [],
+  outputs: {
+    candidate_1: { raw_text: c1 },
+    candidate_2: { raw_text: c2 },
+    candidate_3: { raw_text: c3 },
+    final_output: finalOutput,
+  },
+};
 
 // ================== RETRY ==================
 
