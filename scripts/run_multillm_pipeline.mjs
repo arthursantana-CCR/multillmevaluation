@@ -29,7 +29,6 @@ async function main() {
     caseResults.push(caseResult);
   }
 
-  // ✅ FIXED: correct placement
   let modelSequence = [];
 
   if (config.pipeline.architecture === "sequential") {
@@ -203,25 +202,13 @@ C:
 ${c3}
 `;
 
-  const rawFinalOutput = await callModel({
+  const finalOutput = await callModel({
     provider: aggregator.provider,
     model: aggregator.model,
     systemInstruction: config.system_instruction,
     userPrompt: aggregationPrompt,
     parameters: config.parameters,
   });
-
-  const parsed = extractJSON(rawFinalOutput);
-  let finalOutput = rawFinalOutput;
-
-  if (parsed && typeof parsed.final_answer === "string") {
-    try {
-      parsed.final_answer = JSON.parse(parsed.final_answer);
-      finalOutput = JSON.stringify(parsed, null, 2);
-    } catch {
-      finalOutput = rawFinalOutput;
-    }
-  }
 
   return {
     case_id: caseConfig.id,
@@ -239,29 +226,8 @@ ${c3}
 // ================== RETRY ==================
 
 async function callReviewerWithRetry(args) {
-  let prompt = args.baseUserPrompt;
-
-  for (let i = 0; i <= MAX_RETRIES; i++) {
-    const raw = await callModel({ ...args, userPrompt: prompt });
-    const parsed = parseReviewerOutput(raw, args.fallbackText);
-    const validation = validateReviewerOutput(parsed);
-
-    if (validation.is_valid) {
-      return { raw_text: raw, parsed_review: parsed };
-    }
-
-    prompt = buildRetryPrompt(prompt, validation.issues, raw);
-  }
-
-  return {
-    raw_text: "",
-    parsed_review: {
-      hallucinations_found: false,
-      types: [],
-      justification: "Fallback used",
-      corrected_answer: args.fallbackText,
-    },
-  };
+  const raw = await callModel({ ...args, userPrompt: args.baseUserPrompt });
+  return { raw_text: raw, parsed_review: { corrected_answer: raw } };
 }
 
 // ================== PROMPTS ==================
@@ -281,12 +247,7 @@ function buildGeneratorPrompt(caseConfig, config) {
 }
 
 function buildReviewerPrompt({ config, previousOutput }) {
-  return `
-${previousOutput}
-
-Rubric:
-${config.hallucination_rubric}
-`;
+  return `${previousOutput}\n\nRubric:\n${config.hallucination_rubric}`;
 }
 
 // ================== MODEL CALLS ==================
@@ -296,6 +257,62 @@ async function callModel(args) {
   if (args.provider === "anthropic") return callAnthropic(args);
   if (args.provider === "google") return callGemini(args);
   throw new Error(`Unknown provider: ${args.provider}`);
+}
+
+async function callOpenAI({ model, systemInstruction, userPrompt, parameters }) {
+  const res = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      model,
+      messages: [
+        { role: "system", content: systemInstruction },
+        { role: "user", content: userPrompt },
+      ],
+      temperature: parameters.temperature,
+      max_tokens: parameters.max_tokens,
+    }),
+  });
+
+  const data = await res.json();
+  return data.choices?.[0]?.message?.content || "";
+}
+
+async function callAnthropic({ model, systemInstruction, userPrompt, parameters }) {
+  const res = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: {
+      "x-api-key": process.env.ANTHROPIC_API_KEY,
+      "Content-Type": "application/json",
+      "anthropic-version": "2023-06-01",
+    },
+    body: JSON.stringify({
+      model,
+      system: systemInstruction,
+      messages: [{ role: "user", content: userPrompt }],
+      max_tokens: parameters.max_tokens,
+    }),
+  });
+
+  const data = await res.json();
+  return data.content?.[0]?.text || "";
+}
+
+async function callGemini({ model, userPrompt }) {
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${process.env.GEMINI_API_KEY}`;
+
+  const res = await fetch(url, {
+    method: "POST",
+    body: JSON.stringify({
+      contents: [{ parts: [{ text: userPrompt }] }],
+    }),
+  });
+
+  const data = await res.json();
+  return data.candidates?.[0]?.content?.parts?.[0]?.text || "";
 }
 
 // ================== IO ==================
@@ -314,6 +331,7 @@ function sanitizeRunId(iso) {
   return iso.replace(/[:.]/g, "-");
 }
 
-main().catch(console.error);
-
-// trigger new run
+main().catch((err) => {
+  console.error("FATAL ERROR:", err);
+  process.exit(1);
+});
