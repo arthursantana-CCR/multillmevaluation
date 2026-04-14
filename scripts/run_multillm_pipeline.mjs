@@ -368,6 +368,14 @@ async function callAnthropic({ model, systemInstruction, userPrompt, parameters 
   return data.content?.[0]?.text || "";
 }
 
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function isRetryableStatus(status) {
+  return status === 429 || status === 500 || status === 503 || status === 504;
+}
+
 async function callGemini({ model, systemInstruction, userPrompt, parameters }) {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${process.env.GEMINI_API_KEY}`;
 
@@ -390,48 +398,82 @@ async function callGemini({ model, systemInstruction, userPrompt, parameters }) 
     };
   }
 
-  const res = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(body),
-  });
+  const maxAttempts = 4;
+  let lastError = null;
 
-  const data = await res.json();
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      const res = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
 
-  if (!res.ok) {
-    throw new Error(`Gemini API error ${res.status}: ${JSON.stringify(data)}`);
+      const data = await res.json();
+
+      if (!res.ok) {
+        if (isRetryableStatus(res.status) && attempt < maxAttempts) {
+          const delay = Math.min(1000 * 2 ** (attempt - 1), 8000);
+          const jitter = Math.floor(Math.random() * 300);
+          console.warn(
+            `Gemini retryable error ${res.status} on attempt ${attempt}/${maxAttempts}. Retrying in ${delay + jitter}ms`
+          );
+          await sleep(delay + jitter);
+          continue;
+        }
+
+        throw new Error(`Gemini API error ${res.status}: ${JSON.stringify(data)}`);
+      }
+
+      if (data.promptFeedback?.blockReason) {
+        console.error("Gemini prompt blocked:", JSON.stringify(data, null, 2));
+        return "[ERROR: Gemini prompt blocked]";
+      }
+
+      const candidate = data.candidates?.[0];
+
+      if (!candidate) {
+        console.error("Gemini returned no candidates:", JSON.stringify(data, null, 2));
+        return "[ERROR: Gemini returned no candidates]";
+      }
+
+      if (candidate.finishReason && candidate.finishReason !== "STOP") {
+        console.error(
+          "Gemini candidate did not finish normally:",
+          JSON.stringify(data, null, 2)
+        );
+        return `[ERROR: Gemini finish reason: ${candidate.finishReason}]`;
+      }
+
+      const text = (candidate.content?.parts || [])
+        .map((part) => part.text || "")
+        .join("")
+        .trim();
+
+      if (!text) {
+        console.error("Gemini returned empty text:", JSON.stringify(data, null, 2));
+        return "[ERROR: Gemini empty text]";
+      }
+
+      return text;
+    } catch (err) {
+      lastError = err;
+
+      if (attempt < maxAttempts) {
+        const delay = Math.min(1000 * 2 ** (attempt - 1), 8000);
+        const jitter = Math.floor(Math.random() * 300);
+        console.warn(
+          `Gemini request failed on attempt ${attempt}/${maxAttempts}: ${err.message}. Retrying in ${delay + jitter}ms`
+        );
+        await sleep(delay + jitter);
+        continue;
+      }
+    }
   }
 
-  if (data.promptFeedback?.blockReason) {
-    console.error("Gemini prompt blocked:", JSON.stringify(data, null, 2));
-    return "[ERROR: Gemini prompt blocked]";
-  }
-
-  const candidate = data.candidates?.[0];
-
-  if (!candidate) {
-    console.error("Gemini returned no candidates:", JSON.stringify(data, null, 2));
-    return "[ERROR: Gemini returned no candidates]";
-  }
-
-  if (candidate.finishReason && candidate.finishReason !== "STOP") {
-    console.error("Gemini candidate did not finish normally:", JSON.stringify(data, null, 2));
-    return `[ERROR: Gemini finish reason: ${candidate.finishReason}]`;
-  }
-
-  const text = (candidate.content?.parts || [])
-    .map((part) => part.text || "")
-    .join("")
-    .trim();
-
-  if (!text) {
-    console.error("Gemini returned empty text:", JSON.stringify(data, null, 2));
-    return "[ERROR: Gemini empty text]";
-  }
-
-  return text;
+  throw lastError;
 }
 
 // ================== IO ==================
