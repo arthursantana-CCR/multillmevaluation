@@ -265,11 +265,17 @@ function buildGeneratorPrompt(caseConfig, config) {
 }
 
 function buildReviewerPrompt({ config, previousOutput }) {
-  if (config.task_type === "generation") {
-    return previousOutput;
+  let prompt = `${previousOutput}`;
+
+  if (config.task_type !== "generation") {
+    prompt += `\n\nRubric:\n${config.hallucination_rubric}`;
   }
 
-  return `${previousOutput}\n\nRubric:\n${config.hallucination_rubric}`;
+  if (config.output_format?.template) {
+    prompt += `\n\n${config.output_format.template}`;
+  }
+
+  return prompt;
 }
 
 // ================== MODEL CALLS ==================
