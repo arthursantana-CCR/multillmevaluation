@@ -14,6 +14,30 @@ function buildModelSequence(sequence) {
   return sequence.map((m) => `${m.model} (${m.role || "candidate"})`);
 }
 
+function isModelError(text) {
+  return typeof text === "string" && text.startsWith("[ERROR:");
+}
+
+function detectErrorType(text) {
+  if (!text || typeof text !== "string") return "unknown_error";
+  if (text.toLowerCase().includes("quota")) return "quota_exceeded";
+  if (text.includes("429")) return "rate_limit_or_quota";
+  if (text.includes("503")) return "service_unavailable";
+  if (text.toLowerCase().includes("blocked")) return "prompt_blocked";
+  if (text.toLowerCase().includes("no candidates")) return "no_candidates";
+  if (text.toLowerCase().includes("empty text")) return "empty_text";
+  if (text.toLowerCase().includes("malformed")) return "malformed_response";
+  return "provider_error";
+}
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function isRetryableStatus(status) {
+  return status === 429 || status === 500 || status === 503 || status === 504;
+}
+
 // ================== MAIN ==================
 
 async function main() {
@@ -100,18 +124,25 @@ async function runSequentialCase(caseConfig, config) {
     parameters: config.parameters,
   });
 
+  let currentValidOutput = generatorRaw;
+
   const reviewer1Result = await callReviewerWithRetry({
     provider: r1.provider,
     model: r1.model,
     systemInstruction: config.system_instruction,
     baseUserPrompt: buildReviewerPrompt({
       config,
-      previousOutput: generatorRaw,
+      previousOutput: currentValidOutput,
     }),
     parameters: config.parameters,
-    fallbackText: generatorRaw,
+    fallbackText: currentValidOutput,
     config,
   });
+
+  if (reviewer1Result.status === "success") {
+    currentValidOutput =
+      reviewer1Result.parsed_review.corrected_answer || currentValidOutput;
+  }
 
   const reviewer2Result = await callReviewerWithRetry({
     provider: r2.provider,
@@ -119,12 +150,17 @@ async function runSequentialCase(caseConfig, config) {
     systemInstruction: config.system_instruction,
     baseUserPrompt: buildReviewerPrompt({
       config,
-      previousOutput: reviewer1Result.parsed_review.corrected_answer,
+      previousOutput: currentValidOutput,
     }),
     parameters: config.parameters,
-    fallbackText: reviewer1Result.parsed_review.corrected_answer,
+    fallbackText: currentValidOutput,
     config,
   });
+
+  if (reviewer2Result.status === "success") {
+    currentValidOutput =
+      reviewer2Result.parsed_review.corrected_answer || currentValidOutput;
+  }
 
   const finalResult = await callReviewerWithRetry({
     provider: rf.provider,
@@ -132,29 +168,31 @@ async function runSequentialCase(caseConfig, config) {
     systemInstruction: config.system_instruction,
     baseUserPrompt: buildReviewerPrompt({
       config,
-      previousOutput: reviewer2Result.parsed_review.corrected_answer,
+      previousOutput: currentValidOutput,
     }),
     parameters: config.parameters,
-    fallbackText: reviewer2Result.parsed_review.corrected_answer,
+    fallbackText: currentValidOutput,
     config,
   });
 
-  const finalOutput =
-    finalResult.parsed_review.corrected_answer ||
-    reviewer2Result.parsed_review.corrected_answer ||
-    reviewer1Result.parsed_review.corrected_answer ||
-    generatorRaw;
+  if (finalResult.status === "success") {
+    currentValidOutput =
+      finalResult.parsed_review.corrected_answer || currentValidOutput;
+  }
 
   return {
     case_id: caseConfig.id,
     prompt: generatorPrompt.userPrompt,
     model_sequence: buildModelSequence(seq),
     outputs: {
-      generator_output: { raw_text: generatorRaw },
+      generator_output: {
+        status: "success",
+        raw_text: generatorRaw,
+      },
       reviewer_1_output: reviewer1Result,
       reviewer_2_output: reviewer2Result,
       final_reviewer_output: finalResult,
-      final_output: finalOutput,
+      final_output: currentValidOutput,
     },
   };
 }
@@ -170,13 +208,13 @@ ${config.task}
 ${JSON.stringify(caseConfig)}
 `;
 
-const candidateOutputs = await Promise.all(
-  generators.map((m) =>
-    callModel({
-      provider: m.provider,
-      model: m.model,
-      systemInstruction: "", // important for Gemini
-      userPrompt: `
+  const candidateOutputs = await Promise.all(
+    generators.map((m) =>
+      callModel({
+        provider: m.provider,
+        model: m.model,
+        systemInstruction: "", // important for Gemini
+        userPrompt: `
 You are a helpful AI assistant.
 
 Your task is to generate a complete and high-quality response based on the instructions provided.
@@ -191,14 +229,14 @@ ${config.task}
 INPUT:
 ${JSON.stringify(caseConfig)}
 `,
-      parameters: config.parameters,
-    })
-  )
-);
+        parameters: config.parameters,
+      })
+    )
+  );
 
   const [c1, c2, c3] = candidateOutputs;
 
-const aggregationPrompt = `
+  const aggregationPrompt = `
 You are an evaluator in a multi-model system.
 
 Your task is to compare three candidate answers and select the best one.
@@ -257,12 +295,29 @@ Additional instructions:
 async function callReviewerWithRetry(args) {
   const raw = await callModel({ ...args, userPrompt: args.baseUserPrompt });
 
+  if (isModelError(raw)) {
+    return {
+      status: "failed",
+      raw_text: raw,
+      error_type: detectErrorType(raw),
+      parsed_review: {
+        corrected_answer: args.fallbackText || "",
+      },
+    };
+  }
+
   if (args.config?.output_format?.type === "structured") {
     const parsed = parseReviewerOutput(raw, args.fallbackText);
-    return { raw_text: raw, parsed_review: parsed };
+
+    return {
+      status: "success",
+      raw_text: raw,
+      parsed_review: parsed,
+    };
   }
 
   return {
+    status: "success",
     raw_text: raw,
     parsed_review: { corrected_answer: raw },
   };
@@ -368,14 +423,6 @@ async function callAnthropic({ model, systemInstruction, userPrompt, parameters 
   return data.content?.[0]?.text || "";
 }
 
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-function isRetryableStatus(status) {
-  return status === 429 || status === 500 || status === 503 || status === 504;
-}
-
 async function callGemini({ model, systemInstruction, userPrompt, parameters }) {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${process.env.GEMINI_API_KEY}`;
 
@@ -424,7 +471,12 @@ async function callGemini({ model, systemInstruction, userPrompt, parameters }) 
           continue;
         }
 
-        throw new Error(`Gemini API error ${res.status}: ${JSON.stringify(data)}`);
+        const errorMessage =
+          data?.error?.message ||
+          `Gemini API error ${res.status}: ${JSON.stringify(data)}`;
+
+        console.error("Gemini API error:", JSON.stringify(data, null, 2));
+        return `[ERROR: ${errorMessage}]`;
       }
 
       if (data.promptFeedback?.blockReason) {
@@ -473,7 +525,7 @@ async function callGemini({ model, systemInstruction, userPrompt, parameters }) 
     }
   }
 
-  throw lastError;
+  return `[ERROR: ${lastError?.message || "Gemini request failed"}]`;
 }
 
 // ================== IO ==================
