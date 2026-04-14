@@ -255,8 +255,18 @@ async function callReviewerWithRetry(args) {
 }
 
 function parseReviewerOutput(raw, fallbackText) {
+  if (!raw) {
+    return { corrected_answer: fallbackText || "" };
+  }
+
+  const split = raw.split("### FINAL ANSWER");
+
+  if (split.length < 2) {
+    return { corrected_answer: raw };
+  }
+
   return {
-    corrected_answer: raw || fallbackText || "",
+    corrected_answer: split[1].trim(),
   };
 }
 
