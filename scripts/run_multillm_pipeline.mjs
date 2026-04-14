@@ -301,9 +301,12 @@ function buildGeneratorPrompt(caseConfig, config) {
 }
 
 function buildReviewerPrompt({ config, previousOutput }) {
-  let prompt = `${previousOutput}`;
+  let prompt = `Review the following answer for hallucinations, unsupported claims, or omissions. Then produce the required output.
 
-  if (config.task_type !== "generation") {
+ANSWER TO REVIEW:
+${previousOutput}`;
+
+  if (config.hallucination_rubric) {
     prompt += `\n\nRubric:\n${config.hallucination_rubric}`;
   }
 
