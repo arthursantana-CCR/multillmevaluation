@@ -38,7 +38,7 @@ pipeline:
 parameters:
   temperature: 0
   top_p: 1.0
-  max_tokens: 8000
+  max_tokens: 3500
 
 system_instruction: |
   You are part of a multi-step AI generation pipeline.
