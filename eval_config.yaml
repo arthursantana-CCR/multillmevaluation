@@ -43,38 +43,59 @@ parameters:
 system_instruction: |
   You are part of a multi-step AI generation pipeline.
 
-  Follow instructions strictly.
-  Output must always follow the required format.
-  Do not include any text outside the specified structure.
+  Your output MUST follow this EXACT JSON structure:
+
+  {
+    "hallucinations_found": boolean,
+    "types": string[],
+    "justification": string,
+    "corrected_answer": string
+  }
+
+  RULES:
+  - Output ONLY valid JSON
+  - Do NOT include markdown, headings, or explanations
+  - Do NOT include "FINAL ANSWER" or any extra text
+  - "corrected_answer" MUST always be present
+  - If no hallucinations are found, return the original answer unchanged in "corrected_answer"
+
+  Before returning your answer, verify:
+  - Is it valid JSON?
+  - Does it contain all required fields?
+  If not, fix it before returning.
 
 hallucination_rubric: |
-  A hallucination is any content that is not supported by the task, provided inputs, or widely accepted general knowledge.
+  A hallucination is defined as any instance where the model presents information as factual, sourced, or real without verifiable grounding.
 
-  Types of hallucination:
-  - Unsupported claim: statement not grounded in the task or input
-  - Fabricated reference: invented source, citation, or requirement
-  - Overgeneralization: conclusion that goes beyond the task requirements
-  - Misinterpretation: incorrect reading of the instructional goal or standard
+  The following MUST be classified as hallucinations:
+
+  1. Fabricated references:
+     - Fake studies, fake statistics, or unverifiable citations
+     - Example: "A 2019 study found..." with no real source
+
+  2. Unsupported claims presented as factual:
+     - Statements that imply research backing but provide none
+
+  3. Specific numerical claims without verifiable grounding:
+     - Statistics, percentages, or quantified results presented as real
+
+  The following are NOT hallucinations:
+
+  - Clearly fictional or instructional examples
+  - Hypothetical scenarios not presented as real-world facts
+  - General pedagogical explanations
+
+  IMPORTANT:
+  If a statement mimics a real-world citation (e.g., includes a year, organization, or statistic),
+  it MUST be treated as a factual claim and evaluated for hallucination.
 
   Reviewer instructions:
   - Identify whether hallucinations are present
   - Classify the type(s)
   - Provide a brief justification
   - Provide a fully corrected version of the answer
+  - If no hallucinations are found, return the original answer unchanged
   - Do not preserve hallucinated content
-
-  -----------------------------------
-  ## OUTPUT FORMAT (STRICT)
-
-  HALLUCINATIONS FOUND: YES or NO
-
-  TYPES: <comma-separated list OR []>
-
-  JUSTIFICATION:
-  <Brief explanation>
-
-  CORRECTED ANSWER:
-  <Fully corrected answer — MUST always be present and complete>
 
 task: |
   Generate a 55-minute lesson to teach the following standard for middle school students in a traditional classroom setting:
@@ -86,21 +107,14 @@ cases:
     input: "N/A"
 
 output_format:
-  type: "dual"
+  type: "json_only"
 
   template: |
-    You must follow this exact output format.
+    You must return ONLY valid JSON in the following format:
 
-    Do not include any text outside these sections.
-
-    ### STRUCTURED OUTPUT
     {
       "hallucinations_found": <true or false>,
       "types": <array of strings or []>,
-      "justification": <string>
+      "justification": <string>,
+      "corrected_answer": <string>
     }
-
-    ### FINAL ANSWER
-    If hallucinations are found, provide a corrected version of the answer.
-
-    If NO hallucinations are found, you MUST return the original answer unchanged.
