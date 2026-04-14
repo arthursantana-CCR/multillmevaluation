@@ -101,4 +101,6 @@ output_format:
     }
 
     ### FINAL ANSWER
-    <Provide the corrected answer here. Follow the formatting requested in the task.>
+    If hallucinations are found, provide a corrected version of the answer.
+
+    If NO hallucinations are found, you MUST return the original answer unchanged.
