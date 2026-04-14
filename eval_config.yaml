@@ -86,16 +86,18 @@ cases:
     input: "N/A"
 
 output_format:
-  type: "dual"   # dual = structured + free text
+  type: "dual"
 
   template: |
-    You must follow this exact output format:
+    You must follow this exact output format.
+
+    Do not include any text outside these sections.
 
     ### STRUCTURED OUTPUT
     {
-      "hallucinations_found": true or false,
-      "types": ["list of types" or []],
-      "justification": "brief explanation"
+      "hallucinations_found": <true or false>,
+      "types": <array of strings or []>,
+      "justification": <string>
     }
 
     ### FINAL ANSWER
