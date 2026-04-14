@@ -401,23 +401,6 @@ async function callGemini({ model, systemInstruction, userPrompt, parameters }) 
   return text;
 }
 
-  const data = await res.json();
-
-  if (!data.candidates || data.candidates.length === 0) {
-    console.error("Gemini returned no candidates:", JSON.stringify(data, null, 2));
-    return "[ERROR: Gemini returned empty response]";
-  }
-
-  const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
-
-  if (!text) {
-    console.error("Gemini malformed response:", JSON.stringify(data, null, 2));
-    return "[ERROR: Gemini malformed response]";
-  }
-
-  return text;
-}
-
 // ================== IO ==================
 
 async function writeResults(runResult, runId) {
