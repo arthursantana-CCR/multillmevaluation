@@ -6,6 +6,7 @@ import YAML from "yaml";
 const CONFIG_PATH = path.resolve("eval_config.yaml");
 const RESULTS_DIR = path.resolve("results");
 const HISTORY_DIR = path.resolve("results/history");
+const MAX_RETRIES = 1;
 
 // ================== HELPERS ==================
 
@@ -35,6 +36,7 @@ async function main() {
   } else if (config.pipeline.architecture === "consensus") {
     const gens = config.pipeline.consensus.generators;
     const agg = config.pipeline.consensus.aggregator;
+
     modelSequence = [
       ...gens.map((m, i) => `${m.model} (generator_${i + 1})`),
       `${agg.model} (aggregator)`,
@@ -70,9 +72,11 @@ function validateConfig(config) {
 
 async function runCase(caseConfig, config) {
   const architecture = config?.pipeline?.architecture || "sequential";
+
   if (architecture === "consensus") {
     return runConsensusCase(caseConfig, config);
   }
+
   return runSequentialCase(caseConfig, config);
 }
 
@@ -166,13 +170,13 @@ ${config.task}
 ${JSON.stringify(caseConfig)}
 `;
 
-  const candidateOutputs = await Promise.all(
-    generators.map((m) =>
-      callModel({
-        provider: m.provider,
-        model: m.model,
-        systemInstruction: "",
-        userPrompt: `
+const candidateOutputs = await Promise.all(
+  generators.map((m) =>
+    callModel({
+      provider: m.provider,
+      model: m.model,
+      systemInstruction: "", // important for Gemini
+      userPrompt: `
 You are a helpful AI assistant.
 
 Your task is to generate a complete and high-quality response based on the instructions provided.
@@ -187,14 +191,14 @@ ${config.task}
 INPUT:
 ${JSON.stringify(caseConfig)}
 `,
-        parameters: config.parameters,
-      })
-    )
-  );
+      parameters: config.parameters,
+    })
+  )
+);
 
   const [c1, c2, c3] = candidateOutputs;
 
-  const aggregationPrompt = `
+const aggregationPrompt = `
 You are an evaluator in a multi-model system.
 
 Your task is to compare three candidate answers and select the best one.
@@ -265,17 +269,14 @@ async function callReviewerWithRetry(args) {
 }
 
 function parseReviewerOutput(raw, fallbackText) {
-  if (!raw || raw.startsWith("[ERROR")) {
+  if (!raw) {
     return { corrected_answer: fallbackText || "" };
   }
 
   const split = raw.split("### FINAL ANSWER");
 
   if (split.length < 2) {
-    // FIX: If the dual-output delimiter is missing, treat the whole response
-    // as the corrected answer rather than silently losing it.
-    console.warn("[parseReviewerOutput] No '### FINAL ANSWER' delimiter found. Using full response.");
-    return { corrected_answer: raw.trim() };
+    return { corrected_answer: raw };
   }
 
   return {
@@ -299,39 +300,18 @@ function buildGeneratorPrompt(caseConfig, config) {
   };
 }
 
-// FIX: Reviewer prompt is now built with clear section delimiters and a
-// hard token budget for the embedded prior output. This prevents Gemini's
-// safety filters from triggering on unstructured concatenated text and
-// keeps prompt length predictable across all models.
-//
-// The MAX_PRIOR_OUTPUT_CHARS cap (~1500 chars ≈ ~375 tokens) ensures the
-// total reviewer prompt stays well within Gemini's effective context for
-// structured generation tasks. Claude and GPT are unaffected.
-const MAX_PRIOR_OUTPUT_CHARS = 1500;
-
 function buildReviewerPrompt({ config, previousOutput }) {
-  // Truncate prior output if it exceeds the safe threshold.
-  // This is the single most impactful change for Gemini reviewer stability.
-  const safeOutput =
-    previousOutput && previousOutput.length > MAX_PRIOR_OUTPUT_CHARS
-      ? previousOutput.slice(0, MAX_PRIOR_OUTPUT_CHARS) + "\n[... truncated for length ...]"
-      : previousOutput || "";
+  let prompt = `Review the following answer for hallucinations, unsupported claims, or omissions. Then produce the required output.
 
-  // Build prompt in clearly labelled sections.
-  // Gemini responds much better to structured sections than to a flat
-  // concatenated string, because it can attend to each part independently.
-  let prompt = `## ROLE
-You are a reviewer in an evaluation pipeline. Your job is to check the answer below for inaccuracies and produce a corrected version.
-
-## ANSWER TO REVIEW
-${safeOutput}`;
+ANSWER TO REVIEW:
+${previousOutput}`;
 
   if (config.hallucination_rubric) {
-    prompt += `\n\n## EVALUATION RUBRIC\n${config.hallucination_rubric}`;
+    prompt += `\n\nRubric:\n${config.hallucination_rubric}`;
   }
 
   if (config.output_format?.template) {
-    prompt += `\n\n## OUTPUT FORMAT\n${config.output_format.template}`;
+    prompt += `\n\n${config.output_format.template}`;
   }
 
   return prompt;
@@ -388,27 +368,9 @@ async function callAnthropic({ model, systemInstruction, userPrompt, parameters 
   return data.content?.[0]?.text || "";
 }
 
-// FIX: Three changes to callGemini():
-//
-// 1. safetySettings — set all categories to BLOCK_ONLY_HIGH.
-//    Gemini's default thresholds are aggressive and silently block reviewer
-//    prompts that contain evaluation meta-language ("hallucination", "error",
-//    "misinformation") combined with quoted prior model output.
-//    BLOCK_ONLY_HIGH tells Gemini to only block content that is clearly and
-//    severely harmful, which is appropriate for an educational evaluation system.
-//
-// 2. maxOutputTokens bumped to 2048 minimum.
-//    A reviewer must emit a JSON block + a full corrected answer. 1024 tokens
-//    is insufficient for most educational content tasks, causing Gemini to
-//    truncate and return empty candidates.
-//
-// 3. promptFeedback logged on empty response.
-//    blockReason in promptFeedback is the authoritative signal for WHY Gemini
-//    returned no candidates. This makes future debugging deterministic.
 async function callGemini({ model, systemInstruction, userPrompt, parameters }) {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${process.env.GEMINI_API_KEY}`;
 
-  // Merge system instruction and user prompt (Gemini has no separate system role)
   const fullPrompt = [systemInstruction, userPrompt].filter(Boolean).join("\n\n");
 
   const res = await fetch(url, {
@@ -420,45 +382,22 @@ async function callGemini({ model, systemInstruction, userPrompt, parameters }) 
       contents: [{ parts: [{ text: fullPrompt }] }],
       generationConfig: {
         temperature: parameters?.temperature ?? 0,
-        // FIX 2: Ensure output token budget is large enough for dual-output
-        // (JSON block + corrected answer). Default from config may be too low.
-        maxOutputTokens: Math.max(parameters?.max_tokens ?? 1024, 2048),
+        maxOutputTokens: parameters?.max_tokens ?? 1024,
       },
-      // FIX 1: Relax safety thresholds to BLOCK_ONLY_HIGH for all categories.
-      // This prevents Gemini from silently blocking reviewer prompts that
-      // contain evaluation meta-language about the prior model's output.
-      safetySettings: [
-        { category: "HARM_CATEGORY_HARASSMENT",        threshold: "BLOCK_ONLY_HIGH" },
-        { category: "HARM_CATEGORY_HATE_SPEECH",       threshold: "BLOCK_ONLY_HIGH" },
-        { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_ONLY_HIGH" },
-        { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_ONLY_HIGH" },
-      ],
     }),
   });
 
   const data = await res.json();
 
   if (!data.candidates || data.candidates.length === 0) {
-    // FIX 3: Log promptFeedback.blockReason — this is the definitive signal
-    // for why Gemini returned no candidates (SAFETY, OTHER, RECITATION, etc.)
-    const blockReason = data.promptFeedback?.blockReason ?? "unknown";
-    const safetyRatings = JSON.stringify(data.promptFeedback?.safetyRatings ?? []);
-    console.error(
-      `[Gemini] Empty response. blockReason=${blockReason} | safetyRatings=${safetyRatings}`
-    );
-    console.error("[Gemini] Full response:", JSON.stringify(data, null, 2));
+    console.error("Gemini returned no candidates:", JSON.stringify(data, null, 2));
     return "[ERROR: Gemini returned empty response]";
   }
 
-  // Also check for finish reason on the candidate itself
-  const candidate = data.candidates[0];
-  if (candidate.finishReason && candidate.finishReason !== "STOP") {
-    console.warn(`[Gemini] Unusual finishReason: ${candidate.finishReason}`);
-  }
+  const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
 
-  const text = candidate?.content?.parts?.[0]?.text;
   if (!text) {
-    console.error("[Gemini] Malformed response:", JSON.stringify(data, null, 2));
+    console.error("Gemini returned malformed response:", JSON.stringify(data, null, 2));
     return "[ERROR: Gemini malformed response]";
   }
 
