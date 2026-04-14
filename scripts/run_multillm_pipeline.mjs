@@ -412,34 +412,31 @@ function parseReviewerOutput(rawText, fallbackText = "") {
 // ================== PROMPTS ==================
 
 function buildGeneratorPrompt(caseConfig, config) {
+  const generatorSystemInstruction = `
+You are an expert educator.
+
+Your task is to generate a complete, high-quality response based on the instructions provided.
+
+IMPORTANT:
+- Do NOT perform evaluation or hallucination analysis
+- Do NOT output JSON
+- Output ONLY the final lesson plan as free text
+- Do NOT include any structured metadata
+
+Focus on clarity, completeness, and pedagogical quality.
+`;
+
   if (config.task_type === "generation") {
     return {
-      systemInstruction: config.system_instruction,
+      systemInstruction: generatorSystemInstruction,
       userPrompt: config.task,
     };
   }
 
   return {
-    systemInstruction: config.system_instruction,
+    systemInstruction: generatorSystemInstruction,
     userPrompt: `${config.task}\n\n${JSON.stringify(caseConfig)}`,
   };
-}
-
-function buildReviewerPrompt({ config, previousOutput }) {
-  let prompt = `Review the following answer for hallucinations, unsupported claims, or omissions. Then produce the required output.
-
-ANSWER TO REVIEW:
-${previousOutput}`;
-
-  if (config.hallucination_rubric) {
-    prompt += `\n\nRubric:\n${config.hallucination_rubric}`;
-  }
-
-  if (config.output_format?.template) {
-    prompt += `\n\n${config.output_format.template}`;
-  }
-
-  return prompt;
 }
 
 // ================== MODEL CALLS ==================
