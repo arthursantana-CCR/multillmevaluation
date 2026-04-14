@@ -170,17 +170,25 @@ ${config.task}
 ${JSON.stringify(caseConfig)}
 `;
 
-  const candidateOutputs = await Promise.all(
-    generators.map((m) =>
-      callModel({
-        provider: m.provider,
-        model: m.model,
-        systemInstruction: config.system_instruction,
-        userPrompt: generatorPrompt,
-        parameters: config.parameters,
-      })
-    )
-  );
+const candidateOutputs = await Promise.all(
+  generators.map((m) =>
+    callModel({
+      provider: m.provider,
+      model: m.model,
+      systemInstruction: `
+You are an expert teacher designing a lesson plan.
+
+Your task is to generate a complete, high-quality response to the prompt.
+
+Do NOT perform evaluation, analysis, or structured reporting.
+
+Focus only on producing the best possible final answer.
+`,
+      userPrompt: generatorPrompt,
+      parameters: config.parameters,
+    })
+  )
+);
 
   const [c1, c2, c3] = candidateOutputs;
 
