@@ -371,34 +371,64 @@ async function callAnthropic({ model, systemInstruction, userPrompt, parameters 
 async function callGemini({ model, systemInstruction, userPrompt, parameters }) {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${process.env.GEMINI_API_KEY}`;
 
-  const fullPrompt = [systemInstruction, userPrompt].filter(Boolean).join("\n\n");
+  const body = {
+    contents: [
+      {
+        role: "user",
+        parts: [{ text: userPrompt }],
+      },
+    ],
+    generationConfig: {
+      temperature: parameters?.temperature ?? 0,
+      maxOutputTokens: parameters?.max_tokens ?? 1024,
+    },
+  };
+
+  if (systemInstruction) {
+    body.systemInstruction = {
+      parts: [{ text: systemInstruction }],
+    };
+  }
 
   const res = await fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      contents: [{ parts: [{ text: fullPrompt }] }],
-      generationConfig: {
-        temperature: parameters?.temperature ?? 0,
-        maxOutputTokens: parameters?.max_tokens ?? 1024,
-      },
-    }),
+    body: JSON.stringify(body),
   });
 
   const data = await res.json();
 
-  if (!data.candidates || data.candidates.length === 0) {
-    console.error("Gemini returned no candidates:", JSON.stringify(data, null, 2));
-    return "[ERROR: Gemini returned empty response]";
+  if (!res.ok) {
+    throw new Error(`Gemini API error ${res.status}: ${JSON.stringify(data)}`);
   }
 
-  const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+  if (data.promptFeedback?.blockReason) {
+    console.error("Gemini prompt blocked:", JSON.stringify(data, null, 2));
+    return "[ERROR: Gemini prompt blocked]";
+  }
+
+  const candidate = data.candidates?.[0];
+
+  if (!candidate) {
+    console.error("Gemini returned no candidates:", JSON.stringify(data, null, 2));
+    return "[ERROR: Gemini returned no candidates]";
+  }
+
+  if (candidate.finishReason && candidate.finishReason !== "STOP") {
+    console.error("Gemini candidate did not finish normally:", JSON.stringify(data, null, 2));
+    return `[ERROR: Gemini finish reason: ${candidate.finishReason}]`;
+  }
+
+  const text = (candidate.content?.parts || [])
+    .map((part) => part.text || "")
+    .join("")
+    .trim();
 
   if (!text) {
-    console.error("Gemini returned malformed response:", JSON.stringify(data, null, 2));
-    return "[ERROR: Gemini malformed response]";
+    console.error("Gemini returned empty text:", JSON.stringify(data, null, 2));
+    return "[ERROR: Gemini empty text]";
   }
 
   return text;
