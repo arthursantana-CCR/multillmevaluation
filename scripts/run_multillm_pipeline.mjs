@@ -175,16 +175,22 @@ const candidateOutputs = await Promise.all(
     callModel({
       provider: m.provider,
       model: m.model,
-      systemInstruction: `
-You are an expert teacher designing a lesson plan.
+      systemInstruction: "", // important for Gemini
+      userPrompt: `
+You are a helpful AI assistant.
 
-Your task is to generate a complete, high-quality response to the prompt.
+Your task is to generate a complete and high-quality response based on the instructions provided.
 
 Do NOT perform evaluation, analysis, or structured reporting.
 
 Focus only on producing the best possible final answer.
+
+TASK:
+${config.task}
+
+INPUT:
+${JSON.stringify(caseConfig)}
 `,
-      userPrompt: generatorPrompt,
       parameters: config.parameters,
     })
   )
