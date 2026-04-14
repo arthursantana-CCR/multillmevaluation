@@ -410,6 +410,31 @@ function parseReviewerOutput(rawText, fallbackText = "") {
 }
 
 // ================== PROMPTS ==================
+function buildReviewerPrompt({ config, previousOutput }) {
+  let prompt = `
+You are a reviewer in a multi-step AI evaluation pipeline.
+
+Your task is to evaluate the following answer for hallucinations and correct it if necessary.
+
+IMPORTANT:
+- You MUST follow the required JSON output format exactly
+- Do NOT include any text outside the JSON
+- If no hallucinations are found, return the original answer unchanged
+
+ANSWER TO REVIEW:
+${previousOutput}
+`;
+
+  if (config.hallucination_rubric) {
+    prompt += `\n\nHALLUCINATION RUBRIC:\n${config.hallucination_rubric}`;
+  }
+
+  if (config.output_format?.template) {
+    prompt += `\n\nOUTPUT FORMAT:\n${config.output_format.template}`;
+  }
+
+  return prompt;
+}
 
 function buildGeneratorPrompt(caseConfig, config) {
   const generatorSystemInstruction = `
