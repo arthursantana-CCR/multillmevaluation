@@ -184,9 +184,6 @@ ${JSON.stringify(caseConfig)}
 
   const [c1, c2, c3] = candidateOutputs;
 
-  const aggregationPrompt = `
-Compare the answers and select the best one.
-
 const aggregationPrompt = `
 You are an evaluator in a multi-model system.
 
