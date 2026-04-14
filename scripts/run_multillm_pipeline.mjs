@@ -365,8 +365,10 @@ async function callAnthropic({ model, systemInstruction, userPrompt, parameters 
   return data.content?.[0]?.text || "";
 }
 
-async function callGemini({ model, userPrompt, parameters }) {
+async function callGemini({ model, systemInstruction, userPrompt, parameters }) {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${process.env.GEMINI_API_KEY}`;
+
+  const fullPrompt = [systemInstruction, userPrompt].filter(Boolean).join("\n\n");
 
   const res = await fetch(url, {
     method: "POST",
@@ -374,13 +376,30 @@ async function callGemini({ model, userPrompt, parameters }) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      contents: [{ parts: [{ text: userPrompt }] }],
+      contents: [{ parts: [{ text: fullPrompt }] }],
       generationConfig: {
         temperature: parameters?.temperature ?? 0,
         maxOutputTokens: parameters?.max_tokens ?? 1024,
       },
     }),
   });
+
+  const data = await res.json();
+
+  if (!data.candidates || data.candidates.length === 0) {
+    console.error("Gemini returned no candidates:", JSON.stringify(data, null, 2));
+    return "[ERROR: Gemini returned empty response]";
+  }
+
+  const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+
+  if (!text) {
+    console.error("Gemini returned malformed response:", JSON.stringify(data, null, 2));
+    return "[ERROR: Gemini malformed response]";
+  }
+
+  return text;
+}
 
   const data = await res.json();
 
