@@ -3,7 +3,7 @@ description: "Multi-LLM Evaluation — Lesson Plan Generation with Hallucination
 task_type: "generation"
 
 pipeline:
-  architecture: consensus # "sequential" | "consensus"
+  architecture: sequential # "sequential" | "consensus"
 
   models:
     - role: generator
@@ -86,4 +86,4 @@ cases:
     input: "N/A"
 
 output_format:
-  type: "free_text"  # or "structured"
+  type: "structured"  # "free_text" or "structured"
