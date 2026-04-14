@@ -90,8 +90,14 @@ function normalizeReviewerOutput(rawText, fallbackText = "") {
     return buildFallbackObject(rawText, fallbackText);
   }
 
+  // 🔥 NEW: strip markdown code fences
+  const cleaned = rawText
+    .replace(/```json/gi, "")
+    .replace(/```/g, "")
+    .trim();
+
   try {
-    const parsed = JSON.parse(rawText.trim());
+    const parsed = JSON.parse(cleaned);
 
     const correctedAnswer =
       typeof parsed.corrected_answer === "string" && parsed.corrected_answer.trim()
@@ -107,6 +113,7 @@ function normalizeReviewerOutput(rawText, fallbackText = "") {
         typeof parsed.justification === "string" ? parsed.justification : "",
       corrected_answer: correctedAnswer,
     };
+
   } catch (err) {
     console.warn("⚠️ JSON parsing failed. Using fallback parser.");
     return fallbackParse(rawText, fallbackText);
