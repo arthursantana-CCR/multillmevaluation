@@ -187,13 +187,18 @@ ${JSON.stringify(caseConfig)}
   const aggregationPrompt = `
 Compare the answers and select the best one.
 
-Return JSON ONLY:
+const aggregationPrompt = `
+You are an evaluator in a multi-model system.
 
-{
-  "selected_model": "A | B | C",
-  "reasoning": "...",
-  "final_answer": {...}
-}
+Your task is to compare three candidate answers and select the best one.
+
+Criteria:
+- Accuracy
+- Completeness
+- Absence of hallucinations
+- Alignment with the task instructions
+
+You must select ONE of the answers (A, B, or C).
 
 A:
 ${c1}
@@ -203,6 +208,16 @@ ${c2}
 
 C:
 ${c3}
+
+${config.output_format?.template}
+
+Additional instructions:
+- In the STRUCTURED OUTPUT section:
+  - "selected_model" must be "A", "B", or "C"
+  - "reasoning" must briefly justify your choice
+- In the FINAL ANSWER section:
+  - Output ONLY the selected answer
+  - Do NOT modify it unless necessary to fix critical issues
 `;
 
   const finalOutput = await callModel({
