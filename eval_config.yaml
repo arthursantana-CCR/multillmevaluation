@@ -86,4 +86,17 @@ cases:
     input: "N/A"
 
 output_format:
-  type: "structured"  # "free_text" or "structured"
+  type: "dual"   # dual = structured + free text
+
+  template: |
+    You must follow this exact output format:
+
+    ### STRUCTURED OUTPUT
+    {
+      "hallucinations_found": true or false,
+      "types": ["list of types" or []],
+      "justification": "brief explanation"
+    }
+
+    ### FINAL ANSWER
+    <Provide the corrected answer here. Follow the formatting requested in the task.>
