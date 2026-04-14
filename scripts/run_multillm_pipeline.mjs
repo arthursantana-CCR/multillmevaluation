@@ -38,6 +38,81 @@ function isRetryableStatus(status) {
   return status === 429 || status === 500 || status === 503 || status === 504;
 }
 
+function buildFallbackObject(rawText, fallbackText = "") {
+  return {
+    hallucinations_found: false,
+    types: [],
+    justification: "Fallback: unable to parse model output.",
+    corrected_answer:
+      typeof fallbackText === "string" && fallbackText
+        ? fallbackText
+        : typeof rawText === "string"
+          ? rawText
+          : "",
+  };
+}
+
+function fallbackParse(text, fallbackText = "") {
+  if (!text || typeof text !== "string") {
+    return buildFallbackObject(text, fallbackText);
+  }
+
+  const hallucinations_found = /HALLUCINATIONS FOUND:\s*YES/i.test(text);
+
+  const typesMatch = text.match(/TYPES:\s*(.*)/i);
+  const justificationMatch = text.match(
+    /JUSTIFICATION:\s*([\s\S]*?)CORRECTED ANSWER:/i
+  );
+  const correctedMatch = text.match(/CORRECTED ANSWER:\s*([\s\S]*)/i);
+
+  const parsedTypes = typesMatch
+    ? typesMatch[1]
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean)
+        .filter((s) => s !== "[]")
+    : [];
+
+  const corrected_answer = correctedMatch
+    ? correctedMatch[1].trim()
+    : fallbackText || text;
+
+  return {
+    hallucinations_found,
+    types: parsedTypes,
+    justification: justificationMatch ? justificationMatch[1].trim() : "",
+    corrected_answer,
+  };
+}
+
+function normalizeReviewerOutput(rawText, fallbackText = "") {
+  if (!rawText || typeof rawText !== "string") {
+    return buildFallbackObject(rawText, fallbackText);
+  }
+
+  try {
+    const parsed = JSON.parse(rawText.trim());
+
+    const correctedAnswer =
+      typeof parsed.corrected_answer === "string" && parsed.corrected_answer.trim()
+        ? parsed.corrected_answer
+        : fallbackText || "";
+
+    return {
+      hallucinations_found: Boolean(parsed.hallucinations_found),
+      types: Array.isArray(parsed.types)
+        ? parsed.types.filter((item) => typeof item === "string")
+        : [],
+      justification:
+        typeof parsed.justification === "string" ? parsed.justification : "",
+      corrected_answer: correctedAnswer,
+    };
+  } catch (err) {
+    console.warn("⚠️ JSON parsing failed. Using fallback parser.");
+    return fallbackParse(rawText, fallbackText);
+  }
+}
+
 // ================== MAIN ==================
 
 async function main() {
@@ -140,8 +215,12 @@ async function runSequentialCase(caseConfig, config) {
   });
 
   if (reviewer1Result.status === "success") {
-    currentValidOutput =
-      reviewer1Result.parsed_review.corrected_answer || currentValidOutput;
+    const normalized = reviewer1Result.parsed_review;
+    if (!normalized.corrected_answer) {
+      console.warn("⚠️ Missing corrected_answer. Using previous valid output.");
+    } else {
+      currentValidOutput = normalized.corrected_answer;
+    }
   }
 
   const reviewer2Result = await callReviewerWithRetry({
@@ -158,8 +237,12 @@ async function runSequentialCase(caseConfig, config) {
   });
 
   if (reviewer2Result.status === "success") {
-    currentValidOutput =
-      reviewer2Result.parsed_review.corrected_answer || currentValidOutput;
+    const normalized = reviewer2Result.parsed_review;
+    if (!normalized.corrected_answer) {
+      console.warn("⚠️ Missing corrected_answer. Using previous valid output.");
+    } else {
+      currentValidOutput = normalized.corrected_answer;
+    }
   }
 
   const finalResult = await callReviewerWithRetry({
@@ -176,8 +259,12 @@ async function runSequentialCase(caseConfig, config) {
   });
 
   if (finalResult.status === "success") {
-    currentValidOutput =
-      finalResult.parsed_review.corrected_answer || currentValidOutput;
+    const normalized = finalResult.parsed_review;
+    if (!normalized.corrected_answer) {
+      console.warn("⚠️ Missing corrected_answer. Using previous valid output.");
+    } else {
+      currentValidOutput = normalized.corrected_answer;
+    }
   }
 
   return {
@@ -261,10 +348,10 @@ ${c3}
 ${config.output_format?.template}
 
 Additional instructions:
-- In the STRUCTURED OUTPUT section:
+- In the output JSON:
   - "selected_model" must be "A", "B", or "C"
   - "reasoning" must briefly justify your choice
-- In the FINAL ANSWER section:
+- In "corrected_answer":
   - Output ONLY the selected answer
   - Do NOT modify it unless necessary to fix critical issues
 `;
@@ -301,42 +388,25 @@ async function callReviewerWithRetry(args) {
       raw_text: raw,
       error_type: detectErrorType(raw),
       parsed_review: {
+        hallucinations_found: false,
+        types: [],
+        justification: "",
         corrected_answer: args.fallbackText || "",
       },
     };
   }
 
-  if (args.config?.output_format?.type === "structured") {
-    const parsed = parseReviewerOutput(raw, args.fallbackText);
-
-    return {
-      status: "success",
-      raw_text: raw,
-      parsed_review: parsed,
-    };
-  }
+  const normalized = normalizeReviewerOutput(raw, args.fallbackText);
 
   return {
     status: "success",
     raw_text: raw,
-    parsed_review: { corrected_answer: raw },
+    parsed_review: normalized,
   };
 }
 
-function parseReviewerOutput(raw, fallbackText) {
-  if (!raw) {
-    return { corrected_answer: fallbackText || "" };
-  }
-
-  const split = raw.split("### FINAL ANSWER");
-
-  if (split.length < 2) {
-    return { corrected_answer: raw };
-  }
-
-  return {
-    corrected_answer: split[1].trim(),
-  };
+function parseReviewerOutput(rawText, fallbackText = "") {
+  return normalizeReviewerOutput(rawText, fallbackText);
 }
 
 // ================== PROMPTS ==================
@@ -400,7 +470,13 @@ async function callOpenAI({ model, systemInstruction, userPrompt, parameters }) 
   });
 
   const data = await res.json();
-  return data.choices?.[0]?.message?.content || "";
+  const text = data.choices?.[0]?.message?.content || "";
+
+  if (typeof text === "string" && text && !text.trim().startsWith("{")) {
+    console.warn("⚠️ Non-JSON output detected from OpenAI model");
+  }
+
+  return text;
 }
 
 async function callAnthropic({ model, systemInstruction, userPrompt, parameters }) {
@@ -420,7 +496,13 @@ async function callAnthropic({ model, systemInstruction, userPrompt, parameters 
   });
 
   const data = await res.json();
-  return data.content?.[0]?.text || "";
+  const text = data.content?.[0]?.text || "";
+
+  if (typeof text === "string" && text && !text.trim().startsWith("{")) {
+    console.warn("⚠️ Non-JSON output detected from Anthropic model");
+  }
+
+  return text;
 }
 
 async function callGemini({ model, systemInstruction, userPrompt, parameters }) {
@@ -507,6 +589,10 @@ async function callGemini({ model, systemInstruction, userPrompt, parameters }) 
       if (!text) {
         console.error("Gemini returned empty text:", JSON.stringify(data, null, 2));
         return "[ERROR: Gemini empty text]";
+      }
+
+      if (!text.trim().startsWith("{")) {
+        console.warn("⚠️ Non-JSON output detected from Gemini model");
       }
 
       return text;
