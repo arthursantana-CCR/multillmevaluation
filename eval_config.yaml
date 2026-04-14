@@ -81,7 +81,9 @@ task: |
 
   CCSS.ELA-Literacy.W.7.1 — Write arguments to support claims with clear reasons and relevant evidence, including acknowledging alternate or opposing claims and organizing reasoning logically.
 
-# ✅ THIS WAS MISSING — REQUIRED FOR PIPELINE TO RUN
 cases:
   - id: "lesson_plan_1"
     input: "N/A"
+
+output_format:
+  type: "free_text"  # or "structured"
