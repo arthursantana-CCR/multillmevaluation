@@ -1,4 +1,4 @@
-# Run: 2026-04-15T20:45:13.486Z
+# Run: 2026-04-15T20:56:11.355Z
 
 
 ---
@@ -17,7 +17,7 @@ CCSS.ELA-Literacy.W.7.1 — Write arguments to support claims with clear reasons
 ---
 
 ## Generator
-# Argument Writing: Building a Case That Stands Up to Scrutiny
+# Argument Writing: Building Your Case Like a Lawyer
 
 ## 55-Minute Lesson Plan for 7th Grade ELA
 
@@ -25,288 +25,313 @@ CCSS.ELA-Literacy.W.7.1 — Write arguments to support claims with clear reasons
 
 ## LESSON OVERVIEW
 
-**Big Idea:** Strong arguments don't just state opinions — they build logical cases, use real evidence, and honestly engage with people who disagree.
+**Subject:** ELA — Argumentative Writing
+**Grade Level:** 7th Grade
+**Duration:** 55 minutes
+**Standard:** CCSS.ELA-Literacy.W.7.1
 
-**Learning Objectives:** By the end of this lesson, students will be able to:
-- Distinguish between a claim, a reason, and evidence
-- Organize an argument using a logical structure
-- Identify and acknowledge an opposing viewpoint (counterclaim)
-- Draft a structured paragraph-level argument on a relevant topic
+**Essential Question:** How do strong writers convince others to agree with their position?
 
-**Materials Needed:**
+**Learning Objectives:**
+By the end of this lesson, students will be able to:
+1. Identify the key components of an argumentative piece of writing (claim, reasons, evidence, counterclaim, rebuttal)
+2. Distinguish between strong and weak evidence
+3. Draft a structured argument paragraph that includes a claim, reason, evidence, and acknowledgment of an opposing view
+
+---
+
+## MATERIALS NEEDED
+
 - Whiteboard or projector
-- "Argument Anatomy" graphic organizer (described below — can be drawn or printed)
-- Sticky notes (two colors, approximately 3–4 per student)
-- Student notebooks or lined paper
-- Optional: printed mentor text (provided in lesson)
+- Printed "Argument Anatomy" graphic organizer (one per student)
+- Printed mentor text: "Should Students Have Homework?" (provided at end of lesson)
+- Colored highlighters (at least 3 colors per pair of students)
+- Sticky notes (2 per student)
+- Student writing journals or lined paper
+- Timer (visible to class)
 
 ---
 
-## WARM-UP: THE OPINION CHALLENGE (8 minutes)
+## VOCABULARY TO FRONTLOAD
 
-### Activity: "Fact, Opinion, or Argument?"
+Write these terms on the board before class begins:
 
-**Setup (2 minutes):**
-Write the following three statements on the board, numbered but unlabeled:
-
-> 1. "School starts at 7:45 a.m."
-> 2. "I think school starts too early."
-> 3. "Schools should delay start times to 8:30 a.m. because research shows teenagers need 8–10 hours of sleep, and early start times are linked to lower academic performance and increased health problems."
-
-**Discussion (4 minutes):**
-Ask students to turn and talk with a partner:
-- *"What's the difference between these three statements?"*
-- *"Which one would be most convincing to a school board? Why?"*
-
-Bring the class back together. Elicit responses and guide students to name the differences:
-- Statement 1 is a **fact** (verifiable, no opinion)
-- Statement 2 is a **bare opinion** (what someone thinks, but no support)
-- Statement 3 is an **argument** (a claim + reasons + a nod to evidence)
-
-**Teacher Talk-Through (2 minutes):**
-
-> "In 7th grade, and honestly for the rest of your academic and professional lives, you'll be asked to do more than share what you think. You'll be asked to *prove* it. Today, we're going to learn what separates a convincing argument from a weak one — and practice building arguments that can stand up to scrutiny, even from people who disagree with you."
-
----
-
-## DIRECT INSTRUCTION: THE ANATOMY OF AN ARGUMENT (12 minutes)
-
-### Part 1: The Four Building Blocks (7 minutes)
-
-Draw or display the following diagram on the board. Label it **"Argument Anatomy."**
-
-```
-┌─────────────────────────────────────────────┐
-│                   CLAIM                     │
-│     Your central position/answer           │
-├─────────────────────────────────────────────┤
-│                  REASONS                    │
-│   Why your claim is true (logical "because")│
-├─────────────────────────────────────────────┤
-│                  EVIDENCE                   │
-│  Facts, stats, examples, expert quotes     │
-├─────────────────────────────────────────────┤
-│               COUNTERCLAIM                  │
-│  What opponents say — AND your response    │
-└─────────────────────────────────────────────┘
-```
-
-Walk through each component with clear explanations and examples:
-
-**CLAIM:**
-> "A claim is your position — the thing you're trying to convince someone to believe or do. It should be debatable, meaning a reasonable person could disagree. 'Dogs are animals' isn't a claim. 'Dogs make better pets than cats' is a claim someone could argue."
-
-Write on board: *A strong claim is specific and debatable.*
-
-**REASONS:**
-> "Reasons answer the question 'why should I believe your claim?' They're the logical connections between your evidence and your position. Think of them as the 'because' statements."
-
-Example: *"Schools should delay start times **because** teenagers need more sleep."*
-
-**EVIDENCE:**
-> "Evidence is the proof that your reasons are actually true. This is where you get specific — statistics, research studies, expert opinions, historical examples, or even carefully chosen personal examples. A reason without evidence is just an assertion."
-
-Compare:
-- Weak: *"Teenagers need more sleep."* (just a reason, no proof)
-- Strong: *"According to the American Academy of Sleep Medicine, teenagers need 8–10 hours of sleep per night, yet a CDC study found that 73% of high school students get fewer than 8 hours on school nights."*
-
-**COUNTERCLAIM:**
-> "Here's where a lot of writers freeze up. A counterclaim is the opposing view — what someone who disagrees with you would say. And here's the key: **acknowledging it doesn't weaken your argument. It strengthens it.** It shows you've thought seriously about the issue and you're confident enough to address disagreement head-on."
-
-Model a counterclaim + rebuttal:
-- Counterclaim: *"Some argue that later start times would disrupt after-school sports, jobs, and family schedules."*
-- Rebuttal: *"However, several districts that have shifted to later start times report that schedules adjusted within one semester, and the documented academic and health improvements far outweighed the transition challenges."*
-
-### Part 2: The "CREAC" Structure (5 minutes)
-
-Introduce a simple organizational structure students can use:
-
-Write on board:
-
-> **C** — Claim
-> **R** — Reason
-> **E** — Evidence
-> **A** — Acknowledge the counterclaim
-> **C** — Conclude / reinforce your claim
-
-> "Think of CREAC as a recipe. You can vary it — sometimes you'll have multiple reasons and evidence sections — but every argument needs all these ingredients to be complete and convincing."
-
-Briefly show how the school start time example maps onto CREAC by annotating the statements you've already written on the board.
-
----
-
-## MENTOR TEXT ANALYSIS: READ LIKE A WRITER (8 minutes)
-
-### Activity: Annotate the Argument
-
-Distribute or display the following short mentor text. (This can be read aloud while students follow along.)
-
----
-
-**MENTOR TEXT: "Should Students Have a Voice in School Rules?"**
-
-*Middle schoolers should have a formal role in creating school rules. When students participate in rule-making, they are more likely to follow those rules because they feel ownership over them. A 2018 study from the University of Cambridge found that schools with student-led governance councils saw a 34% reduction in disciplinary incidents compared to schools where adults set all rules unilaterally. Furthermore, participating in rule-making teaches students civic skills — how to debate, compromise, and think about the common good — that are essential for democratic participation.*
-
-*Opponents might argue that students lack the maturity or perspective to make sound policy decisions. However, no proposal suggests students act alone. A collaborative model, where student representatives work alongside administrators, captures the benefits of student voice while maintaining adult oversight. The question isn't whether students are capable of acting perfectly — it's whether their perspective is valuable. Evidence suggests it clearly is.*
-
-*Therefore, schools should establish formal student governance committees with real decision-making power over appropriate aspects of school policy.*
-
----
-
-**Annotation Task (individual, 4 minutes):**
-
-Give each student two colors of sticky notes (or ask them to use two colors of pen/pencil):
-- **Color 1:** Label and mark the **Claim, Reasons, Evidence, and Conclusion**
-- **Color 2:** Label and mark the **Counterclaim and Rebuttal**
-
-**Share Out (4 minutes):**
-Cold call 3–4 students to share what they labeled and where. Clarify any confusion.
-
-Ask discussion questions:
-- *"Did acknowledging the opponent's view make the writer seem less confident? Why or why not?"*
-- *"What would be missing from this argument if the counterclaim paragraph were removed?"*
-- *"Was the evidence convincing? What made it feel specific or credible?"*
-
----
-
-## GUIDED PRACTICE: WE BUILD ONE TOGETHER (7 minutes)
-
-### Whole-Class Argument Construction
-
-Tell students: *"Now we're going to build an argument together before you try one on your own."*
-
-**Topic:** *"Should students be allowed to use phones during lunch?"*
-
-Walk through the CREAC structure collaboratively. Ask students to volunteer ideas at each step. Write their contributions on the board, coaching them toward precision:
-
-- **Claim:** Guide students from vague (*"Phones are fine at lunch"*) to specific (*"Students should be permitted to use personal devices during lunch periods because it provides a needed mental break and reinforces responsible technology habits."*)
-
-- **Reason:** Elicit a "because" statement connected to the claim.
-
-- **Evidence:** Ask, *"What kind of proof would make this convincing? If you were the principal, what would you need to see?"* Guide them to acknowledge that they may not have statistics memorized, but they should know what *type* of evidence would be appropriate — research, surveys, examples from other schools.
-
-- **Counterclaim:** Ask, *"What would someone who disagrees say? What's the strongest version of their argument?"* (This is an important move — modeling the "steelman," or strongest version, of the opposing view rather than a weak version they can easily dismiss.)
-
-- **Conclusion:** Ask students how to wrap it up — reinforce the claim, don't just repeat it word-for-word.
-
----
-
-## INDEPENDENT PRACTICE: DRAFT YOUR ARGUMENT (15 minutes)
-
-### Student Writing Task
-
-**Prompt (display on board or distribute):**
-
-> Choose ONE of the following topics and write a structured argument using the CREAC framework. Your argument should include a clear claim, at least one reason with supporting evidence (or a description of the type of evidence that would support your point), an acknowledgment of an opposing viewpoint, a rebuttal, and a concluding statement.
->
-> **Topics:**
-> A. Should homework be eliminated or significantly reduced in middle school?
-> B. Should schools require students to wear uniforms?
-> C. Should video games be considered a legitimate sport?
-> D. Open choice: propose your own debatable school or community topic (check with teacher first)
-
-**Setup:**
-Remind students to use their "Argument Anatomy" notes and the CREAC structure. They do not need to write a full essay — a well-organized set of paragraphs (approximately one page handwritten or 200–300 words) is the goal for today.
-
-**Scaffold for students who need support:**
-Offer a sentence starter frame on the board:
-
-> - *"[Topic] should/should not ___ because ___."* (Claim)
-> - *"One reason to support this is ___."* (Reason)
-> - *"For example / According to ___, ___."* (Evidence)
-> - *"Some people argue that ___. However, ___."* (Counterclaim + Rebuttal)
-> - *"Therefore, it is clear that ___."* (Conclusion)
-
-**Stretch challenge for advanced students:**
-> Include a second reason with evidence, and practice varying your sentence structure so your argument doesn't feel formulaic.
-
-Circulate during writing. Conference briefly with 3–5 students. Look specifically for:
-- Is the claim actually debatable?
-- Is evidence specific or vague?
-- Is the counterclaim the *strongest* version of the opposition, or a strawman?
-
----
-
-## CLOSING: SHARE, REFLECT, AND IDENTIFY NEXT STEPS (5 minutes)
-
-### Pair Share (2 minutes)
-
-Ask students to exchange papers with a partner. Partners read the claim and the counterclaim section only and answer:
-
-> *"Is the counterclaim acknowledged fairly and honestly? Does the rebuttal actually address the concern, or does it dodge it?"*
-
-Partners give one specific piece of feedback using this stem:
-> *"Your counterclaim is effective because ___ / could be stronger if ___."*
-
-### Exit Ticket (3 minutes)
-
-Students respond in writing (on a sticky note or the bottom of their paper):
-
-> 1. In one sentence, state your claim from today's writing.
-> 2. Circle the part of argument writing that feels most challenging for you right now:
->    - **Finding strong evidence**
->    - **Writing the counterclaim/rebuttal**
->    - **Making my claim specific and debatable**
->    - **Organizing my ideas logically**
-
-Collect exit tickets. Use them to group students for targeted support in the next class session.
-
----
-
-## LOOKING AHEAD
-
-**Connection to next lesson:** Students will develop their in-class drafts into a full multi-paragraph argument essay, including a formal introduction and conclusion. They will also practice research skills to find real, citable evidence to replace or strengthen the evidence sections of today's draft.
-
-**Homework (optional / assign based on pacing):**
-Find one piece of real evidence (a statistic, a news article headline, an expert quote) that supports your claim from today. Bring it to class tomorrow ready to explain why it's relevant and credible.
-
----
-
-## DIFFERENTIATION NOTES
-
-**For students who need additional support:**
-- Provide a pre-printed "Argument Anatomy" graphic organizer with labeled boxes to fill in rather than writing in paragraph form
-- Allow verbal rehearsal with a partner before writing
-- Reduce the writing expectation to claim + one reason + evidence + counterclaim only (omit full rebuttal)
-
-**For English Language Learners:**
-- Provide the sentence starter frame in printed form
-- Pre-teach vocabulary: *claim, evidence, counterclaim, rebuttal, assertion*
-- Allow bilingual drafting if helpful, then translate key sentences
-
-**For advanced students:**
-- Challenge them to include two distinct reasons, each with its own evidence
-- Ask them to evaluate the *credibility* of their evidence, not just its relevance
-- Introduce the concept of logical fallacies: what makes a rebuttal weak or invalid?
-
----
-
-## ASSESSMENT ALIGNMENT
-
-| Component | What to Look For |
+| Term | Student-Friendly Definition |
 |---|---|
-| Warm-Up participation | Can students distinguish opinion from argument? |
-| Mentor text annotation | Accurate identification of argument components |
-| Exit ticket (claim) | Is the claim specific and genuinely debatable? |
-| Exit ticket (challenge area) | Informs differentiation groupings for next lesson |
-| In-class draft | Evidence of CREAC structure; quality of counterclaim acknowledgment |
+| **Claim** | Your main position or opinion on the topic |
+| **Reason** | The "why" that supports your claim |
+| **Evidence** | Facts, statistics, quotes, or examples that prove your reason |
+| **Counterclaim** | What someone who disagrees with you might say |
+| **Rebuttal** | How you respond to and knock down the opposing view |
 
-**Full rubric for the developed essay** (to be introduced in the following lesson) will assess: clarity of claim, quality and relevance of evidence, logical organization, effectiveness of counterclaim/rebuttal, and formal style and conventions.
+---
+
+## LESSON SEQUENCE
+
+---
+
+### HOOK / WARM-UP — *Minutes 0–7*
+
+**Activity: The Quick Debate**
+
+1. As students enter, display this prompt on the board:
+
+> *"Should students be able to use their phones during lunch?"*
+
+2. Instruct students to stand. Those who say **YES, phones should be allowed** move to the left side of the room. Those who say **NO, phones should not be allowed** move to the right.
+
+3. Give each side **60 seconds** to quietly huddle and come up with their **two strongest reasons**.
+
+4. Call on 2–3 volunteers from each side to share one reason. As students speak, write their ideas on the board under two columns: **PRO** and **CON**.
+
+5. After both sides have spoken, ask the class:
+
+> *"Did anyone on the YES side think about what the NO side would say? Did you think about how you'd respond to them? That back-and-forth is exactly what argument writing does — on paper."*
+
+**Transition:** Tell students to return to their seats. Say: *"Today, we're going to learn how to write arguments that are so organized and well-supported that they're hard to argue against — like a lawyer building a case."*
+
+---
+
+### DIRECT INSTRUCTION — *Minutes 7–20*
+
+**Activity: Argument Anatomy — Dissecting a Model**
+
+**Step 1: Introduce the Framework (5 minutes)**
+
+Draw a simple "argument building" diagram on the board that looks like a house:
+
+```
+         /REBUTTAL\
+        /___________\
+       | COUNTERCLAIM|
+       |_____________|
+       |  EVIDENCE   |
+       |_____________|
+       |   REASON    |
+       |_____________|
+       |    CLAIM    |
+       |_____________|
+          FOUNDATION
+```
+
+Walk through each level:
+
+- **CLAIM (Foundation):** "This is what you believe. Everything rests on it. Without a strong foundation, the whole house falls." *Example: "Students should not have homework on weekends."*
+
+- **REASON (First Floor):** "This is *why* you believe it. You can have more than one reason, but every reason needs to connect directly to your claim." *Example: "Weekend homework takes away the mental rest time students need to learn effectively."*
+
+- **EVIDENCE (Second Floor):** "This is your *proof*. Evidence can be statistics, research findings, quotes from experts, or real-world examples. Opinion is NOT evidence." *Example: "According to a Stanford University study, excessive homework is linked to higher levels of student stress and lower academic performance."*
+
+- **COUNTERCLAIM (The Other Side of the Roof):** "Strong writers don't pretend the other side doesn't exist. They bring up the opposing view to show they've thought about it." *Example: "Some teachers argue that weekend homework reinforces skills and keeps students from forgetting material."*
+
+- **REBUTTAL (The Peak):** "This is where you respond to the counterclaim and explain why your position is still stronger." *Example: "However, research shows that rest and creative play are actually what consolidate memory and learning — making a homework-free weekend more academically beneficial than additional assignments."*
+
+**Step 2: Introduce the Mentor Text (3 minutes)**
+
+Distribute the mentor text: "Should Students Have Homework?" Tell students:
+
+> *"I'm going to read this aloud. Your only job right now is to listen and notice how the writer sounds — do they seem confident? Do they seem like they've thought it through?"*
+
+Read the mentor text aloud expressively (see mentor text at end of lesson plan).
+
+**Step 3: Model the Highlighting (5 minutes)**
+
+Distribute highlighters. Using a projected copy of the text, demonstrate:
+- **Yellow** = Claim
+- **Blue** = Reasons and Evidence
+- **Pink** = Counterclaim and Rebuttal
+
+Model identifying and highlighting the **first paragraph** together as a class. Think aloud as you do it:
+
+> *"Let me look for the claim first — the writer's main position. Hmm, I see the phrase 'homework should be significantly reduced.' That's a specific, arguable position. I'll highlight that yellow..."*
+
+---
+
+### GUIDED PRACTICE — *Minutes 20–33*
+
+**Activity: Partner Highlighting & Analysis**
+
+1. Students work in **pairs** to highlight the **remaining two paragraphs** of the mentor text using the three-color system.
+
+2. After highlighting, pairs answer these three questions on their graphic organizer:
+   - What is the writer's strongest piece of evidence? Why is it strong?
+   - What is the counterclaim the writer acknowledges?
+   - Does the rebuttal successfully address the counterclaim? Why or why not?
+
+3. After approximately 8 minutes of partner work, facilitate a brief whole-class share-out (**3–4 minutes**):
+   - Call on 2 pairs to share their answer to Question 1
+   - Ask: *"Did anyone think the evidence was weak? What would have made it stronger?"*
+   - Call on 1 pair to share their answer to Question 3
+
+**Teacher moves during partner work:**
+- Circulate and listen to conversations
+- Prompt struggling pairs with: *"Where does the writer switch from their own opinion to saying what someone else thinks? That's your counterclaim."*
+- Challenge advanced pairs: *"Find a place where the argument could be even stronger. What's missing?"*
+
+---
+
+### MINI-LESSON CHECK-IN — *Minute 33–35*
+
+**Quick Formative Check: Sticky Note Sort**
+
+Give each student **two sticky notes**.
+
+- On **Sticky Note 1**, write one example of *strong evidence* (can be real or made-up for practice)
+- On **Sticky Note 2**, write one example of *weak evidence* (an opinion stated as fact)
+
+Students hold up both notes. Do a quick visual scan of the room. Address any misconceptions immediately before moving to independent practice.
+
+*Common misconception to watch for:* Students often write personal opinions on their "evidence" sticky note (e.g., "I think homework is stressful"). Clarify: *"That's a feeling — not evidence. Evidence can be checked and verified by someone else."*
+
+---
+
+### INDEPENDENT PRACTICE — *Minutes 35–50*
+
+**Activity: Draft Your Argument Paragraph**
+
+Display the following prompt on the board:
+
+> **Writing Prompt:** *"Should 7th graders be allowed to choose their own reading books during independent reading time, or should the teacher assign the books?"*
+
+Tell students: *"Pick a side. You don't have to believe it — but you do have to argue it well. Use your Argument Anatomy graphic organizer as a blueprint."*
+
+**Students will draft one structured argument paragraph that includes:**
+1. A clear claim (their position)
+2. At least one reason with supporting evidence
+3. A counterclaim (what the other side would say)
+4. A rebuttal (their response to the counterclaim)
+
+**Graphic Organizer Planning Section (students fill this in first — approximately 5 minutes):**
+
+```
+MY CLAIM: ___________________________________
+
+MY REASON: _________________________________
+
+MY EVIDENCE: _______________________________
+(Remember: facts, statistics, expert opinions, or specific examples)
+
+COUNTERCLAIM (opposing view): _______________
+
+MY REBUTTAL: _______________________________
+```
+
+**Students then write their paragraph in full sentences (approximately 10 minutes).**
+
+**Sentence Starters posted on the board for support:**
+
+| Component | Sentence Starter Options |
+|---|---|
+| Claim | "Students should / should not..." / "The evidence clearly shows..." |
+| Reason | "One important reason is..." / "This matters because..." |
+| Evidence | "According to..." / "Research indicates..." / "For example..." |
+| Counterclaim | "Some people argue that..." / "Those who disagree might say..." |
+| Rebuttal | "However..." / "While this may seem true, in reality..." / "Despite this claim..." |
+
+**Teacher moves during independent practice:**
+- Circulate constantly
+- Conference briefly with 4–5 students (30 seconds each)
+- Prompt with: *"What would someone who disagrees with you say? How would you respond?"*
+- Watch for students who skip the counterclaim — redirect: *"You're almost done! Don't forget to include the other side."*
+
+---
+
+### CLOSURE — *Minutes 50–55*
+
+**Activity: Gallery Swap & Star-Wish-Wonder**
+
+1. Students pass their draft to the person **behind them** (or in a small circle if space allows).
+
+2. The receiving student reads the draft silently and writes **on a sticky note:**
+   - ⭐ **Star:** One thing the argument does well
+   - 🙏 **Wish:** One thing that would make the argument stronger
+   - ❓ **Wonder:** One question they still have after reading it
+
+3. Return papers with sticky notes attached. Students have **60 seconds** to read the feedback silently.
+
+4. **Exit Ticket** (verbal — hands up): Ask 3–4 students to share:
+   - *"What's one thing you'll do differently in your argument writing after today?"*
+
+5. **Teacher close:**
+
+> *"Argument writing isn't about being the loudest or most aggressive voice in the room. It's about being the most prepared, most logical, and most fair-minded voice. When you acknowledge the other side and still defend your position with solid evidence — that's when people actually listen. That's the kind of writer — and thinker — we're building together."*
+
+---
+
+## DIFFERENTIATION
+
+### For Students Who Need Additional Support:
+- Provide a **partially completed graphic organizer** with the claim pre-written and prompts for each section
+- Offer a word bank of transition phrases
+- Allow verbal brainstorming with the teacher before independent writing
+- Reduce the requirement to: claim + one reason/evidence (omit counterclaim/rebuttal for this draft)
+- Pair with a strong partner during guided practice with assigned roles
+
+### For Advanced Learners:
+- Require **two** distinct reasons, each with its own evidence, before the counterclaim
+- Challenge them to find a *real* statistic or fact to use as evidence (if devices are available)
+- Ask them to write a **two-paragraph** argument that more fully develops the rebuttal
+- Prompt: *"Can you anticipate a second counterclaim? How would you address it?"*
+
+### For English Language Learners:
+- Provide vocabulary cards with visual supports for key terms
+- Offer sentence frames (more complete than the sentence starters) in both English and, if available, students' home language
+- Allow planning in home language before drafting in English
+- Partner with a bilingual peer during guided practice
+
+---
+
+## ASSESSMENT
+
+**Formative (during lesson):**
+- Teacher observation during partner highlighting activity
+- Sticky note sort at minute 33
+- Verbal exit ticket responses
+- Circulating conferences during independent practice
+
+**Summative (collected):**
+- Independent argument paragraph draft
+- Peer feedback sticky note (assesses analytical reading skills)
+
+**Paragraph Checklist (can be self-assessed or teacher-assessed):**
+
+| Element | Present? | Notes |
+|---|---|---|
+| Clear, specific claim | ☐ | |
+| At least one reason | ☐ | |
+| Evidence (not just opinion) | ☐ | |
+| Counterclaim acknowledged | ☐ | |
+| Rebuttal provided | ☐ | |
+| Logical organization (flows clearly) | ☐ | |
+
+---
+
+## MENTOR TEXT
+
+### "Should Students Have Homework?"
+
+Every evening, millions of students across the country sit down to complete hours of homework after already spending seven hours in school. While homework has long been a tradition in American education, **the research is clear: homework should be significantly reduced, particularly for middle school students**. Too much homework causes unnecessary stress, cuts into time needed for other forms of learning, and ultimately undermines the very academic goals it claims to support.
+
+The most compelling argument against excessive homework is the damage it does to student well-being and long-term learning. A landmark study conducted by researchers at Stanford University found that students who spent more than three hours per night on homework reported higher rates of stress, health problems, and disengagement from school. Importantly, these students did not outperform their peers academically — suggesting that the extra hours provided no measurable benefit. When students are exhausted and anxious, their ability to absorb and retain information drops dramatically. A well-rested, curious student will learn more in one focused hour than a burned-out student will in three resentful ones.
+
+Supporters of homework often argue that assignments reinforce classroom learning and teach students responsibility and time management. These are legitimate concerns. Without practice, skills can fade — and learning to manage a schedule is genuinely important. **However**, this argument assumes that homework is the *only* way to build these skills, which simply is not true. Independent reading, creative projects, physical activity, and even family responsibilities all build discipline and time management. Furthermore, research by Duke University professor Harris Cooper — one of the most extensive reviews of homework studies ever conducted — found that for middle school students, the relationship between homework and academic achievement is weak, and that the benefits plateau quickly after a small amount
 
 ---
 
 ## Reviewer 1
-❌ FAILED: [ERROR: Gemini finish reason: MAX_TOKENS]
+❌ FAILED: [ERROR: You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash
+Please retry in 26.932361515s.]
 
 ---
 
 ## Reviewer 2
 ### Evaluation
-- Hallucinations: true
-- Types: Fabricated references, Specific numerical claims without verifiable grounding
+- Hallucinations: false
+- Types: 
 
 ### Final Output
-# Argument Writing: Building a Case That Stands Up to Scrutiny
+# Argument Writing: Building Your Case Like a Lawyer
 
 ## 55-Minute Lesson Plan for 7th Grade ELA
 
@@ -314,298 +339,305 @@ Find one piece of real evidence (a statistic, a news article headline, an expert
 
 ## LESSON OVERVIEW
 
-**Big Idea:** Strong arguments don't just state opinions — they build logical cases, use real evidence, and honestly engage with people who disagree.
+**Subject:** ELA — Argumentative Writing
+**Grade Level:** 7th Grade
+**Duration:** 55 minutes
+**Standard:** CCSS.ELA-Literacy.W.7.1
 
-**Learning Objectives:** By the end of this lesson, students will be able to:
-- Distinguish between a claim, a reason, and evidence
-- Organize an argument using a logical structure
-- Identify and acknowledge an opposing viewpoint (counterclaim)
-- Draft a structured paragraph-level argument on a relevant topic
+**Essential Question:** How do strong writers convince others to agree with their position?
 
-**Materials Needed:**
+**Learning Objectives:**
+By the end of this lesson, students will be able to:
+1. Identify the key components of an argumentative piece of writing (claim, reasons, evidence, counterclaim, rebuttal)
+2. Distinguish between strong and weak evidence
+3. Draft a structured argument paragraph that includes a claim, reason, evidence, and acknowledgment of an opposing view
+
+---
+
+## MATERIALS NEEDED
+
 - Whiteboard or projector
-- "Argument Anatomy" graphic organizer (described below — can be drawn or printed)
-- Sticky notes (two colors, approximately 3–4 per student)
-- Student notebooks or lined paper
-- Optional: printed mentor text (provided in lesson)
+- Printed "Argument Anatomy" graphic organizer (one per student)
+- Printed mentor text: "Should Students Have Homework?" (provided at end of lesson)
+- Colored highlighters (at least 3 colors per pair of students)
+- Sticky notes (2 per student)
+- Student writing journals or lined paper
+- Timer (visible to class)
 
 ---
 
-## WARM-UP: THE OPINION CHALLENGE (8 minutes)
+## VOCABULARY TO FRONTLOAD
 
-### Activity: "Fact, Opinion, or Argument?"
+Write these terms on the board before class begins:
 
-**Setup (2 minutes):**
-Write the following three statements on the board, numbered but unlabeled:
-
-> 1. "School starts at 7:45 a.m."
-> 2. "I think school starts too early."
-> 3. "Schools should delay start times to 8:30 a.m. because research shows teenagers need 8–10 hours of sleep, and early start times are linked to lower academic performance and increased health problems."
-
-**Discussion (4 minutes):**
-Ask students to turn and talk with a partner:
-- *"What's the difference between these three statements?"*
-- *"Which one would be most convincing to a school board? Why?"*
-
-Bring the class back together. Elicit responses and guide students to name the differences:
-- Statement 1 is a **fact** (verifiable, no opinion)
-- Statement 2 is a **bare opinion** (what someone thinks, but no support)
-- Statement 3 is an **argument** (a claim + reasons + a nod to evidence)
-
-**Teacher Talk-Through (2 minutes):**
-
-> "In 7th grade, and honestly for the rest of your academic and professional lives, you'll be asked to do more than share what you think. You'll be asked to *prove* it. Today, we're going to learn what separates a convincing argument from a weak one — and practice building arguments that can stand up to scrutiny, even from people who disagree with you."
-
----
-
-## DIRECT INSTRUCTION: THE ANATOMY OF AN ARGUMENT (12 minutes)
-
-### Part 1: The Four Building Blocks (7 minutes)
-
-Draw or display the following diagram on the board. Label it **"Argument Anatomy."**
-
-
-┌─────────────────────────────────────────────┐
-│                   CLAIM                     │
-│     Your central position/answer           │
-├─────────────────────────────────────────────┤
-│                  REASONS                    │
-│   Why your claim is true (logical "because")│
-├─────────────────────────────────────────────┤
-│                  EVIDENCE                   │
-│  Facts, stats, examples, expert quotes     │
-├─────────────────────────────────────────────┤
-│               COUNTERCLAIM                  │
-│  What opponents say — AND your response    │
-└─────────────────────────────────────────────┘
-
-
-Walk through each component with clear explanations and examples:
-
-**CLAIM:**
-> "A claim is your position — the thing you're trying to convince someone to believe or do. It should be debatable, meaning a reasonable person could disagree. 'Dogs are animals' isn't a claim. 'Dogs make better pets than cats' is a claim someone could argue."
-
-Write on board: *A strong claim is specific and debatable.*
-
-**REASONS:**
-> "Reasons answer the question 'why should I believe your claim?' They're the logical connections between your evidence and your position. Think of them as the 'because' statements."
-
-Example: *"Schools should delay start times **because** teenagers need more sleep."*
-
-**EVIDENCE:**
-> "Evidence is the proof that your reasons are actually true. This is where you get specific — statistics, research studies, expert opinions, historical examples, or even carefully chosen personal examples. A reason without evidence is just an assertion."
-
-Compare:
-- Weak: *"Teenagers need more sleep."* (just a reason, no proof)
-- Strong: *"Research shows teenagers need 8–10 hours of sleep per night, yet many get fewer than 8 hours on school nights."*
-
-**COUNTERCLAIM:**
-> "Here's where a lot of writers freeze up. A counterclaim is the opposing view — what someone who disagrees with you would say. And here's the key: **acknowledging it doesn't weaken your argument. It strengthens it.** It shows you've thought seriously about the issue and you're confident enough to address disagreement head-on."
-
-Model a counterclaim + rebuttal:
-- Counterclaim: *"Some argue that later start times would disrupt after-school sports, jobs, and family schedules."*
-- Rebuttal: *"However, several districts that have shifted to later start times report that schedules adjusted within one semester, and the documented academic and health improvements far outweighed the transition challenges."*
-
-### Part 2: The "CREAC" Structure (5 minutes)
-
-Introduce a simple organizational structure students can use:
-
-Write on board:
-
-> **C** — Claim
-> **R** — Reason
-> **E** — Evidence
-> **A** — Acknowledge the counterclaim
-> **C** — Conclude / reinforce your claim
-
-> "Think of CREAC as a recipe. You can vary it — sometimes you'll have multiple reasons and evidence sections — but every argument needs all these ingredients to be complete and convincing."
-
-Briefly show how the school start time example maps onto CREAC by annotating the statements you've already written on the board.
-
----
-
-## MENTOR TEXT ANALYSIS: READ LIKE A WRITER (8 minutes)
-
-### Activity: Annotate the Argument
-
-Distribute or display the following short mentor text. (This can be read aloud while students follow along.)
-
----
-
-**MENTOR TEXT: "Should Students Have a Voice in School Rules?"**
-
-*Middle schoolers should have a formal role in creating school rules. When students participate in rule-making, they are more likely to follow those rules because they feel ownership over them. Schools with student-led governance councils have reported reductions in disciplinary incidents compared to schools where adults set all rules unilaterally. Furthermore, participating in rule-making teaches students civic skills — how to debate, compromise, and think about the common good — that are essential for democratic participation.*
-
-*Opponents might argue that students lack the maturity or perspective to make sound policy decisions. However, no proposal suggests students act alone. A collaborative model, where student representatives work alongside administrators, captures the benefits of student voice while maintaining adult oversight. The question isn't whether students are capable of acting perfectly — it's whether their perspective is valuable. Evidence suggests it clearly is.*
-
-*Therefore, schools should establish formal student governance committees with real decision-making power over appropriate aspects of school policy.*
-
----
-
-**Annotation Task (individual, 4 minutes):**
-
-Give each student two colors of sticky notes (or ask them to use two colors of pen/pencil):
-- **Color 1:** Label and mark the **Claim, Reasons, Evidence, and Conclusion**
-- **Color 2:** Label and mark the **Counterclaim and Rebuttal**
-
-**Share Out (4 minutes):**
-Cold call 3–4 students to share what they labeled and where. Clarify any confusion.
-
-Ask discussion questions:
-- *"Did acknowledging the opponent's view make the writer seem less confident? Why or why not?"*
-- *"What would be missing from this argument if the counterclaim paragraph were removed?"*
-- *"Was the evidence convincing? What made it feel specific or credible?"*
-
----
-
-## GUIDED PRACTICE: WE BUILD ONE TOGETHER (7 minutes)
-
-### Whole-Class Argument Construction
-
-Tell students: *"Now we're going to build an argument together before you try one on your own."*
-
-**Topic:** *"Should students be allowed to use phones during lunch?"*
-
-Walk through the CREAC structure collaboratively. Ask students to volunteer ideas at each step. Write their contributions on the board, coaching them toward precision:
-
-- **Claim:** Guide students from vague (*"Phones are fine at lunch"*) to specific (*"Students should be permitted to use personal devices during lunch periods because it provides a needed mental break and reinforces responsible technology habits."*)
-
-- **Reason:** Elicit a "because" statement connected to the claim.
-
-- **Evidence:** Ask, *"What kind of proof would make this convincing? If you were the principal, what would you need to see?"* Guide them to acknowledge that they may not have statistics memorized, but they should know what *type* of evidence would be appropriate — research, surveys, examples from other schools.
-
-- **Counterclaim:** Ask, *"What would someone who disagrees say? What's the strongest version of their argument?"* (This is an important move — modeling the "steelman," or strongest version, of the opposing view rather than a weak version they can easily dismiss.)
-
-- **Conclusion:** Ask students how to wrap it up — reinforce the claim, don't just repeat it word-for-word.
-
----
-
-## INDEPENDENT PRACTICE: DRAFT YOUR ARGUMENT (15 minutes)
-
-### Student Writing Task
-
-**Prompt (display on board or distribute):**
-
-> Choose ONE of the following topics and write a structured argument using the CREAC framework. Your argument should include a clear claim, at least one reason with supporting evidence (or a description of the type of evidence that would support your point), an acknowledgment of an opposing viewpoint, a rebuttal, and a concluding statement.
->
-> **Topics:**
-> A. Should homework be eliminated or significantly reduced in middle school?
-> B. Should schools require students to wear uniforms?
-> C. Should video games be considered a legitimate sport?
-> D. Open choice: propose your own debatable school or community topic (check with teacher first)
-
-**Setup:**
-Remind students to use their "Argument Anatomy" notes and the CREAC structure. They do not need to write a full essay — a well-organized set of paragraphs (approximately one page handwritten or 200–300 words) is the goal for today.
-
-**Scaffold for students who need support:**
-Offer a sentence starter frame on the board:
-
-> - *"[Topic] should/should not ___ because ___."* (Claim)
-> - *"One reason to support this is ___."* (Reason)
-> - *"For example / According to ___, ___."* (Evidence)
-> - *"Some people argue that ___. However, ___."* (Counterclaim + Rebuttal)
-> - *"Therefore, it is clear that ___."* (Conclusion)
-
-**Stretch challenge for advanced students:**
-> Include a second reason with evidence, and practice varying your sentence structure so your argument doesn't feel formulaic.
-
-Circulate during writing. Conference briefly with 3–5 students. Look specifically for:
-- Is the claim actually debatable?
-- Is evidence specific or vague?
-- Is the counterclaim the *strongest* version of the opposition, or a strawman?
-
----
-
-## CLOSING: SHARE, REFLECT, AND IDENTIFY NEXT STEPS (5 minutes)
-
-### Pair Share (2 minutes)
-
-Ask students to exchange papers with a partner. Partners read the claim and the counterclaim section only and answer:
-
-> *"Is the counterclaim acknowledged fairly and honestly? Does the rebuttal actually address the concern, or does it dodge it?"*
-
-Partners give one specific piece of feedback using this stem:
-> *"Your counterclaim is effective because ___ / could be stronger if ___."*
-
-### Exit Ticket (3 minutes)
-
-Students respond in writing (on a sticky note or the bottom of their paper):
-
-> 1. In one sentence, state your claim from today's writing.
-> 2. Circle the part of argument writing that feels most challenging for you right now:
->    - **Finding strong evidence**
->    - **Writing the counterclaim/rebuttal**
->    - **Making my claim specific and debatable**
->    - **Organizing my ideas logically**
-
-Collect exit tickets. Use them to group students for targeted support in the next class session.
-
----
-
-## LOOKING AHEAD
-
-**Connection to next lesson:** Students will develop their in-class drafts into a full multi-paragraph argument essay, including a formal introduction and conclusion. They will also practice research skills to find real, citable evidence to replace or strengthen the evidence sections of today's draft.
-
-**Homework (optional / assign based on pacing):**
-Find one piece of real evidence (a statistic, a news article headline, an expert quote) that supports your claim from today. Bring it to class tomorrow ready to explain why it's relevant and credible.
-
----
-
-## DIFFERENTIATION NOTES
-
-**For students who need additional support:**
-- Provide a pre-printed "Argument Anatomy" graphic organizer with labeled boxes to fill in rather than writing in paragraph form
-- Allow verbal rehearsal with a partner before writing
-- Reduce the writing expectation to claim + one reason + evidence + counterclaim only (omit full rebuttal)
-
-**For English Language Learners:**
-- Provide the sentence starter frame in printed form
-- Pre-teach vocabulary: *claim, evidence, counterclaim, rebuttal, assertion*
-- Allow bilingual drafting if helpful, then translate key sentences
-
-**For advanced students:**
-- Challenge them to include two distinct reasons, each with its own evidence
-- Ask them to evaluate the *credibility* of their evidence, not just its relevance
-- Introduce the concept of logical fallacies: what makes a rebuttal weak or invalid?
-
----
-
-## ASSESSMENT ALIGNMENT
-
-| Component | What to Look For |
+| Term | Student-Friendly Definition |
 |---|---|
-| Warm-Up participation | Can students distinguish opinion from argument? |
-| Mentor text annotation | Accurate identification of argument components |
-| Exit ticket (claim) | Is the claim specific and genuinely debatable? |
-| Exit ticket (challenge area) | Informs differentiation groupings for next lesson |
-| In-class draft | Evidence of CREAC structure; quality of counterclaim acknowledgment |
+| **Claim** | Your main position or opinion on the topic |
+| **Reason** | The "why" that supports your claim |
+| **Evidence** | Facts, statistics, quotes, or examples that prove your reason |
+| **Counterclaim** | What someone who disagrees with you might say |
+| **Rebuttal** | How you respond to and knock down the opposing view |
 
-**Full rubric for the developed essay** (to be introduced in the following lesson) will assess: clarity of claim, quality and relevance of evidence, logical organization, effectiveness of counterclaim/rebuttal, and formal style and conventions.
+---
+
+## LESSON SEQUENCE
+
+---
+
+### HOOK / WARM-UP — *Minutes 0–7*
+
+**Activity: The Quick Debate**
+
+1. As students enter, display this prompt on the board:
+
+> *"Should students be able to use their phones during lunch?"*
+
+2. Instruct students to stand. Those who say **YES, phones should be allowed** move to the left side of the room. Those who say **NO, phones should not be allowed** move to the right.
+
+3. Give each side **60 seconds** to quietly huddle and come up with their **two strongest reasons**.
+
+4. Call on 2–3 volunteers from each side to share one reason. As students speak, write their ideas on the board under two columns: **PRO** and **CON**.
+
+5. After both sides have spoken, ask the class:
+
+> *"Did anyone on the YES side think about what the NO side would say? Did you think about how you'd respond to them? That back-and-forth is exactly what argument writing does — on paper."*
+
+**Transition:** Tell students to return to their seats. Say: *"Today, we're going to learn how to write arguments that are so organized and well-supported that they're hard to argue against — like a lawyer building a case."*
+
+---
+
+### DIRECT INSTRUCTION — *Minutes 7–20*
+
+**Activity: Argument Anatomy — Dissecting a Model**
+
+**Step 1: Introduce the Framework (5 minutes)**
+
+Draw a simple "argument building" diagram on the board that looks like a house:
+
+```
+         /REBUTTAL\
+        /___________\
+       | COUNTERCLAIM|
+       |_____________|
+       |  EVIDENCE   |
+       |_____________|
+       |   REASON    |
+       |_____________|
+       |    CLAIM    |
+       |_____________|
+          FOUNDATION
+```
+
+Walk through each level:
+
+- **CLAIM (Foundation):** "This is what you believe. Everything rests on it. Without a strong foundation, the whole house falls." *Example: "Students should not have homework on weekends."*
+
+- **REASON (First Floor):** "This is *why* you believe it. You can have more than one reason, but every reason needs to connect directly to your claim." *Example: "Weekend homework takes away the mental rest time students need to learn effectively."*
+
+- **EVIDENCE (Second Floor):** "This is your *proof*. Evidence can be statistics, research findings, quotes from experts, or real-world examples. Opinion is NOT evidence." *Example: "According to a Stanford University study, excessive homework is linked to higher levels of student stress and lower academic performance."*
+
+- **COUNTERCLAIM (The Other Side of the Roof):** "Strong writers don't pretend the other side doesn't exist. They bring up the opposing view to show they've thought about it." *Example: "Some teachers argue that weekend homework reinforces skills and keeps students from forgetting material."*
+
+- **REBUTTAL (The Peak):** "This is where you respond to the counterclaim and explain why your position is still stronger." *Example: "However, research shows that rest and creative play are actually what consolidate memory and learning — making a homework-free weekend more academically beneficial than additional assignments."*
+
+**Step 2: Introduce the Mentor Text (3 minutes)**
+
+Distribute the mentor text: "Should Students Have Homework?" Tell students:
+
+> *"I'm going to read this aloud. Your only job right now is to listen and notice how the writer sounds — do they seem confident? Do they seem like they've thought it through?"*
+
+Read the mentor text aloud expressively (see mentor text at end of lesson plan).
+
+**Step 3: Model the Highlighting (5 minutes)**
+
+Distribute highlighters. Using a projected copy of the text, demonstrate:
+- **Yellow** = Claim
+- **Blue** = Reasons and Evidence
+- **Pink** = Counterclaim and Rebuttal
+
+Model identifying and highlighting the **first paragraph** together as a class. Think aloud as you do it:
+
+> *"Let me look for the claim first — the writer's main position. Hmm, I see the phrase 'homework should be significantly reduced.' That's a specific, arguable position. I'll highlight that yellow..."*
+
+---
+
+### GUIDED PRACTICE — *Minutes 20–33*
+
+**Activity: Partner Highlighting & Analysis**
+
+1. Students work in **pairs** to highlight the **remaining two paragraphs** of the mentor text using the three-color system.
+
+2. After highlighting, pairs answer these three questions on their graphic organizer:
+   - What is the writer's strongest piece of evidence? Why is it strong?
+   - What is the counterclaim the writer acknowledges?
+   - Does the rebuttal successfully address the counterclaim? Why or why not?
+
+3. After approximately 8 minutes of partner work, facilitate a brief whole-class share-out (**3–4 minutes**):
+   - Call on 2 pairs to share their answer to Question 1
+   - Ask: *"Did anyone think the evidence was weak? What would have made it stronger?"*
+   - Call on 1 pair to share their answer to Question 3
+
+**Teacher moves during partner work:**
+- Circulate and listen to conversations
+- Prompt struggling pairs with: *"Where does the writer switch from their own opinion to saying what someone else thinks? That's your counterclaim."*
+- Challenge advanced pairs: *"Find a place where the argument could be even stronger. What's missing?"*
+
+---
+
+### MINI-LESSON CHECK-IN — *Minute 33–35*
+
+**Quick Formative Check: Sticky Note Sort**
+
+Give each student **two sticky notes**.
+
+- On **Sticky Note 1**, write one example of *strong evidence* (can be real or made-up for practice)
+- On **Sticky Note 2**, write one example of *weak evidence* (an opinion stated as fact)
+
+Students hold up both notes. Do a quick visual scan of the room. Address any misconceptions immediately before moving to independent practice.
+
+*Common misconception to watch for:* Students often write personal opinions on their "evidence" sticky note (e.g., "I think homework is stressful"). Clarify: *"That's a feeling — not evidence. Evidence can be checked and verified by someone else."*
+
+---
+
+### INDEPENDENT PRACTICE — *Minutes 35–50*
+
+**Activity: Draft Your Argument Paragraph**
+
+Display the following prompt on the board:
+
+> **Writing Prompt:** *"Should 7th graders be allowed to choose their own reading books during independent reading time, or should the teacher assign the books?"*
+
+Tell students: *"Pick a side. You don't have to believe it — but you do have to argue it well. Use your Argument Anatomy graphic organizer as a blueprint."*
+
+**Students will draft one structured argument paragraph that includes:**
+1. A clear claim (their position)
+2. At least one reason with supporting evidence
+3. A counterclaim (what the other side would say)
+4. A rebuttal (their response to the counterclaim)
+
+**Graphic Organizer Planning Section (students fill this in first — approximately 5 minutes):**
+
+```
+MY CLAIM: ___________________________________
+
+MY REASON: _________________________________
+
+MY EVIDENCE: _______________________________
+(Remember: facts, statistics, expert opinions, or specific examples)
+
+COUNTERCLAIM (opposing view): _______________
+
+MY REBUTTAL: _______________________________
+```
+
+**Students then write their paragraph in full sentences (approximately 10 minutes).**
+
+**Sentence Starters posted on the board for support:**
+
+| Component | Sentence Starter Options |
+|---|---|
+| Claim | "Students should / should not..." / "The evidence clearly shows..." |
+| Reason | "One important reason is..." / "This matters because..." |
+| Evidence | "According to..." / "Research indicates..." / "For example..." |
+| Counterclaim | "Some people argue that..." / "Those who disagree might say..." |
+| Rebuttal | "However..." / "While this may seem true, in reality..." / "Despite this claim..." |
+
+**Teacher moves during independent practice:**
+- Circulate constantly
+- Conference briefly with 4–5 students (30 seconds each)
+- Prompt with: *"What would someone who disagrees with you say? How would you respond?"*
+- Watch for students who skip the counterclaim — redirect: *"You're almost done! Don't forget to include the other side."*
+
+---
+
+### CLOSURE — *Minutes 50–55*
+
+**Activity: Gallery Swap & Star-Wish-Wonder**
+
+1. Students pass their draft to the person **behind them** (or in a small circle if space allows).
+
+2. The receiving student reads the draft silently and writes **on a sticky note:**
+   - ⭐ **Star:** One thing the argument does well
+   - 🙏 **Wish:** One thing that would make the argument stronger
+   - ❓ **Wonder:** One question they still have after reading it
+
+3. Return papers with sticky notes attached. Students have **60 seconds** to read the feedback silently.
+
+4. **Exit Ticket** (verbal — hands up): Ask 3–4 students to share:
+   - *"What's one thing you'll do differently in your argument writing after today?"*
+
+5. **Teacher close:**
+
+> *"Argument writing isn't about being the loudest or most aggressive voice in the room. It's about being the most prepared, most logical, and most fair-minded voice. When you acknowledge the other side and still defend your position with solid evidence — that's when people actually listen. That's the kind of writer — and thinker — we're building together."*
+
+---
+
+## DIFFERENTIATION
+
+### For Students Who Need Additional Support:
+- Provide a **partially completed graphic organizer** with the claim pre-written and prompts for each section
+- Offer a word bank of transition phrases
+- Allow verbal brainstorming with the teacher before independent writing
+- Reduce the requirement to: claim + one reason/evidence (omit counterclaim/rebuttal for this draft)
+- Pair with a strong partner during guided practice with assigned roles
+
+### For Advanced Learners:
+- Require **two** distinct reasons, each with its own evidence, before the counterclaim
+- Challenge them to find a *real* statistic or fact to use as evidence (if devices are available)
+- Ask them to write a **two-paragraph** argument that more fully develops the rebuttal
+- Prompt: *"Can you anticipate a second counterclaim? How would you address it?"*
+
+### For English Language Learners:
+- Provide vocabulary cards with visual supports for key terms
+- Offer sentence frames (more complete than the sentence starters) in both English and, if available, students' home language
+- Allow planning in home language before drafting in English
+- Partner with a bilingual peer during guided practice
+
+---
+
+## ASSESSMENT
+
+**Formative (during lesson):**
+- Teacher observation during partner highlighting activity
+- Sticky note sort at minute 33
+- Verbal exit ticket responses
+- Circulating conferences during independent practice
+
+**Summative (collected):**
+- Independent argument paragraph draft
+- Peer feedback sticky note (assesses analytical reading skills)
+
+**Paragraph Checklist (can be self-assessed or teacher-assessed):**
+
+| Element | Present? | Notes |
+|---|---|---|
+| Clear, specific claim | ☐ | |
+| At least one reason | ☐ | |
+| Evidence (not just opinion) | ☐ | |
+| Counterclaim acknowledged | ☐ | |
+| Rebuttal provided | ☐ | |
+| Logical organization (flows clearly) | ☐ | |
+
+---
+
+## MENTOR TEXT
+
+### "Should Students Have Homework?"
+
+Every evening, millions of students across the country sit down to complete hours of homework after already spending seven hours in school. While homework has long been a tradition in American education, **the research is clear: homework should be significantly reduced, particularly for middle school students**. Too much homework causes unnecessary stress, cuts into time needed for other forms of learning, and ultimately undermines the very academic goals it claims to support.
+
+The most compelling argument against excessive homework is the damage it does to student well-being and long-term learning. A landmark study conducted by researchers at Stanford University found that students who spent more than three hours per night on homework reported higher rates of stress, health problems, and disengagement from school. Importantly, these students did not outperform their peers academically — suggesting that the extra hours provided no measurable benefit. When students are exhausted and anxious, their ability to absorb and retain information drops dramatically. A well-rested, curious student will learn more in one focused hour than a burned-out student will in three resentful ones.
+
+Supporters of homework often argue that assignments reinforce classroom learning and teach students responsibility and time management. These are legitimate concerns. Without practice, skills can fade — and learning to manage a schedule is genuinely important. **However**, this argument assumes that homework is the *only* way to build these skills, which simply is not true. Independent reading, creative projects, physical activity, and even family responsibilities all build discipline and time management. Furthermore, research by Duke University professor Harris Cooper — one of the most extensive reviews of homework studies ever conducted — found that for middle school students, the relationship between homework and academic achievement is weak, and that the benefits plateau quickly after a small amount
 
 ---
 
 ## Final Reviewer
-I need to carefully review this lesson plan for hallucinations according to the rubric.
-
-Let me scan for any specific factual claims, statistics, or citations presented as real:
-
-1. In the warm-up, Statement 3 mentions "research shows teenagers need 8–10 hours of sleep" - this is used as an example of an argument, and framed as instructional content showing what a good argument looks like. It's part of a model statement for students, not presented as a verified fact by the teacher.
-
-2. In Direct Instruction: "Research shows teenagers need 8–10 hours of sleep per night, yet many get fewer than 8 hours on school nights." - This is presented as an example of "strong" evidence, but it's framed as a model/example of what strong evidence looks like in the context of instruction.
-
-3. In the mentor text: "Schools with student-led governance councils have reported reductions in disciplinary incidents compared to schools where adults set all rules unilaterally." - This is presented within the mentor text as if it were real evidence in a real argument. However, the mentor text is clearly labeled as a fictional instructional example created for the lesson, not as a real citation.
-
-4. "Several districts that have shifted to later start times report that schedules adjusted within one semester, and the documented academic and health improvements far outweighed the transition challenges." - This is used as a model rebuttal example, framed as instructional content.
-
-All the statistical/research claims in this lesson plan appear in clearly labeled instructional examples, model texts, or mentor texts that are explicitly presented as educational constructs. The rubric states that "clearly fictional or instructional examples" and "hypothetical scenarios not presented as real-world facts" are NOT hallucinations. The mentor text is explicitly labeled as a teaching tool, and the statistics within it are part of model arguments, not presented as real citations with sources.
-
-None of these rise to the level of fabricated references with years, organizations, or specific sourcing that mimics real citations. They are general, unattributed example statements used pedagogically.
-
 {
-  "hallucinations_found": false,
-  "types": [],
-  "justification": "All statistical and research-based claims in this lesson plan appear within clearly labeled instructional examples, model arguments, and a mentor text explicitly created for teaching purposes. No specific studies are cited with years, authors, or organizations that would mimic real citations. The sleep statistics and governance council claims are used as models of what evidence looks like, not presented as verifiable factual sources. Per the rubric, clearly fictional or instructional examples and hypothetical scenarios not presented as real-world facts are not hallucinations.",
-  "corrected_answer": "# Argument Writing: Building a Case That Stands Up to Scrutiny
+  "hallucinations_found": true,
+  "types": ["Fabricated references", "Unsupported claims presented as factual", "Specific numerical claims without verifiable grounding"],
+  "justification": "The mentor text contains two specific citations presented as factual: (1) 'A landmark study conducted by researchers at Stanford University found that students who spent more than three hours per night on homework reported higher rates of stress, health problems, and disengagement from school' — while there is a real Stanford study on homework (Galloway et al., 2013), the specific claim that 'these students did not outperform their peers academically' and the precise framing here is not verifiably accurate to that study and is presented as settled fact; (2) 'research by Duke University professor Harris Cooper — one of the most extensive reviews of homework studies ever conducted — found that for middle school students, the relationship between homework and academic achievement is weak' — Harris Cooper is a real researcher who has conducted homework meta-analyses, but the specific characterization that 'the relationship between homework and academic achievement is weak' for middle schoolers misrepresents Cooper's actual findings, which showed a moderate positive correlation for middle school students (stronger than for elementary, weaker than for high school). These citations mimic real-world sources but present inaccurate or unverifiable specific claims as established fact. Additionally, the Direct Instruction section references 'a Stanford University study' linking 'excessive homework...to higher levels of student stress and lower academic performance' as a factual example, which has the same issues. These must be corrected to remove or appropriately qualify the specific factual claims.",
+  "corrected_answer": "# Argument Writing: Building Your Case Like a Lawyer
 
 ## 55-Minute Lesson Plan for 7th Grade ELA
 
@@ -613,202 +645,247 @@ None of these rise to the level of fabricated references with years, organizatio
 
 ## LESSON OVERVIEW
 
-**Big Idea:** Strong arguments don't just state opinions — they build logical cases, use real evidence, and honestly engage with people who disagree.
+**Subject:** ELA — Argumentative Writing
+**Grade Level:** 7th Grade
+**Duration:** 55 minutes
+**Standard:** CCSS.ELA-Literacy.W.7.1
 
-**Learning Objectives:** By the end of this lesson, students will be able to:
-- Distinguish between a claim, a reason, and evidence
-- Organize an argument using a logical structure
-- Identify and acknowledge an opposing viewpoint (counterclaim)
-- Draft a structured paragraph-level argument on a relevant topic
+**Essential Question:** How do strong writers convince others to agree with their position?
 
-**Materials Needed:**
+**Learning Objectives:**
+By the end of this lesson, students will be able to:
+1. Identify the key components of an argumentative piece of writing (claim, reasons, evidence, counterclaim, rebuttal)
+2. Distinguish between strong and weak evidence
+3. Draft a structured argument paragraph that includes a claim, reason, evidence, and acknowledgment of an opposing view
+
+---
+
+## MATERIALS NEEDED
+
 - Whiteboard or projector
-- \"Argument Anatomy\" graphic organizer (described below — can be drawn or printed)
-- Sticky notes (two colors, approximately 3–4 per student)
-- Student notebooks or lined paper
-- Optional: printed mentor text (provided in lesson)
+- Printed \"Argument Anatomy\" graphic organizer (one per student)
+- Printed mentor text: \"Should Students Have Homework?\" (provided at end of lesson)
+- Colored highlighters (at least 3 colors per pair of students)
+- Sticky notes (2 per student)
+- Student writing journals or lined paper
+- Timer (visible to class)
 
 ---
 
-## WARM-UP: THE OPINION CHALLENGE (8 minutes)
+## VOCABULARY TO FRONTLOAD
 
-### Activity: \"Fact, Opinion, or Argument?\"
+Write these terms on the board before class begins:
 
-**Setup (2 minutes):**
-Write the following three statements on the board, numbered but unlabeled:
-
-> 1. \"School starts at 7:45 a.m.\"
-> 2. \"I think school starts too early.\"
-> 3. \"Schools should delay start times to 8:30 a.m. because research shows teenagers need 8–10 hours of sleep, and early start times are linked to lower academic performance and increased health problems.\"
-
-**Discussion (4 minutes):**
-Ask students to turn and talk with a partner:
-- *\"What's the difference between these three statements?\"*
-- *\"Which one would be most convincing to a school board? Why?\"*
-
-Bring the class back together. Elicit responses and guide students to name the differences:
-- Statement 1 is a **fact** (verifiable, no opinion)
-- Statement 2 is a **bare opinion** (what someone thinks, but no support)
-- Statement 3 is an **argument** (a claim + reasons + a nod to evidence)
-
-**Teacher Talk-Through (2 minutes):**
-
-> \"In 7th grade, and honestly for the rest of your academic and professional lives, you'll be asked to do more than share what you think. You'll be asked to *prove* it. Today, we're going to learn what separates a convincing argument from a weak one — and practice building arguments that can stand up to scrutiny, even from people who disagree with you.\"
+| Term | Student-Friendly Definition |
+|---|---|
+| **Claim** | Your main position or opinion on the topic |
+| **Reason** | The \"why\" that supports your claim |
+| **Evidence** | Facts, statistics, quotes, or examples that prove your reason |
+| **Counterclaim** | What someone who disagrees with you might say |
+| **Rebuttal** | How you respond to and knock down the opposing view |
 
 ---
 
-## DIRECT INSTRUCTION: THE ANATOMY OF AN ARGUMENT (12 minutes)
-
-### Part 1: The Four Building Blocks (7 minutes)
-
-Draw or display the following diagram on the board. Label it **\"Argument Anatomy.\"**
-
-
-┌─────────────────────────────────────────────┐
-│                   CLAIM                     │
-│     Your central position/answer           │
-├─────────────────────────────────────────────┤
-│                  REASONS                    │
-│   Why your claim is true (logical \"because\")│
-├─────────────────────────────────────────────┤
-│                  EVIDENCE                   │
-│  Facts, stats, examples, expert quotes     │
-├─────────────────────────────────────────────┤
-│               COUNTERCLAIM                  │
-│  What opponents say — AND your response    │
-└─────────────────────────────────────────────┘
-
-
-Walk through each component with clear explanations and examples:
-
-**CLAIM:**
-> \"A claim is your position — the thing you're trying to convince someone to believe or do. It should be debatable, meaning a reasonable person could disagree. 'Dogs are animals' isn't a claim. 'Dogs make better pets than cats' is a claim someone could argue.\"
-
-Write on board: *A strong claim is specific and debatable.*
-
-**REASONS:**
-> \"Reasons answer the question 'why should I believe your claim?' They're the logical connections between your evidence and your position. Think of them as the 'because' statements.\"
-
-Example: *\"Schools should delay start times **because** teenagers need more sleep.\"
-
-**EVIDENCE:**
-> \"Evidence is the proof that your reasons are actually true. This is where you get specific — statistics, research studies, expert opinions, historical examples, or even carefully chosen personal examples. A reason without evidence is just an assertion.\"
-
-Compare:
-- Weak: *\"Teenagers need more sleep.\"* (just a reason, no proof)
-- Strong: *\"Research shows teenagers need 8–10 hours of sleep per night, yet many get fewer than 8 hours on school nights.\"*
-
-**COUNTERCLAIM:**
-> \"Here's where a lot of writers freeze up. A counterclaim is the opposing view — what someone who disagrees with you would say. And here's the key: **acknowledging it doesn't weaken your argument. It strengthens it.** It shows you've thought seriously about the issue and you're confident enough to address disagreement head-on.\"
-
-Model a counterclaim + rebuttal:
-- Counterclaim: *\"Some argue that later start times would disrupt after-school sports, jobs, and family schedules.\"*
-- Rebuttal: *\"However, several districts that have shifted to later start times report that schedules adjusted within one semester, and the documented academic and health improvements far outweighed the transition challenges.\"
-
-### Part 2: The \"CREAC\" Structure (5 minutes)
-
-Introduce a simple organizational structure students can use:
-
-Write on board:
-
-> **C** — Claim
-> **R** — Reason
-> **E** — Evidence
-> **A** — Acknowledge the counterclaim
-> **C** — Conclude / reinforce your claim
-
-> \"Think of CREAC as a recipe. You can vary it — sometimes you'll have multiple reasons and evidence sections — but every argument needs all these ingredients to be complete and convincing.\"
-
-Briefly show how the school start time example maps onto CREAC by annotating the statements you've already written on the board.
+## LESSON SEQUENCE
 
 ---
 
-## MENTOR TEXT ANALYSIS: READ LIKE A WRITER (8 minutes)
+### HOOK / WARM-UP — *Minutes 0–7*
 
-### Activity: Annotate the Argument
+**Activity: The Quick Debate**
 
-Distribute or display the following short mentor text. (This can be read aloud while students follow along.)
+1. As students enter, display this prompt on the board:
 
----
+> *\"Should students be able to use their phones during lunch?\"*
 
-**MENTOR TEXT: \"Should Students Have a Voice in School Rules?\"**
+2. Instruct students to stand. Those who say **YES, phones should be allowed** move to the left side of the room. Those who say **NO, phones should not be allowed** move to the right.
 
-*Middle schoolers should have a formal role in creating school rules. When students participate in rule-making, they are more likely to follow those rules because they feel ownership over them. Schools with student-led governance councils have reported reductions in disciplinary incidents compared to schools where adults set all rules unilaterally. Furthermore, participating in rule-making teaches students civic skills — how to debate, compromise, and think about the common good — that are essential for democratic participation.*
+3. Give each side **60 seconds** to quietly huddle and come up with their **two strongest reasons**.
 
-*Opponents might argue that students lack the maturity or perspective to make sound policy decisions. However, no proposal suggests students act alone. A collaborative model, where student representatives work alongside administrators, captures the benefits of student voice while maintaining adult oversight. The question isn't whether students are capable of acting perfectly — it's whether their perspective is valuable. Evidence suggests it clearly is.*
+4. Call on 2–3 volunteers from each side to share one reason. As students speak, write their ideas on the board under two columns: **PRO** and **CON**.
 
-*Therefore, schools should establish formal student governance committees with real decision-making power over appropriate aspects of school policy.*
+5. After both sides have spoken, ask the class:
 
----
+> *\"Did anyone on the YES side think about what the NO side would say? Did you think about how you'd respond to them? That back-and-forth is exactly what argument writing does — on paper.\"*
 
-**Annotation Task (individual, 4 minutes):**
-
-Give each student two colors of sticky notes (or ask them to use two colors of pen/pencil):
-- **Color 1:** Label and mark the **Claim, Reasons, Evidence, and Conclusion**
-- **Color 2:** Label and mark the **Counterclaim and Rebuttal**
-
-**Share Out (4 minutes):**
-Cold call 3–4 students to share what they labeled and where. Clarify any confusion.
-
-Ask discussion questions:
-- *\"Did acknowledging the opponent's view make the writer seem less confident? Why or why not?\"*
-- *\"What would be missing from this argument if the counterclaim paragraph were removed?\"*
-- *\"Was the evidence convincing? What made it feel specific or credible?\"*
+**Transition:** Tell students to return to their seats. Say: *\"Today, we're going to learn how to write arguments that are so organized and well-supported that they're hard to argue against — like a lawyer building a case.\"*
 
 ---
 
-## GUIDED PRACTICE: WE BUILD ONE TOGETHER (7 minutes)
+### DIRECT INSTRUCTION — *Minutes 7–20*
 
-### Whole-Class Argument Construction
+**Activity: Argument Anatomy — Dissecting a Model**
 
-Tell students: *\"Now we're going to build an argument together before you try one on your own.\"*
+**Step 1: Introduce the Framework (5 minutes)**
 
-**Topic:** *\"Should students be allowed to use phones during lunch?\"
+Draw a simple \"argument building\" diagram on the board that looks like a house:
 
-Walk through the CREAC structure collaboratively. Ask students to volunteer ideas at each step. Write their contributions on the board, coaching them toward precision:
 
-- **Claim:** Guide students from vague (*\"Phones are fine at lunch\"*) to specific (*\"Students should be permitted to use personal devices during lunch periods because it provides a needed mental break and reinforces responsible technology habits.\"*)
+         /REBUTTAL\\
+        /___________\\
+       | COUNTERCLAIM|
+       |_____________|
+       |  EVIDENCE   |
+       |_____________|
+       |   REASON    |
+       |_____________|
+       |    CLAIM    |
+       |_____________|
+          FOUNDATION
 
-- **Reason:** Elicit a \"because\" statement connected to the claim.
 
-- **Evidence:** Ask, *\"What kind of proof would make this convincing? If you were the principal, what would you need to see?\"* Guide them to acknowledge that they may not have statistics memorized, but they should know what *type* of evidence would be appropriate — research, surveys, examples from other schools.
+Walk through each level:
 
-- **Counterclaim:** Ask, *\"What would someone who disagrees say? What's the strongest version of their argument?\"* (This is an important move — modeling the \"steelman,\" or strongest version, of the opposing view rather than a weak version they can easily dismiss.)
+- **CLAIM (Foundation):** \"This is what you believe. Everything rests on it. Without a strong foundation, the whole house falls.\" *Example: \"Students should not have homework on weekends.\"*
 
-- **Conclusion:** Ask students how to wrap it up — reinforce the claim, don't just repeat it word-for-word.
+- **REASON (First Floor):** \"This is *why* you believe it. You can have more than one reason, but every reason needs to connect directly to your claim.\" *Example: \"Weekend homework takes away the mental rest time students need to learn effectively.\"*
+
+- **EVIDENCE (Second Floor):** \"This is your *proof*. Evidence can be statistics, research findings, quotes from experts, or real-world examples. Opinion is NOT evidence.\" *Example: \"Some researchers have found connections between heavy homework loads and increased student stress levels.\"*
+
+- **COUNTERCLAIM (The Other Side of the Roof):** \"Strong writers don't pretend the other side doesn't exist. They bring up the opposing view to show they've thought about it.\" *Example: \"Some teachers argue that weekend homework reinforces skills and keeps students from forgetting material.\"*
+
+- **REBUTTAL (The Peak):** \"This is where you respond to the counterclaim and explain why your position is still stronger.\" *Example: \"However, many learning experts suggest that rest and creative play also support memory consolidation — meaning a homework-free weekend may benefit students as much as additional assignments.\"*
+
+**Step 2: Introduce the Mentor Text (3 minutes)**
+
+Distribute the mentor text: \"Should Students Have Homework?\" Tell students:
+
+> *\"I'm going to read this aloud. Your only job right now is to listen and notice how the writer sounds — do they seem confident? Do they seem like they've thought it through?\"*
+
+Read the mentor text aloud expressively (see mentor text at end of lesson plan).
+
+**Step 3: Model the Highlighting (5 minutes)**
+
+Distribute highlighters. Using a projected copy of the text, demonstrate:
+- **Yellow** = Claim
+- **Blue** = Reasons and Evidence
+- **Pink** = Counterclaim and Rebuttal
+
+Model identifying and highlighting the **first paragraph** together as a class. Think aloud as you do it:
+
+> *\"Let me look for the claim first — the writer's main position. Hmm, I see the phrase 'homework should be significantly reduced.' That's a specific, arguable position. I'll highlight that yellow...\"*
 
 ---
 
-## INDEPENDENT PRACTICE: DRAFT YOUR ARGUMENT (15 minutes)
+### GUIDED PRACTICE — *Minutes 20–33*
 
-### Student Writing Task
+**Activity: Partner Highlighting & Analysis**
 
-**Prompt (display on board or distribute):**
+1. Students work in **pairs** to highlight the **remaining two paragraphs** of the mentor text using the three-color system.
 
-> Choose ONE of the following topics and write a structured argument using the CREAC framework. Your argument should include a clear claim, at least one reason with supporting evidence (or a description of the type of evidence that would support your point), an acknowledgment of an opposing viewpoint, a rebuttal, and a concluding statement.
->
-> **Topics:**
-> A. Should homework be eliminated or significantly reduced in middle school?
-> B. Should schools require students to wear uniforms?
-> C. Should video games be considered a legitimate sport?
-> D. Open choice: propose your own debatable school or community topic (check with teacher first)
+2. After highlighting, pairs answer these three questions on their graphic organizer:
+   - What is the writer's strongest piece of evidence? Why is it strong?
+   - What is the counterclaim the writer acknowledges?
+   - Does the rebuttal successfully address the counterclaim? Why or why not?
 
-**Setup:**
-Remind students to use their \"Argument Anatomy\" notes and the CREAC structure. They do not need to write a full essay — a well-organized set of paragraphs (approximately one page handwritten or 200–300 words) is the goal for today.
+3. After approximately 8 minutes of partner work, facilitate a brief whole-class share-out (**3–4 minutes**):
+   - Call on 2 pairs to share their answer to Question 1
+   - Ask: *\"Did anyone think the evidence was weak? What would have made it stronger?\"*
+   - Call on 1 pair to share their answer to Question 3
 
-**Scaffold for students who need support:**
-Offer a sentence starter frame on the board:
+**Teacher moves during partner work:**
+- Circulate and listen to conversations
+- Prompt struggling pairs with: *\"Where does the writer switch from their own opinion to saying what someone else thinks? That's your counterclaim.\"*
+- Challenge advanced pairs: *\"Find a place where the argument could be even stronger. What's missing?\"*
 
-> - *\"[Topic] should/should not ___ because ___.\"* (Claim)
-> - *\"One reason to support this is ___.\"* (Reason)
-> - *\"For example / According to ___, ___.\"* (Evidence)
-> - *\"Some people argue that ___. However, ___.\"* (Counterclaim + Rebuttal)
-> - *\"Therefore, it is clear that ___.\"* (Conclusion)
+---
 
-**Stretch challenge for advanced students:**
-> Include a second reason with evidence, and practice varying your sentence structure so your argument doesn't feel formulaic.
+### MINI-LESSON CHECK-IN — *Minute 33–35*
 
-Circulate during writing. Conference briefly with 3–5 students. Look specifically for:
-- Is the claim actually debatable?
-- Is evidence specific or vague?
-- Is the counterclaim the *strongest*
+**Quick Formative Check: Sticky Note Sort**
+
+Give each student **two sticky notes**.
+
+- On **Sticky Note 1**, write one example of *strong evidence* (can be real or made-up for practice)
+- On **Sticky Note 2**, write one example of *weak evidence* (an opinion stated as fact)
+
+Students hold up both notes. Do a quick visual scan of the room. Address any misconceptions immediately before moving to independent practice.
+
+*Common misconception to watch for:* Students often write personal opinions on their \"evidence\" sticky note (e.g., \"I think homework is stressful\"). Clarify: *\"That's a feeling — not evidence. Evidence can be checked and verified by someone else.\"*
+
+---
+
+### INDEPENDENT PRACTICE — *Minutes 35–50*
+
+**Activity: Draft Your Argument Paragraph**
+
+Display the following prompt on the board:
+
+> **Writing Prompt:** *\"Should 7th graders be allowed to choose their own reading books during independent reading time, or should the teacher assign the books?\"*
+
+Tell students: *\"Pick a side. You don't have to believe it — but you do have to argue it well. Use your Argument Anatomy graphic organizer as a blueprint.\"*
+
+**Students will draft one structured argument paragraph that includes:**
+1. A clear claim (their position)
+2. At least one reason with supporting evidence
+3. A counterclaim (what the other side would say)
+4. A rebuttal (their response to the counterclaim)
+
+**Graphic Organizer Planning Section (students fill this in first — approximately 5 minutes):**
+
+
+MY CLAIM: ___________________________________
+
+MY REASON: _________________________________
+
+MY EVIDENCE: _______________________________
+(Remember: facts, statistics, expert opinions, or specific examples)
+
+COUNTERCLAIM (opposing view): _______________
+
+MY REBUTTAL: _______________________________
+
+
+**Students then write their paragraph in full sentences (approximately 10 minutes).**
+
+**Sentence Starters posted on the board for support:**
+
+| Component | Sentence Starter Options |
+|---|---|
+| Claim | \"Students should / should not...\" / \"The evidence clearly shows...\" |
+| Reason | \"One important reason is...\" / \"This matters because...\" |
+| Evidence | \"According to...\" / \"Research indicates...\" / \"For example...\" |
+| Counterclaim | \"Some people argue that...\" / \"Those who disagree might say...\" |
+| Rebuttal | \"However...\" / \"While this may seem true, in reality...\" / \"Despite this claim...\" |
+
+**Teacher moves during independent practice:**
+- Circulate constantly
+- Conference briefly with 4–5 students (30 seconds each)
+- Prompt with: *\"What would someone who disagrees with you say? How would you respond?\"*
+- Watch for students who skip the counterclaim — redirect: *\"You're almost done! Don't forget to include the other side.\"*
+
+---
+
+### CLOSURE — *Minutes 50–55*
+
+**Activity: Gallery Swap & Star-Wish-Wonder**
+
+1. Students pass their draft to the person **behind them** (or in a small circle if space allows).
+
+2. The receiving student reads the draft silently and writes **on a sticky note:**
+   - ⭐ **Star:** One thing the argument does well
+   - 🙏 **Wish:** One thing that would make the argument stronger
+   - ❓ **Wonder:** One question they still have after reading it
+
+3. Return papers with sticky notes attached. Students have **60 seconds** to read the feedback silently.
+
+4. **Exit Ticket** (verbal — hands up): Ask 3–4 students to share:
+   - *\"What's one thing you'll do differently in your argument writing after today?\"*
+
+5. **Teacher close:**
+
+> *\"Argument writing isn't about being the loudest or most aggressive voice in the room. It's about being the most prepared, most logical, and most fair-minded voice. When you acknowledge the other side and still defend your position with solid evidence — that's when people actually listen. That's the kind of writer — and thinker — we're building together.\"*
+
+---
+
+## DIFFERENTIATION
+
+### For Students Who Need Additional Support:
+- Provide a **partially completed graphic organizer** with the claim pre-written and prompts for each section
+- Offer a word bank of transition phrases
+- Allow verbal brainstorming with the teacher before independent writing
+- Reduce the requirement to: claim + one reason/evidence (omit counterclaim/rebuttal for this draft)
+- Pair with a strong partner during guided practice with assigned roles
+
+### For Advanced Learners:
+- Require **two** distinct reasons,
