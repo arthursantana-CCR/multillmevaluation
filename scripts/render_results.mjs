@@ -48,7 +48,7 @@ if (data.architecture === "consensus") {
     }
   }
 
-  // 🔹 Aggregator (final_output)
+  // 🔹 Aggregator
   if (outputs.final_output) {
     md += section("Aggregator");
 
@@ -60,6 +60,7 @@ if (data.architecture === "consensus") {
     try {
       const parsed = JSON.parse(raw);
 
+      md += `### Evaluation\n`;
       md += `- Hallucinations: ${parsed.hallucinations_found}\n`;
       md += `- Types: ${(parsed.types || []).join(", ")}\n\n`;
 
@@ -72,7 +73,6 @@ if (data.architecture === "consensus") {
     }
   }
 
-  // 🔹 Save file and STOP
   fs.writeFileSync("results/latest.md", md);
   console.log("✅ Markdown generated (consensus): results/latest.md");
   process.exit();
@@ -80,7 +80,7 @@ if (data.architecture === "consensus") {
 
 
 // =====================================================
-// 🔹 SEQUENTIAL ARCHITECTURE (existing logic)
+// 🔹 SEQUENTIAL ARCHITECTURE
 // =====================================================
 
 // Generator
@@ -97,9 +97,12 @@ if (outputs.reviewer_1_output) {
     md += `❌ FAILED: ${outputs.reviewer_1_output.raw_text}`;
   } else {
     const r = outputs.reviewer_1_output.parsed_review;
+
+    md += `### Evaluation\n`;
     md += `- Hallucinations: ${r.hallucinations_found}\n`;
     md += `- Types: ${(r.types || []).join(", ")}\n\n`;
-    md += clean(r.corrected_answer);
+
+    md += `### Final Output\n${clean(r.corrected_answer)}`;
   }
 }
 
@@ -108,9 +111,12 @@ if (outputs.reviewer_2_output) {
   md += section("Reviewer 2");
 
   const r = outputs.reviewer_2_output.parsed_review;
+
+  md += `### Evaluation\n`;
   md += `- Hallucinations: ${r.hallucinations_found}\n`;
   md += `- Types: ${(r.types || []).join(", ")}\n\n`;
-  md += clean(r.corrected_answer);
+
+  md += `### Final Output\n${clean(r.corrected_answer)}`;
 }
 
 // Final Reviewer
@@ -125,9 +131,13 @@ if (outputs.final_reviewer_output) {
   try {
     const parsed = JSON.parse(raw);
 
+    md += `### Evaluation\n`;
     md += `- Hallucinations: ${parsed.hallucinations_found}\n`;
     md += `- Types: ${(parsed.types || []).join(", ")}\n\n`;
-    md += clean(parsed.corrected_answer);
+
+    md += `### Justification\n${clean(parsed.justification)}\n\n`;
+
+    md += `### Final Output\n${clean(parsed.corrected_answer)}`;
 
   } catch {
     md += clean(raw);
