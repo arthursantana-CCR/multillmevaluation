@@ -709,23 +709,3 @@ main().catch((err) => {
   console.error("FATAL ERROR:", err);
   process.exit(1);
 });
-
-export async function runPipelineWithConfig(config) {
-  validateConfig(config);
-
-  const runTimeUtc = new Date().toISOString();
-  const runId = runTimeUtc.replace(/[:.]/g, "-");
-
-  const caseResults = [];
-  for (const caseConfig of config.cases) {
-    const caseResult = await runCase(caseConfig, config);
-    caseResults.push(caseResult);
-  }
-
-  return {
-    run_id: runId,
-    run_time_utc: runTimeUtc,
-    architecture: config?.pipeline?.architecture || "sequential",
-    cases: caseResults
-  };
-}
