@@ -1,7 +1,7 @@
 // viewer/app.js
 
 // 🔹 Path to results (works locally + GitHub Pages)
-const RESULTS_PATH = "/results/latest.json";
+const RESULTS_PATH = "../results/latest.json";
 
 // 🔹 DOM elements
 const metadataEl = document.getElementById("metadata-content");
