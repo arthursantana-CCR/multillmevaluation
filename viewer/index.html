@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Multi-LLM Results Viewer</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div class="container">
+
+    <!-- 🔹 Header -->
+    <header>
+      <h1>Multi-LLM Evaluation Viewer</h1>
+      <p class="subtitle">Clean visualization of pipeline results</p>
+    </header>
+
+    <!-- 🔹 Run Metadata -->
+    <section id="metadata" class="card">
+      <h2>Run Info</h2>
+      <div id="metadata-content">
+        <p>Loading metadata...</p>
+      </div>
+    </section>
+
+    <!-- 🔹 Prompt -->
+    <section id="prompt-section" class="card">
+      <h2>Prompt</h2>
+      <div id="prompt-content" class="text-box">
+        <p>Loading prompt...</p>
+      </div>
+    </section>
+
+    <!-- 🔹 Model Outputs -->
+    <section id="models-section" class="card">
+      <h2>Model Outputs</h2>
+      <div id="models-container">
+        <p>Loading model outputs...</p>
+      </div>
+    </section>
+
+    <!-- 🔹 Final Output -->
+    <section id="final-section" class="card highlight">
+      <h2>Final Output</h2>
+      <div id="final-output" class="text-box">
+        <p>Loading final output...</p>
+      </div>
+    </section>
+
+    <!-- 🔹 Error Message -->
+    <section id="error-section" class="card error hidden">
+      <h2>Error</h2>
+      <p id="error-message"></p>
+    </section>
+
+  </div>
+
+  <!-- 🔹 Script -->
+  <script src="app.js"></script>
+</body>
+</html>
