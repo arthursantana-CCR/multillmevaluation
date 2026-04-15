@@ -52,10 +52,14 @@ if (data.architecture === "consensus") {
   if (outputs.final_output) {
     md += section("Aggregator");
 
-    const raw = outputs.final_output
+    const rawText = outputs.final_output
       .replace(/```json/g, "")
       .replace(/```/g, "")
       .trim();
+
+    // 🔹 Extract JSON only (ignore reasoning)
+    const jsonMatch = rawText.match(/\{[\s\S]*\}$/);
+    const raw = jsonMatch ? jsonMatch[0] : rawText;
 
     try {
       const parsed = JSON.parse(raw);
@@ -69,7 +73,7 @@ if (data.architecture === "consensus") {
       md += `### Final Output\n${clean(parsed.corrected_answer)}`;
 
     } catch {
-      md += clean(raw);
+      md += clean(rawText);
     }
   }
 
@@ -123,10 +127,14 @@ if (outputs.reviewer_2_output) {
 if (outputs.final_reviewer_output) {
   md += section("Final Reviewer");
 
-const raw = outputs.final_reviewer_output.raw_text
-  .replace(/```json/g, "")
-  .replace(/```/g, "")
-  .trim();
+  const rawText = outputs.final_reviewer_output.raw_text
+    .replace(/```json/g, "")
+    .replace(/```/g, "")
+    .trim();
+
+  // 🔹 Extract JSON only (ignore reasoning)
+  const jsonMatch = rawText.match(/\{[\s\S]*\}$/);
+  const raw = jsonMatch ? jsonMatch[0] : rawText;
 
   try {
     const parsed = JSON.parse(raw);
@@ -140,7 +148,7 @@ const raw = outputs.final_reviewer_output.raw_text
     md += `### Final Output\n${clean(parsed.corrected_answer)}`;
 
   } catch {
-    md += clean(raw);
+    md += clean(rawText);
   }
 }
 
