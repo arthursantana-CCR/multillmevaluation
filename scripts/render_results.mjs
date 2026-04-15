@@ -123,10 +123,15 @@ if (outputs.reviewer_2_output) {
 if (outputs.final_reviewer_output) {
   md += section("Final Reviewer");
 
-  const raw = outputs.final_reviewer_output.raw_text
-    .replace(/```json/g, "")
-    .replace(/```/g, "")
-    .trim();
+const rawText = outputs.final_reviewer_output.raw_text
+  .replace(/```json/g, "")
+  .replace(/```/g, "")
+  .trim();
+
+// Extract ONLY JSON block
+const jsonMatch = rawText.match(/\{[\s\S]*\}$/);
+
+const raw = jsonMatch ? jsonMatch[0] : rawText;
 
   try {
     const parsed = JSON.parse(raw);
