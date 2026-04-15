@@ -61,17 +61,20 @@ if (outputs.reviewer_2_output) {
 if (outputs.final_reviewer_output) {
   md += section("Final Reviewer");
 
+  const raw = outputs.final_reviewer_output.raw_text
+    .replace(/```json/g, "")
+    .replace(/```/g, "")
+    .trim();
+
   try {
-    const parsed = JSON.parse(
-      outputs.final_reviewer_output.raw_text.replace(/```json|```/g, "")
-    );
+    const parsed = JSON.parse(raw);
 
     md += `- Hallucinations: ${parsed.hallucinations_found}\n`;
     md += `- Types: ${(parsed.types || []).join(", ")}\n\n`;
     md += clean(parsed.corrected_answer);
 
   } catch {
-    md += clean(outputs.final_reviewer_output.raw_text);
+    md += clean(raw);
   }
 }
 

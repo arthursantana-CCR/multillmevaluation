@@ -611,7 +611,6 @@ Evaluate student paragraphs using the following quick rubric:
 ---
 
 ## Final Reviewer
-```json
 {
   "hallucinations_found": true,
   "types": [
