@@ -333,15 +333,61 @@ ${JSON.stringify(caseConfig)}
   const aggregationPrompt = `
 You are an evaluator in a multi-model system.
 
-Your task is to compare three candidate answers and select the best one.
+Your task is to evaluate THREE candidate answers and select the best one.
 
-Criteria:
-- Accuracy
-- Completeness
-- Absence of hallucinations
-- Alignment with the task instructions
+IMPORTANT:
+You must evaluate EACH candidate before making a decision.
 
-You must select ONE of the answers (A, B, or C).
+---
+
+STEP 1 — Evaluate each candidate
+
+For EACH answer (A, B, C), consider:
+
+1. Is the answer usable?
+   - If it contains an error message (e.g., "[ERROR: ...]"), it is NOT usable
+
+2. Does it contain hallucinations?
+   - Apply the hallucination rubric strictly
+
+3. Overall quality:
+   - completeness
+   - clarity
+   - pedagogical usefulness
+   - alignment with the task
+
+---
+
+STEP 2 — Selection rules
+
+Follow this priority order:
+
+1. Prefer answers that are usable (not error messages)
+2. Prefer answers with fewer hallucinations
+3. If multiple answers are similar in hallucination level:
+   → choose the one with higher overall quality
+
+IMPORTANT:
+- Do NOT select an answer that is an error message unless ALL answers are errors
+- Do NOT assume an answer is correct just because it is detailed
+
+---
+
+STEP 3 — Output
+
+You must return ONLY valid JSON in this format:
+
+{
+  "selected_model": "A" | "B" | "C",
+  "justification": "<clear reasoning explaining your selection>",
+  "hallucinations_found": <true or false>,
+  "types": <array>,
+  "corrected_answer": "<final selected answer>"
+}
+
+---
+
+CANDIDATES:
 
 A:
 ${c1}
