@@ -157,8 +157,11 @@ async function main() {
     cases: caseResults,
   };
 
-  await writeResults(runResult, runId);
-  console.log(`Run complete: ${runId}`);
+await writeResults(runResult, runId);
+
+await import("./render_results.mjs");
+
+console.log(`Run complete: ${runId}`);
 }
 
 // ================== CONFIG ==================
