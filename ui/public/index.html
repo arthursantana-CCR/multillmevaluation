@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Multi-LLM Evaluation UI</title>
+  <style>
+    body {
+      font-family: Arial;
+      margin: 40px;
+    }
+
+    textarea {
+      width: 100%;
+      font-size: 14px;
+    }
+
+    select, button {
+      margin-top: 10px;
+      padding: 8px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      white-space: pre-wrap;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Multi-LLM Evaluation</h2>
+
+<textarea id="prompt" rows="10" placeholder="Enter your prompt here..."></textarea>
+
+<br>
+
+<select id="architecture">
+  <option value="sequential">Sequential</option>
+  <option value="consensus">Consensus</option>
+</select>
+
+<br>
+
+<button onclick="runPipeline()">Run</button>
+
+<h3>Output</h3>
+
+<pre id="output"></pre>
+
+<script src="app.js"></script>
+
+</body>
+</html>
