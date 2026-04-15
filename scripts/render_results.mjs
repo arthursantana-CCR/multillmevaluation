@@ -27,6 +27,62 @@ md += clean(caseData?.prompt);
 // 🔹 Outputs
 const outputs = caseData?.outputs || {};
 
+
+// =====================================================
+// 🔹 CONSENSUS ARCHITECTURE
+// =====================================================
+if (data.architecture === "consensus") {
+
+  // 🔹 Candidates
+  for (let i = 1; i <= 3; i++) {
+    const candidate = outputs[`candidate_${i}`];
+
+    if (candidate) {
+      md += section(`Candidate ${i}`);
+
+      if (candidate.raw_text?.includes("[ERROR")) {
+        md += `❌ ${candidate.raw_text}`;
+      } else {
+        md += clean(candidate.raw_text);
+      }
+    }
+  }
+
+  // 🔹 Aggregator (final_output)
+  if (outputs.final_output) {
+    md += section("Aggregator");
+
+    const raw = outputs.final_output
+      .replace(/```json/g, "")
+      .replace(/```/g, "")
+      .trim();
+
+    try {
+      const parsed = JSON.parse(raw);
+
+      md += `- Hallucinations: ${parsed.hallucinations_found}\n`;
+      md += `- Types: ${(parsed.types || []).join(", ")}\n\n`;
+
+      md += `### Justification\n${clean(parsed.justification)}\n\n`;
+
+      md += `### Final Output\n${clean(parsed.corrected_answer)}`;
+
+    } catch {
+      md += clean(raw);
+    }
+  }
+
+  // 🔹 Save file and STOP
+  fs.writeFileSync("results/latest.md", md);
+  console.log("✅ Markdown generated (consensus): results/latest.md");
+  process.exit();
+}
+
+
+// =====================================================
+// 🔹 SEQUENTIAL ARCHITECTURE (existing logic)
+// =====================================================
+
 // Generator
 if (outputs.generator_output) {
   md += section("Generator");
@@ -81,4 +137,4 @@ if (outputs.final_reviewer_output) {
 // 🔹 Save file
 fs.writeFileSync("results/latest.md", md);
 
-console.log("✅ Markdown generated: results/latest.md");
+console.log("✅ Markdown generated (sequential): results/latest.md");
