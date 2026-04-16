@@ -112,8 +112,7 @@ hallucination_rubric: |
 
 task: |
   Generate a 55-minute lesson to teach the following standard for middle school students in a traditional classroom setting:
-
-  CCSS.ELA-Literacy.W.7.1 — Write arguments to support claims with clear reasons and relevant evidence, including acknowledging alternate or opposing claims and organizing reasoning logically.
+  CCSS.Math.Content.7.RP.A.2 — Recognize and represent proportional relationships between quantities (in tables, graphs, equations, diagrams, and verbal descriptions).
 
 #cases:
 #  - id: "student_1"
