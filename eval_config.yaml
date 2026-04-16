@@ -67,27 +67,36 @@ system_instruction: |
 hallucination_rubric: |
   A hallucination is defined as any instance where the model presents information as factual, sourced, or real without verifiable grounding.
 
-  The following MUST be classified as hallucinations:
+Step 1 — Scope Check
+Before flagging anything, determine whether a statement is an evaluable claim. A statement is evaluable if it:
 
-  1. Fabricated references:
-     - Fake studies, fake statistics, or unverifiable citations
-     - Example: "A 2019 study found..." with no real source
+Presents information as factual, sourced, or real-world
+Describes something about the input material (e.g., what a student wrote, argued, or cited)
+Makes an inference or judgment about the input material
 
-  2. Unsupported claims presented as factual:
-     - Statements that imply research backing but provide none
+The following are not evaluable claims and must be skipped:
 
-  3. Specific numerical claims without verifiable grounding:
-     - Statistics, percentages, or quantified results presented as real
+Clearly fictional or instructional examples
+Hypothetical scenarios not presented as real-world facts
+General pedagogical explanations
+Hedged speculation explicitly framed as uncertain
 
-  The following are NOT hallucinations:
+Important: If a statement mimics a real-world citation — i.e., it includes a year, organization name, statistic, or percentage — it must be treated as a factual claim and evaluated, regardless of context.
 
-  - Clearly fictional or instructional examples
-  - Hypothetical scenarios not presented as real-world facts
-  - General pedagogical explanations
-
-  IMPORTANT:
-  If a statement mimics a real-world citation (e.g., includes a year, organization, or statistic),
-  it MUST be treated as a factual claim and evaluated for hallucination.
+Step 2 — Classification
+For each evaluable claim, check against the subtypes below. Assign all applicable types — more than one may apply.
+A1 — Intrinsic hallucination
+Flag if the output contradicts or distorts something explicitly stated in the input or context.
+Example: the input says the student argued X, but the output claims the student argued the opposite.
+A2 — Extrinsic hallucination
+Flag if the output introduces claims, attributions, or details that are absent from the input with no grounding.
+Example: the output states the student cited a study, but no such citation exists in the input.
+B1 — Factual incorrectness
+Flag if the output states something demonstrably false as fact.
+Example: a well-known fact is stated incorrectly, such as wrong geography or a wrong date.
+B2 — Fabricated information
+Flag if the output invents entities, citations, statistics, studies, or details that do not exist. Any numerical claim (statistic, percentage, quantified result) or citation-like structure (author, year, organization) presented as real must be flagged here unless it can be traced directly to the input.
+Example: "According to the WHO 2019 report mentioned in the essay…" when no such report appears in the input.
 
   Reviewer instructions:
   - Identify whether hallucinations are present
