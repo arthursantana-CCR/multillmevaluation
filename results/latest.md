@@ -1,10 +1,10 @@
-# Run: 2026-04-16T14:32:13.538Z
+# Run: 2026-04-16T14:37:47.143Z
 
 
 ---
 
 ## Architecture
-consensus
+sequential
 
 ---
 
@@ -15,721 +15,901 @@ CCSS.Math.Content.7.RP.A.2 — Recognize and represent proportional relationship
 
 ---
 
-## Candidate 1
-# Proportional Relationships: Seeing the Connection Everywhere
-### 7th Grade Math | 55-Minute Lesson | CCSS.Math.Content.7.RP.A.2
+## Generator
+# Proportional Relationships: Recognizing and Representing Them Five Ways
+
+### Grade 7 Mathematics | 55-Minute Lesson
 
 ---
 
 ## LESSON OVERVIEW
 
-**Big Idea:** Proportional relationships have a constant ratio (unit rate) that can be seen in tables, graphs, equations, diagrams, and words — and recognizing this connection across all five representations is a powerful mathematical skill.
+**Central Question:** How can you tell if two quantities are proportionally related, and how do you show that relationship in different ways?
 
-**Objective:** Students will be able to identify whether a relationship is proportional, determine the constant of proportionality (k), and represent the relationship in at least three different forms.
+**Learning Objectives:**
+By the end of this lesson, students will be able to:
+1. Determine whether a relationship between two quantities is proportional by examining tables, graphs, equations, and verbal descriptions
+2. Identify the constant of proportionality (unit rate) from each representation
+3. Move fluently between representations — translating a table into a graph, an equation into a table, or a verbal description into an equation
 
 **Materials Needed:**
-- Whiteboard/projector
-- Printed "Representation Match" activity cards (one set per pair)
-- Graph paper or printed coordinate grids
-- Colored markers or pencils (at least 2 colors per student)
-- Exit ticket slips (printed or digital)
-- Optional: rulers
+- Graph paper (one sheet per student)
+- Rulers (one per student)
+- Colored markers or pencils (optional but recommended)
+- Whiteboard and markers for teacher
+- "Proportional or Not?" card sort (printed, one set per pair — instructions below)
+- Exit ticket slips (printed or written on index cards)
 
 ---
 
-## LESSON TIMELINE
+## STANDARDS CONNECTIONS
+
+- **Primary:** CCSS.Math.Content.7.RP.A.2 (a, b, c, d)
+- **Supporting:** 6.RP.A.2 (unit rates), 6.RP.A.3 (ratio tables), 8.EE.B.5 (slope as unit rate)
 
 ---
 
-### ⏱ 0:00–0:07 | WARM-UP: "Which One Doesn't Belong?" (7 minutes)
+## LESSON STRUCTURE AT A GLANCE
 
-**Setup:** Display the following four tables on the board simultaneously. Students work silently and independently for 3 minutes, then share with a partner for 2 minutes, then briefly share with the class for 2 minutes.
-
-| Table A | | Table B | | Table C | | Table D | |
-|---|---|---|---|---|---|---|---|
-| x | y | x | y | x | y | x | y |
-| 1 | 3 | 2 | 6 | 1 | 5 | 0 | 0 |
-| 2 | 6 | 4 | 10 | 2 | 10 | 3 | 9 |
-| 3 | 9 | 6 | 14 | 3 | 15 | 5 | 15 |
-| 4 | 12 | 8 | 18 | 4 | 20 | 7 | 21 |
-
-**Prompt on Board:** *"Which one doesn't belong? Be ready to defend your answer with math."*
-
-**Discussion Points to Draw Out:**
-- Tables A, C, and D are proportional (constant ratio between y and x)
-- Table B is NOT proportional — the ratio changes (6/2=3, 10/4=2.5, etc.) and it doesn't pass through the origin as a straight line
-- Students may argue different tables "don't belong" — that's okay! The goal is mathematical reasoning
-- Introduce/reinforce vocabulary: **ratio**, **constant**, **proportional**
-
-**Teacher Move:** Listen for students who check y/x for every row. Highlight this strategy publicly. Also ask: *"Does Table D give you any hints? What's special about when x = 0?"*
+| Segment | Activity | Time |
+|---|---|---|
+| Warm-Up | The Lemonade Stand | 7 min |
+| Direct Instruction | Five Ways to See It | 15 min |
+| Guided Practice | We Do Together | 8 min |
+| Collaborative Activity | Card Sort | 15 min |
+| Closure | Gallery Share + Exit Ticket | 10 min |
 
 ---
 
-### ⏱ 0:07–0:17 | DIRECT INSTRUCTION: The Five Faces of Proportional Relationships (10 minutes)
-
-**Teacher Talk + Modeling**
-
-Anchor the lesson with one real-world context that you'll use to model ALL five representations:
-
-> *"A lemonade stand charges $2.50 per cup. Let's look at this one situation five different ways."*
-
-**Write on board and build each representation together:**
+## DETAILED LESSON PLAN
 
 ---
 
-#### 1. VERBAL DESCRIPTION
-*"For every cup of lemonade sold, the stand earns $2.50. The amount earned is always 2.5 times the number of cups sold."*
+### SEGMENT 1 — WARM-UP: The Lemonade Stand (7 minutes)
 
-Point out: There's a **constant multiplier** — that's the key idea.
-
----
-
-#### 2. TABLE
-
-| Cups Sold (x) | Money Earned (y) |
-|---|---|
-| 0 | $0.00 |
-| 1 | $2.50 |
-| 2 | $5.00 |
-| 4 | $10.00 |
-| 10 | $25.00 |
-
-**Ask:** *"What do you notice about y ÷ x for each row? What about the row where x = 0?"*
-
-Point out: The ratio y/x is always 2.5, AND the table includes (0, 0).
+**Setup:** Post the following two scenarios on the board before class begins. As students enter, they should read and begin thinking independently.
 
 ---
 
-#### 3. GRAPH
+**Scenario A:**
+Maria sells lemonade. She charges $2 for every cup.
 
-Draw on the board (or project on coordinate plane):
+| Cups | 1 | 2 | 3 | 4 | 5 |
+|---|---|---|---|---|---|
+| Cost ($) | 2 | 4 | 6 | 8 | 10 |
 
-- Plot the points from the table
-- Connect with a straight line
-- Emphasize the line passes through the **origin (0, 0)**
+**Scenario B:**
+Jordan sells lemonade too. Here's his price table:
 
-**Say:** *"Two non-negotiable features: straight line AND passes through the origin. If either is missing, it's not proportional."*
-
----
-
-#### 4. EQUATION
-
-**Write:** y = 2.5x
-
-**Ask:** *"Where do you see the 2.50 from our table and verbal description in this equation?"*
-
-Define: **k = constant of proportionality** → in the form **y = kx**
-
-*"k is the unit rate. It's the 'per one' amount. Here, k = 2.50 dollars per cup."*
+| Cups | 1 | 2 | 3 | 4 | 5 |
+|---|---|---|---|---|---|
+| Cost ($) | 3 | 5 | 7 | 9 | 11 |
 
 ---
 
-#### 5. DIAGRAM (Ratio/Double Number Line)
+**Prompt (written on board):** "Look at both tables. What do you notice? What do you wonder? Are these relationships the same kind, or different?"
+
+Allow 2 minutes of silent thinking, then 2 minutes of pair discussion ("Turn and Talk"), then 3 minutes of whole-class share-out.
+
+**Anticipated student responses:**
+- "In Maria's table, the cost is always double the cups."
+- "In Jordan's table the numbers go up by 2 each time, but it doesn't start at the right place."
+- "If Jordan sold zero cups, it would cost $1, which doesn't make sense."
+
+**Teacher bridge:** "You've just spotted something really important. Maria's relationship is what mathematicians call *proportional*. Jordan's is not — even though it has a pattern. Today we're going to figure out exactly what makes a relationship proportional, and how to show that five different ways."
+
+---
+
+### SEGMENT 2 — DIRECT INSTRUCTION: Five Ways to See It (15 minutes)
+
+Use the whiteboard or projected display for this section. Work through one coherent example — a car traveling at a constant speed of 60 miles per hour — showing all five representations together.
+
+---
+
+**The Anchor Example:** *A car travels at a constant speed of 60 miles per hour.*
+
+**Write on the board as a header:**
+> "A proportional relationship is one where two quantities always have the same ratio — or, said another way, y = kx for some constant k."
+
+---
+
+#### Representation 1 — VERBAL DESCRIPTION (2 minutes)
+
+"The distance a car travels is proportional to the number of hours it drives, at a constant speed of 60 mph."
+
+Ask: "What does 'constant speed' mean in plain English?" (It never speeds up or slows down — every hour covers the same distance.)
+
+Introduce vocabulary:
+- **Proportional relationship:** Two quantities where the ratio y/x is always the same
+- **Constant of proportionality (k):** That constant ratio — also called the unit rate
+
+"Here, k = 60. Every hour, 60 miles. Always."
+
+---
+
+#### Representation 2 — TABLE (3 minutes)
+
+Build the table on the board, asking students to call out the values:
+
+| Hours (x) | Miles (y) | y ÷ x |
+|---|---|---|
+| 0 | 0 | 0/0 — special! |
+| 1 | 60 | 60 |
+| 2 | 120 | 60 |
+| 3 | 180 | 60 |
+| 4 | 240 | 60 |
+
+**Key teaching points:**
+- "The ratio y/x is always 60 — that's how we confirm a proportional relationship in a table."
+- "Notice the table includes (0, 0). If x = 0, y must = 0. This is the first test: does the relationship pass through the origin?"
+- "Compare this to Jordan's lemonade — his ratio was never constant. 3/1 = 3, but 5/2 = 2.5. Not proportional."
+
+---
+
+#### Representation 3 — GRAPH (4 minutes)
+
+Quickly sketch a coordinate plane on the board. Plot the five points from the table and connect them.
+
+**Key teaching points:**
+- "The graph of a proportional relationship is always a straight line..."
+- "...AND it always passes through the origin (0, 0)."
+- "Both conditions must be true. A line that doesn't pass through the origin is linear but NOT proportional."
+
+Draw a contrast: Sketch Jordan's lemonade graph (starts at (0, 1), goes up). "Straight line? Yes. Through the origin? No. Therefore: not proportional."
+
+Ask students: "Where do you see k = 60 in the graph?" Give 30 seconds think time. Lead them to see the steepness — the slope — is 60.
+
+---
+
+#### Representation 4 — EQUATION (3 minutes)
+
+Write: **y = 60x**
+
+"This is the equation form. The constant of proportionality k is always the number multiplied by x."
+
+"The equation of any proportional relationship looks like **y = kx**. That's it. No adding. No subtracting. Just multiplying by k."
+
+Write the non-example: Jordan's lemonade = **y = 2x + 1**. "Adding 1 breaks proportionality. It means even at zero cups, there's a charge."
+
+Ask: "What does k represent in words?" (The unit rate: miles per hour, dollars per cup, etc.)
+
+---
+
+#### Representation 5 — DIAGRAM / DOUBLE NUMBER LINE (3 minutes)
 
 Draw a double number line on the board:
 
 ```
-Cups:    0────1────2────3────4────5
-              ↕    ↕    ↕    ↕    ↕
-Money:   0──2.50──5.00──7.50─10.00─12.50
+Hours:   0 ——— 1 ——— 2 ——— 3 ——— 4
+Miles:   0 —— 60 —— 120 — 180 — 240
 ```
 
-**Say:** *"Every jump of 1 cup corresponds to a jump of $2.50. The ratio stays the same — that's what makes it proportional."*
+"A double number line shows the same thing as a table, but visually shows how both quantities grow together at the same rate."
+
+"You can also use a ratio diagram — sometimes called a tape diagram — to show equivalent ratios stretching proportionally."
 
 ---
 
-**Anchor Chart Summary (post on wall or display):**
+**Quick Summary Check (1 minute):**
+Ask students to repeat back: "Tell your neighbor — what are the FOUR TESTS for a proportional relationship?"
 
-> ✅ **Proportional Relationship Checklist**
-> - Table: y ÷ x is constant AND includes (0, 0)
-> - Graph: Straight line through the origin
-> - Equation: y = kx (no added or subtracted number)
-> - Diagram: Equal spacing on double number line
-> - Verbal: Constant "per" or "for every" rate
-
----
-
-### ⏱ 0:17–0:30 | GUIDED PRACTICE: "Representation Round-Robin" (13 minutes)
-
-**Structure:** Whole class together, teacher calls on students, builds confidence before independent work.
-
-**Present the following scenario:**
-
-> *"A car travels at a constant speed of 60 miles per hour."*
-
-Work through each representation as a class. Use cold-calling, think-pair-share, and volunteers strategically.
-
-**Step 1 — Verbal:** Ask a student to restate the relationship in their own words.
-*Expected: "For every hour the car drives, it travels 60 miles."*
-
-**Step 2 — Table:** Have students contribute values one at a time. Build the table together:
-
-| Hours (x) | Miles (y) |
-|---|---|
-| 0 | 0 |
-| 1 | 60 |
-| 2 | 120 |
-| 3 | 180 |
-| 0.5 | 30 |
-
-**Ask:** *"Could x be 0.5? Does that make sense in context? What would y be?"* (This addresses misconceptions that x must be whole numbers.)
-
-**Step 3 — Equation:** *"Who can write the equation? What is k here?"*
-Answer: y = 60x, k = 60
-
-**Step 4 — Graph:** Call a student to the board to plot 3 points and draw the line.
-Ask the class: *"How do we know this is right just by looking?"*
-
-**Step 5 — Diagram:** Draw the double number line together. Ask students to predict the value at x = 2.5.
-
-**Pause and ask a higher-order question:**
-> *"If I told you this car traveled 150 miles, could you figure out how long it drove? How?"*
-*(Use the equation: 150 = 60x, so x = 2.5 hours — previewing solving proportional equations)*
+Confirm:
+1. Table: ratio y/x is constant, AND includes (0, 0)
+2. Graph: straight line through the origin
+3. Equation: in the form y = kx (no added constant)
+4. Verbal/Context: a constant rate with no "starting fee" or "starting amount"
 
 ---
 
-### ⏱ 0:30–0:46 | PARTNER ACTIVITY: "Representation Match & Create" (16 minutes)
+### SEGMENT 3 — GUIDED PRACTICE: We Do Together (8 minutes)
 
-**Structure:** Students work in assigned pairs.
+Present a new scenario and work through it together, calling on students at each step.
 
-**Part 1 — Match (8 minutes)**
+---
 
-Distribute pre-cut card sets. Each set contains:
-- 4 verbal descriptions
-- 4 tables (some proportional, some not)
-- 4 graphs (some proportional, some not)
-- 4 equations
+**Problem:** A recipe calls for 3 cups of flour for every 2 cups of sugar.
 
-Students must:
-1. Match each verbal description to its correct table, graph, and equation
-2. Identify and set aside any representations that are **NOT proportional** and write one sentence explaining why
+**Step 1 — Verbal:** Ask a student to describe the relationship in words. ("The amount of flour is proportional to the amount of sugar at a ratio of 3:2.")
 
-**Sample cards in the set:**
+**Step 2 — Table:** Ask students to help fill in:
 
-*Verbal Card 1:* "A recipe calls for 3 cups of flour for every 1 batch of cookies."
+| Sugar (x) | Flour (y) | y/x |
+|---|---|---|
+| 0 | 0 | — |
+| 2 | 3 | 1.5 |
+| 4 | 6 | 1.5 |
+| 6 | 9 | 1.5 |
+| 10 | 15 | 1.5 |
+
+Ask: "Is the ratio constant? Does it include (0, 0)?" ✓ Proportional.
+
+**Step 3 — Equation:** What is k? (1.5, or 3/2). Write: **y = 1.5x** or **y = (3/2)x**
+
+**Step 4 — Graph:** Have students sketch quickly on graph paper using the table values. Ask: "Does it pass through the origin? Is it a straight line?" ✓
+
+**Step 5 — Double Number Line:**
+
+```
+Sugar:   0 ——— 2 ——— 4 ——— 6 ——— 10
+Flour:   0 ——— 3 ——— 6 ——— 9 ——— 15
+```
+
+Ask: "Where is k hiding in the graph?" (The slope — rise over run — is 3/2 = 1.5)
+
+"Where is k hiding in the double number line?" (Every sugar value multiplied by 1.5 gives the flour value.)
+
+---
+
+### SEGMENT 4 — COLLABORATIVE ACTIVITY: Card Sort (15 minutes)
+
+**Setup:** Each pair of students receives a set of 16 cards (prepared in advance or cut from a printed sheet). Cards show a mix of:
+- 4 tables (2 proportional, 2 not proportional)
+- 4 graphs (2 proportional, 2 not proportional)
+- 4 equations (2 proportional — y = kx form; 2 not — y = mx + b with b ≠ 0)
+- 4 verbal descriptions (2 proportional, 2 not)
+
+**Sample card contents:**
 
 *Table Card A:*
-| Batches | Cups of Flour |
-|---|---|
-| 0 | 0 |
-| 1 | 3 |
-| 2 | 6 |
-| 5 | 15 |
-
-*Graph Card A:* Straight line through origin with slope 3 ✓
-
-*Equation Card A:* y = 3x ✓
-
----
-
-*Verbal Card 2:* "A taxi charges a $5 flat fee plus $2 per mile."
+| x | 1 | 2 | 4 | 8 |
+|---|---|---|---|---|
+| y | 5 | 10 | 20 | 40 |
 
 *Table Card B:*
-| Miles | Cost |
-|---|---|
-| 0 | 5 |
-| 1 | 7 |
-| 2 | 9 |
-| 3 | 11 |
+| x | 1 | 2 | 3 | 4 |
+|---|---|---|---|---|
+| y | 4 | 6 | 8 | 10 |
 
-*Graph Card B:* Straight line that crosses y-axis at 5 (NOT through origin) ✗
+*Graph Card A:* Line through origin with positive slope
+*Graph Card B:* Line with positive slope, y-intercept at (0, 3)
 
-*Equation Card B:* y = 2x + 5 ✗
+*Equation Card A:* y = 7x
+*Equation Card B:* y = 3x + 2
 
-*(This card set is intentionally designed so the taxi scenario does NOT match any proportional representation — students must recognize it as non-proportional)*
-
----
-
-**Part 2 — Create (8 minutes)**
-
-Each pair receives a blank card with one representation already filled in. They must create the remaining three representations.
-
-**Example prompts:**
-
-> *Group A receives the equation:* **y = 4x**
-> → Create a real-world verbal description, a table with 5 pairs, and a graph
-
-> *Group B receives the table:*
-> | x | 1 | 2 | 3 | 6 |
-> | y | 7 | 14 | 21 | 42 |
-> → Write the equation, a verbal description, and draw the graph
-
-> *Group C receives the graph:* A line through origin with slope ½
-> → Write the equation, a verbal description, and a table
-
-**Circulate during both parts.** Listen for:
-- Students correctly identifying k from a table (y ÷ x)
-- Students catching that non-origin-crossing graphs are not proportional
-- Students writing verbal descriptions with a clear "per" or "for every" unit rate
-
-**Common Misconceptions to Address While Circulating:**
-- *"It's a straight line so it must be proportional"* → Redirect to origin requirement
-- *"y ÷ x isn't constant, so…wait, let me recalculate"* → Encourage checking multiple rows
-- *"The equation y = 4x + 0 is different from y = 4x"* → Great observation! They're the same
+*Verbal Card A:* "A taxi charges $2.50 per mile."
+*Verbal Card B:* "A taxi charges $3.00 to get in, plus $2.00 per mile."
 
 ---
 
-### ⏱ 0:46–0:52 | SHARE OUT + CLASS DISCUSSION (6 minutes)
+**Task Instructions (written on board or printed on task card):**
 
-Bring the class back together. Select 2–3 pairs to share their "Create" cards (choose different starting representations so students see a variety).
+1. Sort all 16 cards into two groups: **Proportional** and **Not Proportional**
+2. For each proportional card, identify k (the constant of proportionality)
+3. Find at least ONE match: a card from one representation that tells the same story as a card from another representation (or invent a match)
+4. Be ready to explain your reasoning for at least two cards your teacher might ask about
 
-**Discussion Questions:**
-1. *"How did you figure out k from just the table? Just the graph? Just the equation?"*
-2. *"Which representation do YOU find easiest to use? Hardest? Why?"*
-3. *"What's the one thing ALL proportional relationships have in common, no matter which representation you use?"* (Expected: constant ratio / unit rate k)
+**Teacher's role during card sort:**
+- Circulate and listen to reasoning
+- Ask probing questions: "How do you know that graph is proportional? Show me the origin." / "What's k here?" / "Your partner says this table is proportional — do you agree? What's the ratio?"
+- Note common errors to address in closure (e.g., students calling any linear graph proportional)
+- If pairs finish early: "Can you write an equation for every proportional card you found?"
 
-**Teacher Consolidation:**
-Draw a "web" on the board showing the five representations connected to each other, with **k** in the center.
-
-```
-          Verbal Description
-               |
-    Table ─── k ─── Equation
-               |
-             Graph
-               |
-            Diagram
-```
-
-Say: *"No matter where you start — a table, a graph, a story, an equation, a diagram — you can always find k, and you can always move to any other representation. That's the power of what we learned today."*
+**Differentiation:**
+- *Support:* Provide a reference card with the four tests summarized; pre-sort 4 cards correctly as examples
+- *Extend:* Ask students to create their own matched set — write a table, graph, and equation that all describe the same proportional relationship with k = 2.5
 
 ---
 
-### ⏱ 0:52–0:55 | EXIT TICKET (3 minutes)
+### SEGMENT 5 — CLOSURE: Gallery Share + Exit Ticket (10 minutes)
 
-Students complete individually and silently. Collect before they leave.
+#### Gallery Share (4 minutes)
+
+Select 3–4 pairs to share one card from their sort and explain their reasoning. Intentionally choose:
+- One easy/clear case (students agree confidently)
+- One tricky case (e.g., a table where the ratio is constant but (0,0) is not shown — discuss whether we can determine it's proportional from context)
+- One common misconception to address
+
+**Anticipated misconception to address explicitly:**
+If a graph is a straight line but doesn't pass through the origin, some students may still call it proportional because "it goes up at a steady rate." Clarify: *constant rate of change* = linear relationship; *constant rate of change AND passes through origin* = proportional relationship.
+
+---
+
+#### Summarizing Discussion (2 minutes)
+
+Return to the warm-up. Ask:
+- "Now that we've worked through the lesson, can you explain in one sentence why Maria's table is proportional and Jordan's is not?"
+- "What would Jordan's equation look like? Where does that 'extra dollar' show up in the equation?" (y = 2x + 1; the +1 is the starting charge)
+
+---
+
+#### Exit Ticket (4 minutes)
+
+Students complete independently on a slip of paper or index card.
 
 ---
 
 **EXIT TICKET**
 
-**Name: _________________ Period: _______**
+Name: _________________ Date: _________________
 
-A streaming service costs $8 per month.
-
-**1.** Complete the table:
-
-| Months (x) | Total Cost (y) |
-|---|---|
-| 0 | |
-| 1 | |
-| 3 | |
-| 6 | |
-
-**2.** Write the equation: y = _______
-
-**3.** What is the constant of proportionality? What does it mean in this situation?
-
-**4.** Is this a proportional relationship? Circle one: **YES / NO**
-Give ONE piece of evidence from your table OR equation to support your answer.
+1. The table below shows the relationship between gallons of paint used and square feet painted
 
 ---
 
-**Scoring Guide (for teacher use):**
-- 4 correct: Student ready for extension (multi-step proportional problems, comparing two proportional relationships)
-- 2–3 correct: Student grasps concept but needs reinforcement on one representation
-- 0–1 correct: Student needs small-group reteach on identifying proportional relationships in tables
+## Reviewer 1
+❌ FAILED: [ERROR: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.]
 
 ---
 
-## DIFFERENTIATION
+## Reviewer 2
+### Evaluation
+- Hallucinations: false
+- Types: 
 
-### 🔽 Support Strategies
-- Provide anchor chart with the 5 representations checklist throughout the lesson
-- Pre-fill the first two rows of tables so students see the pattern before extending
-- During the match activity, reduce the card set to 2 scenarios (one proportional, one not)
-- Allow students to use calculators for ratio-checking
+### Final Output
+# Proportional Relationships: Recognizing and Representing Them Five Ways
 
-### 🔼 Extension Strategies
-- Ask: *"Can you write a proportional relationship where k is a fraction? What would that look like on a graph?"*
-- Challenge: *"Two lemonade stands charge different prices. Table A and Table B are given. Which is a better deal? How can you tell from just the equation? Just the graph?"*
-- Introduce: *"What if I give you two points — not including the origin — how do you decide if the relationship is proportional?"*
-- Have advanced students write a "cheat sheet" in their own words explaining how to find k from each representation
-
-### ELL Support
-- Pre-teach vocabulary: proportional, constant, ratio, unit
-
----
-
-## Candidate 2
-❌ [ERROR: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.]
-
----
-
-## Candidate 3
-**Lesson Plan: Understanding and Representing Proportional Relationships**  
-**Grade:** 7th Grade  
-**Duration:** 55 minutes  
-**Standard:** CCSS.Math.Content.7.RP.A.2 — Recognize and represent proportional relationships between quantities (in tables, graphs, equations, diagrams, and verbal descriptions).
-
----
-
-### **Objective:**  
-By the end of the lesson, students will be able to recognize proportional relationships and represent them using tables, graphs, equations, diagrams, and verbal descriptions.
-
----
-
-### **Materials Needed:**  
-- Whiteboard and markers  
-- Graph paper  
-- Rulers  
-- Calculators (optional)  
-- Handouts with practice problems and blank tables/graphs  
-- Projector or chart paper for examples  
-- Sticky notes or index cards  
-
----
-
-### **Lesson Outline:**
-
-#### 1. **Introduction (10 minutes)**  
-- **Engage:** Begin with a real-life scenario to spark interest.  
-  *Example:* “If one apple costs $2, how much do 3 apples cost? What about 5 apples?”  
-- Ask students to share their answers and reasoning.  
-- Introduce the term **proportional relationship**: a relationship between two quantities where the ratio is constant.  
-- Write the definition on the board:  
-  *“Two quantities are proportional if they have a constant ratio or rate.”*  
-- Show a simple example:  
-  | Number of apples | Cost ($) |  
-  |------------------|----------|  
-  | 1                | 2        |  
-  | 3                | 6        |  
-  | 5                | 10       |  
-- Highlight the constant ratio (cost per apple = 2).
-
----
-
-#### 2. **Direct Instruction (15 minutes)**  
-- **Representing Proportional Relationships:**  
-  - **Tables:** Show how to organize values in a table and identify constant ratios.  
-  - **Graphs:** Plot the points from the table on a coordinate plane. Emphasize that the graph is a straight line through the origin (0,0).  
-  - **Equations:** Introduce the equation form y = kx, where k is the constant of proportionality.  
-  - **Diagrams:** Use tape diagrams or double number lines to visually represent the relationship.  
-  - **Verbal Descriptions:** Practice describing the relationship in words, e.g., “The cost increases by $2 for each additional apple.”  
-- Use the apple example to demonstrate each representation clearly.  
-- Write the equation for the apple example: y = 2x.
-
----
-
-#### 3. **Guided Practice (15 minutes)**  
-- Provide students with a new scenario:  
-  *“A car travels 60 miles in 1 hour. How far will it travel in 3 hours? 5 hours?”*  
-- Have students:  
-  - Complete a table of values.  
-  - Plot the points on graph paper.  
-  - Write the equation representing the relationship.  
-  - Draw a tape diagram or double number line.  
-  - Write a verbal description of the relationship.  
-- Circulate the room to assist and check for understanding.  
-- Discuss answers as a class, correcting misconceptions.
-
----
-
-#### 4. **Independent Practice (10 minutes)**  
-- Hand out a worksheet with several proportional relationship problems involving different contexts (e.g., price per item, speed and time, recipe ingredients).  
-- Students will:  
-  - Identify if the relationship is proportional.  
-  - Represent it in at least two different ways (table, graph, equation, diagram, or verbal description).  
-- Encourage students to work individually but allow pair discussions if needed.
-
----
-
-#### 5. **Closure and Review (5 minutes)**  
-- Review key points:  
-  - What makes a relationship proportional?  
-  - How to recognize proportional relationships in tables, graphs, equations, diagrams, and words.  
-- Ask a few students to share their representations from the independent practice.  
-- Summarize: Proportional relationships have a constant ratio, can be represented in multiple ways, and their graphs always pass through the origin.
-
----
-
-### **Extension/Homework (Optional):**  
-- Assign students to find a proportional relationship at home (e.g., recipe ingredients, speed and distance, cost and quantity) and represent it in two different ways.
-
----
-
-This lesson plan provides a clear, engaging, and comprehensive approach to teaching proportional relationships aligned with the CCSS standard for 7th grade.
-
----
-
-## Aggregator
-{
-  "hallucinations_found": false,
-  "types": [],
-  "justification": "Candidate A is the clear winner: it is highly detailed, pedagogically rich, well-structured, and fully aligned with CCSS.Math.Content.7.RP.A.2. It covers all five representations, includes warm-up, direct instruction, guided practice, partner activity, share-out, and exit ticket within the 55-minute frame, with no hallucinations found. Candidate B is an error message and is not usable. Candidate C is usable but significantly less detailed and complete than A, lacking differentiation strategies, specific card activities, and the depth of scaffolding present in A.",
-  "corrected_answer": "# Proportional Relationships: Seeing the Connection Everywhere
-### 7th Grade Math | 55-Minute Lesson | CCSS.Math.Content.7.RP.A.2
+### Grade 7 Mathematics | 55-Minute Lesson
 
 ---
 
 ## LESSON OVERVIEW
 
-**Big Idea:** Proportional relationships have a constant ratio (unit rate) that can be seen in tables, graphs, equations, diagrams, and words — and recognizing this connection across all five representations is a powerful mathematical skill.
+**Central Question:** How can you tell if two quantities are proportionally related, and how do you show that relationship in different ways?
 
-**Objective:** Students will be able to identify whether a relationship is proportional, determine the constant of proportionality (k), and represent the relationship in at least three different forms.
+**Learning Objectives:**
+By the end of this lesson, students will be able to:
+1. Determine whether a relationship between two quantities is proportional by examining tables, graphs, equations, and verbal descriptions
+2. Identify the constant of proportionality (unit rate) from each representation
+3. Move fluently between representations — translating a table into a graph, an equation into a table, or a verbal description into an equation
 
 **Materials Needed:**
-- Whiteboard/projector
-- Printed \"Representation Match\" activity cards (one set per pair)
-- Graph paper or printed coordinate grids
-- Colored markers or pencils (at least 2 colors per student)
-- Exit ticket slips (printed or digital)
-- Optional: rulers
+- Graph paper (one sheet per student)
+- Rulers (one per student)
+- Colored markers or pencils (optional but recommended)
+- Whiteboard and markers for teacher
+- "Proportional or Not?" card sort (printed, one set per pair — instructions below)
+- Exit ticket slips (printed or written on index cards)
 
 ---
 
-## LESSON TIMELINE
+## STANDARDS CONNECTIONS
+
+- **Primary:** CCSS.Math.Content.7.RP.A.2 (a, b, c, d)
+- **Supporting:** 6.RP.A.2 (unit rates), 6.RP.A.3 (ratio tables), 8.EE.B.5 (slope as unit rate)
 
 ---
 
-### ⏱ 0:00–0:07 | WARM-UP: \"Which One Doesn't Belong?\" (7 minutes)
+## LESSON STRUCTURE AT A GLANCE
 
-**Setup:** Display the following four tables on the board simultaneously. Students work silently and independently for 3 minutes, then share with a partner for 2 minutes, then briefly share with the class for 2 minutes.
-
-| Table A | | Table B | | Table C | | Table D | |
-|---|---|---|---|---|---|---|---|
-| x | y | x | y | x | y | x | y |
-| 1 | 3 | 2 | 6 | 1 | 5 | 0 | 0 |
-| 2 | 6 | 4 | 10 | 2 | 10 | 3 | 9 |
-| 3 | 9 | 6 | 14 | 3 | 15 | 5 | 15 |
-| 4 | 12 | 8 | 18 | 4 | 20 | 7 | 21 |
-
-**Prompt on Board:** *\"Which one doesn't belong? Be ready to defend your answer with math.\"*
-
-**Discussion Points to Draw Out:**
-- Tables A, C, and D are proportional (constant ratio between y and x)
-- Table B is NOT proportional — the ratio changes (6/2=3, 10/4=2.5, etc.) and it doesn't pass through the origin as a straight line
-- Students may argue different tables \"don't belong\" — that's okay! The goal is mathematical reasoning
-- Introduce/reinforce vocabulary: **ratio**, **constant**, **proportional**
-
-**Teacher Move:** Listen for students who check y/x for every row. Highlight this strategy publicly. Also ask: *\"Does Table D give you any hints? What's special about when x = 0?\"*
+| Segment | Activity | Time |
+|---|---|---|
+| Warm-Up | The Lemonade Stand | 7 min |
+| Direct Instruction | Five Ways to See It | 15 min |
+| Guided Practice | We Do Together | 8 min |
+| Collaborative Activity | Card Sort | 15 min |
+| Closure | Gallery Share + Exit Ticket | 10 min |
 
 ---
 
-### ⏱ 0:07–0:17 | DIRECT INSTRUCTION: The Five Faces of Proportional Relationships (10 minutes)
-
-**Teacher Talk + Modeling**
-
-Anchor the lesson with one real-world context that you'll use to model ALL five representations:
-
-> *\"A lemonade stand charges $2.50 per cup. Let's look at this one situation five different ways.\"*
-
-**Write on board and build each representation together:**
+## DETAILED LESSON PLAN
 
 ---
 
-#### 1. VERBAL DESCRIPTION
-*\"For every cup of lemonade sold, the stand earns $2.50. The amount earned is always 2.5 times the number of cups sold.\"*
+### SEGMENT 1 — WARM-UP: The Lemonade Stand (7 minutes)
 
-Point out: There's a **constant multiplier** — that's the key idea.
-
----
-
-#### 2. TABLE
-
-| Cups Sold (x) | Money Earned (y) |
-|---|---|
-| 0 | $0.00 |
-| 1 | $2.50 |
-| 2 | $5.00 |
-| 4 | $10.00 |
-| 10 | $25.00 |
-
-**Ask:** *\"What do you notice about y ÷ x for each row? What about the row where x = 0?\"*
-
-Point out: The ratio y/x is always 2.5, AND the table includes (0, 0).
+**Setup:** Post the following two scenarios on the board before class begins. As students enter, they should read and begin thinking independently.
 
 ---
 
-#### 3. GRAPH
+**Scenario A:**
+Maria sells lemonade. She charges $2 for every cup.
 
-Draw on the board (or project on coordinate plane):
+| Cups | 1 | 2 | 3 | 4 | 5 |
+|---|---|---|---|---|---|
+| Cost ($) | 2 | 4 | 6 | 8 | 10 |
 
-- Plot the points from the table
-- Connect with a straight line
-- Emphasize the line passes through the **origin (0, 0)**
+**Scenario B:**
+Jordan sells lemonade too. Here's his price table:
 
-**Say:** *\"Two non-negotiable features: straight line AND passes through the origin. If either is missing, it's not proportional.\"*
-
----
-
-#### 4. EQUATION
-
-**Write:** y = 2.5x
-
-**Ask:** *\"Where do you see the 2.50 from our table and verbal description in this equation?\"*
-
-Define: **k = constant of proportionality** → in the form **y = kx**
-
-*\"k is the unit rate. It's the 'per one' amount. Here, k = 2.50 dollars per cup.\"*
+| Cups | 1 | 2 | 3 | 4 | 5 |
+|---|---|---|---|---|---|
+| Cost ($) | 3 | 5 | 7 | 9 | 11 |
 
 ---
 
-#### 5. DIAGRAM (Ratio/Double Number Line)
+**Prompt (written on board):** "Look at both tables. What do you notice? What do you wonder? Are these relationships the same kind, or different?"
+
+Allow 2 minutes of silent thinking, then 2 minutes of pair discussion ("Turn and Talk"), then 3 minutes of whole-class share-out.
+
+**Anticipated student responses:**
+- "In Maria's table, the cost is always double the cups."
+- "In Jordan's table the numbers go up by 2 each time, but it doesn't start at the right place."
+- "If Jordan sold zero cups, it would cost $1, which doesn't make sense."
+
+**Teacher bridge:** "You've just spotted something really important. Maria's relationship is what mathematicians call *proportional*. Jordan's is not — even though it has a pattern. Today we're going to figure out exactly what makes a relationship proportional, and how to show that five different ways."
+
+---
+
+### SEGMENT 2 — DIRECT INSTRUCTION: Five Ways to See It (15 minutes)
+
+Use the whiteboard or projected display for this section. Work through one coherent example — a car traveling at a constant speed of 60 miles per hour — showing all five representations together.
+
+---
+
+**The Anchor Example:** *A car travels at a constant speed of 60 miles per hour.*
+
+**Write on the board as a header:**
+> "A proportional relationship is one where two quantities always have the same ratio — or, said another way, y = kx for some constant k."
+
+---
+
+#### Representation 1 — VERBAL DESCRIPTION (2 minutes)
+
+"The distance a car travels is proportional to the number of hours it drives, at a constant speed of 60 mph."
+
+Ask: "What does 'constant speed' mean in plain English?" (It never speeds up or slows down — every hour covers the same distance.)
+
+Introduce vocabulary:
+- **Proportional relationship:** Two quantities where the ratio y/x is always the same
+- **Constant of proportionality (k):** That constant ratio — also called the unit rate
+
+"Here, k = 60. Every hour, 60 miles. Always."
+
+---
+
+#### Representation 2 — TABLE (3 minutes)
+
+Build the table on the board, asking students to call out the values:
+
+| Hours (x) | Miles (y) | y ÷ x |
+|---|---|---|
+| 0 | 0 | 0/0 — special! |
+| 1 | 60 | 60 |
+| 2 | 120 | 60 |
+| 3 | 180 | 60 |
+| 4 | 240 | 60 |
+
+**Key teaching points:**
+- "The ratio y/x is always 60 — that's how we confirm a proportional relationship in a table."
+- "Notice the table includes (0, 0). If x = 0, y must = 0. This is the first test: does the relationship pass through the origin?"
+- "Compare this to Jordan's lemonade — his ratio was never constant. 3/1 = 3, but 5/2 = 2.5. Not proportional."
+
+---
+
+#### Representation 3 — GRAPH (4 minutes)
+
+Quickly sketch a coordinate plane on the board. Plot the five points from the table and connect them.
+
+**Key teaching points:**
+- "The graph of a proportional relationship is always a straight line..."
+- "...AND it always passes through the origin (0, 0)."
+- "Both conditions must be true. A line that doesn't pass through the origin is linear but NOT proportional."
+
+Draw a contrast: Sketch Jordan's lemonade graph (starts at (0, 1), goes up). "Straight line? Yes. Through the origin? No. Therefore: not proportional."
+
+Ask students: "Where do you see k = 60 in the graph?" Give 30 seconds think time. Lead them to see the steepness — the slope — is 60.
+
+---
+
+#### Representation 4 — EQUATION (3 minutes)
+
+Write: **y = 60x**
+
+"This is the equation form. The constant of proportionality k is always the number multiplied by x."
+
+"The equation of any proportional relationship looks like **y = kx**. That's it. No adding. No subtracting. Just multiplying by k."
+
+Write the non-example: Jordan's lemonade = **y = 2x + 1**. "Adding 1 breaks proportionality. It means even at zero cups, there's a charge."
+
+Ask: "What does k represent in words?" (The unit rate: miles per hour, dollars per cup, etc.)
+
+---
+
+#### Representation 5 — DIAGRAM / DOUBLE NUMBER LINE (3 minutes)
 
 Draw a double number line on the board:
 
 
-Cups:    0────1────2────3────4────5
-              ↕    ↕    ↕    ↕    ↕
-Money:   0──2.50──5.00──7.50─10.00─12.50
+Hours:   0 ——— 1 ——— 2 ——— 3 ——— 4
+Miles:   0 —— 60 —— 120 — 180 — 240
 
 
-**Say:** *\"Every jump of 1 cup corresponds to a jump of $2.50. The ratio stays the same — that's what makes it proportional.\"*
+"A double number line shows the same thing as a table, but visually shows how both quantities grow together at the same rate."
 
----
-
-**Anchor Chart Summary (post on wall or display):**
-
-> ✅ **Proportional Relationship Checklist**
-> - Table: y ÷ x is constant AND includes (0, 0)
-> - Graph: Straight line through the origin
-> - Equation: y = kx (no added or subtracted number)
-> - Diagram: Equal spacing on double number line
-> - Verbal: Constant \"per\" or \"for every\" rate
+"You can also use a ratio diagram — sometimes called a tape diagram — to show equivalent ratios stretching proportionally."
 
 ---
 
-### ⏱ 0:17–0:30 | GUIDED PRACTICE: \"Representation Round-Robin\" (13 minutes)
+**Quick Summary Check (1 minute):**
+Ask students to repeat back: "Tell your neighbor — what are the FOUR TESTS for a proportional relationship?"
 
-**Structure:** Whole class together, teacher calls on students, builds confidence before independent work.
-
-**Present the following scenario:**
-
-> *\"A car travels at a constant speed of 60 miles per hour.\"*
-
-Work through each representation as a class. Use cold-calling, think-pair-share, and volunteers strategically.
-
-**Step 1 — Verbal:** Ask a student to restate the relationship in their own words.
-*Expected: \"For every hour the car drives, it travels 60 miles.\"*
-
-**Step 2 — Table:** Have students contribute values one at a time. Build the table together:
-
-| Hours (x) | Miles (y) |
-|---|---|
-| 0 | 0 |
-| 1 | 60 |
-| 2 | 120 |
-| 3 | 180 |
-| 0.5 | 30 |
-
-**Ask:** *\"Could x be 0.5? Does that make sense in context? What would y be?\"* (This addresses misconceptions that x must be whole numbers.)
-
-**Step 3 — Equation:** *\"Who can write the equation? What is k here?\"*
-Answer: y = 60x, k = 60
-
-**Step 4 — Graph:** Call a student to the board to plot 3 points and draw the line.
-Ask the class: *\"How do we know this is right just by looking?\"*
-
-**Step 5 — Diagram:** Draw the double number line together. Ask students to predict the value at x = 2.5.
-
-**Pause and ask a higher-order question:**
-> *\"If I told you this car traveled 150 miles, could you figure out how long it drove? How?\"*
-*(Use the equation: 150 = 60x, so x = 2.5 hours — previewing solving proportional equations)*
+Confirm:
+1. Table: ratio y/x is constant, AND includes (0, 0)
+2. Graph: straight line through the origin
+3. Equation: in the form y = kx (no added constant)
+4. Verbal/Context: a constant rate with no "starting fee" or "starting amount"
 
 ---
 
-### ⏱ 0:30–0:46 | PARTNER ACTIVITY: \"Representation Match & Create\" (16 minutes)
+### SEGMENT 3 — GUIDED PRACTICE: We Do Together (8 minutes)
 
-**Structure:** Students work in assigned pairs.
+Present a new scenario and work through it together, calling on students at each step.
 
-**Part 1 — Match (8 minutes)**
+---
 
-Distribute pre-cut card sets. Each set contains:
-- 4 verbal descriptions
-- 4 tables (some proportional, some not)
-- 4 graphs (some proportional, some not)
-- 4 equations
+**Problem:** A recipe calls for 3 cups of flour for every 2 cups of sugar.
 
-Students must:
-1. Match each verbal description to its correct table, graph, and equation
-2. Identify and set aside any representations that are **NOT proportional** and write one sentence explaining why
+**Step 1 — Verbal:** Ask a student to describe the relationship in words. ("The amount of flour is proportional to the amount of sugar at a ratio of 3:2.")
 
-**Sample cards in the set:**
+**Step 2 — Table:** Ask students to help fill in:
 
-*Verbal Card 1:* \"A recipe calls for 3 cups of flour for every 1 batch of cookies.\"
+| Sugar (x) | Flour (y) | y/x |
+|---|---|---|
+| 0 | 0 | — |
+| 2 | 3 | 1.5 |
+| 4 | 6 | 1.5 |
+| 6 | 9 | 1.5 |
+| 10 | 15 | 1.5 |
+
+Ask: "Is the ratio constant? Does it include (0, 0)?" ✓ Proportional.
+
+**Step 3 — Equation:** What is k? (1.5, or 3/2). Write: **y = 1.5x** or **y = (3/2)x**
+
+**Step 4 — Graph:** Have students sketch quickly on graph paper using the table values. Ask: "Does it pass through the origin? Is it a straight line?" ✓
+
+**Step 5 — Double Number Line:**
+
+
+Sugar:   0 ——— 2 ——— 4 ——— 6 ——— 10
+Flour:   0 ——— 3 ——— 6 ——— 9 ——— 15
+
+
+Ask: "Where is k hiding in the graph?" (The slope — rise over run — is 3/2 = 1.5)
+
+"Where is k hiding in the double number line?" (Every sugar value multiplied by 1.5 gives the flour value.)
+
+---
+
+### SEGMENT 4 — COLLABORATIVE ACTIVITY: Card Sort (15 minutes)
+
+**Setup:** Each pair of students receives a set of 16 cards (prepared in advance or cut from a printed sheet). Cards show a mix of:
+- 4 tables (2 proportional, 2 not proportional)
+- 4 graphs (2 proportional, 2 not proportional)
+- 4 equations (2 proportional — y = kx form; 2 not — y = mx + b with b ≠ 0)
+- 4 verbal descriptions (2 proportional, 2 not)
+
+**Sample card contents:**
 
 *Table Card A:*
-| Batches | Cups of Flour |
-|---|---|
-| 0 | 0 |
-| 1 | 3 |
-| 2 | 6 |
-| 5 | 15 |
-
-*Graph Card A:* Straight line through origin with slope 3 ✓
-
-*Equation Card A:* y = 3x ✓
-
----
-
-*Verbal Card 2:* \"A taxi charges a $5 flat fee plus $2 per mile.\"
+| x | 1 | 2 | 4 | 8 |
+|---|---|---|---|---|
+| y | 5 | 10 | 20 | 40 |
 
 *Table Card B:*
-| Miles | Cost |
-|---|---|
-| 0 | 5 |
-| 1 | 7 |
-| 2 | 9 |
-| 3 | 11 |
+| x | 1 | 2 | 3 | 4 |
+|---|---|---|---|---|
+| y | 4 | 6 | 8 | 10 |
 
-*Graph Card B:* Straight line that crosses y-axis at 5 (NOT through origin) ✗
+*Graph Card A:* Line through origin with positive slope
+*Graph Card B:* Line with positive slope, y-intercept at (0, 3)
 
-*Equation Card B:* y = 2x + 5 ✗
+*Equation Card A:* y = 7x
+*Equation Card B:* y = 3x + 2
 
-*(This card set is intentionally designed so the taxi scenario does NOT match any proportional representation — students must recognize it as non-proportional)*
-
----
-
-**Part 2 — Create (8 minutes)**
-
-Each pair receives a blank card with one representation already filled in. They must create the remaining three representations.
-
-**Example prompts:**
-
-> *Group A receives the equation:* **y = 4x**
-> → Create a real-world verbal description, a table with 5 pairs, and a graph
-
-> *Group B receives the table:*
-> | x | 1 | 2 | 3 | 6 |
-> | y | 7 | 14 | 21 | 42 |
-> → Write the equation, a verbal description, and draw the graph
-
-> *Group C receives the graph:* A line through origin with slope ½
-> → Write the equation, a verbal description, and a table
-
-**Circulate during both parts.** Listen for:
-- Students correctly identifying k from a table (y ÷ x)
-- Students catching that non-origin-crossing graphs are not proportional
-- Students writing verbal descriptions with a clear \"per\" or \"for every\" unit rate
-
-**Common Misconceptions to Address While Circulating:**
-- *\"It's a straight line so it must be proportional\"* → Redirect to origin requirement
-- *\"y ÷ x isn't constant, so…wait, let me recalculate\"* → Encourage checking multiple rows
-- *\"The equation y = 4x + 0 is different from y = 4x\"* → Great observation! They're the same
+*Verbal Card A:* "A taxi charges $2.50 per mile."
+*Verbal Card B:* "A taxi charges $3.00 to get in, plus $2.00 per mile."
 
 ---
 
-### ⏱ 0:46–0:52 | SHARE OUT + CLASS DISCUSSION (6 minutes)
+**Task Instructions (written on board or printed on task card):**
 
-Bring the class back together. Select 2–3 pairs to share their \"Create\" cards (choose different starting representations so students see a variety).
+1. Sort all 16 cards into two groups: **Proportional** and **Not Proportional**
+2. For each proportional card, identify k (the constant of proportionality)
+3. Find at least ONE match: a card from one representation that tells the same story as a card from another representation (or invent a match)
+4. Be ready to explain your reasoning for at least two cards your teacher might ask about
 
-**Discussion Questions:**
-1. *\"How did you figure out k from just the table? Just the graph? Just the equation?\"*
-2. *\"Which representation do YOU find easiest to use? Hardest? Why?\"*
-3. *\"What's the one thing ALL proportional relationships have in common, no matter which representation you use?\"* (Expected: constant ratio / unit rate k)
+**Teacher's role during card sort:**
+- Circulate and listen to reasoning
+- Ask probing questions: "How do you know that graph is proportional? Show me the origin." / "What's k here?" / "Your partner says this table is proportional — do you agree? What's the ratio?"
+- Note common errors to address in closure (e.g., students calling any linear graph proportional)
+- If pairs finish early: "Can you write an equation for every proportional card you found?"
 
-**Teacher Consolidation:**
-Draw a \"web\" on the board showing the five representations connected to each other, with **k** in the center.
+**Differentiation:**
+- *Support:* Provide a reference card with the four tests summarized; pre-sort 4 cards correctly as examples
+- *Extend:* Ask students to create their own matched set — write a table, graph, and equation that all describe the same proportional relationship with k = 2.5
+
+---
+
+### SEGMENT 5 — CLOSURE: Gallery Share + Exit Ticket (10 minutes)
+
+#### Gallery Share (4 minutes)
+
+Select 3–4 pairs to share one card from their sort and explain their reasoning. Intentionally choose:
+- One easy/clear case (students agree confidently)
+- One tricky case (e.g., a table where the ratio is constant but (0,0) is not shown — discuss whether we can determine it's proportional from context)
+- One common misconception to address
+
+**Anticipated misconception to address explicitly:**
+If a graph is a straight line but doesn't pass through the origin, some students may still call it proportional because "it goes up at a steady rate." Clarify: *constant rate of change* = linear relationship; *constant rate of change AND passes through origin* = proportional relationship.
+
+---
+
+#### Summarizing Discussion (2 minutes)
+
+Return to the warm-up. Ask:
+- "Now that we've worked through the lesson, can you explain in one sentence why Maria's table is proportional and Jordan's is not?"
+- "What would Jordan's equation look like? Where does that 'extra dollar' show up in the equation?" (y = 2x + 1; the +1 is the starting charge)
+
+---
+
+#### Exit Ticket (4 minutes)
+
+Students complete independently on a slip of paper or index card.
+
+---
+
+**EXIT TICKET**
+
+Name: _________________ Date: _________________
+
+1. The table below shows the relationship between gallons of paint used and square feet painted
+
+---
+
+## Final Reviewer
+{
+  "hallucinations_found": false,
+  "types": [],
+  "justification": "The answer is a detailed lesson plan for a Grade 7 mathematics class on proportional relationships. All content consists of instructional examples, pedagogical explanations, hypothetical scenarios, and fictional teaching contexts. There are no real-world factual claims, fabricated citations, invented statistics, or attributions to external sources that require verification. The CCSS standards referenced (7.RP.A.2, 6.RP.A.2, 6.RP.A.3, 8.EE.B.5) are real Common Core State Standards and are correctly described in context. The mathematical content (proportional relationships, y=kx, slope, origin, constant of proportionality) is accurate and standard. No hallucinations were identified.",
+  "corrected_answer": "# Proportional Relationships: Recognizing and Representing Them Five Ways
+
+### Grade 7 Mathematics | 55-Minute Lesson
+
+---
+
+## LESSON OVERVIEW
+
+**Central Question:** How can you tell if two quantities are proportionally related, and how do you show that relationship in different ways?
+
+**Learning Objectives:**
+By the end of this lesson, students will be able to:
+1. Determine whether a relationship between two quantities is proportional by examining tables, graphs, equations, and verbal descriptions
+2. Identify the constant of proportionality (unit rate) from each representation
+3. Move fluently between representations — translating a table into a graph, an equation into a table, or a verbal description into an equation
+
+**Materials Needed:**
+- Graph paper (one sheet per student)
+- Rulers (one per student)
+- Colored markers or pencils (optional but recommended)
+- Whiteboard and markers for teacher
+- \"Proportional or Not?\" card sort (printed, one set per pair — instructions below)
+- Exit ticket slips (printed or written on index cards)
+
+---
+
+## STANDARDS CONNECTIONS
+
+- **Primary:** CCSS.Math.Content.7.RP.A.2 (a, b, c, d)
+- **Supporting:** 6.RP.A.2 (unit rates), 6.RP.A.3 (ratio tables), 8.EE.B.5 (slope as unit rate)
+
+---
+
+## LESSON STRUCTURE AT A GLANCE
+
+| Segment | Activity | Time |
+|---|---|---|
+| Warm-Up | The Lemonade Stand | 7 min |
+| Direct Instruction | Five Ways to See It | 15 min |
+| Guided Practice | We Do Together | 8 min |
+| Collaborative Activity | Card Sort | 15 min |
+| Closure | Gallery Share + Exit Ticket | 10 min |
+
+---
+
+## DETAILED LESSON PLAN
+
+---
+
+### SEGMENT 1 — WARM-UP: The Lemonade Stand (7 minutes)
+
+**Setup:** Post the following two scenarios on the board before class begins. As students enter, they should read and begin thinking independently.
+
+---
+
+**Scenario A:**
+Maria sells lemonade. She charges $2 for every cup.
+
+| Cups | 1 | 2 | 3 | 4 | 5 |
+|---|---|---|---|---|---|
+| Cost ($) | 2 | 4 | 6 | 8 | 10 |
+
+**Scenario B:**
+Jordan sells lemonade too. Here's his price table:
+
+| Cups | 1 | 2 | 3 | 4 | 5 |
+|---|---|---|---|---|---|
+| Cost ($) | 3 | 5 | 7 | 9 | 11 |
+
+---
+
+**Prompt (written on board):** \"Look at both tables. What do you notice? What do you wonder? Are these relationships the same kind, or different?\"
+
+Allow 2 minutes of silent thinking, then 2 minutes of pair discussion (\"Turn and Talk\"), then 3 minutes of whole-class share-out.
+
+**Anticipated student responses:**
+- \"In Maria's table, the cost is always double the cups.\"
+- \"In Jordan's table the numbers go up by 2 each time, but it doesn't start at the right place.\"
+- \"If Jordan sold zero cups, it would cost $1, which doesn't make sense.\"
+
+**Teacher bridge:** \"You've just spotted something really important. Maria's relationship is what mathematicians call *proportional*. Jordan's is not — even though it has a pattern. Today we're going to figure out exactly what makes a relationship proportional, and how to show that five different ways.\"
+
+---
+
+### SEGMENT 2 — DIRECT INSTRUCTION: Five Ways to See It (15 minutes)
+
+Use the whiteboard or projected display for this section. Work through one coherent example — a car traveling at a constant speed of 60 miles per hour — showing all five representations together.
+
+---
+
+**The Anchor Example:** *A car travels at a constant speed of 60 miles per hour.*
+
+**Write on the board as a header:**
+> \"A proportional relationship is one where two quantities always have the same ratio — or, said another way, y = kx for some constant k.\"
+
+---
+
+#### Representation 1 — VERBAL DESCRIPTION (2 minutes)
+
+\"The distance a car travels is proportional to the number of hours it drives, at a constant speed of 60 mph.\"
+
+Ask: \"What does 'constant speed' mean in plain English?\" (It never speeds up or slows down — every hour covers the same distance.)
+
+Introduce vocabulary:
+- **Proportional relationship:** Two quantities where the ratio y/x is always the same
+- **Constant of proportionality (k):** That constant ratio — also called the unit rate
+
+\"Here, k = 60. Every hour, 60 miles. Always.\"
+
+---
+
+#### Representation 2 — TABLE (3 minutes)
+
+Build the table on the board, asking students to call out the values:
+
+| Hours (x) | Miles (y) | y ÷ x |
+|---|---|---|
+| 0 | 0 | 0/0 — special! |
+| 1 | 60 | 60 |
+| 2 | 120 | 60 |
+| 3 | 180 | 60 |
+| 4 | 240 | 60 |
+
+**Key teaching points:**
+- \"The ratio y/x is always 60 — that's how we confirm a proportional relationship in a table.\"
+- \"Notice the table includes (0, 0). If x = 0, y must = 0. This is the first test: does the relationship pass through the origin?\"
+- \"Compare this to Jordan's lemonade — his ratio was never constant. 3/1 = 3, but 5/2 = 2.5. Not proportional.\"
+
+---
+
+#### Representation 3 — GRAPH (4 minutes)
+
+Quickly sketch a coordinate plane on the board. Plot the five points from the table and connect them.
+
+**Key teaching points:**
+- \"The graph of a proportional relationship is always a straight line...\"
+- \"...AND it always passes through the origin (0, 0).\"
+- \"Both conditions must be true. A line that doesn't pass through the origin is linear but NOT proportional.\"
+
+Draw a contrast: Sketch Jordan's lemonade graph (starts at (0, 1), goes up). \"Straight line? Yes. Through the origin? No. Therefore: not proportional.\"
+
+Ask students: \"Where do you see k = 60 in the graph?\" Give 30 seconds think time. Lead them to see the steepness — the slope — is 60.
+
+---
+
+#### Representation 4 — EQUATION (3 minutes)
+
+Write: **y = 60x**
+
+\"This is the equation form. The constant of proportionality k is always the number multiplied by x.\"
+
+\"The equation of any proportional relationship looks like **y = kx**. That's it. No adding. No subtracting. Just multiplying by k.\"
+
+Write the non-example: Jordan's lemonade = **y = 2x + 1**. \"Adding 1 breaks proportionality. It means even at zero cups, there's a charge.\"
+
+Ask: \"What does k represent in words?\" (The unit rate: miles per hour, dollars per cup, etc.)
+
+---
+
+#### Representation 5 — DIAGRAM / DOUBLE NUMBER LINE (3 minutes)
+
+Draw a double number line on the board:
 
 
-          Verbal Description
-               |
-    Table ─── k ─── Equation
-               |
-             Graph
-               |
-            Diagram
+Hours:   0 ——— 1 ——— 2 ——— 3 ——— 4
+Miles:   0 —— 60 —— 120 — 180 — 240
 
 
-Say: *\"No matter where you start — a table, a graph, a story, an equation, a diagram — you can always find k, and you can always move to any other representation. That's the power of what we learned
+\"A double number line shows the same thing as a table, but visually shows how both quantities grow together at the same rate.\"
+
+\"You can also use a ratio diagram — sometimes called a tape diagram — to show equivalent ratios stretching proportionally.\"
+
+---
+
+**Quick Summary Check (1 minute):**
+Ask students to repeat back: \"Tell your neighbor — what are the FOUR TESTS for a proportional relationship?\"
+
+Confirm:
+1. Table: ratio y/x is constant, AND includes (0, 0)
+2. Graph: straight line through the origin
+3. Equation: in the form y = kx (no added constant)
+4. Verbal/Context: a constant rate with no \"starting fee\" or \"starting amount\"
+
+---
+
+### SEGMENT 3 — GUIDED PRACTICE: We Do Together (8 minutes)
+
+Present a new scenario and work through it together, calling on students at each step.
+
+---
+
+**Problem:** A recipe calls for 3 cups of flour for every 2 cups of sugar.
+
+**Step 1 — Verbal:** Ask a student to describe the relationship in words. (\"The amount of flour is proportional to the amount of sugar at a ratio of 3:2.\")
+
+**Step 2 — Table:** Ask students to help fill in:
+
+| Sugar (x) | Flour (y) | y/x |
+|---|---|---|
+| 0 | 0 | — |
+| 2 | 3 | 1.5 |
+| 4 | 6 | 1.5 |
+| 6 | 9 | 1.5 |
+| 10 | 15 | 1.5 |
+
+Ask: \"Is the ratio constant? Does it include (0, 0)?\" ✓ Proportional.
+
+**Step 3 — Equation:** What is k? (1.5, or 3/2). Write: **y = 1.5x** or **y = (3/2)x**
+
+**Step 4 — Graph:** Have students sketch quickly on graph paper using the table values. Ask: \"Does it pass through the origin? Is it a straight line?\" ✓
+
+**Step 5 — Double Number Line:**
+
+
+Sugar:   0 ——— 2 ——— 4 ——— 6 ——— 10
+Flour:   0 ——— 3 ——— 6 ——— 9 ——— 15
+
+
+Ask: \"Where is k hiding in the graph?\" (The slope — rise over run — is 3/2 = 1.5)
+
+\"Where is k hiding in the double number line?\" (Every sugar value multiplied by 1.5 gives the flour value.)
+
+---
+
+### SEGMENT 4 — COLLABORATIVE ACTIVITY: Card Sort (15 minutes)
+
+**Setup:** Each pair of students receives a set of 16 cards (prepared in advance or cut from a printed sheet). Cards show a mix of:
+- 4 tables (2 proportional, 2 not proportional)
+- 4 graphs (2 proportional, 2 not proportional)
+- 4 equations (2 proportional — y = kx form; 2 not — y = mx + b with b ≠ 0)
+- 4 verbal descriptions (2 proportional, 2 not)
+
+**Sample card contents:**
+
+*Table Card A:*
+| x | 1 | 2 | 4 | 8 |
+|---|---|---|---|---|
+| y | 5 | 10 | 20 | 40 |
+
+*Table Card B:*
+| x | 1 | 2 | 3 | 4 |
+|---|---|---|---|---|
+| y | 4 | 6 | 8 | 10 |
+
+*Graph Card A:* Line through origin with positive slope
+*Graph Card B:* Line with positive slope, y-intercept at (0, 3)
+
+*Equation Card A:* y = 7x
+*Equation Card B:* y = 3x + 2
+
+*Verbal Card A:* \"A taxi charges $2.50 per mile.\"
+*Verbal Card B:* \"A taxi charges $3.00 to get in, plus $2.00 per mile.\"
+
+---
+
+**Task Instructions (written on board or printed on task card):**
+
+1. Sort all 16 cards into two groups: **Proportional** and **Not Proportional**
+2. For each proportional card, identify k (the constant of proportionality)
+3. Find at least ONE match: a card from one representation that tells the same story as a card from another representation (or invent a match)
+4. Be ready to explain your reasoning for at least two cards your teacher
