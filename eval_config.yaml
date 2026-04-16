@@ -146,7 +146,7 @@ task: |
   4: Deeply reflects on and critiques own reasoning and assumptions, showing willingness to question and adjust.
   
 
-#cases:
+cases:
   - id: "student_1"
     input: "I think our school should have a longer recess. Right now it is only 15 minutes, and many students still feel tired when class starts again. If recess were about 25 minutes, students could rest and move their bodies, which might help them focus better in class.
 
