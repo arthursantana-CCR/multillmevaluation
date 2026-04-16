@@ -115,7 +115,15 @@ task: |
 
   CCSS.ELA-Literacy.W.7.1 — Write arguments to support claims with clear reasons and relevant evidence, including acknowledging alternate or opposing claims and organizing reasoning logically.
 
-cases: []
+#cases:
+#  - id: "student_1"
+#    input: "Student text 1..."
+#
+#  - id: "student_2"
+#    input: "Student text 2..."
+#
+#  - id: "student_3"
+#    input: "Student text 3..."
 
 output_format:
   type: "json_only"
