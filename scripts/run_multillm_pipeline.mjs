@@ -38,6 +38,19 @@ function isRetryableStatus(status) {
   return status === 429 || status === 500 || status === 503 || status === 504;
 }
 
+// 🔹 NEW: unified task handler
+function buildTaskInput({ config, caseConfig }) {
+  if (config.task_type === "generation") {
+    return config.task;
+  }
+
+  if (config.task_type === "evaluation") {
+    return `${config.task}\n\nINPUT:\n${JSON.stringify(caseConfig)}`;
+  }
+
+  throw new Error(`Unknown task_type: ${config.task_type}`);
+}
+
 function buildFallbackObject(rawText, fallbackText = "") {
   return {
     hallucinations_found: false,
@@ -47,8 +60,8 @@ function buildFallbackObject(rawText, fallbackText = "") {
       typeof fallbackText === "string" && fallbackText
         ? fallbackText
         : typeof rawText === "string"
-          ? rawText
-          : "",
+        ? rawText
+        : "",
   };
 }
 
@@ -90,7 +103,6 @@ function normalizeReviewerOutput(rawText, fallbackText = "") {
     return buildFallbackObject(rawText, fallbackText);
   }
 
-  // 🔥 NEW: strip markdown code fences
   const cleaned = rawText
     .replace(/```json/gi, "")
     .replace(/```/g, "")
@@ -113,7 +125,6 @@ function normalizeReviewerOutput(rawText, fallbackText = "") {
         typeof parsed.justification === "string" ? parsed.justification : "",
       corrected_answer: correctedAnswer,
     };
-
   } catch (err) {
     console.warn("⚠️ JSON parsing failed. Using fallback parser.");
     return fallbackParse(rawText, fallbackText);
@@ -129,8 +140,12 @@ async function main() {
   const runTimeUtc = new Date().toISOString();
   const runId = sanitizeRunId(runTimeUtc);
 
+  const cases = config.task_type === "generation"
+    ? [{ id: "generation_task", input: "N/A" }]
+    : config.cases;
+
   const caseResults = [];
-  for (const caseConfig of config.cases) {
+  for (const caseConfig of cases) {
     const caseResult = await runCase(caseConfig, config);
     caseResults.push(caseResult);
   }
@@ -157,11 +172,10 @@ async function main() {
     cases: caseResults,
   };
 
-await writeResults(runResult, runId);
+  await writeResults(runResult, runId);
+  await import("./render_results.mjs");
 
-await import("./render_results.mjs");
-
-console.log(`Run complete: ${runId}`);
+  console.log(`Run complete: ${runId}`);
 }
 
 // ================== CONFIG ==================
@@ -174,6 +188,12 @@ async function loadConfig(configPath) {
 function validateConfig(config) {
   if (!config.pipeline) {
     throw new Error("Missing pipeline config");
+  }
+
+  if (config.task_type === "evaluation") {
+    if (!config.cases || config.cases.length === 0) {
+      throw new Error("Evaluation tasks require cases");
+    }
   }
 }
 
@@ -189,142 +209,26 @@ async function runCase(caseConfig, config) {
   return runSequentialCase(caseConfig, config);
 }
 
-// ================== SEQUENTIAL ==================
-
-async function runSequentialCase(caseConfig, config) {
-  const seq = config.pipeline.models;
-
-  const generator = seq.find((m) => m.role === "generator");
-  const r1 = seq.find((m) => m.role === "reviewer_1");
-  const r2 = seq.find((m) => m.role === "reviewer_2");
-  const rf = seq.find((m) => m.role === "final_reviewer");
-
-  const generatorPrompt = buildGeneratorPrompt(caseConfig, config);
-
-  const generatorRaw = await callModel({
-    provider: generator.provider,
-    model: generator.model,
-    systemInstruction: generatorPrompt.systemInstruction,
-    userPrompt: generatorPrompt.userPrompt,
-    parameters: config.parameters,
-  });
-
-  let currentValidOutput = generatorRaw;
-
-  const reviewer1Result = await callReviewerWithRetry({
-    provider: r1.provider,
-    model: r1.model,
-    systemInstruction: config.system_instruction,
-    baseUserPrompt: buildReviewerPrompt({
-      config,
-      previousOutput: currentValidOutput,
-    }),
-    parameters: config.parameters,
-    fallbackText: currentValidOutput,
-    config,
-  });
-
-  if (reviewer1Result.status === "success") {
-    const normalized = reviewer1Result.parsed_review;
-    if (!normalized.corrected_answer) {
-      console.warn("⚠️ Missing corrected_answer. Using previous valid output.");
-    } else {
-      currentValidOutput = normalized.corrected_answer;
-    }
-  }
-
-  const reviewer2Result = await callReviewerWithRetry({
-    provider: r2.provider,
-    model: r2.model,
-    systemInstruction: config.system_instruction,
-    baseUserPrompt: buildReviewerPrompt({
-      config,
-      previousOutput: currentValidOutput,
-    }),
-    parameters: config.parameters,
-    fallbackText: currentValidOutput,
-    config,
-  });
-
-  if (reviewer2Result.status === "success") {
-    const normalized = reviewer2Result.parsed_review;
-    if (!normalized.corrected_answer) {
-      console.warn("⚠️ Missing corrected_answer. Using previous valid output.");
-    } else {
-      currentValidOutput = normalized.corrected_answer;
-    }
-  }
-
-  const finalResult = await callReviewerWithRetry({
-    provider: rf.provider,
-    model: rf.model,
-    systemInstruction: config.system_instruction,
-    baseUserPrompt: buildReviewerPrompt({
-      config,
-      previousOutput: currentValidOutput,
-    }),
-    parameters: config.parameters,
-    fallbackText: currentValidOutput,
-    config,
-  });
-
-  if (finalResult.status === "success") {
-    const normalized = finalResult.parsed_review;
-    if (!normalized.corrected_answer) {
-      console.warn("⚠️ Missing corrected_answer. Using previous valid output.");
-    } else {
-      currentValidOutput = normalized.corrected_answer;
-    }
-  }
-
-  return {
-    case_id: caseConfig.id,
-    prompt: generatorPrompt.userPrompt,
-    model_sequence: buildModelSequence(seq),
-    outputs: {
-      generator_output: {
-        status: "success",
-        raw_text: generatorRaw,
-      },
-      reviewer_1_output: reviewer1Result,
-      reviewer_2_output: reviewer2Result,
-      final_reviewer_output: finalResult,
-      final_output: currentValidOutput,
-    },
-  };
-}
-
 // ================== CONSENSUS ==================
 
 async function runConsensusCase(caseConfig, config) {
   const { generators, aggregator } = config.pipeline.consensus;
 
-  const generatorPrompt = `
-${config.task}
-
-${JSON.stringify(caseConfig)}
-`;
+  const taskInput = buildTaskInput({ config, caseConfig });
 
   const candidateOutputs = await Promise.all(
     generators.map((m) =>
       callModel({
         provider: m.provider,
         model: m.model,
-        systemInstruction: "", // important for Gemini
+        systemInstruction: "",
         userPrompt: `
 You are a helpful AI assistant.
 
-Your task is to generate a complete and high-quality response based on the instructions provided.
-
-Do NOT perform evaluation, analysis, or structured reporting.
-
-Focus only on producing the best possible final answer.
+Your task is to generate a complete and high-quality response.
 
 TASK:
-${config.task}
-
-INPUT:
-${JSON.stringify(caseConfig)}
+${taskInput}
 `,
         parameters: config.parameters,
       })
@@ -336,59 +240,7 @@ ${JSON.stringify(caseConfig)}
   const aggregationPrompt = `
 You are an evaluator in a multi-model system.
 
-Your task is to evaluate THREE candidate answers and select the best one.
-
-IMPORTANT:
-You must evaluate EACH candidate before making a decision.
-
----
-
-STEP 1 — Evaluate each candidate
-
-For EACH answer (A, B, C), consider:
-
-1. Is the answer usable?
-   - If it contains an error message (e.g., "[ERROR: ...]"), it is NOT usable
-
-2. Does it contain hallucinations?
-   - Apply the hallucination rubric strictly
-
-3. Overall quality:
-   - completeness
-   - clarity
-   - pedagogical usefulness
-   - alignment with the task
-
----
-
-STEP 2 — Selection rules
-
-Follow this priority order:
-
-1. Prefer answers that are usable (not error messages)
-2. Prefer answers with fewer hallucinations
-3. If multiple answers are similar in hallucination level:
-   → choose the one with higher overall quality
-
-IMPORTANT:
-- Do NOT select an answer that is an error message unless ALL answers are errors
-- Do NOT assume an answer is correct just because it is detailed
-
----
-
-STEP 3 — Output
-
-You must return ONLY valid JSON in this format:
-
-{
-  "selected_model": "A" | "B" | "C",
-  "justification": "<clear reasoning explaining your selection>",
-  "hallucinations_found": <true or false>,
-  "types": <array>,
-  "corrected_answer": "<final selected answer>"
-}
-
----
+Evaluate THREE answers and select the best one.
 
 CANDIDATES:
 
@@ -402,14 +254,6 @@ C:
 ${c3}
 
 ${config.output_format?.template}
-
-Additional instructions:
-- In the output JSON:
-  - "selected_model" must be "A", "B", or "C"
-  - "reasoning" must briefly justify your choice
-- In "corrected_answer":
-  - Output ONLY the selected answer
-  - Do NOT modify it unless necessary to fix critical issues
 `;
 
   const finalOutput = await callModel({
@@ -422,7 +266,7 @@ Additional instructions:
 
   return {
     case_id: caseConfig.id,
-    prompt: generatorPrompt,
+    prompt: taskInput,
     model_sequence: [],
     outputs: {
       candidate_1: { raw_text: c1 },
@@ -431,265 +275,6 @@ Additional instructions:
       final_output: finalOutput,
     },
   };
-}
-
-// ================== RETRY ==================
-
-async function callReviewerWithRetry(args) {
-  const raw = await callModel({ ...args, userPrompt: args.baseUserPrompt });
-
-  if (isModelError(raw)) {
-    return {
-      status: "failed",
-      raw_text: raw,
-      error_type: detectErrorType(raw),
-      parsed_review: {
-        hallucinations_found: false,
-        types: [],
-        justification: "",
-        corrected_answer: args.fallbackText || "",
-      },
-    };
-  }
-
-  const normalized = normalizeReviewerOutput(raw, args.fallbackText);
-
-  return {
-    status: "success",
-    raw_text: raw,
-    parsed_review: normalized,
-  };
-}
-
-function parseReviewerOutput(rawText, fallbackText = "") {
-  return normalizeReviewerOutput(rawText, fallbackText);
-}
-
-// ================== PROMPTS ==================
-function buildReviewerPrompt({ config, previousOutput }) {
-  let prompt = `
-You are a reviewer in a multi-step AI evaluation pipeline.
-
-Your task is to evaluate the following answer for hallucinations and correct it if necessary.
-
-IMPORTANT:
-- You MUST follow the required JSON output format exactly
-- Do NOT include any text outside the JSON
-- If no hallucinations are found, return the original answer unchanged
-
-ANSWER TO REVIEW:
-${previousOutput}
-`;
-
-  if (config.hallucination_rubric) {
-    prompt += `\n\nHALLUCINATION RUBRIC:\n${config.hallucination_rubric}`;
-  }
-
-  if (config.output_format?.template) {
-    prompt += `\n\nOUTPUT FORMAT:\n${config.output_format.template}`;
-  }
-
-  return prompt;
-}
-
-function buildGeneratorPrompt(caseConfig, config) {
-  const generatorSystemInstruction = `
-You are an expert educator.
-
-Your task is to generate a complete, high-quality response based on the instructions provided.
-
-IMPORTANT:
-- Do NOT perform evaluation or hallucination analysis
-- Do NOT output JSON
-- Output ONLY the final lesson plan as free text
-- Do NOT include any structured metadata
-
-Focus on clarity, completeness, and pedagogical quality.
-`;
-
-  if (config.task_type === "generation") {
-    return {
-      systemInstruction: generatorSystemInstruction,
-      userPrompt: config.task,
-    };
-  }
-
-  return {
-    systemInstruction: generatorSystemInstruction,
-    userPrompt: `${config.task}\n\n${JSON.stringify(caseConfig)}`,
-  };
-}
-
-// ================== MODEL CALLS ==================
-
-async function callModel(args) {
-  if (args.provider === "openai") return callOpenAI(args);
-  if (args.provider === "anthropic") return callAnthropic(args);
-  if (args.provider === "google") return callGemini(args);
-  throw new Error(`Unknown provider: ${args.provider}`);
-}
-
-async function callOpenAI({ model, systemInstruction, userPrompt, parameters }) {
-  const res = await fetch("https://api.openai.com/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      model,
-      messages: [
-        { role: "system", content: systemInstruction },
-        { role: "user", content: userPrompt },
-      ],
-      temperature: parameters.temperature,
-      max_tokens: parameters.max_tokens,
-    }),
-  });
-
-  const data = await res.json();
-  const text = data.choices?.[0]?.message?.content || "";
-
-  if (typeof text === "string" && text && !text.trim().startsWith("{")) {
-    console.warn("⚠️ Non-JSON output detected from OpenAI model");
-  }
-
-  return text;
-}
-
-async function callAnthropic({ model, systemInstruction, userPrompt, parameters }) {
-  const res = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: {
-      "x-api-key": process.env.ANTHROPIC_API_KEY,
-      "Content-Type": "application/json",
-      "anthropic-version": "2023-06-01",
-    },
-    body: JSON.stringify({
-      model,
-      system: systemInstruction,
-      messages: [{ role: "user", content: userPrompt }],
-      max_tokens: parameters.max_tokens,
-    }),
-  });
-
-  const data = await res.json();
-  const text = data.content?.[0]?.text || "";
-
-  if (typeof text === "string" && text && !text.trim().startsWith("{")) {
-    console.warn("⚠️ Non-JSON output detected from Anthropic model");
-  }
-
-  return text;
-}
-
-async function callGemini({ model, systemInstruction, userPrompt, parameters }) {
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${process.env.GEMINI_API_KEY}`;
-
-  const body = {
-    contents: [
-      {
-        role: "user",
-        parts: [{ text: userPrompt }],
-      },
-    ],
-    generationConfig: {
-      temperature: parameters?.temperature ?? 0,
-      maxOutputTokens: parameters?.max_tokens ?? 1024,
-    },
-  };
-
-  if (systemInstruction) {
-    body.systemInstruction = {
-      parts: [{ text: systemInstruction }],
-    };
-  }
-
-  const maxAttempts = 4;
-  let lastError = null;
-
-  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
-    try {
-      const res = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        if (isRetryableStatus(res.status) && attempt < maxAttempts) {
-          const delay = Math.min(1000 * 2 ** (attempt - 1), 8000);
-          const jitter = Math.floor(Math.random() * 300);
-          console.warn(
-            `Gemini retryable error ${res.status} on attempt ${attempt}/${maxAttempts}. Retrying in ${delay + jitter}ms`
-          );
-          await sleep(delay + jitter);
-          continue;
-        }
-
-        const errorMessage =
-          data?.error?.message ||
-          `Gemini API error ${res.status}: ${JSON.stringify(data)}`;
-
-        console.error("Gemini API error:", JSON.stringify(data, null, 2));
-        return `[ERROR: ${errorMessage}]`;
-      }
-
-      if (data.promptFeedback?.blockReason) {
-        console.error("Gemini prompt blocked:", JSON.stringify(data, null, 2));
-        return "[ERROR: Gemini prompt blocked]";
-      }
-
-      const candidate = data.candidates?.[0];
-
-      if (!candidate) {
-        console.error("Gemini returned no candidates:", JSON.stringify(data, null, 2));
-        return "[ERROR: Gemini returned no candidates]";
-      }
-
-      if (candidate.finishReason && candidate.finishReason !== "STOP") {
-        console.error(
-          "Gemini candidate did not finish normally:",
-          JSON.stringify(data, null, 2)
-        );
-        return `[ERROR: Gemini finish reason: ${candidate.finishReason}]`;
-      }
-
-      const text = (candidate.content?.parts || [])
-        .map((part) => part.text || "")
-        .join("")
-        .trim();
-
-      if (!text) {
-        console.error("Gemini returned empty text:", JSON.stringify(data, null, 2));
-        return "[ERROR: Gemini empty text]";
-      }
-
-      if (!text.trim().startsWith("{")) {
-        console.warn("⚠️ Non-JSON output detected from Gemini model");
-      }
-
-      return text;
-    } catch (err) {
-      lastError = err;
-
-      if (attempt < maxAttempts) {
-        const delay = Math.min(1000 * 2 ** (attempt - 1), 8000);
-        const jitter = Math.floor(Math.random() * 300);
-        console.warn(
-          `Gemini request failed on attempt ${attempt}/${maxAttempts}: ${err.message}. Retrying in ${delay + jitter}ms`
-        );
-        await sleep(delay + jitter);
-        continue;
-      }
-    }
-  }
-
-  return `[ERROR: ${lastError?.message || "Gemini request failed"}]`;
 }
 
 // ================== IO ==================
