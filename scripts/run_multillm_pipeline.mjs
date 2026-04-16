@@ -355,65 +355,28 @@ ${taskInput}
 
   const [c1, c2, c3] = candidateOutputs;
 
-  const aggregationPrompt = `
-You are an evaluator in a multi-model system.
+const aggregationPrompt = `
+You are the aggregator in a multi-model evaluation pipeline.
 
-Your task is to evaluate THREE candidate answers and select the best one.
+Your task is to evaluate THREE candidate answers, compare them using the hallucination rubric and task quality criteria, and return ONE final JSON object.
 
-IMPORTANT:
-You must evaluate EACH candidate before making a decision.
+You must be conservative, deterministic, and brief.
+Do NOT invent facts, citations, or corrections.
+Do NOT add any text outside the JSON.
 
----
+--------------------------------------------------
+TASK
+--------------------------------------------------
+${taskInput}
 
-STEP 1 — Evaluate each candidate
+--------------------------------------------------
+HALLUCINATION RUBRIC
+--------------------------------------------------
+${config.hallucination_rubric}
 
-For EACH answer (A, B, C), consider:
-
-1. Is the answer usable?
-   - If it contains an error message (e.g., "[ERROR: ...]"), it is NOT usable
-
-2. Does it contain hallucinations?
-   - Apply the hallucination rubric strictly
-
-3. Overall quality:
-   - completeness
-   - clarity
-   - pedagogical usefulness
-   - alignment with the task
-
----
-
-STEP 2 — Selection rules
-
-Follow this priority order:
-
-1. Prefer answers that are usable (not error messages)
-2. Prefer answers with fewer hallucinations
-3. If multiple answers are similar in hallucination level:
-   → choose the one with higher overall quality
-
-IMPORTANT:
-- Do NOT select an answer that is an error message unless ALL answers are errors
-- Do NOT assume an answer is correct just because it is detailed
-
----
-
-STEP 3 — Output
-
-You must return ONLY valid JSON in this format:
-
-{
-  "selected_model": "A" | "B" | "C",
-  "justification": "<clear reasoning explaining your selection>",
-  "hallucinations_found": <true or false>,
-  "types": <array>,
-  "corrected_answer": "<final selected answer>"
-}
-
----
-
-CANDIDATES:
-
+--------------------------------------------------
+CANDIDATES
+--------------------------------------------------
 A:
 ${c1}
 
@@ -423,15 +386,91 @@ ${c2}
 C:
 ${c3}
 
-${config.output_format?.template}
+--------------------------------------------------
+REQUIRED DECISION PROCESS
+--------------------------------------------------
+Evaluate ALL three candidates in the following order.
 
-Additional instructions:
-- In the output JSON:
-  - "selected_model" must be "A", "B", or "C"
-  - "reasoning" must briefly justify your choice
-- In "corrected_answer":
-  - Output ONLY the selected answer
-  - Do NOT modify it unless necessary to fix critical issues
+STEP 1 — Usability check
+For each candidate, first determine whether it is usable.
+
+A candidate is NOT usable if:
+- it is an error message
+- it is empty
+- it does not attempt to answer the task
+- it is mostly malformed or nonsensical
+
+If a candidate is not usable, treat it as worse than any usable candidate.
+
+STEP 2 — Hallucination check
+For each usable candidate, apply the hallucination rubric exactly as written.
+
+Important rules:
+- Only flag hallucinations that are supported by the rubric
+- Do not infer hidden errors without evidence in the text
+- If a statement is not an evaluable claim under the rubric, do not count it as a hallucination
+- If a candidate contains multiple hallucination types, include all applicable types
+- If no hallucination is present, use an empty array []
+
+STEP 3 — Quality check
+For each usable candidate, assess only these four criteria:
+- completeness
+- clarity
+- pedagogical usefulness
+- alignment with the task
+
+Do not reward extra detail if it introduces risk.
+Prefer the safer answer when quality is otherwise similar.
+
+STEP 4 — Selection rules
+Apply these rules in this exact priority order:
+
+1. Prefer usable candidates over unusable candidates
+2. Among usable candidates, prefer the candidate with fewer hallucinations
+3. If one candidate has hallucinations and another does not, prefer the one without hallucinations
+4. If candidates are tied or similar on hallucination risk, choose the one with better task quality
+5. If all candidates are unusable, choose the least bad candidate
+
+STEP 5 — Final answer policy
+- "selected_model" must be "A", "B", or "C"
+- "hallucinations_found" and "types" must describe the SELECTED candidate
+- "corrected_answer" should normally be the selected candidate exactly as written
+- Only make minimal edits to "corrected_answer" if the selected candidate contains a small, obvious, fixable issue
+- Do not combine multiple candidates
+- Do not synthesize a new answer from A, B, and C
+- Do not add explanations, citations, or content not already present unless required for a minimal correction
+- If the selected candidate is already acceptable, copy it unchanged into "corrected_answer"
+
+--------------------------------------------------
+JUSTIFICATION STYLE
+--------------------------------------------------
+Your justification must be short and structured:
+- first say why the selected candidate won
+- then mention why the others lost
+- mention hallucination status briefly
+Use 2-4 short sentences maximum.
+
+--------------------------------------------------
+OUTPUT RULES
+--------------------------------------------------
+Return ONLY valid JSON.
+Do not use markdown fences.
+Do not include any extra keys.
+Use this exact schema:
+
+{
+  "selected_model": "A" | "B" | "C",
+  "justification": "string",
+  "hallucinations_found": true,
+  "types": ["string"],
+  "corrected_answer": "string"
+}
+
+If no hallucinations are found in the selected candidate, return:
+- "hallucinations_found": false
+- "types": []
+
+${config.output_format?.template}
 `;
 
   const finalOutput = await callModel({
