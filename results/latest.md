@@ -1,4 +1,4 @@
-# Run: 2026-04-16T13:43:37.347Z
+# Run: 2026-04-16T14:32:13.538Z
 
 
 ---
@@ -10,43 +10,30 @@ consensus
 
 ## Prompt
 Generate a 55-minute lesson to teach the following standard for middle school students in a traditional classroom setting:
-
-CCSS.ELA-Literacy.W.7.1 — Write arguments to support claims with clear reasons and relevant evidence, including acknowledging alternate or opposing claims and organizing reasoning logically.
+CCSS.Math.Content.7.RP.A.2 — Recognize and represent proportional relationships between quantities (in tables, graphs, equations, diagrams, and verbal descriptions).
 
 
 ---
 
 ## Candidate 1
-# Argument Writing: Building a Case That Holds Up
-
-### CCSS.ELA-Literacy.W.7.1 | 7th Grade ELA | 55-Minute Lesson
+# Proportional Relationships: Seeing the Connection Everywhere
+### 7th Grade Math | 55-Minute Lesson | CCSS.Math.Content.7.RP.A.2
 
 ---
 
 ## LESSON OVERVIEW
 
-**Central Question:** What makes an argument strong enough that even someone who disagrees with you has to take it seriously?
+**Big Idea:** Proportional relationships have a constant ratio (unit rate) that can be seen in tables, graphs, equations, diagrams, and words — and recognizing this connection across all five representations is a powerful mathematical skill.
 
-**Lesson Objective:** Students will identify the components of an effective written argument, practice acknowledging and responding to counterarguments, and draft the opening section of a structured argumentative paragraph using a relatable, low-stakes topic.
+**Objective:** Students will be able to identify whether a relationship is proportional, determine the constant of proportionality (k), and represent the relationship in at least three different forms.
 
 **Materials Needed:**
-- Whiteboard or projector
-- Printed "Argument Anatomy" handout (described below)
-- Printed "Two-Sided Topic Cards" (one per pair)
-- Student writer's notebooks or lined paper
-- Colored pencils or highlighters (3 colors per student)
-- Timer visible to students
-
----
-
-## STANDARDS ALIGNMENT
-
-| Standard Element | Where It Appears in This Lesson |
-|---|---|
-| Support claims with clear reasons | Claim-building mini-lesson, drafting activity |
-| Use relevant evidence | Evidence sorting warm-up, structured paragraph |
-| Acknowledge opposing claims | Counterargument station, "Yes, but..." sentence frames |
-| Organize reasoning logically | Argument Anatomy framework, paragraph sequencing |
+- Whiteboard/projector
+- Printed "Representation Match" activity cards (one set per pair)
+- Graph paper or printed coordinate grids
+- Colored markers or pencils (at least 2 colors per student)
+- Exit ticket slips (printed or digital)
+- Optional: rulers
 
 ---
 
@@ -54,431 +41,695 @@ CCSS.ELA-Literacy.W.7.1 — Write arguments to support claims with clear reasons
 
 ---
 
-### ⏱ MINUTES 0–5 | WARM-UP: "Would You Argue About This?"
+### ⏱ 0:00–0:07 | WARM-UP: "Which One Doesn't Belong?" (7 minutes)
 
-**What the teacher does:**
+**Setup:** Display the following four tables on the board simultaneously. Students work silently and independently for 3 minutes, then share with a partner for 2 minutes, then briefly share with the class for 2 minutes.
 
-As students enter, the following statement is written large on the board:
+| Table A | | Table B | | Table C | | Table D | |
+|---|---|---|---|---|---|---|---|
+| x | y | x | y | x | y | x | y |
+| 1 | 3 | 2 | 6 | 1 | 5 | 0 | 0 |
+| 2 | 6 | 4 | 10 | 2 | 10 | 3 | 9 |
+| 3 | 9 | 6 | 14 | 3 | 15 | 5 | 15 |
+| 4 | 12 | 8 | 18 | 4 | 20 | 7 | 21 |
 
-> *"Schools should eliminate all homework."*
+**Prompt on Board:** *"Which one doesn't belong? Be ready to defend your answer with math."*
 
-Ask students to silently give the statement a thumbs up (agree), thumbs down (disagree), or flat hand (somewhere in between). Take a quick visual survey.
+**Discussion Points to Draw Out:**
+- Tables A, C, and D are proportional (constant ratio between y and x)
+- Table B is NOT proportional — the ratio changes (6/2=3, 10/4=2.5, etc.) and it doesn't pass through the origin as a straight line
+- Students may argue different tables "don't belong" — that's okay! The goal is mathematical reasoning
+- Introduce/reinforce vocabulary: **ratio**, **constant**, **proportional**
 
-Then ask two or three volunteers — one from each position — to share *one sentence* explaining why they feel that way. Do not correct anyone. Do not take sides. Simply respond to each student with:
-
-*"Interesting. What's your reason?"*
-
-After hearing a few responses, say:
-
-> "Notice what just happened. You all had opinions, and when I pushed, you gave me reasons. That's the beginning of an argument — not a fight, but a case you're building. Today we're going to learn how to build that case in writing so that it's not just your opinion floating in the air, but something solid that even someone who disagrees with you has to reckon with."
-
-**Purpose:** Activate prior knowledge, establish a classroom tone where argument is intellectual rather than confrontational, and generate curiosity about the lesson's purpose.
-
----
-
-### ⏱ MINUTES 5–18 | DIRECT INSTRUCTION: "The Anatomy of an Argument"
-
-**What the teacher does:**
-
-Distribute the **Argument Anatomy handout** (a simple diagram — a body outline with labels, or a plain graphic organizer if preferred). Each part of the "body" corresponds to a part of an argument. Walk through each component with explanations and examples.
+**Teacher Move:** Listen for students who check y/x for every row. Highlight this strategy publicly. Also ask: *"Does Table D give you any hints? What's special about when x = 0?"*
 
 ---
 
-**① THE CLAIM — "The Head"**
+### ⏱ 0:07–0:17 | DIRECT INSTRUCTION: The Five Faces of Proportional Relationships (10 minutes)
 
-> "The claim is your main argument — the position you're defending. It's not just a fact, and it's not just a preference. It's a debatable statement — something someone could reasonably disagree with."
+**Teacher Talk + Modeling**
 
-Write on the board:
+Anchor the lesson with one real-world context that you'll use to model ALL five representations:
 
-| Not a Claim | Why Not | Actual Claim |
-|---|---|---|
-| Homework exists in most schools. | This is a fact. Nobody argues it. | Schools should eliminate homework for students in grades K–8. |
-| I don't like homework. | This is a personal preference, not an argument. | Homework does more harm than good for young learners. |
+> *"A lemonade stand charges $2.50 per cup. Let's look at this one situation five different ways."*
 
-Ask students: *"What's the difference? Why does a claim need to be debatable?"*
-
-Desired takeaway: If no one could disagree, there's nothing to argue. A claim only works if it takes a position someone might push back on.
+**Write on board and build each representation together:**
 
 ---
 
-**② REASONS — "The Spine"**
+#### 1. VERBAL DESCRIPTION
+*"For every cup of lemonade sold, the stand earns $2.50. The amount earned is always 2.5 times the number of cups sold."*
 
-> "Your reasons hold your argument upright. They're the 'because' behind your claim. Without them, your claim just falls over."
-
-Model the structure on the board:
-
-**Claim + Because + Reason = The backbone of your argument**
-
-> *"Schools should eliminate homework for grades K–8 because research shows that excessive homework increases student stress without improving academic outcomes."*
-
-Point out: The reason has to *connect logically* to the claim. It can't just be something you feel strongly about — it has to actually support the position you're taking.
-
-Ask students to try generating one reason for the homework claim in their notebooks. Give them 60 seconds. Cold-call two or three to share.
+Point out: There's a **constant multiplier** — that's the key idea.
 
 ---
 
-**③ EVIDENCE — "The Muscle"**
+#### 2. TABLE
 
-> "Reasons tell us *why*. Evidence proves the *why* is real. Evidence is specific — it can be a statistic, a study, a quote from an expert, a concrete example, or documented data."
-
-Distinguish between strong and weak evidence on the board:
-
-| Weak Evidence | Why It's Weak | Stronger Evidence |
-|---|---|---|
-| "Everyone knows homework is stressful." | Vague, no source, not specific | "A 2013 Stanford study found that students in high-pressure academic environments reported stress and health problems linked to more than 3 hours of nightly homework." |
-| "My friend hates doing homework." | One person's experience, not generalizable | "A survey of 1,000 middle schoolers by the American Educational Research Association found that 72% reported homework negatively affecting their sleep." |
-
-Ask: *"Why does evidence have to be specific? What happens to your argument if your evidence is weak?"*
-
----
-
-**④ THE COUNTERARGUMENT + REBUTTAL — "The Immune System"**
-
-This is where most students need the most scaffolding. Pause here and build anticipation.
-
-> "Here's where most student writers make a huge mistake. They pretend the other side doesn't exist. But think about it — if you're in a real debate and someone brings up a point you never addressed, you look unprepared. You look like you haven't thought it through. The strongest arguments don't ignore the other side. They bring it up *first* — and then they defeat it."
-
-Write this structure on the board:
-
-**Acknowledge → Qualify → Refute**
-
-> *"Some people argue that homework helps students practice skills and build responsibility. While it's true that practice is important for mastery, research indicates that the type of independent practice assigned as homework is often misaligned with how students best learn, making it less effective than structured in-class practice."*
-
-Break it down:
-- **Acknowledge:** "Some people argue that homework helps students practice..."
-- **Qualify:** "While it's true that practice is important..."
-- **Refute:** "...research indicates the type of homework assigned is often misaligned..."
-
-> "You're not saying the other side is stupid. You're saying: I see your point, *and here's why my position still stands.*"
-
----
-
-**⑤ LOGICAL ORGANIZATION — "The Skeleton"**
-
-Briefly show the recommended paragraph order on the board. Tell students this is the structure they'll use for today's practice:
-
-```
-1. Hook / Opening
-2. Claim
-3. Reason
-4. Evidence
-5. Counterargument
-6. Rebuttal
-7. Closing / So What?
-```
-
-> "Notice that the counterargument comes near the end — after you've already built your case. You don't lead with doubt. You lead with confidence, build your case, and *then* show you've considered the other side."
-
----
-
-### ⏱ MINUTES 18–25 | GUIDED PRACTICE: "Sorting the Evidence"
-
-**What the teacher does:**
-
-Project or read aloud the following scenario:
-
-> **Topic:** Middle schoolers should be allowed to use their phones during lunch.
-
-Present students with the following list of "evidence" items on the board or projected. Students work in their notebooks, sorting items into three columns using three colors:
-
-- 🟡 **Strong Evidence** (specific, credible, generalizable)
-- 🟠 **Weak Evidence** (vague, anecdotal, or too broad)
-- 🔴 **Not Evidence at All** (this is just an opinion or emotion)
-
-**Items to sort:**
-
-1. "Everyone uses phones all the time anyway."
-2. "A study by the Pew Research Center found that 95% of teens have access to a smartphone."
-3. "My cousin's school lets them use phones and nothing bad happened."
-4. "Research published in the journal *Computers in Human Behavior* found that brief social media use during breaks reduced anxiety in adolescents."
-5. "Phones are really fun."
-6. "Schools that implemented structured phone-use policies during lunch reported a 15% increase in students seeking counseling resources, suggesting improved mental health awareness."
-7. "Some teachers think phones are distracting."
-8. "A 2022 survey of middle school students found that 68% used their lunch break to contact a parent or guardian at least once per week."
-
-After two minutes of individual sorting, ask students to compare with a partner. Then debrief as a class. Call on students to justify their sorting decisions. The key discussion point:
-
-> "What makes something *relevant* evidence? It has to connect directly to the claim, come from a credible source, and be specific enough to actually prove something."
-
----
-
-### ⏱ MINUTES 25–35 | COLLABORATIVE PRACTICE: "Yes, But..." Partner Challenge
-
-**What the teacher does:**
-
-Distribute the **Two-Sided Topic Cards**. Each card has a debatable statement on it. Pairs are assigned (or choose) a card and a position — one partner argues FOR, one argues AGAINST.
-
-**Sample Topic Cards:**
-
-- *"Students should be required to wear school uniforms."*
-- *"Middle schoolers should have a later school start time."*
-- *"Recess should be required through 8th grade."*
-- *"Students should be allowed to choose their own reading books in ELA class."*
-- *"Competitive grading (letter grades) should be replaced with written feedback only."*
-
-**The Activity — "Yes, But..." Exchange:**
-
-Partners take turns using the following structured sentence frames to build and counter arguments orally. This is low-stakes, fast, and conversational.
-
-**Round 1 (2 minutes):** Each partner states their claim and one reason.
-
-**Round 2 (3 minutes):** Partners take turns using the "Yes, But..." frame:
-
-> *"Yes, it's true that [acknowledge their point], BUT [your rebuttal]."*
-
-Model this with a student volunteer before releasing the class:
-
-> Student A: "Schools should require uniforms because they reduce visible economic inequality among students."
-> Student B: "Yes, it's true that uniforms reduce some visible economic differences, BUT they also eliminate students' ability to express their identity through clothing, which is an important developmental need for adolescents."
-
-Walk the room during partner exchanges. Listen for strong reasoning. Prompt struggling students with:
-- *"What's your reason? Can you add a 'because'?"*
-- *"What would the other side say about that?"*
-- *"How do you respond to what your partner just said?"*
-
-After the partner exchange, pull the class back together. Ask two or three pairs to briefly share their strongest exchange. Highlight moments when students successfully acknowledged and rebutted.
-
----
-
-### ⏱ MINUTES 35–50 | INDEPENDENT PRACTICE: Drafting the Argument
-
-**What the teacher does:**
-
-Students now apply everything to their own writing. Offer the following topic choices so students have some agency:
-
-**Choose one topic to write about:**
-
-1. Schools should (or should not) allow students to listen to music while doing independent work in class.
-2. Participation grades should (or should not) count toward a student's final grade.
-3. Middle schoolers should (or should not) be required to take a physical education class every year.
-
-Remind students of the structure visible on the board:
-
-```
-1. Hook / Opening
-2. Claim
-3. Reason
-4. Evidence (you may use general/plausible evidence today)
-5. Counterargument
-6. Rebuttal
-7. Closing / So What?
-```
-
-**Important note to students:**
-
-> "For today's draft, you don't need to look up real statistics. You can write evidence that sounds realistic and credible — the kind of evidence you'd look for if you were researching this topic. We're practicing the *structure* today. When you write your full argument essay, you'll research real evidence."
-
-This note reduces anxiety and keeps students focused on the architecture of argument rather than getting stuck on sourcing.
-
-**Provide these sentence starters on the board for students who need scaffolding:**
-
-| Part of Argument | Sentence Starter |
+| Cups Sold (x) | Money Earned (y) |
 |---|---|
-| Hook | "Imagine spending six hours in a classroom where..." / "Every day, students across the country face a question that divides teachers and students alike..." |
-| Claim | "For this reason, [schools/students/educators] should [position]..." |
-| Reason | "This is important because..." / "The evidence shows that..." |
-| Evidence | "According to [source], students who... experienced..." |
-| Counterargument | "Some people argue that..." / "Opponents of this position claim..." |
-| Rebuttal | "However, while this concern is understandable, the evidence suggests..." / "Yes, it's true that... but..." |
-| Closing | "Ultimately, the decision to... comes down to..." / "When we consider [value], it becomes clear that..." |
+| 0 | $0.00 |
+| 1 | $2.50 |
+| 2 | $5.00 |
+| 4 | $10.00 |
+| 10 | $25.00 |
 
-Circulate during this time. Conduct brief one-on-one or small group conferences with students who are struggling. Prioritize students who:
-- Are still writing a general opinion rather than a specific claim
-- Have skipped the counterargument
-- Have listed reasons without any evidence
+**Ask:** *"What do you notice about y ÷ x for each row? What about the row where x = 0?"*
 
-**Conference prompt bank:**
-- *"Read me your claim. Now tell me — what would someone who disagrees say?"*
-- *"What's one piece of evidence that could back this reason up?"*
-- *"Where's your 'yes, but'?"*
+Point out: The ratio y/x is always 2.5, AND the table includes (0, 0).
 
 ---
 
-### ⏱ MINUTES 50–55 | CLOSURE: "Steal This Line"
+#### 3. GRAPH
 
-**What the teacher does:**
+Draw on the board (or project on coordinate plane):
 
-With two minutes left in writing, ask students to stop and reread what they've written.
+- Plot the points from the table
+- Connect with a straight line
+- Emphasize the line passes through the **origin (0, 0)**
 
-Then say:
+**Say:** *"Two non-negotiable features: straight line AND passes through the origin. If either is missing, it's not proportional."*
 
-> "I'm going to ask for volunteers to share one sentence from their draft — the sentence they're most proud of or the one that feels strongest. It could be your claim, your counterargument, your rebuttal — anything. When someone shares, the rest of you listen for what makes it work. If you hear something you'd like to borrow the *structure* of — not the content, just the structure — write it in your notebook as a model for next time."
+---
 
-Hear from three to five students. After each share, briefly name what's working:
+#### 4. EQUATION
 
-> "Notice how she started the counterargument with 'While some educators believe...' — that's a sophisticated move. It shows she's taking the other side seriously before she dismantles it."
+**Write:** y = 2.5x
 
-> "He
+**Ask:** *"Where do you see the 2.50 from our table and verbal description in this equation?"*
+
+Define: **k = constant of proportionality** → in the form **y = kx**
+
+*"k is the unit rate. It's the 'per one' amount. Here, k = 2.50 dollars per cup."*
+
+---
+
+#### 5. DIAGRAM (Ratio/Double Number Line)
+
+Draw a double number line on the board:
+
+```
+Cups:    0────1────2────3────4────5
+              ↕    ↕    ↕    ↕    ↕
+Money:   0──2.50──5.00──7.50─10.00─12.50
+```
+
+**Say:** *"Every jump of 1 cup corresponds to a jump of $2.50. The ratio stays the same — that's what makes it proportional."*
+
+---
+
+**Anchor Chart Summary (post on wall or display):**
+
+> ✅ **Proportional Relationship Checklist**
+> - Table: y ÷ x is constant AND includes (0, 0)
+> - Graph: Straight line through the origin
+> - Equation: y = kx (no added or subtracted number)
+> - Diagram: Equal spacing on double number line
+> - Verbal: Constant "per" or "for every" rate
+
+---
+
+### ⏱ 0:17–0:30 | GUIDED PRACTICE: "Representation Round-Robin" (13 minutes)
+
+**Structure:** Whole class together, teacher calls on students, builds confidence before independent work.
+
+**Present the following scenario:**
+
+> *"A car travels at a constant speed of 60 miles per hour."*
+
+Work through each representation as a class. Use cold-calling, think-pair-share, and volunteers strategically.
+
+**Step 1 — Verbal:** Ask a student to restate the relationship in their own words.
+*Expected: "For every hour the car drives, it travels 60 miles."*
+
+**Step 2 — Table:** Have students contribute values one at a time. Build the table together:
+
+| Hours (x) | Miles (y) |
+|---|---|
+| 0 | 0 |
+| 1 | 60 |
+| 2 | 120 |
+| 3 | 180 |
+| 0.5 | 30 |
+
+**Ask:** *"Could x be 0.5? Does that make sense in context? What would y be?"* (This addresses misconceptions that x must be whole numbers.)
+
+**Step 3 — Equation:** *"Who can write the equation? What is k here?"*
+Answer: y = 60x, k = 60
+
+**Step 4 — Graph:** Call a student to the board to plot 3 points and draw the line.
+Ask the class: *"How do we know this is right just by looking?"*
+
+**Step 5 — Diagram:** Draw the double number line together. Ask students to predict the value at x = 2.5.
+
+**Pause and ask a higher-order question:**
+> *"If I told you this car traveled 150 miles, could you figure out how long it drove? How?"*
+*(Use the equation: 150 = 60x, so x = 2.5 hours — previewing solving proportional equations)*
+
+---
+
+### ⏱ 0:30–0:46 | PARTNER ACTIVITY: "Representation Match & Create" (16 minutes)
+
+**Structure:** Students work in assigned pairs.
+
+**Part 1 — Match (8 minutes)**
+
+Distribute pre-cut card sets. Each set contains:
+- 4 verbal descriptions
+- 4 tables (some proportional, some not)
+- 4 graphs (some proportional, some not)
+- 4 equations
+
+Students must:
+1. Match each verbal description to its correct table, graph, and equation
+2. Identify and set aside any representations that are **NOT proportional** and write one sentence explaining why
+
+**Sample cards in the set:**
+
+*Verbal Card 1:* "A recipe calls for 3 cups of flour for every 1 batch of cookies."
+
+*Table Card A:*
+| Batches | Cups of Flour |
+|---|---|
+| 0 | 0 |
+| 1 | 3 |
+| 2 | 6 |
+| 5 | 15 |
+
+*Graph Card A:* Straight line through origin with slope 3 ✓
+
+*Equation Card A:* y = 3x ✓
+
+---
+
+*Verbal Card 2:* "A taxi charges a $5 flat fee plus $2 per mile."
+
+*Table Card B:*
+| Miles | Cost |
+|---|---|
+| 0 | 5 |
+| 1 | 7 |
+| 2 | 9 |
+| 3 | 11 |
+
+*Graph Card B:* Straight line that crosses y-axis at 5 (NOT through origin) ✗
+
+*Equation Card B:* y = 2x + 5 ✗
+
+*(This card set is intentionally designed so the taxi scenario does NOT match any proportional representation — students must recognize it as non-proportional)*
+
+---
+
+**Part 2 — Create (8 minutes)**
+
+Each pair receives a blank card with one representation already filled in. They must create the remaining three representations.
+
+**Example prompts:**
+
+> *Group A receives the equation:* **y = 4x**
+> → Create a real-world verbal description, a table with 5 pairs, and a graph
+
+> *Group B receives the table:*
+> | x | 1 | 2 | 3 | 6 |
+> | y | 7 | 14 | 21 | 42 |
+> → Write the equation, a verbal description, and draw the graph
+
+> *Group C receives the graph:* A line through origin with slope ½
+> → Write the equation, a verbal description, and a table
+
+**Circulate during both parts.** Listen for:
+- Students correctly identifying k from a table (y ÷ x)
+- Students catching that non-origin-crossing graphs are not proportional
+- Students writing verbal descriptions with a clear "per" or "for every" unit rate
+
+**Common Misconceptions to Address While Circulating:**
+- *"It's a straight line so it must be proportional"* → Redirect to origin requirement
+- *"y ÷ x isn't constant, so…wait, let me recalculate"* → Encourage checking multiple rows
+- *"The equation y = 4x + 0 is different from y = 4x"* → Great observation! They're the same
+
+---
+
+### ⏱ 0:46–0:52 | SHARE OUT + CLASS DISCUSSION (6 minutes)
+
+Bring the class back together. Select 2–3 pairs to share their "Create" cards (choose different starting representations so students see a variety).
+
+**Discussion Questions:**
+1. *"How did you figure out k from just the table? Just the graph? Just the equation?"*
+2. *"Which representation do YOU find easiest to use? Hardest? Why?"*
+3. *"What's the one thing ALL proportional relationships have in common, no matter which representation you use?"* (Expected: constant ratio / unit rate k)
+
+**Teacher Consolidation:**
+Draw a "web" on the board showing the five representations connected to each other, with **k** in the center.
+
+```
+          Verbal Description
+               |
+    Table ─── k ─── Equation
+               |
+             Graph
+               |
+            Diagram
+```
+
+Say: *"No matter where you start — a table, a graph, a story, an equation, a diagram — you can always find k, and you can always move to any other representation. That's the power of what we learned today."*
+
+---
+
+### ⏱ 0:52–0:55 | EXIT TICKET (3 minutes)
+
+Students complete individually and silently. Collect before they leave.
+
+---
+
+**EXIT TICKET**
+
+**Name: _________________ Period: _______**
+
+A streaming service costs $8 per month.
+
+**1.** Complete the table:
+
+| Months (x) | Total Cost (y) |
+|---|---|
+| 0 | |
+| 1 | |
+| 3 | |
+| 6 | |
+
+**2.** Write the equation: y = _______
+
+**3.** What is the constant of proportionality? What does it mean in this situation?
+
+**4.** Is this a proportional relationship? Circle one: **YES / NO**
+Give ONE piece of evidence from your table OR equation to support your answer.
+
+---
+
+**Scoring Guide (for teacher use):**
+- 4 correct: Student ready for extension (multi-step proportional problems, comparing two proportional relationships)
+- 2–3 correct: Student grasps concept but needs reinforcement on one representation
+- 0–1 correct: Student needs small-group reteach on identifying proportional relationships in tables
+
+---
+
+## DIFFERENTIATION
+
+### 🔽 Support Strategies
+- Provide anchor chart with the 5 representations checklist throughout the lesson
+- Pre-fill the first two rows of tables so students see the pattern before extending
+- During the match activity, reduce the card set to 2 scenarios (one proportional, one not)
+- Allow students to use calculators for ratio-checking
+
+### 🔼 Extension Strategies
+- Ask: *"Can you write a proportional relationship where k is a fraction? What would that look like on a graph?"*
+- Challenge: *"Two lemonade stands charge different prices. Table A and Table B are given. Which is a better deal? How can you tell from just the equation? Just the graph?"*
+- Introduce: *"What if I give you two points — not including the origin — how do you decide if the relationship is proportional?"*
+- Have advanced students write a "cheat sheet" in their own words explaining how to find k from each representation
+
+### ELL Support
+- Pre-teach vocabulary: proportional, constant, ratio, unit
 
 ---
 
 ## Candidate 2
-❌ [ERROR: Gemini finish reason: MAX_TOKENS]
+❌ [ERROR: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.]
 
 ---
 
 ## Candidate 3
-**55-Minute Lesson Plan: Writing Arguments to Support Claims (CCSS.ELA-Literacy.W.7.1)**
+**Lesson Plan: Understanding and Representing Proportional Relationships**  
+**Grade:** 7th Grade  
+**Duration:** 55 minutes  
+**Standard:** CCSS.Math.Content.7.RP.A.2 — Recognize and represent proportional relationships between quantities (in tables, graphs, equations, diagrams, and verbal descriptions).
 
 ---
 
-### Objective:
-By the end of the lesson, students will be able to write a clear argumentative paragraph that supports a claim with relevant reasons and evidence, acknowledges an opposing claim, and organizes their reasoning logically.
+### **Objective:**  
+By the end of the lesson, students will be able to recognize proportional relationships and represent them using tables, graphs, equations, diagrams, and verbal descriptions.
 
 ---
 
-### Materials Needed:
-- Whiteboard and markers
-- Projector or chart paper
-- Handout with a sample argumentative paragraph
-- Graphic organizer for argument writing (claim, reasons, evidence, counterclaim, rebuttal)
-- Writing paper or notebooks
-- Pens/pencils
+### **Materials Needed:**  
+- Whiteboard and markers  
+- Graph paper  
+- Rulers  
+- Calculators (optional)  
+- Handouts with practice problems and blank tables/graphs  
+- Projector or chart paper for examples  
+- Sticky notes or index cards  
 
 ---
 
-### Lesson Breakdown:
+### **Lesson Outline:**
 
-**1. Introduction (5 minutes)**  
-- Begin by asking: *What does it mean to argue a point?*  
-- Briefly discuss how argument writing is about convincing others using reasons and evidence, not just opinions.  
-- Introduce the lesson objective: writing an argument with clear reasons, evidence, and acknowledging opposing views.
-
----
-
-**2. Mini-Lesson: Components of an Argument (10 minutes)**  
-- Write these key parts on the board:  
-  - **Claim:** Your main point or opinion  
-  - **Reasons:** Why you believe your claim is true  
-  - **Evidence:** Facts, examples, or quotes that support your reasons  
-  - **Counterclaim:** An opposing viewpoint  
-  - **Rebuttal:** Your response to the counterclaim  
-- Use a simple example topic (e.g., “School uniforms should be required”) and model a short argument on the board, highlighting each part.  
-- Distribute the handout with a sample paragraph and have students identify each part.
+#### 1. **Introduction (10 minutes)**  
+- **Engage:** Begin with a real-life scenario to spark interest.  
+  *Example:* “If one apple costs $2, how much do 3 apples cost? What about 5 apples?”  
+- Ask students to share their answers and reasoning.  
+- Introduce the term **proportional relationship**: a relationship between two quantities where the ratio is constant.  
+- Write the definition on the board:  
+  *“Two quantities are proportional if they have a constant ratio or rate.”*  
+- Show a simple example:  
+  | Number of apples | Cost ($) |  
+  |------------------|----------|  
+  | 1                | 2        |  
+  | 3                | 6        |  
+  | 5                | 10       |  
+- Highlight the constant ratio (cost per apple = 2).
 
 ---
 
-**3. Guided Practice: Organizing an Argument (10 minutes)**  
-- Introduce the graphic organizer.  
-- Present a new topic (e.g., “Should homework be banned?”).  
-- As a class, brainstorm a claim, two reasons with evidence, a counterclaim, and a rebuttal. Fill out the organizer together on the board or projector.
+#### 2. **Direct Instruction (15 minutes)**  
+- **Representing Proportional Relationships:**  
+  - **Tables:** Show how to organize values in a table and identify constant ratios.  
+  - **Graphs:** Plot the points from the table on a coordinate plane. Emphasize that the graph is a straight line through the origin (0,0).  
+  - **Equations:** Introduce the equation form y = kx, where k is the constant of proportionality.  
+  - **Diagrams:** Use tape diagrams or double number lines to visually represent the relationship.  
+  - **Verbal Descriptions:** Practice describing the relationship in words, e.g., “The cost increases by $2 for each additional apple.”  
+- Use the apple example to demonstrate each representation clearly.  
+- Write the equation for the apple example: y = 2x.
 
 ---
 
-**4. Independent Writing (20 minutes)**  
-- Students choose one of two provided topics or come up with their own (teacher-approved):  
-  - “Should school start later in the morning?”  
-  - “Is it better to read books or watch movies?”  
-- Using the graphic organizer, students plan their argument first.  
-- Then, they write a clear argumentative paragraph (5-7 sentences) including:  
-  - A clear claim  
-  - At least two reasons with evidence  
-  - Acknowledgment of an opposing claim  
-  - A rebuttal to that opposing claim  
-- Teacher circulates to provide support and feedback.
+#### 3. **Guided Practice (15 minutes)**  
+- Provide students with a new scenario:  
+  *“A car travels 60 miles in 1 hour. How far will it travel in 3 hours? 5 hours?”*  
+- Have students:  
+  - Complete a table of values.  
+  - Plot the points on graph paper.  
+  - Write the equation representing the relationship.  
+  - Draw a tape diagram or double number line.  
+  - Write a verbal description of the relationship.  
+- Circulate the room to assist and check for understanding.  
+- Discuss answers as a class, correcting misconceptions.
 
 ---
 
-**5. Sharing and Wrap-Up (10 minutes)**  
-- Invite 2-3 volunteers to read their paragraphs aloud.  
-- As a class, briefly discuss what makes their arguments strong and where they could improve.  
-- Recap the importance of using reasons, evidence, and addressing opposing views in argument writing.  
-- Assign students to revise their paragraphs at home or continue developing a longer argumentative essay.
+#### 4. **Independent Practice (10 minutes)**  
+- Hand out a worksheet with several proportional relationship problems involving different contexts (e.g., price per item, speed and time, recipe ingredients).  
+- Students will:  
+  - Identify if the relationship is proportional.  
+  - Represent it in at least two different ways (table, graph, equation, diagram, or verbal description).  
+- Encourage students to work individually but allow pair discussions if needed.
 
 ---
 
-### Extension/Homework (optional):  
-- Write a second paragraph expanding on one of the reasons with more detailed evidence.  
-- Find a short article or editorial and identify the claim, reasons, evidence, counterclaim, and rebuttal.
+#### 5. **Closure and Review (5 minutes)**  
+- Review key points:  
+  - What makes a relationship proportional?  
+  - How to recognize proportional relationships in tables, graphs, equations, diagrams, and words.  
+- Ask a few students to share their representations from the independent practice.  
+- Summarize: Proportional relationships have a constant ratio, can be represented in multiple ways, and their graphs always pass through the origin.
 
 ---
 
-This lesson provides a clear, scaffolded approach to mastering argumentative writing aligned with CCSS.ELA-Literacy.W.7.1, engaging students in both analysis and creation of arguments.
+### **Extension/Homework (Optional):**  
+- Assign students to find a proportional relationship at home (e.g., recipe ingredients, speed and distance, cost and quantity) and represent it in two different ways.
+
+---
+
+This lesson plan provides a clear, engaging, and comprehensive approach to teaching proportional relationships aligned with the CCSS standard for 7th grade.
 
 ---
 
 ## Aggregator
-### Evaluation
-- Hallucinations: false
-- Types: 
-
-### Justification
-Candidate B is unusable (error message). Candidate A, while more detailed, contains fabricated citation-like statistics (AERA survey with 72%, 15% counseling increase, 68% parent contact survey) that must be flagged per the rubric. Candidate C has no hallucinations, is complete, clear, and fully aligned with CCSS.ELA-Literacy.W.7.1, making it the safer and cleaner choice.
-
-### Final Output
-**55-Minute Lesson Plan: Writing Arguments to Support Claims (CCSS.ELA-Literacy.W.7.1)**
+{
+  "hallucinations_found": false,
+  "types": [],
+  "justification": "Candidate A is the clear winner: it is highly detailed, pedagogically rich, well-structured, and fully aligned with CCSS.Math.Content.7.RP.A.2. It covers all five representations, includes warm-up, direct instruction, guided practice, partner activity, share-out, and exit ticket within the 55-minute frame, with no hallucinations found. Candidate B is an error message and is not usable. Candidate C is usable but significantly less detailed and complete than A, lacking differentiation strategies, specific card activities, and the depth of scaffolding present in A.",
+  "corrected_answer": "# Proportional Relationships: Seeing the Connection Everywhere
+### 7th Grade Math | 55-Minute Lesson | CCSS.Math.Content.7.RP.A.2
 
 ---
 
-### Objective:
-By the end of the lesson, students will be able to write a clear argumentative paragraph that supports a claim with relevant reasons and evidence, acknowledges an opposing claim, and organizes their reasoning logically.
+## LESSON OVERVIEW
+
+**Big Idea:** Proportional relationships have a constant ratio (unit rate) that can be seen in tables, graphs, equations, diagrams, and words — and recognizing this connection across all five representations is a powerful mathematical skill.
+
+**Objective:** Students will be able to identify whether a relationship is proportional, determine the constant of proportionality (k), and represent the relationship in at least three different forms.
+
+**Materials Needed:**
+- Whiteboard/projector
+- Printed \"Representation Match\" activity cards (one set per pair)
+- Graph paper or printed coordinate grids
+- Colored markers or pencils (at least 2 colors per student)
+- Exit ticket slips (printed or digital)
+- Optional: rulers
 
 ---
 
-### Materials Needed:
-- Whiteboard and markers
-- Projector or chart paper
-- Handout with a sample argumentative paragraph
-- Graphic organizer for argument writing (claim, reasons, evidence, counterclaim, rebuttal)
-- Writing paper or notebooks
-- Pens/pencils
+## LESSON TIMELINE
 
 ---
 
-### Lesson Breakdown:
+### ⏱ 0:00–0:07 | WARM-UP: \"Which One Doesn't Belong?\" (7 minutes)
 
-**1. Introduction (5 minutes)**  
-- Begin by asking: *What does it mean to argue a point?*  
-- Briefly discuss how argument writing is about convincing others using reasons and evidence, not just opinions.  
-- Introduce the lesson objective: writing an argument with clear reasons, evidence, and acknowledging opposing views.
+**Setup:** Display the following four tables on the board simultaneously. Students work silently and independently for 3 minutes, then share with a partner for 2 minutes, then briefly share with the class for 2 minutes.
 
----
+| Table A | | Table B | | Table C | | Table D | |
+|---|---|---|---|---|---|---|---|
+| x | y | x | y | x | y | x | y |
+| 1 | 3 | 2 | 6 | 1 | 5 | 0 | 0 |
+| 2 | 6 | 4 | 10 | 2 | 10 | 3 | 9 |
+| 3 | 9 | 6 | 14 | 3 | 15 | 5 | 15 |
+| 4 | 12 | 8 | 18 | 4 | 20 | 7 | 21 |
 
-**2. Mini-Lesson: Components of an Argument (10 minutes)**  
-- Write these key parts on the board:  
-  - **Claim:** Your main point or opinion  
-  - **Reasons:** Why you believe your claim is true  
-  - **Evidence:** Facts, examples, or quotes that support your reasons  
-  - **Counterclaim:** An opposing viewpoint  
-  - **Rebuttal:** Your response to the counterclaim  
-- Use a simple example topic (e.g., "School uniforms should be required") and model a short argument on the board, highlighting each part.  
-- Distribute the handout with a sample paragraph and have students identify each part.
+**Prompt on Board:** *\"Which one doesn't belong? Be ready to defend your answer with math.\"*
 
----
+**Discussion Points to Draw Out:**
+- Tables A, C, and D are proportional (constant ratio between y and x)
+- Table B is NOT proportional — the ratio changes (6/2=3, 10/4=2.5, etc.) and it doesn't pass through the origin as a straight line
+- Students may argue different tables \"don't belong\" — that's okay! The goal is mathematical reasoning
+- Introduce/reinforce vocabulary: **ratio**, **constant**, **proportional**
 
-**3. Guided Practice: Organizing an Argument (10 minutes)**  
-- Introduce the graphic organizer.  
-- Present a new topic (e.g., "Should homework be banned?").  
-- As a class, brainstorm a claim, two reasons with evidence, a counterclaim, and a rebuttal. Fill out the organizer together on the board or projector.
+**Teacher Move:** Listen for students who check y/x for every row. Highlight this strategy publicly. Also ask: *\"Does Table D give you any hints? What's special about when x = 0?\"*
 
 ---
 
-**4. Independent Writing (20 minutes)**  
-- Students choose one of two provided topics or come up with their own (teacher-approved):  
-  - "Should school start later in the morning?"  
-  - "Is it better to read books or watch movies?"  
-- Using the graphic organizer, students plan their argument first.  
-- Then, they write a clear argumentative paragraph (5-7 sentences) including:  
-  - A clear claim  
-  - At least two reasons with evidence  
-  - Acknowledgment of an opposing claim  
-  - A rebuttal to that opposing claim  
-- Teacher circulates to provide support and feedback.
+### ⏱ 0:07–0:17 | DIRECT INSTRUCTION: The Five Faces of Proportional Relationships (10 minutes)
+
+**Teacher Talk + Modeling**
+
+Anchor the lesson with one real-world context that you'll use to model ALL five representations:
+
+> *\"A lemonade stand charges $2.50 per cup. Let's look at this one situation five different ways.\"*
+
+**Write on board and build each representation together:**
 
 ---
 
-**5. Sharing and Wrap-Up (10 minutes)**  
-- Invite 2-3 volunteers to read their paragraphs aloud.  
-- As a class, briefly discuss what makes their arguments strong and where they could improve.  
-- Recap the importance of using reasons, evidence, and addressing opposing views in argument writing.  
-- Assign students to revise their paragraphs at home or continue developing a longer argumentative essay.
+#### 1. VERBAL DESCRIPTION
+*\"For every cup of lemonade sold, the stand earns $2.50. The amount earned is always 2.5 times the number of cups sold.\"*
+
+Point out: There's a **constant multiplier** — that's the key idea.
 
 ---
 
-### Extension/Homework (optional):  
-- Write a second paragraph expanding on one of the reasons with more detailed evidence.  
-- Find a short article or editorial and identify the claim, reasons, evidence, counterclaim, and rebuttal.
+#### 2. TABLE
+
+| Cups Sold (x) | Money Earned (y) |
+|---|---|
+| 0 | $0.00 |
+| 1 | $2.50 |
+| 2 | $5.00 |
+| 4 | $10.00 |
+| 10 | $25.00 |
+
+**Ask:** *\"What do you notice about y ÷ x for each row? What about the row where x = 0?\"*
+
+Point out: The ratio y/x is always 2.5, AND the table includes (0, 0).
 
 ---
 
-This lesson provides a clear, scaffolded approach to mastering argumentative writing aligned with CCSS.ELA-Literacy.W.7.1, engaging students in both analysis and creation of arguments.
+#### 3. GRAPH
+
+Draw on the board (or project on coordinate plane):
+
+- Plot the points from the table
+- Connect with a straight line
+- Emphasize the line passes through the **origin (0, 0)**
+
+**Say:** *\"Two non-negotiable features: straight line AND passes through the origin. If either is missing, it's not proportional.\"*
+
+---
+
+#### 4. EQUATION
+
+**Write:** y = 2.5x
+
+**Ask:** *\"Where do you see the 2.50 from our table and verbal description in this equation?\"*
+
+Define: **k = constant of proportionality** → in the form **y = kx**
+
+*\"k is the unit rate. It's the 'per one' amount. Here, k = 2.50 dollars per cup.\"*
+
+---
+
+#### 5. DIAGRAM (Ratio/Double Number Line)
+
+Draw a double number line on the board:
+
+
+Cups:    0────1────2────3────4────5
+              ↕    ↕    ↕    ↕    ↕
+Money:   0──2.50──5.00──7.50─10.00─12.50
+
+
+**Say:** *\"Every jump of 1 cup corresponds to a jump of $2.50. The ratio stays the same — that's what makes it proportional.\"*
+
+---
+
+**Anchor Chart Summary (post on wall or display):**
+
+> ✅ **Proportional Relationship Checklist**
+> - Table: y ÷ x is constant AND includes (0, 0)
+> - Graph: Straight line through the origin
+> - Equation: y = kx (no added or subtracted number)
+> - Diagram: Equal spacing on double number line
+> - Verbal: Constant \"per\" or \"for every\" rate
+
+---
+
+### ⏱ 0:17–0:30 | GUIDED PRACTICE: \"Representation Round-Robin\" (13 minutes)
+
+**Structure:** Whole class together, teacher calls on students, builds confidence before independent work.
+
+**Present the following scenario:**
+
+> *\"A car travels at a constant speed of 60 miles per hour.\"*
+
+Work through each representation as a class. Use cold-calling, think-pair-share, and volunteers strategically.
+
+**Step 1 — Verbal:** Ask a student to restate the relationship in their own words.
+*Expected: \"For every hour the car drives, it travels 60 miles.\"*
+
+**Step 2 — Table:** Have students contribute values one at a time. Build the table together:
+
+| Hours (x) | Miles (y) |
+|---|---|
+| 0 | 0 |
+| 1 | 60 |
+| 2 | 120 |
+| 3 | 180 |
+| 0.5 | 30 |
+
+**Ask:** *\"Could x be 0.5? Does that make sense in context? What would y be?\"* (This addresses misconceptions that x must be whole numbers.)
+
+**Step 3 — Equation:** *\"Who can write the equation? What is k here?\"*
+Answer: y = 60x, k = 60
+
+**Step 4 — Graph:** Call a student to the board to plot 3 points and draw the line.
+Ask the class: *\"How do we know this is right just by looking?\"*
+
+**Step 5 — Diagram:** Draw the double number line together. Ask students to predict the value at x = 2.5.
+
+**Pause and ask a higher-order question:**
+> *\"If I told you this car traveled 150 miles, could you figure out how long it drove? How?\"*
+*(Use the equation: 150 = 60x, so x = 2.5 hours — previewing solving proportional equations)*
+
+---
+
+### ⏱ 0:30–0:46 | PARTNER ACTIVITY: \"Representation Match & Create\" (16 minutes)
+
+**Structure:** Students work in assigned pairs.
+
+**Part 1 — Match (8 minutes)**
+
+Distribute pre-cut card sets. Each set contains:
+- 4 verbal descriptions
+- 4 tables (some proportional, some not)
+- 4 graphs (some proportional, some not)
+- 4 equations
+
+Students must:
+1. Match each verbal description to its correct table, graph, and equation
+2. Identify and set aside any representations that are **NOT proportional** and write one sentence explaining why
+
+**Sample cards in the set:**
+
+*Verbal Card 1:* \"A recipe calls for 3 cups of flour for every 1 batch of cookies.\"
+
+*Table Card A:*
+| Batches | Cups of Flour |
+|---|---|
+| 0 | 0 |
+| 1 | 3 |
+| 2 | 6 |
+| 5 | 15 |
+
+*Graph Card A:* Straight line through origin with slope 3 ✓
+
+*Equation Card A:* y = 3x ✓
+
+---
+
+*Verbal Card 2:* \"A taxi charges a $5 flat fee plus $2 per mile.\"
+
+*Table Card B:*
+| Miles | Cost |
+|---|---|
+| 0 | 5 |
+| 1 | 7 |
+| 2 | 9 |
+| 3 | 11 |
+
+*Graph Card B:* Straight line that crosses y-axis at 5 (NOT through origin) ✗
+
+*Equation Card B:* y = 2x + 5 ✗
+
+*(This card set is intentionally designed so the taxi scenario does NOT match any proportional representation — students must recognize it as non-proportional)*
+
+---
+
+**Part 2 — Create (8 minutes)**
+
+Each pair receives a blank card with one representation already filled in. They must create the remaining three representations.
+
+**Example prompts:**
+
+> *Group A receives the equation:* **y = 4x**
+> → Create a real-world verbal description, a table with 5 pairs, and a graph
+
+> *Group B receives the table:*
+> | x | 1 | 2 | 3 | 6 |
+> | y | 7 | 14 | 21 | 42 |
+> → Write the equation, a verbal description, and draw the graph
+
+> *Group C receives the graph:* A line through origin with slope ½
+> → Write the equation, a verbal description, and a table
+
+**Circulate during both parts.** Listen for:
+- Students correctly identifying k from a table (y ÷ x)
+- Students catching that non-origin-crossing graphs are not proportional
+- Students writing verbal descriptions with a clear \"per\" or \"for every\" unit rate
+
+**Common Misconceptions to Address While Circulating:**
+- *\"It's a straight line so it must be proportional\"* → Redirect to origin requirement
+- *\"y ÷ x isn't constant, so…wait, let me recalculate\"* → Encourage checking multiple rows
+- *\"The equation y = 4x + 0 is different from y = 4x\"* → Great observation! They're the same
+
+---
+
+### ⏱ 0:46–0:52 | SHARE OUT + CLASS DISCUSSION (6 minutes)
+
+Bring the class back together. Select 2–3 pairs to share their \"Create\" cards (choose different starting representations so students see a variety).
+
+**Discussion Questions:**
+1. *\"How did you figure out k from just the table? Just the graph? Just the equation?\"*
+2. *\"Which representation do YOU find easiest to use? Hardest? Why?\"*
+3. *\"What's the one thing ALL proportional relationships have in common, no matter which representation you use?\"* (Expected: constant ratio / unit rate k)
+
+**Teacher Consolidation:**
+Draw a \"web\" on the board showing the five representations connected to each other, with **k** in the center.
+
+
+          Verbal Description
+               |
+    Table ─── k ─── Equation
+               |
+             Graph
+               |
+            Diagram
+
+
+Say: *\"No matter where you start — a table, a graph, a story, an equation, a diagram — you can always find k, and you can always move to any other representation. That's the power of what we learned
