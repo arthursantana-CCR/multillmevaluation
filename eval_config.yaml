@@ -1,6 +1,6 @@
 description: "Multi-LLM Evaluation — Lesson Plan Generation with Hallucination Control"
 
-task_type: "generation"
+task_type: "evaluation" # "generation" | "evaluation"
 
 pipeline:
   architecture: sequential # "sequential" | "consensus"
@@ -111,12 +111,48 @@ hallucination_rubric: |
   - Do not preserve hallucinated content
 
 task: |
-  Generate a 55-minute lesson to teach the following standard for middle school students in a traditional classroom setting:
-  CCSS.Math.Content.7.RP.A.2 — Recognize and represent proportional relationships between quantities (in tables, graphs, equations, diagrams, and verbal descriptions).
+  Evaluate the student text using the CCR Critical Thinking rubric below.
+
+  CCR Critical Thinking Rubric (Levels 1–4). For each subcompetency, assign a level and cite evidence quotes from the student text.
+
+  CRI1 — Identifying, clarifying, and organizing information
+  1: Information is disorganized or unclear.
+  2: Information is somewhat clear but lacks organization.
+  3: Information is clear and organized, but organization or clarity could be improved.
+  4: Information is clearly identified, well organized, and easy to follow.
+
+  CRI2 — Assessing validity and quality of information
+  1: No attempt to assess the quality or validity of information used.
+  2: Some critical assessment of information, but limited or shallow.
+  3: Assessment of information is present, but depth or justification could be improved.
+  4: Thorough assessment of information’s validity and quality, with clear justification.
+
+  CRI3 — Weighing pros and cons of alternative choices
+  1: No consideration of alternative choices or their implications.
+  2: Some discussion of alternative choices but lacks depth or balance.
+  3: Balanced analysis of pros and cons of alternatives, but depth or coverage could be improved.
+  4: Balanced analysis of pros and cons of alternatives, with thoughtful consideration of implications.
+
+  CRI4 — Applying sound reasoning to decision-making
+  1: Reasoning is flawed or lacks logical structure.
+  2: Reasoning is generally sound but has logical gaps.
+  3: Reasoning is sound but minor logical gaps are present.
+  4: Strong logical reasoning throughout, with clear and evidence-based decision-making.
+
+  CRI5 — Reflecting critically on one's own reasoning and assumptions
+  1: No reflection on personal reasoning or assumptions.
+  2: Some acknowledgment of reasoning or assumptions, though limited in depth.
+  3: Reflects on and critiques own reasoning and assumptions, but depth could be improved.
+  4: Deeply reflects on and critiques own reasoning and assumptions, showing willingness to question and adjust.
+  
 
 #cases:
-#  - id: "student_1"
-#    input: "Student text 1..."
+  - id: "student_1"
+    input: "I think our school should have a longer recess. Right now it is only 15 minutes, and many students still feel tired when class starts again. If recess were about 25 minutes, students could rest and move their bodies, which might help them focus better in class.
+
+      There are some disadvantages too. If recess is longer, teachers might have less time to finish lessons. Some students might also get too excited and it could take longer for everyone to calm down after recess.
+
+      After thinking about both sides, I believe a slightly longer recess would be best because it helps students rest but still leaves enough time for learning."
 #
 #  - id: "student_2"
 #    input: "Student text 2..."
