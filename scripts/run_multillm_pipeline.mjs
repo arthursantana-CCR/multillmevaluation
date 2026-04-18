@@ -2,16 +2,10 @@ import fs from "fs/promises";
 import path from "path";
 import process from "process";
 import YAML from "yaml";
-import { buildMarkdown } from "./render_results.mjs";
 
 const CONFIG_PATH = path.resolve("eval_config.yaml");
 const RESULTS_DIR = path.resolve("results");
 const HISTORY_DIR = path.resolve("results/history");
-
-// 🔹 NEW
-const RESULTS_MD_DIR = path.resolve("results_md");
-const HISTORY_MD_DIR = path.resolve("results_md/history");
-
 const MAX_RETRIES = 1;
 
 // ================== HELPERS ==================
@@ -44,11 +38,16 @@ function isRetryableStatus(status) {
   return status === 429 || status === 500 || status === 503 || status === 504;
 }
 
+// 🔹 NEW: unified task handler
 function buildTaskInput({ config, caseConfig }) {
-  if (config.task_type === "generation") return config.task;
+  if (config.task_type === "generation") {
+    return config.task;
+  }
+
   if (config.task_type === "evaluation") {
     return `${config.task}\n\n${JSON.stringify(caseConfig)}`;
   }
+
   throw new Error(`Unknown task_type: ${config.task_type}`);
 }
 
@@ -58,7 +57,11 @@ function buildFallbackObject(rawText, fallbackText = "") {
     types: [],
     justification: "Fallback: unable to parse model output.",
     corrected_answer:
-      fallbackText || (typeof rawText === "string" ? rawText : ""),
+      typeof fallbackText === "string" && fallbackText
+        ? fallbackText
+        : typeof rawText === "string"
+          ? rawText
+          : "",
   };
 }
 
@@ -75,11 +78,23 @@ function fallbackParse(text, fallbackText = "") {
   );
   const correctedMatch = text.match(/CORRECTED ANSWER:\s*([\s\S]*)/i);
 
+  const parsedTypes = typesMatch
+    ? typesMatch[1]
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean)
+        .filter((s) => s !== "[]")
+    : [];
+
+  const corrected_answer = correctedMatch
+    ? correctedMatch[1].trim()
+    : fallbackText || text;
+
   return {
     hallucinations_found,
-    types: typesMatch ? typesMatch[1].split(",").map((s) => s.trim()) : [],
-    justification: justificationMatch?.[1]?.trim() || "",
-    corrected_answer: correctedMatch?.[1]?.trim() || fallbackText || text,
+    types: parsedTypes,
+    justification: justificationMatch ? justificationMatch[1].trim() : "",
+    corrected_answer,
   };
 }
 
@@ -88,6 +103,7 @@ function normalizeReviewerOutput(rawText, fallbackText = "") {
     return buildFallbackObject(rawText, fallbackText);
   }
 
+  // 🔥 NEW: strip markdown code fences
   const cleaned = rawText
     .replace(/```json/gi, "")
     .replace(/```/g, "")
@@ -96,14 +112,23 @@ function normalizeReviewerOutput(rawText, fallbackText = "") {
   try {
     const parsed = JSON.parse(cleaned);
 
+    const correctedAnswer =
+      typeof parsed.corrected_answer === "string" && parsed.corrected_answer.trim()
+        ? parsed.corrected_answer
+        : fallbackText || "";
+
     return {
       hallucinations_found: Boolean(parsed.hallucinations_found),
-      types: Array.isArray(parsed.types) ? parsed.types : [],
-      justification: parsed.justification || "",
-      corrected_answer:
-        parsed.corrected_answer?.trim() || fallbackText || "",
+      types: Array.isArray(parsed.types)
+        ? parsed.types.filter((item) => typeof item === "string")
+        : [],
+      justification:
+        typeof parsed.justification === "string" ? parsed.justification : "",
+      corrected_answer: correctedAnswer,
     };
-  } catch {
+
+  } catch (err) {
+    console.warn("⚠️ JSON parsing failed. Using fallback parser.");
     return fallbackParse(rawText, fallbackText);
   }
 }
@@ -117,6 +142,7 @@ async function main() {
   const runTimeUtc = new Date().toISOString();
   const runId = sanitizeRunId(runTimeUtc);
 
+  // 🔹 NEW: allow generation tasks to run without user-defined cases
   const cases =
     config.task_type === "generation"
       ? [{ id: "generation_task", input: "N/A" }]
@@ -132,9 +158,10 @@ async function main() {
 
   if (config.pipeline.architecture === "sequential") {
     modelSequence = buildModelSequence(config.pipeline.models);
-  } else {
+  } else if (config.pipeline.architecture === "consensus") {
     const gens = config.pipeline.consensus.generators;
     const agg = config.pipeline.consensus.aggregator;
+
     modelSequence = [
       ...gens.map((m, i) => `${m.model} (generator_${i + 1})`),
       `${agg.model} (aggregator)`,
@@ -144,23 +171,15 @@ async function main() {
   const runResult = {
     run_id: runId,
     run_time_utc: runTimeUtc,
-    architecture: config.pipeline.architecture,
+    architecture: config?.pipeline?.architecture || "sequential",
     model_sequence: modelSequence,
     cases: caseResults,
   };
 
   await writeResults(runResult, runId);
 
-  // ✅ NEW: markdown generation
-  const md = buildMarkdown(runResult);
+  await import("./render_results.mjs");
 
-  await fs.mkdir(RESULTS_MD_DIR, { recursive: true });
-  await fs.mkdir(HISTORY_MD_DIR, { recursive: true });
-
-  await fs.writeFile(path.join(RESULTS_MD_DIR, "latest.md"), md);
-  await fs.writeFile(path.join(HISTORY_MD_DIR, `${runId}.md`), md);
-
-  console.log("📝 Markdown files written");
   console.log(`Run complete: ${runId}`);
 }
 
@@ -172,10 +191,566 @@ async function loadConfig(configPath) {
 }
 
 function validateConfig(config) {
-  if (!config.pipeline) throw new Error("Missing pipeline config");
-  if (config.task_type === "evaluation" && !config.cases?.length) {
-    throw new Error("Evaluation tasks require cases");
+  if (!config.pipeline) {
+    throw new Error("Missing pipeline config");
   }
+
+  // 🔹 NEW: evaluation tasks must provide cases
+  if (config.task_type === "evaluation") {
+    if (!config.cases || config.cases.length === 0) {
+      throw new Error("Evaluation tasks require cases");
+    }
+  }
+}
+
+// ================== CASE ROUTER ==================
+
+async function runCase(caseConfig, config) {
+  const architecture = config?.pipeline?.architecture || "sequential";
+
+  if (architecture === "consensus") {
+    return runConsensusCase(caseConfig, config);
+  }
+
+  return runSequentialCase(caseConfig, config);
+}
+
+// ================== SEQUENTIAL ==================
+
+async function runSequentialCase(caseConfig, config) {
+  const seq = config.pipeline.models;
+
+  const generator = seq.find((m) => m.role === "generator");
+  const r1 = seq.find((m) => m.role === "reviewer_1");
+  const r2 = seq.find((m) => m.role === "reviewer_2");
+  const rf = seq.find((m) => m.role === "final_reviewer");
+
+  const generatorPrompt = buildGeneratorPrompt(caseConfig, config);
+
+  const generatorRaw = await callModel({
+    provider: generator.provider,
+    model: generator.model,
+    systemInstruction: generatorPrompt.systemInstruction,
+    userPrompt: generatorPrompt.userPrompt,
+    parameters: config.parameters,
+  });
+
+  let currentValidOutput = generatorRaw;
+
+  const reviewer1Result = await callReviewerWithRetry({
+    provider: r1.provider,
+    model: r1.model,
+    systemInstruction: config.system_instruction,
+    baseUserPrompt: buildReviewerPrompt({
+      config,
+      previousOutput: currentValidOutput,
+    }),
+    parameters: config.parameters,
+    fallbackText: currentValidOutput,
+    config,
+  });
+
+  if (reviewer1Result.status === "success") {
+    const normalized = reviewer1Result.parsed_review;
+    if (!normalized.corrected_answer) {
+      console.warn("⚠️ Missing corrected_answer. Using previous valid output.");
+    } else {
+      currentValidOutput = normalized.corrected_answer;
+    }
+  }
+
+  const reviewer2Result = await callReviewerWithRetry({
+    provider: r2.provider,
+    model: r2.model,
+    systemInstruction: config.system_instruction,
+    baseUserPrompt: buildReviewerPrompt({
+      config,
+      previousOutput: currentValidOutput,
+    }),
+    parameters: config.parameters,
+    fallbackText: currentValidOutput,
+    config,
+  });
+
+  if (reviewer2Result.status === "success") {
+    const normalized = reviewer2Result.parsed_review;
+    if (!normalized.corrected_answer) {
+      console.warn("⚠️ Missing corrected_answer. Using previous valid output.");
+    } else {
+      currentValidOutput = normalized.corrected_answer;
+    }
+  }
+
+  const finalResult = await callReviewerWithRetry({
+    provider: rf.provider,
+    model: rf.model,
+    systemInstruction: config.system_instruction,
+    baseUserPrompt: buildReviewerPrompt({
+      config,
+      previousOutput: currentValidOutput,
+    }),
+    parameters: config.parameters,
+    fallbackText: currentValidOutput,
+    config,
+  });
+
+  if (finalResult.status === "success") {
+    const normalized = finalResult.parsed_review;
+    if (!normalized.corrected_answer) {
+      console.warn("⚠️ Missing corrected_answer. Using previous valid output.");
+    } else {
+      currentValidOutput = normalized.corrected_answer;
+    }
+  }
+
+  return {
+    case_id: caseConfig.id,
+    prompt: generatorPrompt.userPrompt,
+    model_sequence: buildModelSequence(seq),
+    outputs: {
+      generator_output: {
+        status: "success",
+        raw_text: generatorRaw,
+      },
+      reviewer_1_output: reviewer1Result,
+      reviewer_2_output: reviewer2Result,
+      final_reviewer_output: finalResult,
+      final_output: currentValidOutput,
+    },
+  };
+}
+
+// ================== CONSENSUS ==================
+
+async function runConsensusCase(caseConfig, config) {
+  const { generators, aggregator } = config.pipeline.consensus;
+
+  // 🔹 NEW: respect task_type here too
+  const taskInput = buildTaskInput({ config, caseConfig });
+
+  const generatorPrompt = taskInput;
+
+  const candidateOutputs = await Promise.all(
+    generators.map((m) =>
+      callModel({
+        provider: m.provider,
+        model: m.model,
+        systemInstruction: "", // important for Gemini
+        userPrompt: `
+You are a helpful AI assistant.
+
+Your task is to generate a complete and high-quality response based on the instructions provided.
+
+Do NOT perform evaluation, analysis, or structured reporting.
+
+Focus only on producing the best possible final answer.
+
+TASK:
+${taskInput}
+`,
+        parameters: config.parameters,
+      })
+    )
+  );
+
+  const [c1, c2, c3] = candidateOutputs;
+
+const aggregationPrompt = `
+You are the aggregator in a multi-model evaluation pipeline.
+
+Your task is to evaluate THREE candidate answers, compare them using the hallucination rubric and task quality criteria, and return ONE final JSON object.
+
+You must be conservative, deterministic, and brief.
+Do NOT invent facts, citations, or corrections.
+Do NOT add any text outside the JSON.
+
+--------------------------------------------------
+TASK
+--------------------------------------------------
+${taskInput}
+
+--------------------------------------------------
+HALLUCINATION RUBRIC
+--------------------------------------------------
+${config.hallucination_rubric}
+
+--------------------------------------------------
+CANDIDATES
+--------------------------------------------------
+A:
+${c1}
+
+B:
+${c2}
+
+C:
+${c3}
+
+--------------------------------------------------
+REQUIRED DECISION PROCESS
+--------------------------------------------------
+Evaluate ALL three candidates in the following order.
+
+STEP 1 — Usability check
+For each candidate, first determine whether it is usable.
+
+A candidate is NOT usable if:
+- it is an error message
+- it is empty
+- it does not attempt to answer the task
+- it is mostly malformed or nonsensical
+
+If a candidate is not usable, treat it as worse than any usable candidate.
+
+STEP 2 — Hallucination check
+For each usable candidate, apply the hallucination rubric exactly as written.
+
+Important rules:
+- Only flag hallucinations that are supported by the rubric
+- Do not infer hidden errors without evidence in the text
+- If a statement is not an evaluable claim under the rubric, do not count it as a hallucination
+- If a candidate contains multiple hallucination types, include all applicable types
+- If no hallucination is present, use an empty array []
+
+STEP 3 — Quality check
+For each usable candidate, assess only these four criteria:
+- completeness
+- clarity
+- pedagogical usefulness
+- alignment with the task
+
+Do not reward extra detail if it introduces risk.
+Prefer the safer answer when quality is otherwise similar.
+
+STEP 4 — Selection rules
+Apply these rules in this exact priority order:
+
+1. Prefer usable candidates over unusable candidates
+2. Among usable candidates, prefer the candidate with fewer hallucinations
+3. If one candidate has hallucinations and another does not, prefer the one without hallucinations
+4. If candidates are tied or similar on hallucination risk, choose the one with better task quality
+5. If all candidates are unusable, choose the least bad candidate
+
+STEP 5 — Final answer policy
+- "selected_model" must be "A", "B", or "C"
+- "hallucinations_found" and "types" must describe the SELECTED candidate
+- "corrected_answer" should normally be the selected candidate exactly as written
+- Only make minimal edits to "corrected_answer" if the selected candidate contains a small, obvious, fixable issue
+- Do not combine multiple candidates
+- Do not synthesize a new answer from A, B, and C
+- Do not add explanations, citations, or content not already present unless required for a minimal correction
+- If the selected candidate is already acceptable, copy it unchanged into "corrected_answer"
+
+--------------------------------------------------
+JUSTIFICATION STYLE
+--------------------------------------------------
+Your justification must be short and structured:
+- first say why the selected candidate won
+- then mention why the others lost
+- mention hallucination status briefly
+Use 2-4 short sentences maximum.
+
+--------------------------------------------------
+OUTPUT RULES
+--------------------------------------------------
+Return ONLY valid JSON.
+Do not use markdown fences.
+Do not include any extra keys.
+Use this exact schema:
+
+{
+  "selected_model": "A" | "B" | "C",
+  "justification": "string",
+  "hallucinations_found": true,
+  "types": ["string"],
+  "corrected_answer": "string"
+}
+
+If no hallucinations are found in the selected candidate, return:
+- "hallucinations_found": false
+- "types": []
+
+${config.output_format?.template}
+`;
+
+  const finalOutput = await callModel({
+    provider: aggregator.provider,
+    model: aggregator.model,
+    systemInstruction: config.system_instruction,
+    userPrompt: aggregationPrompt,
+    parameters: config.parameters,
+  });
+
+  return {
+    case_id: caseConfig.id,
+    prompt: generatorPrompt,
+    model_sequence: [],
+    outputs: {
+      candidate_1: { raw_text: c1 },
+      candidate_2: { raw_text: c2 },
+      candidate_3: { raw_text: c3 },
+      final_output: finalOutput,
+    },
+  };
+}
+
+// ================== RETRY ==================
+
+async function callReviewerWithRetry(args) {
+  const raw = await callModel({ ...args, userPrompt: args.baseUserPrompt });
+
+  if (isModelError(raw)) {
+    return {
+      status: "failed",
+      raw_text: raw,
+      error_type: detectErrorType(raw),
+      parsed_review: {
+        hallucinations_found: false,
+        types: [],
+        justification: "",
+        corrected_answer: args.fallbackText || "",
+      },
+    };
+  }
+
+  const normalized = normalizeReviewerOutput(raw, args.fallbackText);
+
+  return {
+    status: "success",
+    raw_text: raw,
+    parsed_review: normalized,
+  };
+}
+
+function parseReviewerOutput(rawText, fallbackText = "") {
+  return normalizeReviewerOutput(rawText, fallbackText);
+}
+
+// ================== PROMPTS ==================
+function buildReviewerPrompt({ config, previousOutput }) {
+  let prompt = `
+You are a reviewer in a multi-step AI evaluation pipeline.
+
+Your task is to evaluate the following answer for hallucinations and correct it if necessary.
+
+IMPORTANT:
+- You MUST follow the required JSON output format exactly
+- Do NOT include any text outside the JSON
+- If no hallucinations are found, return the original answer unchanged
+
+ANSWER TO REVIEW:
+${previousOutput}
+`;
+
+  if (config.hallucination_rubric) {
+    prompt += `\n\nHALLUCINATION RUBRIC:\n${config.hallucination_rubric}`;
+  }
+
+  if (config.output_format?.template) {
+    prompt += `\n\nOUTPUT FORMAT:\n${config.output_format.template}`;
+  }
+
+  return prompt;
+}
+
+function buildGeneratorPrompt(caseConfig, config) {
+  const generatorSystemInstruction = `
+You are an expert educator.
+
+Your task is to generate a complete, high-quality response based on the instructions provided.
+
+IMPORTANT:
+- Do NOT perform evaluation or hallucination analysis
+- Do NOT output JSON
+- Output ONLY the final lesson plan as free text
+- Do NOT include any structured metadata
+
+Focus on clarity, completeness, and pedagogical quality.
+`;
+
+  if (config.task_type === "generation") {
+    return {
+      systemInstruction: generatorSystemInstruction,
+      userPrompt: config.task,
+    };
+  }
+
+  return {
+    systemInstruction: generatorSystemInstruction,
+    userPrompt: `${config.task}\n\n${JSON.stringify(caseConfig)}`,
+  };
+}
+
+// ================== MODEL CALLS ==================
+
+async function callModel(args) {
+  if (args.provider === "openai") return callOpenAI(args);
+  if (args.provider === "anthropic") return callAnthropic(args);
+  if (args.provider === "google") return callGemini(args);
+  throw new Error(`Unknown provider: ${args.provider}`);
+}
+
+async function callOpenAI({ model, systemInstruction, userPrompt, parameters }) {
+  const res = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      model,
+      messages: [
+        { role: "system", content: systemInstruction },
+        { role: "user", content: userPrompt },
+      ],
+      temperature: parameters.temperature,
+      max_tokens: parameters.max_tokens,
+    }),
+  });
+
+  const data = await res.json();
+  const text = data.choices?.[0]?.message?.content || "";
+
+  if (typeof text === "string" && text && !text.trim().startsWith("{")) {
+    console.warn("⚠️ Non-JSON output detected from OpenAI model");
+  }
+
+  return text;
+}
+
+async function callAnthropic({ model, systemInstruction, userPrompt, parameters }) {
+  const res = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: {
+      "x-api-key": process.env.ANTHROPIC_API_KEY,
+      "Content-Type": "application/json",
+      "anthropic-version": "2023-06-01",
+    },
+    body: JSON.stringify({
+      model,
+      system: systemInstruction,
+      messages: [{ role: "user", content: userPrompt }],
+      max_tokens: parameters.max_tokens,
+    }),
+  });
+
+  const data = await res.json();
+  const text = data.content?.[0]?.text || "";
+
+  if (typeof text === "string" && text && !text.trim().startsWith("{")) {
+    console.warn("⚠️ Non-JSON output detected from Anthropic model");
+  }
+
+  return text;
+}
+
+async function callGemini({ model, systemInstruction, userPrompt, parameters }) {
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${process.env.GEMINI_API_KEY}`;
+
+  const body = {
+    contents: [
+      {
+        role: "user",
+        parts: [{ text: userPrompt }],
+      },
+    ],
+    generationConfig: {
+      temperature: parameters?.temperature ?? 0,
+      maxOutputTokens: parameters?.max_tokens ?? 1024,
+    },
+  };
+
+  if (systemInstruction) {
+    body.systemInstruction = {
+      parts: [{ text: systemInstruction }],
+    };
+  }
+
+  const maxAttempts = 4;
+  let lastError = null;
+
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      const res = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        if (isRetryableStatus(res.status) && attempt < maxAttempts) {
+          const delay = Math.min(1000 * 2 ** (attempt - 1), 8000);
+          const jitter = Math.floor(Math.random() * 300);
+          console.warn(
+            `Gemini retryable error ${res.status} on attempt ${attempt}/${maxAttempts}. Retrying in ${delay + jitter}ms`
+          );
+          await sleep(delay + jitter);
+          continue;
+        }
+
+        const errorMessage =
+          data?.error?.message ||
+          `Gemini API error ${res.status}: ${JSON.stringify(data)}`;
+
+        console.error("Gemini API error:", JSON.stringify(data, null, 2));
+        return `[ERROR: ${errorMessage}]`;
+      }
+
+      if (data.promptFeedback?.blockReason) {
+        console.error("Gemini prompt blocked:", JSON.stringify(data, null, 2));
+        return "[ERROR: Gemini prompt blocked]";
+      }
+
+      const candidate = data.candidates?.[0];
+
+      if (!candidate) {
+        console.error("Gemini returned no candidates:", JSON.stringify(data, null, 2));
+        return "[ERROR: Gemini returned no candidates]";
+      }
+
+      if (candidate.finishReason && candidate.finishReason !== "STOP") {
+        console.error(
+          "Gemini candidate did not finish normally:",
+          JSON.stringify(data, null, 2)
+        );
+        return `[ERROR: Gemini finish reason: ${candidate.finishReason}]`;
+      }
+
+      const text = (candidate.content?.parts || [])
+        .map((part) => part.text || "")
+        .join("")
+        .trim();
+
+      if (!text) {
+        console.error("Gemini returned empty text:", JSON.stringify(data, null, 2));
+        return "[ERROR: Gemini empty text]";
+      }
+
+      if (!text.trim().startsWith("{")) {
+        console.warn("⚠️ Non-JSON output detected from Gemini model");
+      }
+
+      return text;
+    } catch (err) {
+      lastError = err;
+
+      if (attempt < maxAttempts) {
+        const delay = Math.min(1000 * 2 ** (attempt - 1), 8000);
+        const jitter = Math.floor(Math.random() * 300);
+        console.warn(
+          `Gemini request failed on attempt ${attempt}/${maxAttempts}: ${err.message}. Retrying in ${delay + jitter}ms`
+        );
+        await sleep(delay + jitter);
+        continue;
+      }
+    }
+  }
+
+  return `[ERROR: ${lastError?.message || "Gemini request failed"}]`;
 }
 
 // ================== IO ==================
