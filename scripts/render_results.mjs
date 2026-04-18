@@ -3,6 +3,10 @@ import fs from "fs";
 // 🔹 Load JSON
 const data = JSON.parse(fs.readFileSync("results/latest.json", "utf-8"));
 
+// 🔹 Create runId + history path
+const runId = data.run_time_utc.replace(/[:.]/g, "-");
+const historyMdPath = `results/history_md/${runId}.md`;
+
 // 🔹 Helpers
 function clean(text) {
   if (!text) return "N/A";
@@ -15,6 +19,7 @@ function section(title) {
 
 // 🔹 Start building markdown
 let md = `# Run: ${data.run_time_utc}\n`;
+md += `JSON: results/history/${runId}.json\n`;
 
 md += section("Architecture");
 md += data.architecture;
@@ -77,8 +82,14 @@ if (data.architecture === "consensus") {
     }
   }
 
+  // 🔹 Save files
   fs.writeFileSync("results/latest.md", md);
-  console.log("✅ Markdown generated (consensus): results/latest.md");
+  fs.writeFileSync(historyMdPath, md);
+
+  console.log("✅ Markdown generated:");
+  console.log(" - results/latest.md");
+  console.log(` - ${historyMdPath}`);
+
   process.exit();
 }
 
@@ -152,7 +163,10 @@ if (outputs.final_reviewer_output) {
   }
 }
 
-// 🔹 Save file
+// 🔹 Save files
 fs.writeFileSync("results/latest.md", md);
+fs.writeFileSync(historyMdPath, md);
 
-console.log("✅ Markdown generated (sequential): results/latest.md");
+console.log("✅ Markdown generated:");
+console.log(" - results/latest.md");
+console.log(` - ${historyMdPath}`);
