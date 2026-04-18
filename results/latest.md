@@ -1,4 +1,4 @@
-# Run: 2026-04-17T14:23:04.759Z
+# Run: 2026-04-18T14:03:23.652Z
 
 
 ---
@@ -16,42 +16,63 @@ CCSS.ELA-Literacy.W.7.1 — Write arguments to support claims with clear reasons
 ---
 
 ## Candidate 1
-# The Curiosity Argument: Why Questions Are the Most Powerful Tool You Own
+# The Curious Arguer: Asking "Why?" to Write Better Arguments
 
-### A 55-Minute Middle School ELA Lesson
+## A 55-Minute Middle School ELA Lesson
 
 ---
 
 ## LESSON OVERVIEW
 
-**Grade Level:** 7th Grade (adaptable for 6–8)
+**Grade Level:** 7th Grade
+**Subject:** ELA / Writing
 **Duration:** 55 minutes
-**Standard:** CCSS.ELA-Literacy.W.7.1 — Write arguments to support claims with clear reasons and relevant evidence, including acknowledging alternate or opposing claims and organizing reasoning logically.
-**Curiosity Focus:** Students will discover that curiosity is not just a personality trait — it is a *skill* that makes their writing stronger, their thinking sharper, and their arguments more convincing.
-**Core Message:** The best arguers are not the loudest people in the room. They are the most *curious* ones.
+**Central Standard:** CCSS.ELA-Literacy.W.7.1 — Write arguments to support claims with clear reasons and relevant evidence, including acknowledging alternate or opposing claims and organizing reasoning logically.
+**Curiosity Theme:** Students will discover that curiosity — the desire to question, explore, and understand — is the secret engine behind every powerful argument.
+
+---
+
+## ESSENTIAL QUESTIONS
+
+- What does it mean to truly be curious about something?
+- How does asking better questions make us better thinkers and writers?
+- What makes an argument strong rather than just loud?
+
+---
+
+## LEARNING OBJECTIVES
+
+By the end of this lesson, students will be able to:
+
+1. Define curiosity and explain why it matters in academic writing and everyday life.
+2. Generate meaningful questions about a topic before forming an opinion.
+3. Identify the key components of an argumentative paragraph: claim, reasons, evidence, counterclaim, and rebuttal.
+4. Draft a structured argumentative paragraph that reflects genuine curiosity about a topic.
 
 ---
 
 ## MATERIALS NEEDED
 
-- Whiteboard or projected display
-- Printed "Curiosity Argument Planner" graphic organizer (one per student)
-- Printed "Two Sides of the Same Story" card sets (one set per pair of students — instructions below)
+- Whiteboard or smartboard
+- Dry-erase markers (multiple colors)
+- Printed "Curiosity Cards" (one set per group — instructions below)
+- Printed "Argument Builder Graphic Organizer" (one per student — template below)
+- Lined paper or writing journals
 - Pencils/pens
-- Optional: sticky notes in two colors
-- Timer (visible to students)
+- Optional: a small, unusual object to use as a hook (a compass, a strange rock, a sealed envelope labeled "DO NOT OPEN")
 
 ---
 
-## STANDARDS ALIGNMENT AT A GLANCE
+## VOCABULARY TO INTRODUCE
 
-| W.7.1 Component | Where It Appears in This Lesson |
-|---|---|
-| Introduce claim | Hook + Claim-Building Activity |
-| Organize logically | Graphic organizer structure |
-| Support with reasons & evidence | Evidence Hunt activity |
-| Acknowledge counterclaims | "Curiosity Flip" partner activity |
-| Concluding statement | Final writing task |
+| Word | Definition |
+|------|------------|
+| **Curiosity** | A strong desire to know or learn something |
+| **Claim** | Your main argument or position on a topic |
+| **Evidence** | Facts, data, or examples that support your claim |
+| **Counterclaim** | A reason someone might disagree with your argument |
+| **Rebuttal** | Your response to the counterclaim that defends your position |
+| **Reasoning** | The explanation of *why* your evidence supports your claim |
 
 ---
 
@@ -59,401 +80,467 @@ CCSS.ELA-Literacy.W.7.1 — Write arguments to support claims with clear reasons
 
 ---
 
-### ⏱️ MINUTES 0–5 | THE HOOK — "The Worst Argument You've Ever Heard"
+### 🔷 SEGMENT 1: THE HOOK — What Is Curiosity? *(8 minutes)*
 
-**[Teacher stands at the front, arms crossed, speaking with exaggerated confidence.]**
+**[0:00 – 8:00]**
 
-*"Okay, everyone. Homework should be banned. That's it. I said it. It's bad. Trust me."*
+**Teacher Action:**
 
-**Pause. Look around the room.**
+Walk in holding an unusual object — ideally something students can see but not immediately identify. Place it on the front desk without saying anything about it. Begin taking attendance or doing something mundane, letting students stew in their curiosity for 30–60 seconds.
 
-*"Was that a good argument? Why not?"*
+Then pause and ask:
 
-Take 3–4 quick student responses. Students will naturally say things like:
-- "You didn't give any reasons."
-- "You didn't explain *why.*"
-- "What if someone disagrees?"
+> *"I noticed a few of you staring at this. Why? I didn't say it was interesting. I didn't tell you to care. So why do you?"*
 
-**Teacher says:**
-*"Every single thing you just said came from one place — curiosity. You asked, 'What's the evidence? What about the other side? How do you know?' That is what makes an argument powerful. Today, we are going to learn that curiosity isn't just something you feel when you watch a cool video. Curiosity is a **writing superpower.** And by the end of class, you're going to use it to build an argument that is actually worth reading."*
+Allow 2–3 students to respond freely. Validate their answers warmly.
 
-**Write on the board:**
-> 🔑 **Curious writers ask better questions. Better questions build better arguments.**
+**Teacher Script:**
 
----
+> "What you just experienced — that pull, that itch to know — that's curiosity. It's one of the most powerful forces in your brain. Scientists actually study it. They've found that when you're curious, your brain releases dopamine — the same chemical released when you eat your favorite food or win a game. Curiosity literally feels good."
 
-### ⏱️ MINUTES 5–12 | DIRECT INSTRUCTION — "Anatomy of a Real Argument"
+Write on the board in large letters:
 
-**Tell students:**
-*"Before we write anything, we need to know what we're building. An argument in writing isn't a fight. It's a structured case — like a lawyer presenting to a jury."*
+> **CURIOSITY = The desire to ask "Why?" and "What if?" and "But how?"**
 
-**Draw or project this structure on the board:**
+**Discussion Prompt (Think-Pair-Share):**
 
-```
-┌─────────────────────────────────────────────┐
-│              ARGUMENT ARCHITECTURE           │
-│                                             │
-│  1. CLAIM — What do I believe is true?      │
-│  2. REASONS — Why do I believe it?          │
-│  3. EVIDENCE — What proves my reasons?      │
-│  4. COUNTERCLAIM — What would someone       │
-│     who disagrees say?                      │
-│  5. REBUTTAL — Why is my claim still        │
-│     stronger?                               │
-│  6. CONCLUSION — What do I want my          │
-│     reader to walk away thinking?           │
-└─────────────────────────────────────────────┘
-```
+Ask students to turn to a partner and answer:
+> *"Think of the last time you were genuinely curious about something. What did you do? Did you look it up? Ask someone? Or did you just let the question sit?"*
 
-**Point to #4 — Counterclaim — and say:**
-*"This is where most student writers panic. They think, 'If I say what the other side thinks, doesn't that make my argument weaker?' No. It makes it STRONGER. Here's why: when you acknowledge what someone else believes, you show that you actually thought about it. You didn't just shout your opinion into the void. That's curiosity in action — you got curious about what the opposing side would say, and you used it."*
+Take 2–3 share-outs from the class.
 
-**Quick check:** Ask students to give a thumbs up/down: *"Has anyone ever written an argument and just skipped the counterclaim because it felt weird?"* (Most hands will go up — normalize this.)
+**Bridge to Writing:**
 
-**Say:** *"That ends today."*
+> "Here's the thing. Being curious isn't just for scientists or explorers. It's actually the *secret ingredient* in great writing — especially argument writing. Today, we're going to learn that the best arguments start not with an opinion... but with a question."
 
 ---
 
-### ⏱️ MINUTES 12–22 | ACTIVITY 1 — "Curiosity Flip" Partner Activity
+### 🔷 SEGMENT 2: MINI-LESSON — From Curiosity to Argument *(12 minutes)*
 
-**Purpose:** Students practice generating counterclaims by genuinely getting curious about the opposing viewpoint — not dismissing it.
+**[8:00 – 20:00]**
+
+**Teacher Action:**
+
+Write the following on the board in two columns:
+
+| ❌ Weak Argumentative Thinking | ✅ Curious Argumentative Thinking |
+|---|---|
+| "I already know what I think." | "I wonder why this is the way it is." |
+| "I'll only look for reasons I'm right." | "What would someone who disagrees say?" |
+| "My opinion is obvious." | "What evidence actually exists?" |
+
+**Teacher Script:**
+
+> "Most people think writing an argument means picking a side and defending it no matter what. But the BEST arguers — lawyers, scientists, journalists, debaters — actually start by being curious. They ask: *What do I NOT know? What might I be wrong about? What does the other side believe, and WHY do they believe it?*"
+
+> "Here's a wild idea: if you're not even a little curious about the topic you're arguing about, your argument is probably going to be weak. Curiosity is what drives you to actually find *real* evidence instead of just making things up."
+
+**Introduce the Argument Components:**
+
+Draw a simple "Argument House" on the board:
+
+```
+        🏠 ARGUMENT HOUSE
+   ___________________________
+  |        REBUTTAL           |  ← You defend your claim against the counterclaim
+  |___________________________|
+  |       COUNTERCLAIM        |  ← The other side's best point
+  |___________________________|
+  |    EVIDENCE + REASONING   |  ← Proof + explanation of WHY it matters
+  |___________________________|
+  |         REASONS           |  ← Why your claim is true
+  |___________________________|
+  |          CLAIM            |  ← Your main position (THE FOUNDATION)
+  |___________________________|
+```
+
+Walk through each layer briefly:
+
+- **Claim:** Your position. ("Middle school students should have a longer lunch period.")
+- **Reasons:** Why you believe it. ("Students need time to eat properly and socialize.")
+- **Evidence:** Proof. ("Studies from the CDC show that students who eat adequate lunches score higher on afternoon assessments.")
+- **Counterclaim:** What someone might say against you. ("Some might argue that longer lunches reduce instructional time.")
+- **Rebuttal:** Your response. ("However, hungry and stressed students learn less efficiently, meaning shorter lunches actually *waste* instructional time.")
+
+**Curiosity Connection:**
+
+> "Notice something. To write a counterclaim, you have to be *curious* about the OTHER side. You have to genuinely wonder: 'Why might someone disagree with me? What are they seeing that I might be missing?' That curiosity makes your argument stronger — because when you can address the other side, people trust you more."
+
+**Check for Understanding:**
+
+Ask students to give a thumbs up, sideways, or down based on how comfortable they feel with the five components.
+
+---
+
+### 🔷 SEGMENT 3: CURIOSITY CARD ACTIVITY — Group Practice *(10 minutes)*
+
+**[20:00 – 30:00]**
 
 **Setup:**
-Distribute the **"Two Sides of the Same Story" card sets** to pairs of students. Each set contains **4 argument topics** printed on cards:
 
-> **Card 1:** Students should be allowed to use their phones during lunch at school.
->
-> **Card 2:** All students should be required to take a cooking class in middle school.
->
-> **Card 3:** Competitive grades (A, B, C, D, F) should be replaced with pass/fail.
->
-> **Card 4:** Schools should start at 9:00 AM instead of 7:30 AM.
+Divide students into groups of 3–4. Give each group a **Curiosity Card** — a card with a debatable topic printed on it. Topics should be engaging and school-appropriate, such as:
 
-**Instructions (written on the board and read aloud):**
+- *"Should students be allowed to use their phones during lunch?"*
+- *"Should homework be banned in middle school?"*
+- *"Should all students be required to learn a second language?"*
+- *"Should schools have a later start time?"*
+- *"Should junk food be banned from school cafeterias?"*
 
-1. Partner A picks a card and states a **claim** — one clear sentence about what they believe.
-2. Partner B's job is NOT to agree or disagree yet. Partner B must ask **three genuine curiosity questions** about the topic. These must be real questions — not gotcha questions. Examples: *"What happens to students who have no other time to eat?" / "Who would teach the cooking class?" / "What does the research say about teen sleep?"*
-3. Together, both partners write ONE strong **counterclaim** — the best argument someone on the opposing side could make.
-4. Then Partner A writes a **rebuttal** — one to two sentences that addresses the counterclaim without ignoring it.
-5. Switch roles and repeat with a new card.
+**Instructions (written on board or projected):**
 
-**Teacher circulates and listens. Coaching prompts to offer:**
-- *"Is that a real question, or is it a trick? Would you actually want the answer?"*
-- *"What if you're wrong? What evidence would change your mind?"*
-- *"Can you make the counterclaim even stronger? Make the opposing side sound smart."*
+**Step 1 — Be Curious First! (3 minutes)**
+Before forming any opinion, your group must write down **at least 5 questions** you have about this topic. Not opinions — QUESTIONS.
 
-**Debrief (2 minutes):**
-Ask 2–3 pairs to share one counterclaim they wrote. After each one, ask the class: *"Does that counterclaim sound like something a real person might actually believe? Does it sound smart?"*
+*Examples:*
+- "How much homework do students actually do each night?"
+- "What does research say about phone use and focus?"
+- "What do teachers think about this?"
 
-**Say:** *"That right there is what separates average writers from great ones. Great writers make the other side sound intelligent — and then they respond to it anyway. That takes curiosity."*
+**Step 2 — Take a Position (2 minutes)**
+After exploring your questions, decide as a group: What claim would you argue? Write one clear claim sentence.
 
----
+**Step 3 — Steelman the Other Side (3 minutes)**
+Now write the BEST possible argument for the opposing side. Not a weak version — the strongest version. (This is called "steelmanning" — making the other side as strong as possible before rebutting it.)
 
-### ⏱️ MINUTES 22–35 | ACTIVITY 2 — "Build Your Case" — Graphic Organizer Work
+**Step 4 — Quick Share (2 minutes)**
+Each group shares their topic, claim, and the strongest counterclaim they found.
 
-**Introduce the prompt:**
+**Teacher Facilitation Notes:**
 
-> **Writing Prompt:** *Should middle school students be required to spend at least 30 minutes each week in unstructured, screen-free time at school — time with no assignments, no phones, and no structured activities?*
+- Circulate during Steps 1–3. Listen for groups that skip to opinions immediately — gently redirect: *"Wait — what do you actually KNOW about this vs. what do you ASSUME?"*
+- Praise groups that surface surprising questions or genuinely strong counterclaims.
+- During share-out, highlight how asking questions first led to stronger, more nuanced positions.
 
-**Say:**
-*"This is your argument topic for today. Before you write a single sentence, you are going to get CURIOUS about it. Your graphic organizer is going to force you to ask questions before you answer them."*
+**Key Debrief Point:**
 
-**Distribute the Curiosity Argument Planner.** Walk students through each section:
+> "Did anyone notice that when you really tried to understand the OTHER side, your own claim got sharper? That's not a coincidence. Curiosity makes your arguments smarter."
 
 ---
 
-**CURIOSITY ARGUMENT PLANNER**
+### 🔷 SEGMENT 4: INDEPENDENT WRITING — Argument Builder *(18 minutes)*
 
-**Section 1: Explore Before You Claim**
-*Before you pick a side, write 3 questions you genuinely have about this topic.*
-1. _______________________________________________
-2. _______________________________________________
-3. _______________________________________________
+**[30:00 – 48:00]**
 
-*(Teacher note: This is deliberately placed BEFORE the claim. Students must sit in curiosity before they plant a flag. This mirrors real intellectual practice.)*
+**Distribute:** The Argument Builder Graphic Organizer (see template below).
 
-**Section 2: My Claim**
-*After thinking about it, what do I believe? Write one clear sentence.*
+**Teacher Script:**
 
-_______________________________________________
+> "Now you're going to try this on your own. I'm going to give you a topic — or you can choose from the ones on the board. Before you write a single word of your argument, you're going to spend three full minutes just asking questions. Be genuinely curious. Then you'll build your argument using the house structure we learned."
 
-**Section 3: My Reasons & Evidence**
+**Topic Options (write on board):**
 
-| Reason | Evidence (fact, example, statistic, or logical reasoning) |
-|---|---|
-| Reason 1: | |
-| Reason 2: | |
-| Reason 3: | |
+1. Should students be graded on participation in class?
+2. Should middle schoolers be allowed to manage their own schedule?
+3. Should schools have required community service hours?
+4. *(Open choice — student may propose a topic for quick teacher approval)*
 
-*(Teacher note: Remind students that evidence doesn't have to be a statistic — a logical "if/then" chain of reasoning counts, as does a real-world example.)*
+**Timed Writing Sequence:**
 
-**Section 4: The Counterclaim (Make It Strong)**
-*What is the BEST argument someone who disagrees with me could make? Write it as if you believe it.*
+| Time | Task |
+|------|------|
+| 3 minutes | **Curiosity Phase:** Write 5+ questions about your topic |
+| 3 minutes | **Claim + Reasons:** Fill in the bottom two layers of the house |
+| 4 minutes | **Evidence + Reasoning:** Find or recall at least one piece of evidence; write your reasoning |
+| 3 minutes | **Counterclaim:** Write the strongest opposing argument you can imagine |
+| 3 minutes | **Rebuttal:** Respond to the counterclaim |
+| 2 minutes | **Draft your paragraph:** Use your organizer to write a connected paragraph |
 
-_______________________________________________
+**Pacing Note:** Call out each phase transition aloud and keep it moving. Students don't need a perfect paragraph — they need a *complete* one.
 
-**Section 5: My Rebuttal**
-*I understand that argument, BUT...*
+**Circulate and Conference:**
 
-_______________________________________________
-
-**Section 6: My Conclusion**
-*What do I want my reader to walk away thinking or doing?*
-
-_______________________________________________
+Look for:
+- Students who skipped the question phase (remind them gently — curiosity first!)
+- Students whose counterclaim is too weak ("Some people might think this is boring") — push them: *"What's the BEST argument against you? What would a really smart person who disagrees say?"*
+- Students who are stuck — ask: *"What's one thing you're genuinely NOT sure about on this topic? Start there."*
 
 ---
 
-**Teacher circulates during this work time (approximately 10 minutes).** Key coaching interventions:
+### 🔷 SEGMENT 5: SHARING + REFLECTION — Curiosity Debrief *(7 minutes)*
 
-- **For students who jump straight to the claim (skipping Section 1):** *"Nope — questions first. Make yourself wonder about it for 60 seconds before you decide."*
-- **For students who write a weak counterclaim:** *"Read that to me out loud. Now — does that sound like something an intelligent adult would actually say? Make it harder to argue against."*
-- **For students stuck on evidence:** *"You don't need to have memorized a statistic. Think about what you KNOW from experience or logic. Why might this be true? Walk me through the reasoning."*
-- **For advanced students:** *"Can you add a second counterclaim? Can your evidence be more specific?"*
+**[48:00 – 55:00]**
 
----
+**Volunteer Sharing (3 minutes):**
 
-### ⏱️ MINUTES 35–47 | ACTIVITY 3 — "First Draft Argument Paragraph"
+Ask 2–3 volunteers to read their complete paragraph aloud. After each one, ask the class:
 
-**Say:**
-*"Now you're going to turn your planner into actual writing. You're writing ONE focused argument paragraph — or if time allows, a short multi-paragraph piece. This isn't your final draft. This is your thinking made visible."*
+> *"What was the strongest part? Did their counterclaim feel honest — like they actually understood the other side?"*
 
-**Post this sentence frame bank on the board** (for students who need structure):
+Keep this affirming and fast-paced.
 
-> **Claim starters:**
-> - "Middle school students should / should not..."
-> - "Requiring students to... would be beneficial/harmful because..."
->
-> **Reason connectors:**
-> - "First and most importantly..."
-> - "Another compelling reason is..."
-> - "Evidence suggests that..."
->
-> **Counterclaim transitions:**
-> - "Some may argue that..."
-> - "Those who oppose this idea often point out..."
-> - "It is understandable that some believe..."
->
-> **Rebuttal transitions:**
-> - "However, this argument fails to consider..."
-> - "While this concern is valid, the evidence shows..."
-> - "Even if this were true, it would not change the fact that..."
->
-> **Conclusion starters:**
-> - "Ultimately, the evidence makes clear that..."
-> - "For these reasons, it is essential that..."
+**Class Reflection — Exit Ticket (4 minutes):**
 
-**Students write independently for approximately 10 minutes.**
+Students answer THREE quick questions on a sticky note or half-sheet before leaving:
 
-**Teacher continues to circulate.** Focus feedback on:
-1. Is the claim one clear sentence?
-2. Is the counterclaim present and genuinely strong?
-3. Does the rebuttal actually address the counterclaim — or does it just repeat the original claim?
+> 1. **What's one question you asked today that surprised you or changed how you thought about your topic?**
+> 2. **What's one part of argument writing that felt easier today than before?**
+> 3. **Complete this sentence: "Curiosity helps me write better arguments because ___________."**
+
+As students hand in their exit tickets, deliver a closing thought:
+
+**Teacher Closing Script:**
+
+> "Here's what I want you to carry with you: The world is full of people who are very loud about their opinions and very uninterested in why anyone else thinks differently. Those people rarely change anything. But someone who starts with a question — who actually *wonders* why the world is the way it is — that person can write an argument, make a case, and genuinely move people. Curiosity isn't weakness. It's your sharpest weapon as a thinker and a writer. See you tomorrow — bring your questions."
 
 ---
 
-### ⏱️ MINUTES 47–53 | SHARE & REFLECT
+## ARGUMENT BUILDER GRAPHIC ORGANIZER
 
-**Pair-share (2 minutes):**
-*"Turn to your partner and read only your counterclaim and your rebuttal. Partner — tell them: does the rebuttal actually respond to the counterclaim, or does it dodge it?"*
-
-**Whole class share (3 minutes):**
-Ask 2–3 volunteers (or cold-call students who wrote particularly strong counterclaims) to share. After each:
-- *"How many of you think that counterclaim would actually make someone on the other side feel heard? Thumbs up/down."*
-- *"Did the rebuttal address it honestly — or did it dodge?"*
-
-**Quick metacognitive reflection — ask the class:**
-*"Raise your hand if at any point today you caught yourself getting genuinely curious — like, actually wondering something about the topic rather than just trying to win."*
-
-*(Acknowledge those who raise their hands.)*
-
-*"That moment — that little itch of 'wait, but what about...' — that's where great writing lives. Professional journalists do it. Scientists do it. Lawyers do it. And now you're doing it."*
+*(Print one per student)*
 
 ---
 
-### ⏱️ MINUTES 53–55 | CLOSE — "The Curiosity Commitment"
+**Name:** _________________________ **Date:** _____________ **Period:** _______
 
-**Write on the board:**
-
-> *"The opposite of curiosity isn't certainty. It's closed-mindedness. And closed-minded writers write arguments nobody wants to read."*
-
-**Say:**
-*"Before you leave today, I want you to write one sentence at the bottom of your planner — not for a grade, just for you. Finish this thought:"*
-
-> **"One thing I'm genuinely curious about — that I don't know the answer to yet — is..."**
-
-*"It can be about today's topic. It can be about anything. The goal is to leave this room carrying a question. Questions are what drive writers forward."*
-
-Give students 60–90 seconds to write their curiosity sentence.
-
-**Optional closing ritual:** Ask 3–4 students to read their curiosity sentence aloud. Respond to each one with genuine interest — not evaluation. Model what it looks like to receive curiosity openly.
-
-**Dismiss.**
+**Topic I Chose:** _____________________________________________________________
 
 ---
 
-## ASSESSMENT
+### 🔍 PHASE 1: BE CURIOUS FIRST
+*Before forming your opinion, write at least 5 genuine questions you have about this topic.*
 
-### Formative (during class):
-- Observation during partner activity — are counterclaims genuinely strong?
-- Graphic organizer completion — did student complete Section 1 (questions) before Section 2 (claim)?
-- Circulated writing conferences
+1. ___________________________________________________________________________
+2. ___________________________________________________________________________
+3. ___________________________________________________________________________
+4. ___________________________________________________________________________
+5. ___________________________________________________________________________
 
-### Summative (collected):
-- **Graphic Organizer + First Draft paragraph** — evaluate using the following criteria:
+---
 
-| Criteria | 4 — Exceeds | 3 — Meets | 2 — Approaching | 1 — Beginning |
-|---|---|---|---|---|
-| **Claim** | Clear, specific, arguable | Clear and arguable | Present but vague | Missing or unclear |
-| **Reasons & Evidence** | Multiple strong reasons with specific, logical evidence | Two reasons with evidence | One reason; evidence thin | Reasons without support |
-| **Counterclaim** | Strong, honest, sounds like a real opposing view | Present and reasonable | Present but weak or dismiss
+### 🏠 BUILD YOUR ARGUMENT HOUSE
+
+**CLAIM** *(My position on this topic is...)*
+
+_______________________________________________________________________________
+_______________________________________________________________________________
+
+---
+
+**REASONS** *(I believe this because...)*
+
+Reason 1: ____________________________________________________________________
+
+Reason 2: ____________________________________________________________________
+
+---
+
+**EVIDENCE + REASONING** *(Proof that supports my reasons + explanation of WHY it matters)*
+
+Evidence: ____________________________________________________________________
+
+_______________________________________________________________________________
+
+This matters because: __________________________________________________________
+
+_______________________________________________________________________________
+
+---
+
+**COUNTERCLAIM** *(The strongest argument AGAINST my position is...)*
+
+_______________________________________________________________________________
+_______________________________________________________________________________
+
+---
+
+**REBUTTAL** *(However, I would respond by saying...)*
+
+_______________________________________________________________________________
+_______________________________________________________________________________
+
+---
+
+### ✍️ WRITE YOUR PARAGRAPH
+
+*Use everything above to write one complete argumentative paragraph below. Include all five elements.*
+
+_______________________________________________________________________________
+_______________________________________________________________________________
+_______________________________________________________________________________
+_______________________________________________________________________________
+_______________________________________________________________________________
+_______________________________________________________________________________
+_______________________________________________________________________________
+_______________________________________________________________________________
+
+---
+
+## CURIOSITY CARDS
+
+*(Print and cut — one per group)*
+
+---
+
+> 📱 
 
 ---
 
 ## Candidate 2
-❌ [ERROR: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.]
+❌ [ERROR: Gemini finish reason: MAX_TOKENS]
 
 ---
 
 ## Candidate 3
 **Lesson Plan: Cultivating Curiosity and Writing Strong Arguments (55 minutes)**
 
-**Grade:** Middle School (7th Grade)  
-**Standard:** CCSS.ELA-Literacy.W.7.1 — Write arguments to support claims with clear reasons and relevant evidence, including acknowledging alternate or opposing claims and organizing reasoning logically.  
-**Topic:** Curiosity — What it is, why it matters, and how it fuels strong arguments
-
 ---
 
-### Lesson Objectives:
-- Define and understand curiosity and its importance in learning and critical thinking.
-- Practice generating questions and exploring multiple perspectives.
-- Write a clear, well-organized argumentative paragraph supporting a claim about curiosity.
-- Include reasons, relevant evidence, and acknowledge opposing viewpoints.
+### Objective:
+By the end of the lesson, students will understand the value of curiosity in learning and be able to write a clear argumentative paragraph supporting a claim with reasons and evidence, while acknowledging opposing viewpoints.
+
+### Standards Addressed:
+- **CCSS.ELA-Literacy.W.7.1** — Write arguments to support claims with clear reasons and relevant evidence, including acknowledging alternate or opposing claims and organizing reasoning logically.
 
 ---
 
 ### Materials Needed:
-- Whiteboard and markers  
-- Student notebooks or writing paper  
-- Projector or chart paper (optional)  
-- Handout with a short text about curiosity (provided below)  
-- Graphic organizer for argument writing (claim, reasons, evidence, counterclaim, rebuttal)
+- Whiteboard and markers
+- Student notebooks or writing paper
+- Printed handout with a short argumentative writing prompt (provided below)
+- Chart paper or projector for examples
+- Sticky notes
 
 ---
 
 ### Lesson Outline:
 
 **1. Introduction to Curiosity (10 minutes)**  
-- Begin by asking students: *What does curiosity mean to you?*  
-- Write their ideas on the board.  
-- Share a simple definition: *Curiosity is a strong desire to learn or know something.*  
-- Discuss why curiosity is important — it helps us learn, solve problems, and understand different viewpoints.  
-- Read aloud a short passage about curiosity (see handout below).  
-- Ask: *How does curiosity help people become better thinkers and learners?*
+- Begin by asking students: *“What does curiosity mean to you?”*  
+- Write their responses on the board.  
+- Briefly explain that curiosity is the desire to learn or know more about something, and it drives us to ask questions and explore new ideas.  
+- Share a quick story or example of a famous curious person (e.g., Marie Curie, Leonardo da Vinci) and how their curiosity led to important discoveries.  
+- Emphasize that curiosity helps us become better thinkers and writers because it encourages us to explore different viewpoints and gather evidence.
 
-**Handout Passage (read aloud or distribute):**  
-*"Curiosity drives us to ask questions and seek answers. It pushes scientists to discover new things, writers to explore ideas, and students to learn more deeply. When we are curious, we don’t just accept information; we want to understand it fully and from different angles."*
+**2. Connecting Curiosity to Argument Writing (5 minutes)**  
+- Explain that when we write arguments, curiosity helps us by making us ask:  
+  - *Why do I believe this?*  
+  - *What evidence supports my claim?*  
+  - *What might someone who disagrees say?*  
+- This questioning leads to stronger, more thoughtful writing.
 
----
-
-**2. Curiosity and Argument Writing (10 minutes)**  
-- Explain that today, students will write an argument about why curiosity is important.  
-- Review the components of a strong argument:  
-  - A clear claim (your main point)  
-  - Reasons that support your claim  
-  - Evidence or examples that back up your reasons  
-  - Acknowledgment of opposing views (counterclaims) and a response (rebuttal)  
+**3. Mini-Lesson: Elements of a Strong Argument (10 minutes)**  
+- Review the key parts of an argumentative paragraph:  
+  - **Claim:** Your main point or opinion.  
+  - **Reasons:** Why you believe your claim.  
+  - **Evidence:** Facts, examples, or details that support your reasons.  
+  - **Acknowledgment of opposing claims:** Recognizing other viewpoints.  
+  - **Logical organization:** Clear and ordered ideas.  
 - Show a simple example on the board:  
-  - Claim: Curiosity is essential for learning.  
-  - Reason: It motivates us to ask questions.  
-  - Evidence: Scientists’ discoveries often start with a question.  
-  - Counterclaim: Some people say curiosity can be distracting.  
-  - Rebuttal: But curiosity helps us focus on finding answers, which leads to deeper understanding.
+  *Claim:* School uniforms should be required.  
+  *Reason:* They reduce bullying.  
+  *Evidence:* Studies show schools with uniforms have fewer bullying incidents.  
+  *Opposing claim:* Some say uniforms limit self-expression, but students can express themselves in other ways like hairstyles or accessories.  
+- Discuss how curiosity helps find these reasons and evidence.
+
+**4. Guided Practice: Curiosity Brainstorm (10 minutes)**  
+- Present a writing prompt:  
+  *“Should homework be banned in middle school?”*  
+- Ask students to spend 5 minutes writing down questions they have about this topic on sticky notes (e.g., “Does homework help students learn?” “What do teachers think about homework?” “How does homework affect free time?”).  
+- Collect and read a few aloud, highlighting how curiosity leads to deeper thinking.  
+- Then, as a class, choose 2-3 questions to explore briefly, discussing possible answers or evidence.
+
+**5. Independent Writing (15 minutes)**  
+- Students write a short argumentative paragraph answering the prompt:  
+  *“Should homework be banned in middle school?”*  
+- Remind them to:  
+  - State their claim clearly.  
+  - Provide at least two reasons with evidence.  
+  - Acknowledge an opposing viewpoint.  
+  - Organize their ideas logically.  
+- Encourage them to use their curiosity questions to guide their writing.
+
+**6. Sharing and Reflection (5 minutes)**  
+- Invite 2-3 volunteers to read their paragraphs aloud.  
+- After each, ask the class:  
+  - *What curious questions might have helped this writer?*  
+  - *Did the writer acknowledge an opposing claim?*  
+- End with a quick reflection:  
+  *“How can being curious help you in writing and learning?”*  
+- Optionally, have students write a one-sentence reflection in their notebooks.
 
 ---
 
-**3. Group Activity: Generating Reasons and Counterclaims (15 minutes)**  
-- Divide students into small groups (3-4 students).  
-- Each group brainstorms reasons why curiosity is important and possible opposing views.  
-- Provide guiding questions:  
-  - Why might curiosity help someone learn better?  
-  - Can curiosity ever be a problem? Why or why not?  
-- Groups write their ideas on chart paper or share aloud.  
-- Discuss as a class, highlighting good reasons and counterclaims.
+### Extension/Homework (Optional):  
+Ask students to pick a topic they are curious about and write three questions they want to explore. Then, write a short paragraph stating their opinion on the topic, supporting it with reasons and evidence.
 
 ---
 
-**4. Individual Writing: Argument Paragraph (15 minutes)**  
-- Students write their own argumentative paragraph on the prompt:  
-  *“Why is curiosity important?”*  
-- Encourage them to:  
-  - State a clear claim.  
-  - Include at least two reasons with evidence or examples.  
-  - Acknowledge one opposing viewpoint and respond to it.  
-- Provide the graphic organizer to help structure their writing.
-
----
-
-**5. Sharing and Wrap-Up (5 minutes)**  
-- Invite a few volunteers to read their paragraphs aloud.  
-- Highlight strong use of reasons, evidence, and counterclaims.  
-- Reinforce the idea that curiosity helps us think deeply and write better arguments.  
-- Assign a reflection question for homework or journal:  
-  *How can you use curiosity to improve your learning and writing?*
-
----
-
-### Extension Ideas (if time allows or for homework):  
-- Research a famous curious person (scientist, inventor, writer) and write a short paragraph about how curiosity helped them succeed.  
-- Create a curiosity journal where students write down questions they have about the world and try to find answers.
-
----
-
-This lesson combines the development of curiosity with the practice of writing argumentative texts aligned with CCSS.ELA-Literacy.W.7.1, helping students become thoughtful, inquisitive writers.
+This lesson combines the development of curiosity with practical argumentative writing skills aligned to CCSS.ELA-Literacy.W.7.1, engaging students in critical thinking and clear communication.
 
 ---
 
 ## Aggregator
+Looking at the candidates:
+
+**Candidate B**: Not usable - it's an error message (MAX_TOKENS).
+
+**Candidate A**: Very detailed 55-minute lesson plan with full structure, graphic organizer, curiosity cards, timed segments, teacher scripts. Contains one potentially evaluable claim: "Scientists actually study it. They've found that when you're curious, your brain releases dopamine — the same chemical released when you eat your favorite food or win a game." This is presented as scientific fact in a teacher script. While dopamine and curiosity is a real research area, this is presented as a definitive teacher-spoken fact with specifics. However, this is framed as instructional/pedagogical content in a script, not as a sourced citation with author/year/organization/statistic. It's a general scientific claim that is broadly accurate and not fabricated with specific citations. No B2 issues (no fake citations or statistics with years/organizations). No hallucinations under the rubric.
+
+**Candidate C**: Shorter, functional lesson plan. Contains: "Share a quick story or example of a famous curious person (e.g., Marie Curie, Leonardo da Vinci) and how their curiosity led to important discoveries." This is a pedagogical suggestion, not a factual claim. Also: "Studies show schools with uniforms have fewer bullying incidents" - this is presented as an example in a model argument, clearly framed as a fictional/instructional example for teaching purposes. Not an evaluable claim under the rubric. No hallucinations found.
+
+Both A and C are hallucination-free. A is significantly more complete, detailed, pedagogically rich, and better aligned with the task (55 minutes broken into clear segments, full materials, scripts). C is functional but shorter and less developed. A wins on quality.
+
 {
   "hallucinations_found": false,
   "types": [],
-  "justification": "Candidate A is the most complete, detailed, and pedagogically rich lesson plan, with clear timing, materials, activities, and assessment aligned to both the curiosity goal and CCSS.ELA-Literacy.W.7.1. It contains no evaluable factual claims that could constitute hallucinations. Candidate B is unusable (error message). Candidate C is usable and hallucination-free but is significantly less detailed and pedagogically useful than A.",
-  "corrected_answer": "# The Curiosity Argument: Why Questions Are the Most Powerful Tool You Own
+  "justification": "Candidate A is the clear winner as it is highly complete, detailed, and pedagogically rich with timed segments, teacher scripts, graphic organizers, and curiosity card activities fully aligned to the task. Candidate B is unusable due to a MAX_TOKENS error. Candidate C is usable but significantly less detailed and developed than A. Neither A nor C contains hallucinations under the rubric.",
+  "corrected_answer": "# The Curious Arguer: Asking \"Why?\" to Write Better Arguments
 
-### A 55-Minute Middle School ELA Lesson
+## A 55-Minute Middle School ELA Lesson
 
 ---
 
 ## LESSON OVERVIEW
 
-**Grade Level:** 7th Grade (adaptable for 6–8)
+**Grade Level:** 7th Grade
+**Subject:** ELA / Writing
 **Duration:** 55 minutes
-**Standard:** CCSS.ELA-Literacy.W.7.1 — Write arguments to support claims with clear reasons and relevant evidence, including acknowledging alternate or opposing claims and organizing reasoning logically.
-**Curiosity Focus:** Students will discover that curiosity is not just a personality trait — it is a *skill* that makes their writing stronger, their thinking sharper, and their arguments more convincing.
-**Core Message:** The best arguers are not the loudest people in the room. They are the most *curious* ones.
+**Central Standard:** CCSS.ELA-Literacy.W.7.1 — Write arguments to support claims with clear reasons and relevant evidence, including acknowledging alternate or opposing claims and organizing reasoning logically.
+**Curiosity Theme:** Students will discover that curiosity — the desire to question, explore, and understand — is the secret engine behind every powerful argument.
+
+---
+
+## ESSENTIAL QUESTIONS
+
+- What does it mean to truly be curious about something?
+- How does asking better questions make us better thinkers and writers?
+- What makes an argument strong rather than just loud?
+
+---
+
+## LEARNING OBJECTIVES
+
+By the end of this lesson, students will be able to:
+
+1. Define curiosity and explain why it matters in academic writing and everyday life.
+2. Generate meaningful questions about a topic before forming an opinion.
+3. Identify the key components of an argumentative paragraph: claim, reasons, evidence, counterclaim, and rebuttal.
+4. Draft a structured argumentative paragraph that reflects genuine curiosity about a topic.
 
 ---
 
 ## MATERIALS NEEDED
 
-- Whiteboard or projected display
-- Printed "Curiosity Argument Planner" graphic organizer (one per student)
-- Printed "Two Sides of the Same Story" card sets (one set per pair of students — instructions below)
+- Whiteboard or smartboard
+- Dry-erase markers (multiple colors)
+- Printed \"Curiosity Cards\" (one set per group — instructions below)
+- Printed \"Argument Builder Graphic Organizer\" (one per student — template below)
+- Lined paper or writing journals
 - Pencils/pens
-- Optional: sticky notes in two colors
-- Timer (visible to students)
+- Optional: a small, unusual object to use as a hook (a compass, a strange rock, a sealed envelope labeled \"DO NOT OPEN\")
 
 ---
 
-## STANDARDS ALIGNMENT AT A GLANCE
+## VOCABULARY TO INTRODUCE
 
-| W.7.1 Component | Where It Appears in This Lesson |
-|---|---|
-| Introduce claim | Hook + Claim-Building Activity |
-| Organize logically | Graphic organizer structure |
-| Support with reasons & evidence | Evidence Hunt activity |
-| Acknowledge counterclaims | "Curiosity Flip" partner activity |
-| Concluding statement | Final writing task |
+| Word | Definition |
+|------|------------|
+| **Curiosity** | A strong desire to know or learn something |
+| **Claim** | Your main argument or position on a topic |
+| **Evidence** | Facts, data, or examples that support your claim |
+| **Counterclaim** | A reason someone might disagree with your argument |
+| **Rebuttal** | Your response to the counterclaim that defends your position |
+| **Reasoning** | The explanation of *why* your evidence supports your claim |
 
 ---
 
@@ -461,212 +548,174 @@ This lesson combines the development of curiosity with the practice of writing a
 
 ---
 
-### ⏱️ MINUTES 0–5 | THE HOOK — \"The Worst Argument You've Ever Heard\"
+### 🔷 SEGMENT 1: THE HOOK — What Is Curiosity? *(8 minutes)*
 
-**[Teacher stands at the front, arms crossed, speaking with exaggerated confidence.]**
+**[0:00 – 8:00]**
 
-*\"Okay, everyone. Homework should be banned. That's it. I said it. It's bad. Trust me.\"*
+**Teacher Action:**
 
-**Pause. Look around the room.**
+Walk in holding an unusual object — ideally something students can see but not immediately identify. Place it on the front desk without saying anything about it. Begin taking attendance or doing something mundane, letting students stew in their curiosity for 30–60 seconds.
 
-*\"Was that a good argument? Why not?\"*
+Then pause and ask:
 
-Take 3–4 quick student responses. Students will naturally say things like:
-- \"You didn't give any reasons.\"
-- \"You didn't explain *why.*\"
-- \"What if someone disagrees?\"
+> *\"I noticed a few of you staring at this. Why? I didn't say it was interesting. I didn't tell you to care. So why do you?\"*
 
-**Teacher says:**
-*\"Every single thing you just said came from one place — curiosity. You asked, 'What's the evidence? What about the other side? How do you know?' That is what makes an argument powerful. Today, we are going to learn that curiosity isn't just something you feel when you watch a cool video. Curiosity is a **writing superpower.** And by the end of class, you're going to use it to build an argument that is actually worth reading.\"*
+Allow 2–3 students to respond freely. Validate their answers warmly.
 
-**Write on the board:**
-> 🔑 **Curious writers ask better questions. Better questions build better arguments.**
+**Teacher Script:**
 
----
+> \"What you just experienced — that pull, that itch to know — that's curiosity. It's one of the most powerful forces in your brain. Scientists actually study it. They've found that when you're curious, your brain releases dopamine — the same chemical released when you eat your favorite food or win a game. Curiosity literally feels good.\"
 
-### ⏱️ MINUTES 5–12 | DIRECT INSTRUCTION — \"Anatomy of a Real Argument\"
+Write on the board in large letters:
 
-**Tell students:**
-*\"Before we write anything, we need to know what we're building. An argument in writing isn't a fight. It's a structured case — like a lawyer presenting to a jury.\"*
+> **CURIOSITY = The desire to ask \"Why?\" and \"What if?\" and \"But how?\"**
 
-**Draw or project this structure on the board:**
+**Discussion Prompt (Think-Pair-Share):**
 
+Ask students to turn to a partner and answer:
+> *\"Think of the last time you were genuinely curious about something. What did you do? Did you look it up? Ask someone? Or did you just let the question sit?\"*
 
-┌─────────────────────────────────────────────┐
-│              ARGUMENT ARCHITECTURE           │
-│                                             │
-│  1. CLAIM — What do I believe is true?      │
-│  2. REASONS — Why do I believe it?          │
-│  3. EVIDENCE — What proves my reasons?      │
-│  4. COUNTERCLAIM — What would someone       │
-│     who disagrees say?                      │
-│  5. REBUTTAL — Why is my claim still        │
-│     stronger?                               │
-│  6. CONCLUSION — What do I want my          │
-│     reader to walk away thinking?           │
-└─────────────────────────────────────────────┘
+Take 2–3 share-outs from the class.
 
+**Bridge to Writing:**
 
-**Point to #4 — Counterclaim — and say:**
-*\"This is where most student writers panic. They think, 'If I say what the other side thinks, doesn't that make my argument weaker?' No. It makes it STRONGER. Here's why: when you acknowledge what someone else believes, you show that you actually thought about it. You didn't just shout your opinion into the void. That's curiosity in action — you got curious about what the opposing side would say, and you used it.\"*
-
-**Quick check:** Ask students to give a thumbs up/down: *\"Has anyone ever written an argument and just skipped the counterclaim because it felt weird?\"* (Most hands will go up — normalize this.)
-
-**Say:** *\"That ends today.\"*
+> \"Here's the thing. Being curious isn't just for scientists or explorers. It's actually the *secret ingredient* in great writing — especially argument writing. Today, we're going to learn that the best arguments start not with an opinion... but with a question.\"
 
 ---
 
-### ⏱️ MINUTES 12–22 | ACTIVITY 1 — \"Curiosity Flip\" Partner Activity
+### 🔷 SEGMENT 2: MINI-LESSON — From Curiosity to Argument *(12 minutes)*
 
-**Purpose:** Students practice generating counterclaims by genuinely getting curious about the opposing viewpoint — not dismissing it.
+**[8:00 – 20:00]**
+
+**Teacher Action:**
+
+Write the following on the board in two columns:
+
+| ❌ Weak Argumentative Thinking | ✅ Curious Argumentative Thinking |
+|---|---|
+| \"I already know what I think.\" | \"I wonder why this is the way it is.\" |
+| \"I'll only look for reasons I'm right.\" | \"What would someone who disagrees say?\" |
+| \"My opinion is obvious.\" | \"What evidence actually exists?\" |
+
+**Teacher Script:**
+
+> \"Most people think writing an argument means picking a side and defending it no matter what. But the BEST arguers — lawyers, scientists, journalists, debaters — actually start by being curious. They ask: *What do I NOT know? What might I be wrong about? What does the other side believe, and WHY do they believe it?*\"
+
+> \"Here's a wild idea: if you're not even a little curious about the topic you're arguing about, your argument is probably going to be weak. Curiosity is what drives you to actually find *real* evidence instead of just making things up.\"
+
+**Introduce the Argument Components:**
+
+Draw a simple \"Argument House\" on the board:
+
+
+        🏠 ARGUMENT HOUSE
+   ___________________________
+  |        REBUTTAL           |  ← You defend your claim against the counterclaim
+  |___________________________|
+  |       COUNTERCLAIM        |  ← The other side's best point
+  |___________________________|
+  |    EVIDENCE + REASONING   |  ← Proof + explanation of WHY it matters
+  |___________________________|
+  |         REASONS           |  ← Why your claim is true
+  |___________________________|
+  |          CLAIM            |  ← Your main position (THE FOUNDATION)
+  |___________________________|
+
+
+Walk through each layer briefly:
+
+- **Claim:** Your position. (\"Middle school students should have a longer lunch period.\")
+- **Reasons:** Why you believe it. (\"Students need time to eat properly and socialize.\")
+- **Evidence:** Proof. (\"Research suggests that students who eat adequate lunches perform better on afternoon tasks.\")
+- **Counterclaim:** What someone might say against you. (\"Some might argue that longer lunches reduce instructional time.\")
+- **Rebuttal:** Your response. (\"However, hungry and stressed students learn less efficiently, meaning shorter lunches actually *waste* instructional time.\")
+
+**Curiosity Connection:**
+
+> \"Notice something. To write a counterclaim, you have to be *curious* about the OTHER side. You have to genuinely wonder: 'Why might someone disagree with me? What are they seeing that I might be missing?' That curiosity makes your argument stronger — because when you can address the other side, people trust you more.\"
+
+**Check for Understanding:**
+
+Ask students to give a thumbs up, sideways, or down based on how comfortable they feel with the five components.
+
+---
+
+### 🔷 SEGMENT 3: CURIOSITY CARD ACTIVITY — Group Practice *(10 minutes)*
+
+**[20:00 – 30:00]**
 
 **Setup:**
-Distribute the **\"Two Sides of the Same Story\" card sets** to pairs of students. Each set contains **4 argument topics** printed on cards:
 
-> **Card 1:** Students should be allowed to use their phones during lunch at school.
->
-> **Card 2:** All students should be required to take a cooking class in middle school.
->
-> **Card 3:** Competitive grades (A, B, C, D, F) should be replaced with pass/fail.
->
-> **Card 4:** Schools should start at 9:00 AM instead of 7:30 AM.
+Divide students into groups of 3–4. Give each group a **Curiosity Card** — a card with a debatable topic printed on it. Topics should be engaging and school-appropriate, such as:
 
-**Instructions (written on the board and read aloud):**
+- *\"Should students be allowed to use their phones during lunch?\"*
+- *\"Should homework be banned in middle school?\"*
+- *\"Should all students be required to learn a second language?\"*
+- *\"Should schools have a later start time?\"*
+- *\"Should junk food be banned from school cafeterias?\"*
 
-1. Partner A picks a card and states a **claim** — one clear sentence about what they believe.
-2. Partner B's job is NOT to agree or disagree yet. Partner B must ask **three genuine curiosity questions** about the topic. These must be real questions — not gotcha questions. Examples: *\"What happens to students who have no other time to eat?\" / \"Who would teach the cooking class?\" / \"What does the research say about teen sleep?\"*
-3. Together, both partners write ONE strong **counterclaim** — the best argument someone on the opposing side could make.
-4. Then Partner A writes a **rebuttal** — one to two sentences that addresses the counterclaim without ignoring it.
-5. Switch roles and repeat with a new card.
+**Instructions (written on board or projected):**
 
-**Teacher circulates and listens. Coaching prompts to offer:**
-- *\"Is that a real question, or is it a trick? Would you actually want the answer?\"*
-- *\"What if you're wrong? What evidence would change your mind?\"*
-- *\"Can you make the counterclaim even stronger? Make the opposing side sound smart.\"*
+**Step 1 — Be Curious First! (3 minutes)**
+Before forming any opinion, your group must write down **at least 5 questions** you have about this topic. Not opinions — QUESTIONS.
 
-**Debrief (2 minutes):**
-Ask 2–3 pairs to share one counterclaim they wrote. After each one, ask the class: *\"Does that counterclaim sound like something a real person might actually believe? Does it sound smart?\"*
+*Examples:*
+- \"How much homework do students actually do each night?\"
+- \"What does research say about phone use and focus?\"
+- \"What do teachers think about this?\"
 
-**Say:** *\"That right there is what separates average writers from great ones. Great writers make the other side sound intelligent — and then they respond to it anyway. That takes curiosity.\"*
+**Step 2 — Take a Position (2 minutes)**
+After exploring your questions, decide as a group: What claim would you argue? Write one clear claim sentence.
 
----
+**Step 3 — Steelman the Other Side (3 minutes)**
+Now write the BEST possible argument for the opposing side. Not a weak version — the strongest version. (This is called \"steelmanning\" — making the other side as strong as possible before rebutting it.)
 
-### ⏱️ MINUTES 22–35 | ACTIVITY 2 — \"Build Your Case\" — Graphic Organizer Work
+**Step 4 — Quick Share (2 minutes)**
+Each group shares their topic, claim, and the strongest counterclaim they found.
 
-**Introduce the prompt:**
+**Teacher Facilitation Notes:**
 
-> **Writing Prompt:** *Should middle school students be required to spend at least 30 minutes each week in unstructured, screen-free time at school — time with no assignments, no phones, and no structured activities?*
+- Circulate during Steps 1–3. Listen for groups that skip to opinions immediately — gently redirect: *\"Wait — what do you actually KNOW about this vs. what do you ASSUME?\"*
+- Praise groups that surface surprising questions or genuinely strong counterclaims.
+- During share-out, highlight how asking questions first led to stronger, more nuanced positions.
 
-**Say:**
-*\"This is your argument topic for today. Before you write a single sentence, you are going to get CURIOUS about it. Your graphic organizer is going to force you to ask questions before you answer them.\"*
+**Key Debrief Point:**
 
-**Distribute the Curiosity Argument Planner.** Walk students through each section:
+> \"Did anyone notice that when you really tried to understand the OTHER side, your own claim got sharper? That's not a coincidence. Curiosity makes your arguments smarter.\"
 
 ---
 
-**CURIOSITY ARGUMENT PLANNER**
+### 🔷 SEGMENT 4: INDEPENDENT WRITING — Argument Builder *(18 minutes)*
 
-**Section 1: Explore Before You Claim**
-*Before you pick a side, write 3 questions you genuinely have about this topic.*
-1. _______________________________________________
-2. _______________________________________________
-3. _______________________________________________
+**[30:00 – 48:00]**
 
-*(Teacher note: This is deliberately placed BEFORE the claim. Students must sit in curiosity before they plant a flag. This mirrors real intellectual practice.)*
+**Distribute:** The Argument Builder Graphic Organizer (see template below).
 
-**Section 2: My Claim**
-*After thinking about it, what do I believe? Write one clear sentence.*
+**Teacher Script:**
 
-_______________________________________________
+> \"Now you're going to try this on your own. I'm going to give you a topic — or you can choose from the ones on the board. Before you write a single word of your argument, you're going to spend three full minutes just asking questions. Be genuinely curious. Then you'll build your argument using the house structure we learned.\"
 
-**Section 3: My Reasons & Evidence**
+**Topic Options (write on board):**
 
-| Reason | Evidence (fact, example, statistic, or logical reasoning) |
-|---|---|
-| Reason 1: | |
-| Reason 2: | |
-| Reason 3: | |
+1. Should students be graded on participation in class?
+2. Should middle schoolers be allowed to manage their own schedule?
+3. Should schools have required community service hours?
+4. *(Open choice — student may propose a topic for quick teacher approval)*
 
-*(Teacher note: Remind students that evidence doesn't have to be a statistic — a logical \"if/then\" chain of reasoning counts, as does a real-world example.)*
+**Timed Writing Sequence:**
 
-**Section 4: The Counterclaim (Make It Strong)**
-*What is the BEST argument someone who disagrees with me could make? Write it as if you believe it.*
+| Time | Task |
+|------|------|
+| 3 minutes | **Curiosity Phase:** Write 5+ questions about your topic |
+| 3 minutes | **Claim + Reasons:** Fill in the bottom two layers of the house |
+| 4 minutes | **Evidence + Reasoning:** Find or recall at least one piece of evidence; write your reasoning |
+| 3 minutes | **Counterclaim:** Write the strongest opposing argument you can imagine |
+| 3 minutes | **Rebuttal:** Respond to the counterclaim |
+| 2 minutes | **Draft your paragraph:** Use your organizer to write a connected paragraph |
 
-_______________________________________________
+**Pacing Note:** Call out each phase transition aloud and keep it moving. Students don't need a perfect paragraph — they need a *complete* one.
 
-**Section 5: My Rebuttal**
-*I understand that argument, BUT...*
+**Circulate and Conference:**
 
-_______________________________________________
-
-**Section 6: My Conclusion**
-*What do I want my reader to walk away thinking or doing?*
-
-_______________________________________________
-
----
-
-**Teacher circulates during this work time (approximately 10 minutes).** Key coaching interventions:
-
-- **For students who jump straight to the claim (skipping Section 1):** *\"Nope — questions first. Make yourself wonder about it for 60 seconds before you decide.\"*
-- **For students who write a weak counterclaim:** *\"Read that to me out loud. Now — does that sound like something an intelligent adult would actually say? Make it harder to argue against.\"*
-- **For students stuck on evidence:** *\"You don't need to have memorized a statistic. Think about what you KNOW from experience or logic. Why might this be true? Walk me through the reasoning.\"*
-- **For advanced students:** *\"Can you add a second counterclaim? Can your evidence be more specific?\"*
-
----
-
-### ⏱️ MINUTES 35–47 | ACTIVITY 3 — \"First Draft Argument Paragraph\"
-
-**Say:**
-*\"Now you're going to turn your planner into actual writing. You're writing ONE focused argument paragraph — or if time allows, a short multi-paragraph piece. This isn't your final draft. This is your thinking made visible.\"*
-
-**Post this sentence frame bank on the board** (for students who need structure):
-
-> **Claim starters:**
-> - \"Middle school students should / should not...\"
-> - \"Requiring students to... would be beneficial/harmful because...\"
->
-> **Reason connectors:**
-> - \"First and most importantly...\"
-> - \"Another compelling reason is...\"
-> - \"Evidence suggests that...\"
->
-> **Counterclaim transitions:**
-> - \"Some may argue that...\"
-> - \"Those who oppose this idea often point out...\"
-> - \"It is understandable that some believe...\"
->
-> **Rebuttal transitions:**
-> - \"However, this argument fails to consider...\"
-> - \"While this concern is valid, the evidence shows...\"
-> - \"Even if this were true, it would not change the fact that...\"
->
-> **Conclusion starters:**
-> - \"Ultimately, the evidence makes clear that...\"
-> - \"For these reasons, it is essential that...\"
-
-**Students write independently for approximately 10 minutes.**
-
-**Teacher continues to circulate.** Focus feedback on:
-1. Is the claim one clear sentence?
-2. Is the counterclaim present and genuinely strong?
-3. Does the rebuttal actually address the counterclaim — or does it just repeat the original claim?
-
----
-
-### ⏱️ MINUTES 47–53 | SHARE & REFLECT
-
-**Pair-share (2 minutes):**
-*\"Turn to your partner and read only your counterclaim and your rebuttal. Partner — tell them: does the rebuttal actually respond to the counterclaim, or does it dodge it?\"*
-
-**Whole class share (3 minutes):**
-Ask 2–3 volunteers (or cold-call students who wrote particularly strong counterclaims) to share. After each:
-- *\"How many of you think that counterclaim would actually make someone on the other side feel heard? Thumbs up/down.\"*
-- *\"Did the rebuttal address it honestly — or did it dodge?\"*
-
-**Quick metacognitive reflection — ask the class:**
-*\"Raise your hand if at any point today you caught yourself getting genuinely curious — like, actually wondering something about the topic rather than just trying to win.\"*
-
-*(Acknowledge those who raise their hands.)*
-
-*\"That moment — that little itch of 'wait, but what about...' — that's where great writing lives. Professional journalists do it. Scientists do it. Lawyers do it. And
+Look for:
+- Students who skipped the question phase (remind them gently — curiosity first!)\
