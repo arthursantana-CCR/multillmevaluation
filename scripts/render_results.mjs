@@ -1,7 +1,4 @@
-import fs from "fs";
-
-// 🔹 Load JSON
-const data = JSON.parse(fs.readFileSync("results/latest.json", "utf-8"));
+// render_results.mjs
 
 // 🔹 Helpers
 function clean(text) {
@@ -13,146 +10,138 @@ function section(title) {
   return `\n\n---\n\n## ${title}\n`;
 }
 
-// 🔹 Start building markdown
-let md = `# Run: ${data.run_time_utc}\n`;
+function extractJSON(rawText) {
+  if (!rawText) return null;
 
-md += section("Architecture");
-md += data.architecture;
+  const cleaned = rawText
+    .replace(/```json/gi, "")
+    .replace(/```/g, "")
+    .trim();
 
-// 🔹 Prompt
-const caseData = data.cases?.[0];
-md += section("Prompt");
-md += clean(caseData?.prompt);
+  const match = cleaned.match(/\{[\s\S]*\}$/);
+  if (!match) return null;
 
-// 🔹 Outputs
-const outputs = caseData?.outputs || {};
+  try {
+    return JSON.parse(match[0]);
+  } catch {
+    return null;
+  }
+}
 
+// 🔹 Main function
+export function buildMarkdown(data) {
+  let md = `# Run: ${data.run_time_utc}\n`;
 
-// =====================================================
-// 🔹 CONSENSUS ARCHITECTURE
-// =====================================================
-if (data.architecture === "consensus") {
+  // 🔹 Architecture
+  md += section("Architecture");
+  md += data.architecture;
 
-  // 🔹 Candidates
-  for (let i = 1; i <= 3; i++) {
-    const candidate = outputs[`candidate_${i}`];
+  // 🔹 Prompt (first case only for now)
+  const caseData = data.cases?.[0];
+  md += section("Prompt");
+  md += clean(caseData?.prompt);
 
-    if (candidate) {
-      md += section(`Candidate ${i}`);
+  const outputs = caseData?.outputs || {};
 
-      if (candidate.raw_text?.includes("[ERROR")) {
-        md += `❌ ${candidate.raw_text}`;
-      } else {
-        md += clean(candidate.raw_text);
+  // =====================================================
+  // 🔹 CONSENSUS ARCHITECTURE
+  // =====================================================
+  if (data.architecture === "consensus") {
+    // Candidates
+    for (let i = 1; i <= 3; i++) {
+      const candidate = outputs[`candidate_${i}`];
+
+      if (candidate) {
+        md += section(`Candidate ${i}`);
+
+        if (candidate.raw_text?.includes("[ERROR")) {
+          md += `❌ ${candidate.raw_text}`;
+        } else {
+          md += clean(candidate.raw_text);
+        }
       }
+    }
+
+    // Aggregator
+    if (outputs.final_output) {
+      md += section("Aggregator");
+
+      const parsed = extractJSON(outputs.final_output);
+
+      if (parsed) {
+        md += `### Evaluation\n`;
+        md += `- Hallucinations: ${parsed.hallucinations_found}\n`;
+        md += `- Types: ${(parsed.types || []).join(", ") || "None"}\n\n`;
+
+        md += `### Justification\n${clean(parsed.justification)}\n\n`;
+
+        md += `### Final Output\n${clean(parsed.corrected_answer)}`;
+      } else {
+        md += clean(outputs.final_output);
+      }
+    }
+
+    return md;
+  }
+
+  // =====================================================
+  // 🔹 SEQUENTIAL ARCHITECTURE
+  // =====================================================
+
+  // Generator
+  if (outputs.generator_output) {
+    md += section("Generator");
+    md += clean(outputs.generator_output.raw_text);
+  }
+
+  // Reviewer 1
+  if (outputs.reviewer_1_output) {
+    md += section("Reviewer 1");
+
+    if (outputs.reviewer_1_output.status === "failed") {
+      md += `❌ FAILED: ${outputs.reviewer_1_output.raw_text}`;
+    } else {
+      const r = outputs.reviewer_1_output.parsed_review || {};
+
+      md += `### Evaluation\n`;
+      md += `- Hallucinations: ${r.hallucinations_found}\n`;
+      md += `- Types: ${(r.types || []).join(", ") || "None"}\n\n`;
+
+      md += `### Final Output\n${clean(r.corrected_answer)}`;
     }
   }
 
-  // 🔹 Aggregator
-  if (outputs.final_output) {
-    md += section("Aggregator");
+  // Reviewer 2
+  if (outputs.reviewer_2_output) {
+    md += section("Reviewer 2");
 
-    const rawText = outputs.final_output
-      .replace(/```json/g, "")
-      .replace(/```/g, "")
-      .trim();
+    const r = outputs.reviewer_2_output.parsed_review || {};
 
-    // 🔹 Extract JSON only (ignore reasoning)
-    const jsonMatch = rawText.match(/\{[\s\S]*\}$/);
-    const raw = jsonMatch ? jsonMatch[0] : rawText;
+    md += `### Evaluation\n`;
+    md += `- Hallucinations: ${r.hallucinations_found}\n`;
+    md += `- Types: ${(r.types || []).join(", ") || "None"}\n\n`;
 
-    try {
-      const parsed = JSON.parse(raw);
+    md += `### Final Output\n${clean(r.corrected_answer)}`;
+  }
 
+  // Final Reviewer
+  if (outputs.final_reviewer_output) {
+    md += section("Final Reviewer");
+
+    const parsed = extractJSON(outputs.final_reviewer_output.raw_text);
+
+    if (parsed) {
       md += `### Evaluation\n`;
       md += `- Hallucinations: ${parsed.hallucinations_found}\n`;
-      md += `- Types: ${(parsed.types || []).join(", ")}\n\n`;
+      md += `- Types: ${(parsed.types || []).join(", ") || "None"}\n\n`;
 
       md += `### Justification\n${clean(parsed.justification)}\n\n`;
 
       md += `### Final Output\n${clean(parsed.corrected_answer)}`;
-
-    } catch {
-      md += clean(rawText);
+    } else {
+      md += clean(outputs.final_reviewer_output.raw_text);
     }
   }
 
-  fs.writeFileSync("results/latest.md", md);
-  console.log("✅ Markdown generated (consensus): results/latest.md");
-  process.exit();
+  return md;
 }
-
-
-// =====================================================
-// 🔹 SEQUENTIAL ARCHITECTURE
-// =====================================================
-
-// Generator
-if (outputs.generator_output) {
-  md += section("Generator");
-  md += clean(outputs.generator_output.raw_text);
-}
-
-// Reviewer 1
-if (outputs.reviewer_1_output) {
-  md += section("Reviewer 1");
-
-  if (outputs.reviewer_1_output.status === "failed") {
-    md += `❌ FAILED: ${outputs.reviewer_1_output.raw_text}`;
-  } else {
-    const r = outputs.reviewer_1_output.parsed_review;
-
-    md += `### Evaluation\n`;
-    md += `- Hallucinations: ${r.hallucinations_found}\n`;
-    md += `- Types: ${(r.types || []).join(", ")}\n\n`;
-
-    md += `### Final Output\n${clean(r.corrected_answer)}`;
-  }
-}
-
-// Reviewer 2
-if (outputs.reviewer_2_output) {
-  md += section("Reviewer 2");
-
-  const r = outputs.reviewer_2_output.parsed_review;
-
-  md += `### Evaluation\n`;
-  md += `- Hallucinations: ${r.hallucinations_found}\n`;
-  md += `- Types: ${(r.types || []).join(", ")}\n\n`;
-
-  md += `### Final Output\n${clean(r.corrected_answer)}`;
-}
-
-// Final Reviewer
-if (outputs.final_reviewer_output) {
-  md += section("Final Reviewer");
-
-  const rawText = outputs.final_reviewer_output.raw_text
-    .replace(/```json/g, "")
-    .replace(/```/g, "")
-    .trim();
-
-  // 🔹 Extract JSON only (ignore reasoning)
-  const jsonMatch = rawText.match(/\{[\s\S]*\}$/);
-  const raw = jsonMatch ? jsonMatch[0] : rawText;
-
-  try {
-    const parsed = JSON.parse(raw);
-
-    md += `### Evaluation\n`;
-    md += `- Hallucinations: ${parsed.hallucinations_found}\n`;
-    md += `- Types: ${(parsed.types || []).join(", ")}\n\n`;
-
-    md += `### Justification\n${clean(parsed.justification)}\n\n`;
-
-    md += `### Final Output\n${clean(parsed.corrected_answer)}`;
-
-  } catch {
-    md += clean(rawText);
-  }
-}
-
-// 🔹 Save file
-fs.writeFileSync("results/latest.md", md);
-
-console.log("✅ Markdown generated (sequential): results/latest.md");
