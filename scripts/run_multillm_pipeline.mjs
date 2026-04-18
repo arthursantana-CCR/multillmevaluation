@@ -44,16 +44,11 @@ function isRetryableStatus(status) {
   return status === 429 || status === 500 || status === 503 || status === 504;
 }
 
-// 🔹 NEW: unified task handler
 function buildTaskInput({ config, caseConfig }) {
-  if (config.task_type === "generation") {
-    return config.task;
-  }
-
+  if (config.task_type === "generation") return config.task;
   if (config.task_type === "evaluation") {
     return `${config.task}\n\n${JSON.stringify(caseConfig)}`;
   }
-
   throw new Error(`Unknown task_type: ${config.task_type}`);
 }
 
@@ -63,11 +58,7 @@ function buildFallbackObject(rawText, fallbackText = "") {
     types: [],
     justification: "Fallback: unable to parse model output.",
     corrected_answer:
-      typeof fallbackText === "string" && fallbackText
-        ? fallbackText
-        : typeof rawText === "string"
-        ? rawText
-        : "",
+      fallbackText || (typeof rawText === "string" ? rawText : ""),
   };
 }
 
@@ -84,23 +75,11 @@ function fallbackParse(text, fallbackText = "") {
   );
   const correctedMatch = text.match(/CORRECTED ANSWER:\s*([\s\S]*)/i);
 
-  const parsedTypes = typesMatch
-    ? typesMatch[1]
-        .split(",")
-        .map((s) => s.trim())
-        .filter(Boolean)
-        .filter((s) => s !== "[]")
-    : [];
-
-  const corrected_answer = correctedMatch
-    ? correctedMatch[1].trim()
-    : fallbackText || text;
-
   return {
     hallucinations_found,
-    types: parsedTypes,
-    justification: justificationMatch ? justificationMatch[1].trim() : "",
-    corrected_answer,
+    types: typesMatch ? typesMatch[1].split(",").map((s) => s.trim()) : [],
+    justification: justificationMatch?.[1]?.trim() || "",
+    corrected_answer: correctedMatch?.[1]?.trim() || fallbackText || text,
   };
 }
 
@@ -117,23 +96,14 @@ function normalizeReviewerOutput(rawText, fallbackText = "") {
   try {
     const parsed = JSON.parse(cleaned);
 
-    const correctedAnswer =
-      typeof parsed.corrected_answer === "string" &&
-      parsed.corrected_answer.trim()
-        ? parsed.corrected_answer
-        : fallbackText || "";
-
     return {
       hallucinations_found: Boolean(parsed.hallucinations_found),
-      types: Array.isArray(parsed.types)
-        ? parsed.types.filter((item) => typeof item === "string")
-        : [],
-      justification:
-        typeof parsed.justification === "string" ? parsed.justification : "",
-      corrected_answer: correctedAnswer,
+      types: Array.isArray(parsed.types) ? parsed.types : [],
+      justification: parsed.justification || "",
+      corrected_answer:
+        parsed.corrected_answer?.trim() || fallbackText || "",
     };
-  } catch (err) {
-    console.warn("⚠️ JSON parsing failed. Using fallback parser.");
+  } catch {
     return fallbackParse(rawText, fallbackText);
   }
 }
@@ -162,10 +132,9 @@ async function main() {
 
   if (config.pipeline.architecture === "sequential") {
     modelSequence = buildModelSequence(config.pipeline.models);
-  } else if (config.pipeline.architecture === "consensus") {
+  } else {
     const gens = config.pipeline.consensus.generators;
     const agg = config.pipeline.consensus.aggregator;
-
     modelSequence = [
       ...gens.map((m, i) => `${m.model} (generator_${i + 1})`),
       `${agg.model} (aggregator)`,
@@ -175,14 +144,14 @@ async function main() {
   const runResult = {
     run_id: runId,
     run_time_utc: runTimeUtc,
-    architecture: config?.pipeline?.architecture || "sequential",
+    architecture: config.pipeline.architecture,
     model_sequence: modelSequence,
     cases: caseResults,
   };
 
   await writeResults(runResult, runId);
 
-  // 🔹 NEW: generate markdown
+  // ✅ NEW: markdown generation
   const md = buildMarkdown(runResult);
 
   await fs.mkdir(RESULTS_MD_DIR, { recursive: true });
@@ -191,6 +160,7 @@ async function main() {
   await fs.writeFile(path.join(RESULTS_MD_DIR, "latest.md"), md);
   await fs.writeFile(path.join(HISTORY_MD_DIR, `${runId}.md`), md);
 
+  console.log("📝 Markdown files written");
   console.log(`Run complete: ${runId}`);
 }
 
@@ -202,15 +172,29 @@ async function loadConfig(configPath) {
 }
 
 function validateConfig(config) {
-  if (!config.pipeline) {
-    throw new Error("Missing pipeline config");
-  }
-
-  if (config.task_type === "evaluation") {
-    if (!config.cases || config.cases.length === 0) {
-      throw new Error("Evaluation tasks require cases");
-    }
+  if (!config.pipeline) throw new Error("Missing pipeline config");
+  if (config.task_type === "evaluation" && !config.cases?.length) {
+    throw new Error("Evaluation tasks require cases");
   }
 }
 
-// ================== (rest of file unchanged) ==================
+// ================== IO ==================
+
+async function writeResults(runResult, runId) {
+  await fs.mkdir(RESULTS_DIR, { recursive: true });
+  await fs.mkdir(HISTORY_DIR, { recursive: true });
+
+  const pretty = JSON.stringify(runResult, null, 2);
+
+  await fs.writeFile(path.join(RESULTS_DIR, "latest.json"), pretty);
+  await fs.writeFile(path.join(HISTORY_DIR, `${runId}.json`), pretty);
+}
+
+function sanitizeRunId(iso) {
+  return iso.replace(/[:.]/g, "-");
+}
+
+main().catch((err) => {
+  console.error("FATAL ERROR:", err);
+  process.exit(1);
+});
