@@ -1,6 +1,5 @@
 name: Daily Multi-LLM Evaluation
 
-
 on:
   push:
   schedule:
@@ -35,8 +34,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # 🔹 Ensure BOTH directories exist
       - name: Ensure results directories exist
-        run: mkdir -p results/history
+        run: |
+          mkdir -p results/history
+          mkdir -p results_md/history
 
       - name: Run multi-LLM pipeline
         run: node scripts/run_multillm_pipeline.mjs
@@ -44,16 +46,26 @@ jobs:
       - name: Post results to Airtable
         run: node scripts/post_to_airtable.mjs
 
+      # 🔹 Optional: Debug visibility (very useful)
+      - name: Show generated files
+        run: |
+          echo "=== RESULTS ==="
+          ls -R results || true
+          echo "=== RESULTS_MD ==="
+          ls -R results_md || true
+
       - name: Commit results back to repository
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
+          # 🔹 Add BOTH directories
           git add results/
+          git add results_md/
 
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
-            git commit -m "Update multi-LLM evaluation results"
+            git commit -m "Update multi-LLM evaluation results (JSON + MD)"
             git push
           fi
