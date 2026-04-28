@@ -339,7 +339,7 @@ async function runConsensusCase(caseConfig, config) {
         userPrompt: `
 You are a helpful AI assistant.
 
-Your task is to generate a complete and high-quality response based on the instructions provided.
+Your task is to generate a response based on the instructions provided.
 
 Do NOT perform evaluation, analysis, or structured reporting.
 
