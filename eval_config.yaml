@@ -111,7 +111,7 @@ hallucination_rubric: |
   - Do not preserve hallucinated content
 
 task: |
-  Generate a 55-minute lesson (max 800-1200 words) to teach middle school students curiosity, in addition to the following standard, in a traditional classroom setting:
+  Generate a 55-minute lesson (max 800 words) to teach middle school students curiosity, in addition to the following standard, in a traditional classroom setting:
   CCSS.ELA-Literacy.W.7.1 — Write arguments to support claims with clear reasons and relevant evidence, including acknowledging alternate or opposing claims and organizing reasoning logically.
 
 #cases:
