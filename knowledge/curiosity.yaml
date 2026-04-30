@@ -1,0 +1,52 @@
+id: curiosity
+label: "CCR Curiosity"
+description: "For each subcompetency, assign a level (-1–2) and cite evidence quotes from the student text."
+
+subcompetencies:
+  - id: CUR1a
+    label: "Seeking to understand deeply"
+    levels:
+      -1: "Dismisses complexity, oversimplifies concepts, or avoids deeper engagement"
+      0: "No evidence in the text to assess the competency"
+      1: "Explores concepts with some depth but lacks thorough investigation"
+      2: "Seeks deep understanding by questioning assumptions."
+
+  - id: CUR2a
+    label: "Surveying opportunities"
+    levels:
+      -1: "Ignores potential opportunities or actively rejects new possibilities"
+      0: "No evidence in the text to assess the competency"
+      1: "Identifies opportunities for growth with limited initiative"
+      2: "Pursues meaningful opportunities across diverse contexts."
+
+  - id: CUR2b
+    label: "Exploring new experiences"
+    levels:
+      -1: "Avoids new experiences and resists stepping outside the comfort zone"
+      0: "No evidence in the text to assess the competency"
+      1: "Participates in new experiences with minimal reflection"
+      2: "Seeks diverse experiences with curiosity and enthusiasm."
+
+  - id: CUR3a
+    label: "Seeking to understand different perspectives"
+    levels:
+      -1: "Rejects or dismisses viewpoints that differ from personal beliefs"
+      0: "No evidence in the text to assess the competency"
+      1: "Acknowledges different perspectives without deep integration"
+      2: "Explores diverse perspectives to inform understanding."
+
+  - id: CUR4a
+    label: "Prioritizing one's passions"
+    levels:
+      -1: "Shows no interest in personal passions or actively suppresses them"
+      0: "No evidence in the text to assess the competency"
+      1: "Identifies interests without clear prioritization"
+      2: "Demonstrates commitment by aligning actions with personal passions."
+
+  - id: CUR5a
+    label: "Finding joy in lifelong learning"
+    levels:
+      -1: "Expresses a negative attitude toward learning, seeing it as pointless or burdensome"
+      0: "No evidence in the text to assess the competency"
+      1: "Expresses interest in learning without sustained engagement"
+      2: "Engages in continuous learning with evident enthusiasm."
