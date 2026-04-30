@@ -1,0 +1,52 @@
+id: communication
+label: "CCR Communication"
+description: "For each subcompetency, assign a level (-1–2) and cite evidence quotes from the student text."
+
+subcompetencies:
+  - id: COM1a
+    label: "Asking questions"
+    levels:
+      -1: "Dismisses the need for inquiry, making no attempt to ask questions"
+      0: "No evidence in the text to assess the competency"
+      1: "Asks relevant questions that show emerging curiosity"
+      2: "Consistently asks insightful, probing questions that drive meaningful discussions"
+
+  - id: COM1b
+    label: "Actively listening"
+    levels:
+      -1: "Interrupts, disregards, or misinterprets others' viewpoints"
+      0: "No evidence in the text to assess the competency"
+      1: "Responds to others in a way that shows partial understanding"
+      2: "Practices active listening to demonstrate understanding"
+
+  - id: COM2a
+    label: "Inspiring others through personal vision"
+    levels:
+      -1: "Discourages or undermines others' ideas and motivation"
+      0: "No evidence in the text to assess the competency"
+      1: "Expresses a personal vision that lacks clarity or engagement"
+      2: "Conveys a vision that inspires action in others."
+
+  - id: COM3a
+    label: "Articulating information with precision"
+    levels:
+      -1: "Communicates ideas in a confusing, misleading, or inaccurate manner"
+      0: "No evidence in the text to assess the competency"
+      1: "Articulates ideas with basic clarity and occasional imprecision"
+      2: "Articulates complex ideas with clarity"
+
+  - id: COM4a
+    label: "Communicating accurately across mediums"
+    levels:
+      -1: "Fails to adjust communication style, resulting in misinterpretation or confusion"
+      0: "No evidence in the text to assess the competency"
+      1: "Uses multiple modes with inconsistent accuracy or effectiveness"
+      2: "Masterfully tailors communication across multiple mediums for maximum impact"
+
+  - id: COM5a
+    label: "Adapting messages to different audiences"
+    levels:
+      -1: "Uses a rigid or inappropriate communication style, ignoring audience needs"
+      0: "No evidence in the text to assess the competency"
+      1: "Adjusts message for the audience with partial effectiveness"
+      2: "Skillfully tailors messages with deep sensitivity to audience perspectives"
