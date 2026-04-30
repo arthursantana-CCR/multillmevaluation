@@ -1,0 +1,100 @@
+id: meta_learning
+label: "CCR Meta-Learning"
+description: "For each subcompetency, assign a level (-1–2) and cite evidence quotes from the student text."
+
+subcompetencies:
+  - id: MET1a
+    label: "Adapting to changing circumstances"
+    levels:
+      -1: "Resists change, refuses to adapt, and actively avoids new approaches"
+      0: "No evidence in the text to assess the competency"
+      1: "Makes some effort to adapt with inconsistent outcomes"
+      2: "Anticipates and adapts to change with flexibility"
+
+  - id: MET2a
+    label: "Self-reflecting"
+    levels:
+      -1: "Avoids self-reflection and repeats mistakes without learning from them"
+      0: "No evidence in the text to assess the competency"
+      1: "Reflects on experiences with limited insight"
+      2: "Uses self-reflection to support continuous growth."
+
+  - id: MET3a
+    label: "Understanding one's emotional state"
+    levels:
+      -1: "Ignores or suppresses emotions, leading to poor self-regulation"
+      0: "No evidence in the text to assess the competency"
+      1: "Shows basic awareness of emotional states"
+      2: "Applies emotional awareness to regulate behavior effectively."
+
+  - id: MET4a
+    label: "Being mindful of one's body"
+    levels:
+      -1: "Neglects or ignores physical well-being, leading to negative effects"
+      0: "No evidence in the text to assess the competency"
+      1: "Acknowledges bodily needs without consistent attention"
+      2: "Practices daily self-care to support physical well-being"
+
+  - id: MET5a
+    label: "Executing strategies to achieve goals"
+    levels:
+      -1: "Fails to plan or take action toward any goal"
+      0: "No evidence in the text to assess the competency"
+      1: "Uses strategies with varying consistency or effectiveness"
+      2: "Adjusts strategies effectively to achieve desired outcomes"
+
+  - id: MET6a
+    label: "Self-monitoring learning and understanding"
+    levels:
+      -1: "Makes no effort to track progress or improve understanding"
+      0: "No evidence in the text to assess the competency"
+      1: "Occasionally monitors understanding with limited adjustments"
+      2: "Optimizes learning through self-evaluation"
+
+  - id: MET7a
+    label: "Evaluating one's actions and their consequences"
+    levels:
+      -1: "Repeats negative behaviors without acknowledging consequences"
+      0: "No evidence in the text to assess the competency"
+      1: "Reviews actions with basic or limited analysis"
+      2: "Reflects on decisions to improve future actions"
+
+  - id: MET8a
+    label: "Seeking to understand different perspectives"
+    levels:
+      -1: "Rejects or dismisses alternative viewpoints without consideration"
+      0: "No evidence in the text to assess the competency"
+      1: "Shows interest in perspectives without deep exploration"
+      2: "Integrates diverse perspectives with openness and curiosity."
+
+  - id: MET9a
+    label: "Recognizing emotions"
+    levels:
+      -1: "Ignores or misinterprets emotions, leading to poor interactions"
+      0: "No evidence in the text to assess the competency"
+      1: "Recognizes emotions with partial clarity"
+      2: "Demonstrates keen emotional insight, recognizing subtle emotional cues"
+
+  - id: MET9b
+    label: "Utilizing emotional intelligence"
+    levels:
+      -1: "Reacts impulsively to emotions without regulation or consideration of others"
+      0: "No evidence in the text to assess the competency"
+      1: "Uses emotional understanding in a limited or reactive way"
+      2: "Masterfully applies emotional intelligence to build strong, meaningful connections"
+
+  - id: MET10a
+    label: "Cultivating positivity"
+    levels:
+      -1: "Engages in consistently negative thinking or discourages others"
+      0: "No evidence in the text to assess the competency"
+      1: "Expresses positivity in a limited or situational way"
+      2: "Demonstrates a positive mindset that encourages others"
+
+  - id: MET10b
+    label: "Supporting others"
+    levels:
+      -1: "Undermines or discourages others instead of offering support"
+      0: "No evidence in the text to assess the competency"
+      1: "Offers support that is basic or inconsistent"
+      2: "Fosters a supportive environment where others feel valued and empowered"
