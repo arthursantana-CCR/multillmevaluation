@@ -1,0 +1,68 @@
+id: collaboration
+label: "CCR Collaboration"
+description: "For each subcompetency, assign a level (-1–2) and cite evidence quotes from the student text."
+
+subcompetencies:
+  - id: COL1a
+    label: "Taking responsibility"
+    levels:
+      -1: "Blames others or avoids taking any responsibility"
+      0: "No evidence in the text to assess the competency"
+      1: "Acknowledges role and contributes to outcomes with some support"
+      2: "Proactively assumes responsibility holding self accountable for outcomes"
+
+  - id: COL1b
+    label: "Sharing responsibility"
+    levels:
+      -1: "Either dominates group work or avoids participation entirely"
+      0: "No evidence in the text to assess the competency"
+      1: "Shares responsibility with guidance or limited initiative"
+      2: "Fosters shared responsibility within a team."
+
+  - id: COL2a
+    label: "Optimizing teamwork"
+    levels:
+      -1: "Disrupts teamwork by creating conflict or refusing to cooperate"
+      0: "No evidence in the text to assess the competency"
+      1: "Contributes to team with some awareness of others' strengths"
+      2: "Leverages team members' strengths to achieve optimal outcomes."
+
+  - id: COL3a
+    label: "Handling interpersonal conflict"
+    levels:
+      -1: "Escalates conflicts or avoids resolving issues"
+      0: "No evidence in the text to assess the competency"
+      1: "Addresses conflict with limited empathy or partial strategies"
+      2: "Navigates conflicts to build mutual understanding."
+
+  - id: COL4a
+    label: "Giving constructive feedback"
+    levels:
+      -1: "Provides harmful, unhelpful, or overly negative feedback"
+      0: "No evidence in the text to assess the competency"
+      1: "Provides feedback that is general or lacks constructive intent"
+      2: "Offers tactful feedback to support others' growth."
+
+  - id: COL4b
+    label: "Receiving constructive feedback"
+    levels:
+      -1: "Reacts defensively or refuses to accept feedback"
+      0: "No evidence in the text to assess the competency"
+      1: "Acknowledges feedback without fully integrating suggestions"
+      2: "Actively seeks feedback to support improvement."
+
+  - id: COL5a
+    label: "Actively showing compassion"
+    levels:
+      -1: "Shows indifference or hostility towards others' struggles"
+      0: "No evidence in the text to assess the competency"
+      1: "Shows compassion in isolated or occasional actions"
+      2: "Proactively offers compassionate support to others."
+
+  - id: COL5b
+    label: "Supporting others"
+    levels:
+      -1: "Undermines or discourages others instead of offering support"
+      0: "No evidence in the text to assess the competency"
+      1: "Offers support in a limited or reactive manner"
+      2: "Supports others in ways that promote their growth and confidence."
