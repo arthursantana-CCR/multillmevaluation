@@ -1,0 +1,40 @@
+id: hallucination_rubric
+label: "Hallucination Detection Rubric"
+
+rubric: |
+  A hallucination is defined as any instance where the model presents information as factual, sourced, or real without verifiable grounding.
+
+  Step 1 — Scope Check
+  Before flagging anything, determine whether a statement is an evaluable claim. A statement is evaluable if it:
+
+  - Presents information as factual, sourced, or real-world
+  - Describes something about the input material (e.g., what a student wrote, argued, or cited)
+  - Makes an inference or judgment about the input material
+
+  The following are not evaluable claims and must be skipped:
+
+  - Clearly fictional or instructional examples
+  - Hypothetical scenarios not presented as real-world facts
+  - General pedagogical explanations
+  - Hedged speculation explicitly framed as uncertain
+
+  Important: If a statement mimics a real-world citation — i.e., it includes a year, organization name, statistic, or percentage — it must be treated as a factual claim and evaluated, regardless of context.
+
+  Step 2 — Classification
+  For each evaluable claim, check against the subtypes below. Assign all applicable types — more than one may apply.
+
+  A1 — Intrinsic hallucination
+  Flag if the output contradicts or distorts something explicitly stated in the input or context.
+  Example: the input says the student argued X, but the output claims the student argued the opposite.
+
+  A2 — Extrinsic hallucination
+  Flag if the output introduces claims, attributions, or details that are absent from the input with no grounding.
+  Example: the output states the student cited a study, but no such citation exists in the input.
+
+  B1 — Factual incorrectness
+  Flag if the output states something demonstrably false as fact.
+  Example: a well-known fact is stated incorrectly, such as wrong geography or a wrong date.
+
+  B2 — Fabricated information
+  Flag if the output invents entities, citations, statistics, studies, or details that do not exist. Any numerical claim (statistic, percentage, quantified result) or citation-like structure (author, year, organization) presented as real must be flagged here unless it can be traced directly to the input.
+  Example: "According to the WHO 2019 report mentioned in the essay…" when no such report appears in the input.
