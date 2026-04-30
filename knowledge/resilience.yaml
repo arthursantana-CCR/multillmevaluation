@@ -1,0 +1,60 @@
+id: resilience
+label: "CCR Resilience"
+description: "For each subcompetency, assign a level (-1–2) and cite evidence quotes from the student text."
+
+subcompetencies:
+  - id: RES1a
+    label: "Persevering through challenges"
+    levels:
+      -1: "Gives up immediately when faced with difficulties and avoids challenges"
+      0: "No evidence in the text to assess the competency"
+      1: "Attempts to persist through challenges with inconsistent effort"
+      2: "Demonstrates strong resilience, overcoming setbacks with a growth mindset"
+
+  - id: RES1b
+    label: "Seeking help from others"
+    levels:
+      -1: "Refuses to ask for help, even when struggling, and rejects assistance"
+      0: "No evidence in the text to assess the competency"
+      1: "Requests help in a delayed or limited way"
+      2: "Proactively builds a support network to navigate challenges"
+
+  - id: RES2a
+    label: "Building strong social networks"
+    levels:
+      -1: "Isolates themselves and refuses to engage in social or collaborative efforts"
+      0: "No evidence in the text to assess the competency"
+      1: "Maintains some social connections with limited depth"
+      2: "Maintains diverse relationships that offer mutual support"
+
+  - id: RES3a
+    label: "Establishing effective habits"
+    levels:
+      -1: "Demonstrates no attempt to create structure or maintain effective habits"
+      0: "No evidence in the text to assess the competency"
+      1: "Demonstrates habits that are occasionally effective"
+      2: "Demonstrates consistent habits that enhance performance"
+
+  - id: RES3b
+    label: "Maintaining effective habits"
+    levels:
+      -1: "Regularly abandons habits or routines, making no effort to maintain them"
+      0: "No evidence in the text to assess the competency"
+      1: "Maintains routines with occasional lapses"
+      2: "Demonstrates strong self-discipline in maintaining productive habits"
+
+  - id: RES4a
+    label: "Managing stress"
+    levels:
+      -1: "Reacts negatively to stress, allowing it to completely overwhelm actions"
+      0: "No evidence in the text to assess the competency"
+      1: "Manages stress in basic ways with varied success"
+      2: "Demonstrates strong emotional regulation under pressure"
+
+  - id: RES5a
+    label: "Motivating oneself"
+    levels:
+      -1: "Displays a lack of motivation and avoids taking initiative altogether"
+      0: "No evidence in the text to assess the competency"
+      1: "Shows motivation that fluctuates or relies on external prompts"
+      2: "Demonstrates intrinsic motivation through persistent effort"
