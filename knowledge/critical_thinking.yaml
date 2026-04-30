@@ -1,0 +1,60 @@
+id: critical_thinking
+label: "CCR Critical Thinking"
+description: "For each subcompetency, assign a level (-1–2) and cite evidence quotes from the student text."
+
+subcompetencies:
+  - id: CRI1a
+    label: "Clarifying information"
+    levels:
+      -1: "Introduces confusion by providing misleading or incorrect information"
+      0: "No evidence in the text to assess the competency"
+      1: "Identifies relevant information with partial clarity"
+      2: "Clarifies ideas precisely to support deeper understanding."
+
+  - id: CRI1b
+    label: "Organizing information"
+    levels:
+      -1: "Presents information in a scattered, incoherent, or contradictory manner"
+      0: "No evidence in the text to assess the competency"
+      1: "Organizes information in a basic structure with limited consistency"
+      2: "Arranges information to strengthen logical flow."
+
+  - id: CRI2a
+    label: "Assessing validity of information"
+    levels:
+      -1: "Repeats misinformation or unreliable sources without critical analysis"
+      0: "No evidence in the text to assess the competency"
+      1: "Identifies information sources without consistent evaluation"
+      2: "Rigorously cross-checks information using multiple authoritative sources"
+
+  - id: CRI2b
+    label: "Assessing quality of information"
+    levels:
+      -1: "Uses inaccurate, irrelevant, or misleading information without verification"
+      0: "No evidence in the text to assess the competency"
+      1: "Uses information that is somewhat relevant or lacks depth"
+      2: "Demonstrates sophisticated judgment in selecting high-quality, authoritative sources"
+
+  - id: CRI3a
+    label: "Weighing pros and cons of alternative choices"
+    levels:
+      -1: "Ignores alternative perspectives and presents a one-sided argument"
+      0: "No evidence in the text to assess the competency"
+      1: "Compares options with minimal or superficial analysis"
+      2: "Systematically evaluates trade-offs, considering comprehensive long-term implications"
+
+  - id: CRI4a
+    label: "Applying sound reasoning to decision-making"
+    levels:
+      -1: "Uses faulty logic, fallacies, or unsupported claims to justify conclusions"
+      0: "No evidence in the text to assess the competency"
+      1: "Provides reasoning that is partially logical or lacks clarity"
+      2: "Demonstrates sophisticated reasoning that anticipates complexities"
+
+  - id: CRI5a
+    label: "Reflecting on one's thinking processes"
+    levels:
+      -1: "Demonstrates no self-awareness, repeating errors without reflection"
+      0: "No evidence in the text to assess the competency"
+      1: "Mentions personal reasoning or assumptions without deep reflection"
+      2: "Demonstrates deep metacognitive awareness, strategically adjusting thinking processes"
