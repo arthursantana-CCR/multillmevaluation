@@ -1,0 +1,92 @@
+id: creativity
+label: "CCR Creativity"
+description: "For each subcompetency, assign a level (-1–2) and cite evidence quotes from the student text."
+
+subcompetencies:
+  - id: CRE1a
+    label: "Developing personal tastes"
+    levels:
+      -1: "Follows external influencers without discernment"
+      0: "No evidence in the text to assess the competency"
+      1: "Expresses personal tastes in a limited or emerging way"
+      2: "Demonstrates clear personal tastes"
+
+  - id: CRE1b
+    label: "Developing personal aesthetics and style"
+    levels:
+      -1: "Copies or mimics others' aesthetics without personal input"
+      0: "No evidence in the text to assess the competency"
+      1: "Shows signs of a personal aesthetic with limited consistency"
+      2: "Exhibits an unique aesthetic with thoughtful application"
+
+  - id: CRE2a
+    label: "Generating new ideas"
+    levels:
+      -1: "Repeats common or cliché ideas without modification"
+      0: "No evidence in the text to assess the competency"
+      1: "Produces ideas with some originality, relying on familiar concepts"
+      2: "Consistently produces original ideas that challenge typical patterns"
+
+  - id: CRE2b
+    label: "Seeking new ideas"
+    levels:
+      -1: "Dismisses new perspectives or avoids intellectual exploration"
+      0: "No evidence in the text to assess the competency"
+      1: "Explores diverse sources without fully integrating the ideas"
+      2: "Generates original insights by combining diverse unconventional ideas"
+
+  - id: CRE3a
+    label: "Being comfortable with risks and uncertainty"
+    levels:
+      -1: "Avoids uncertainty and refuses to engage in creative risks"
+      0: "No evidence in the text to assess the competency"
+      1: "Responds to uncertainty with caution, showing partial engagement"
+      2: "Embraces uncertainty as part of the creative process."
+
+  - id: CRE3b
+    label: "Being comfortable with failure"
+    levels:
+      -1: "Views failure as completely unacceptable and avoids possible failure situations"
+      0: "No evidence in the text to assess the competency"
+      1: "Attempts creative work with risk of failure, producing conventional outcomes"
+      2: "Sees failure as a valuable part of creative growth as it leverages it constructively"
+
+  - id: CRE4a
+    label: "Connecting ideas for cohesiveness"
+    levels:
+      -1: "Ideas are scattered or contradictory, lacking any attempt at coherence"
+      0: "No evidence in the text to assess the competency"
+      1: "Connects ideas in a basic way, showing emerging cohesion"
+      2: "Seamlessly integrates diverse ideas into a complex, well-structured framework"
+
+  - id: CRE4b
+    label: "Reorganizing ideas for cohesiveness"
+    levels:
+      -1: "Ignores the need for restructuring, leading to a confusing or illogical flow"
+      0: "No evidence in the text to assess the competency"
+      1: "Reorganizes ideas with intention, with limited clarity"
+      2: "Reorganizes ideas to strengthen logical flow"
+
+  - id: CRE4c
+    label: "Refining ideas for cohesiveness"
+    levels:
+      -1: "Leaves ideas unpolished, making no effort to refine or clarify"
+      0: "No evidence in the text to assess the competency"
+      1: "Makes changes to ideas with minimal impact on clarity"
+      2: "Meticulously refines ideas for cohesiveness"
+
+  - id: CRE5a
+    label: "Realizing ideas"
+    levels:
+      -1: "Shows no effort to translate ideas into tangible or actionable forms"
+      0: "No evidence in the text to assess the competency"
+      1: "Implements ideas with some planning and inconsistent execution"
+      2: "Transforms ideas into well-executed, high-quality products or concepts"
+
+  - id: CRE5b
+    label: "Working with constraints"
+    levels:
+      -1: "Becomes completely hindered by constraints and does not attempt problem-solving"
+      0: "No evidence in the text to assess the competency"
+      1: "Acknowledges constraints and addresses them with limited clarity"
+      2: "Uses constraints strategially to achieve innovation"
