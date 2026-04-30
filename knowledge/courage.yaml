@@ -1,0 +1,60 @@
+id: courage
+label: "CCR Courage"
+description: "For each subcompetency, assign a level (-1–2) and cite evidence quotes from the student text."
+
+subcompetencies:
+  - id: COU1a
+    label: "Pursuing ambitious goals"
+    levels:
+      -1: "Actively avoids setting goals or dismisses challenges as unnecessary"
+      0: "No evidence in the text to assess the competency"
+      1: "Sets ambitious goals with limited follow-through"
+      2: "Embraces high-risk, high-reward goals with strong determination"
+
+  - id: COU1b
+    label: "Being comfortable with risks and uncertainty"
+    levels:
+      -1: "Avoids risk entirely and seeks only predictable, guaranteed outcomes"
+      0: "No evidence in the text to assess the competency"
+      1: "Faces challenges with hesitation or inconsistent confidence"
+      2: "Engages with uncertainty to drive innovation."
+
+  - id: COU2b
+    label: "Acting with accountability"
+    levels:
+      -1: "Deflects responsibility and refuses to acknowledge personal accountability"
+      0: "No evidence in the text to assess the competency"
+      1: "Makes commitments with partial follow-through"
+      2: "Demonstrates accountability by following through on commitments."
+
+  - id: COU3a
+    label: "Being vulnerable with others"
+    levels:
+      -1: "Avoids emotional openness and actively rejects vulnerability"
+      0: "No evidence in the text to assess the competency"
+      1: "Shares thoughts or feelings with limited openness"
+      2: "Uses vulnerability to build meaningful connections."
+
+  - id: COU4a
+    label: "Acknowledging one's strengths"
+    levels:
+      -1: "Dismisses or downplays personal strengths entirely"
+      0: "No evidence in the text to assess the competency"
+      1: "Mentions strengths without showing how they are used"
+      2: "Applies personal strengths strategically to create impact."
+
+  - id: COU4b
+    label: "Acknowledging one's weaknesses"
+    levels:
+      -1: "Denies personal weaknesses or refuses to reflect on areas of improvement"
+      0: "No evidence in the text to assess the competency"
+      1: "Recognizes weaknesses without clear efforts for improvement"
+      2: "Views personal weaknesses as opportunities for growth"
+
+  - id: COU5a
+    label: "Taking responsibility"
+    levels:
+      -1: "Avoids all responsibility and places blame on external factors"
+      0: "No evidence in the text to assess the competency"
+      1: "Accepts responsibility in a limited or conditional way"
+      2: "Leads by example while maintaining accountability."
