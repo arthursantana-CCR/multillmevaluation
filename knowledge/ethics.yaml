@@ -1,0 +1,52 @@
+id: ethics
+label: "CCR Ethics"
+description: "For each subcompetency, assign a level (-1–2) and cite evidence quotes from the student text."
+
+subcompetencies:
+  - id: ETH1a
+    label: "Thinking ethically"
+    levels:
+      -1: "Dismisses ethical considerations or justifies unethical behavior"
+      0: "No evidence in the text to assess the competency"
+      1: "Considers ethical implications with limited reasoning"
+      2: "Demonstrates strong ethical reasoning, considering multiple perspectives"
+
+  - id: ETH2a
+    label: "Acting ethically"
+    levels:
+      -1: "Engages in or supports unethical behavior without reflection"
+      0: "No evidence in the text to assess the competency"
+      1: "Displays ethical behavior in isolated situations"
+      2: "Demonstrates ethical behavior that sets a positive example for others"
+
+  - id: ETH2b
+    label: "Standing up for others"
+    levels:
+      -1: "Ignores or contributes to injustice, refusing to take action"
+      0: "No evidence in the text to assess the competency"
+      1: "Shows willingness to support others with limited action"
+      2: "Advocates for ethical causes through personal example"
+
+  - id: ETH3a
+    label: "Supporting others"
+    levels:
+      -1: "Undermines or discourages others instead of offering support"
+      0: "No evidence in the text to assess the competency"
+      1: "Offers support that is situational or lacks consistency"
+      2: "Promotes a supportive environment through intentional actions"
+
+  - id: ETH4a
+    label: "Implementing a personal moral code"
+    levels:
+      -1: "Acts inconsistently with stated values or engages in hypocrisy"
+      0: "No evidence in the text to assess the competency"
+      1: "Refers to moral values without consistently applying them"
+      2: "Models ethical behavior that encourages others to follow"
+
+  - id: ETH5a
+    label: "Contributing to community"
+    levels:
+      -1: "Acts in ways that harm the community or discourage collaboration"
+      0: "No evidence in the text to assess the competency"
+      1: "Participates in community efforts with limited initiative"
+      2: "Consistently engages in initiatives that positively impact the community"
