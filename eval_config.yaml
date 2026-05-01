@@ -78,8 +78,16 @@ knowledge:
     metacognition: knowledge/meta_learning.yaml
 
 task: |
-  Generate a 55-minute lesson (max 800 words) to teach middle school students curiosity, in addition to the following standard, in a traditional classroom setting:
-  CCSS.ELA-Literacy.W.7.1 — Write arguments to support claims with clear reasons and relevant evidence, including acknowledging alternate or opposing claims and organizing reasoning logically.
+  You are an expert educator. Use the CCR Critical Thinking framework below to design a 55-minute lesson plan for 7th grade students.
+
+  The lesson must explicitly address each of the following Critical Thinking subcompetencies:
+  {{ccr.critical_thinking}}
+
+  For each subcompetency (CRI1 through CRI5), include:
+  - A specific activity or moment in the lesson that targets it
+  - How you would observe or assess it in students
+
+  The lesson topic is: "Should schools have homework?" and should have around 800 words.
 
 #cases:
 #  - id: "student_1"
