@@ -75,7 +75,7 @@ knowledge:
     courage: knowledge/courage.yaml
     resilience: knowledge/resilience.yaml
     ethics: knowledge/ethics.yaml
-    metacognition: knowledge/metacognition.yaml
+    metacognition: knowledge/meta_learning.yaml
 
 task: |
   Generate a 55-minute lesson (max 800 words) to teach middle school students curiosity, in addition to the following standard, in a traditional classroom setting:
