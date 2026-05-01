@@ -41,11 +41,12 @@ function isRetryableStatus(status) {
 // 🔹 NEW: unified task handler
 function buildTaskInput({ config, caseConfig }) {
   if (config.task_type === "generation") {
-    return config.task;
+    return resolveKnowledgePlaceholders(config.task, config); // 🔹 NEW
   }
 
   if (config.task_type === "evaluation") {
-    return `${config.task}\n\n${JSON.stringify(caseConfig)}`;
+    const task = resolveKnowledgePlaceholders(config.task, config); // 🔹 NEW
+    return `${task}\n\n${JSON.stringify(caseConfig)}`;
   }
 
   throw new Error(`Unknown task_type: ${config.task_type}`);
@@ -133,11 +134,44 @@ function normalizeReviewerOutput(rawText, fallbackText = "") {
   }
 }
 
+async function loadKnowledge(config) {
+  // Load hallucination rubric
+  if (typeof config.hallucination_rubric === "string" && config.hallucination_rubric.endsWith(".yaml")) {
+    const raw = await fs.readFile(path.resolve(config.hallucination_rubric), "utf8");
+    const parsed = YAML.parse(raw);
+    config.hallucination_rubric = parsed.rubric;
+  }
+
+  // Load CCR knowledge files
+  if (config.knowledge?.ccr) {
+    for (const [key, filePath] of Object.entries(config.knowledge.ccr)) {
+      if (typeof filePath === "string" && filePath.endsWith(".yaml")) {
+        const raw = await fs.readFile(path.resolve(filePath), "utf8");
+        config.knowledge.ccr[key] = YAML.parse(raw);
+      }
+    }
+  }
+}
+
+function resolveKnowledgePlaceholders(text, config) {
+  if (!text || typeof text !== "string") return text;
+
+  return text.replace(/\{\{ccr\.(\w+)\}\}/g, (match, key) => {
+    const knowledge = config.knowledge?.ccr?.[key];
+    if (!knowledge) {
+      console.warn(`⚠️ Unknown knowledge placeholder: {{ccr.${key}}}`);
+      return match;
+    }
+    return YAML.stringify(knowledge);
+  });
+}
+
 // ================== MAIN ==================
 
 async function main() {
   const config = await loadConfig(CONFIG_PATH);
   validateConfig(config);
+  await loadKnowledge(config);
 
   const runTimeUtc = new Date().toISOString();
   const runId = sanitizeRunId(runTimeUtc);
@@ -568,17 +602,17 @@ IMPORTANT:
 Focus on clarity, completeness, and pedagogical quality.
 `;
 
-  if (config.task_type === "generation") {
-    return {
-      systemInstruction: generatorSystemInstruction,
-      userPrompt: config.task,
-    };
-  }
-
+if (config.task_type === "generation") {
   return {
     systemInstruction: generatorSystemInstruction,
-    userPrompt: `${config.task}\n\n${JSON.stringify(caseConfig)}`,
+    userPrompt: resolveKnowledgePlaceholders(config.task, config), // 🔹 NEW
   };
+}
+
+return {
+  systemInstruction: generatorSystemInstruction,
+  userPrompt: resolveKnowledgePlaceholders(`${config.task}\n\n${JSON.stringify(caseConfig)}`, config), // 🔹 NEW
+};
 }
 
 // ================== MODEL CALLS ==================
