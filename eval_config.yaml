@@ -64,7 +64,7 @@ system_instruction: |
   - Does it contain all required fields?
   If not, fix it before returning.
 
-hallucination_rubric: knowledge/rubric.yaml
+hallucination_rubric: knowledge/hallucination/rubric.yaml
 
 knowledge:
   ccr:
