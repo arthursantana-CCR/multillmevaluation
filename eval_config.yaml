@@ -66,16 +66,18 @@ system_instruction: |
 
 hallucination_rubric: knowledge/hallucination/rubric.yaml
 
+hallucination_rubric: knowledge/rubric.yaml
+
 knowledge:
   ccr:
-    critical_thinking: knowledge/ccr/critical_thinking.yaml
-    collaboration: knowledge/ccr/collaboration.yaml
-    creativity: knowledge/ccr/creativity.yaml
-    communication: knowledge/ccr/communication.yaml
-    courage: knowledge/ccr/courage.yaml
-    resilience: knowledge/ccr/resilience.yaml
-    ethics: knowledge/ccr/ethics.yaml
-    metacognition: knowledge/ccr/metacognition.yaml
+    critical_thinking: knowledge/critical_thinking.yaml
+    collaboration: knowledge/collaboration.yaml
+    creativity: knowledge/creativity.yaml
+    communication: knowledge/communication.yaml
+    courage: knowledge/courage.yaml
+    resilience: knowledge/resilience.yaml
+    ethics: knowledge/ethics.yaml
+    metacognition: knowledge/metacognition.yaml
 
 task: |
   Generate a 55-minute lesson (max 800 words) to teach middle school students curiosity, in addition to the following standard, in a traditional classroom setting:
