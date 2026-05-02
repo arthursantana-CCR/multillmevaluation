@@ -6,7 +6,7 @@ A configurable pipeline for generating and evaluating educational content using 
 
 ## What This Tool Does
 
-Instead of relying on a single model, this pipeline routes tasks through multiple LLMs in structured architectures. Each model either refines, reviews, or synthesizes outputs from the others. All results are stored as JSON for analysis and comparison over time.
+Instead of relying on a single model, this pipeline routes tasks through multiple LLMs in structured architectures. Each model either refines or synthesizes outputs from the others. All results are stored as JSON and Markdown for analysis and comparison over time.
 
 The system is aligned with the Center for Curriculum Redesign (CCR) framework and supports tasks such as lesson plan generation and student writing evaluation.
 
