@@ -46,15 +46,14 @@ scripts/
 knowledge/
   hallucination/
     rubric.yaml                Hallucination detection rubric used by all reviewers.
-  ccr/
-    critical_thinking.yaml     CCR competency frameworks (loaded on demand via placeholders).
-    collaboration.yaml
-    creativity.yaml
-    communication.yaml
-    courage.yaml
-    resilience.yaml
-    ethics.yaml
-    metacognition.yaml
+  critical_thinking.yaml       CCR competency frameworks (loaded on demand via placeholders).
+  collaboration.yaml
+  creativity.yaml
+  communication.yaml
+  courage.yaml
+  resilience.yaml
+  ethics.yaml
+  meta_learning.yaml
 results/
   latest.json                  Most recent run output.
   latest.md                    Most recent run rendered as Markdown.
@@ -230,7 +229,7 @@ To update the rubric, edit that file directly. The change applies to all future 
 
 ### CCR Frameworks
 
-Located in `knowledge/ccr/`. Each file defines a competency with subcompetencies and scoring levels.
+Located directly in `knowledge/`. Each file defines a competency with subcompetencies and scoring levels.
 
 These are loaded on demand. To include a framework in your task prompt, use a placeholder:
 
@@ -247,18 +246,18 @@ Available placeholders:
 
 | Placeholder | File |
 |---|---|
-| `{{ccr.critical_thinking}}` | knowledge/ccr/critical_thinking.yaml |
-| `{{ccr.collaboration}}` | knowledge/ccr/collaboration.yaml |
-| `{{ccr.creativity}}` | knowledge/ccr/creativity.yaml |
-| `{{ccr.communication}}` | knowledge/ccr/communication.yaml |
-| `{{ccr.courage}}` | knowledge/ccr/courage.yaml |
-| `{{ccr.resilience}}` | knowledge/ccr/resilience.yaml |
-| `{{ccr.ethics}}` | knowledge/ccr/ethics.yaml |
-| `{{ccr.metacognition}}` | knowledge/ccr/metacognition.yaml |
+| `{{ccr.critical_thinking}}` | knowledge/critical_thinking.yaml |
+| `{{ccr.collaboration}}` | knowledge/collaboration.yaml |
+| `{{ccr.creativity}}` | knowledge/creativity.yaml |
+| `{{ccr.communication}}` | knowledge/communication.yaml |
+| `{{ccr.courage}}` | knowledge/courage.yaml |
+| `{{ccr.resilience}}` | knowledge/resilience.yaml |
+| `{{ccr.ethics}}` | knowledge/ethics.yaml |
+| `{{ccr.metacognition}}` | knowledge/meta_learning.yaml |
 
 You may include multiple placeholders in the same task prompt. Only the frameworks you reference are loaded, keeping token usage minimal.
 
-To add a new framework, create a YAML file in `knowledge/ccr/` following the same structure as existing files, then add an entry to the `knowledge.ccr` block in `eval_config.yaml`.
+To add a new framework, create a YAML file in `knowledge/` following the same structure as existing files, then add an entry to the `knowledge.ccr` block in `eval_config.yaml`.
 
 ---
 
@@ -343,9 +342,18 @@ parameters:
 
 hallucination_rubric: knowledge/hallucination/rubric.yaml
 
+# The knowledge block below is fixed infrastructure — do not edit it.
+# To use a framework in your task, reference it via placeholder (e.g. {{ccr.critical_thinking}}).
 knowledge:
   ccr:
-    critical_thinking: knowledge/ccr/critical_thinking.yaml
+    critical_thinking: knowledge/critical_thinking.yaml
+    collaboration: knowledge/collaboration.yaml
+    creativity: knowledge/creativity.yaml
+    communication: knowledge/communication.yaml
+    courage: knowledge/courage.yaml
+    resilience: knowledge/resilience.yaml
+    ethics: knowledge/ethics.yaml
+    metacognition: knowledge/meta_learning.yaml
 
 task: |
   You are an expert educator. Use the CCR Critical Thinking framework below to design
@@ -388,9 +396,18 @@ parameters:
 
 hallucination_rubric: knowledge/hallucination/rubric.yaml
 
+# The knowledge block below is fixed infrastructure — do not edit it.
+# To use a framework in your task, reference it via placeholder (e.g. {{ccr.critical_thinking}}).
 knowledge:
   ccr:
-    critical_thinking: knowledge/ccr/critical_thinking.yaml
+    critical_thinking: knowledge/critical_thinking.yaml
+    collaboration: knowledge/collaboration.yaml
+    creativity: knowledge/creativity.yaml
+    communication: knowledge/communication.yaml
+    courage: knowledge/courage.yaml
+    resilience: knowledge/resilience.yaml
+    ethics: knowledge/ethics.yaml
+    metacognition: knowledge/meta_learning.yaml
 
 task: |
   Evaluate the following student text using the CCR Critical Thinking framework below.
