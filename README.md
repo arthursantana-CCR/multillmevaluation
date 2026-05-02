@@ -340,9 +340,10 @@ parameters:
   top_p: 1.0
   max_tokens: 7000
 
+# The knowledge blocks below are fixed infrastructure — do not edit it.
+
 hallucination_rubric: knowledge/hallucination/rubric.yaml
 
-# The knowledge block below is fixed infrastructure — do not edit it.
 # To use a framework in your task, reference it via placeholder (e.g. {{ccr.critical_thinking}}).
 knowledge:
   ccr:
@@ -394,9 +395,10 @@ parameters:
   top_p: 1.0
   max_tokens: 4000
 
+# The knowledge blocks below are fixed infrastructure — do not edit it.
+
 hallucination_rubric: knowledge/hallucination/rubric.yaml
 
-# The knowledge block below is fixed infrastructure — do not edit it.
 # To use a framework in your task, reference it via placeholder (e.g. {{ccr.critical_thinking}}).
 knowledge:
   ccr:
