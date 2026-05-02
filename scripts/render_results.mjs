@@ -57,29 +57,21 @@ if (data.architecture === "consensus") {
   if (outputs.final_output) {
     md += section("Aggregator");
 
-    const rawText = outputs.final_output
-      .replace(/```json/g, "")
-      .replace(/```/g, "")
-      .trim();
+try {
+  const parsed = outputs.final_output;
 
-    // 🔹 Extract JSON only (ignore reasoning)
-    const jsonMatch = rawText.match(/\{[\s\S]*\}$/);
-    const raw = jsonMatch ? jsonMatch[0] : rawText;
+md += `### Evaluation\n`;
+md += `- Sources Used: ${(parsed.sources_used || []).join(", ")}\n`;
+md += `- Hallucinations: ${parsed.hallucinations_found}\n`;
+md += `- Types: ${(parsed.types || []).join(", ")}\n\n`;
 
-    try {
-      const parsed = JSON.parse(raw);
+md += `### Justification\n${clean(parsed.justification)}\n\n`;
 
-      md += `### Evaluation\n`;
-      md += `- Hallucinations: ${parsed.hallucinations_found}\n`;
-      md += `- Types: ${(parsed.types || []).join(", ")}\n\n`;
+md += `### Final Output\n${clean(parsed.corrected_answer)}`;
 
-      md += `### Justification\n${clean(parsed.justification)}\n\n`;
-
-      md += `### Final Output\n${clean(parsed.corrected_answer)}`;
-
-    } catch {
-      md += clean(rawText);
-    }
+} catch {
+  md += "Error rendering aggregator output.";
+}
   }
 
   // 🔹 Save files
@@ -148,7 +140,7 @@ if (outputs.final_reviewer_output) {
   const raw = jsonMatch ? jsonMatch[0] : rawText;
 
   try {
-    const parsed = JSON.parse(raw);
+  const parsed = JSON.parse(raw);
 
     md += `### Evaluation\n`;
     md += `- Hallucinations: ${parsed.hallucinations_found}\n`;

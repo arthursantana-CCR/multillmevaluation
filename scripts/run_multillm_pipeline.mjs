@@ -104,7 +104,6 @@ function normalizeReviewerOutput(rawText, fallbackText = "") {
     return buildFallbackObject(rawText, fallbackText);
   }
 
-  // 🔥 NEW: strip markdown code fences
   const cleaned = rawText
     .replace(/```json/gi, "")
     .replace(/```/g, "")
@@ -134,22 +133,50 @@ function normalizeReviewerOutput(rawText, fallbackText = "") {
   }
 }
 
-async function loadKnowledge(config) {
-  // Load hallucination rubric
-  if (typeof config.hallucination_rubric === "string" && config.hallucination_rubric.endsWith(".yaml")) {
-    const raw = await fs.readFile(path.resolve(config.hallucination_rubric), "utf8");
-    const parsed = YAML.parse(raw);
-    config.hallucination_rubric = parsed.rubric;
+function normalizeAggregatorOutput(rawText, fallbackText = "") {
+  if (!rawText || typeof rawText !== "string") {
+    return {
+      sources_used: [],
+      hallucinations_found: false,
+      types: [],
+      justification: "Fallback: unable to parse aggregator output.",
+      corrected_answer: fallbackText || "",
+    };
   }
 
-  // Load CCR knowledge files
-  if (config.knowledge?.ccr) {
-    for (const [key, filePath] of Object.entries(config.knowledge.ccr)) {
-      if (typeof filePath === "string" && filePath.endsWith(".yaml")) {
-        const raw = await fs.readFile(path.resolve(filePath), "utf8");
-        config.knowledge.ccr[key] = YAML.parse(raw);
-      }
-    }
+  const cleaned = rawText
+    .replace(/```json/gi, "")
+    .replace(/```/g, "")
+    .trim();
+
+  try {
+    const parsed = JSON.parse(cleaned);
+
+    return {
+      sources_used: Array.isArray(parsed.sources_used)
+        ? parsed.sources_used.filter((item) => typeof item === "string")
+        : [],
+      hallucinations_found: Boolean(parsed.hallucinations_found),
+      types: Array.isArray(parsed.types)
+        ? parsed.types.filter((item) => typeof item === "string")
+        : [],
+      justification:
+        typeof parsed.justification === "string" ? parsed.justification : "",
+      corrected_answer:
+        typeof parsed.corrected_answer === "string" && parsed.corrected_answer.trim()
+          ? parsed.corrected_answer
+          : fallbackText || "",
+    };
+
+  } catch (err) {
+    console.warn("⚠️ Aggregator JSON parsing failed. Using fallback.");
+    return {
+      sources_used: [],
+      hallucinations_found: false,
+      types: [],
+      justification: "Fallback: unable to parse aggregator output.",
+      corrected_answer: fallbackText || rawText,
+    };
   }
 }
 
@@ -164,6 +191,23 @@ function resolveKnowledgePlaceholders(text, config) {
     }
     return YAML.stringify(knowledge);
   });
+}
+
+async function loadKnowledge(config) {
+  if (typeof config.hallucination_rubric === "string" && config.hallucination_rubric.endsWith(".yaml")) {
+    const raw = await fs.readFile(path.resolve(config.hallucination_rubric), "utf8");
+    const parsed = YAML.parse(raw);
+    config.hallucination_rubric = parsed.rubric;
+  }
+
+  if (config.knowledge?.ccr) {
+    for (const [key, filePath] of Object.entries(config.knowledge.ccr)) {
+      if (typeof filePath === "string" && filePath.endsWith(".yaml")) {
+        const raw = await fs.readFile(path.resolve(filePath), "utf8");
+        config.knowledge.ccr[key] = YAML.parse(raw);
+      }
+    }
+  }
 }
 
 // ================== MAIN ==================
@@ -359,9 +403,7 @@ async function runSequentialCase(caseConfig, config) {
 async function runConsensusCase(caseConfig, config) {
   const { generators, aggregator } = config.pipeline.consensus;
 
-  // 🔹 NEW: respect task_type here too
   const taskInput = buildTaskInput({ config, caseConfig });
-
   const generatorPrompt = taskInput;
 
   const candidateOutputs = await Promise.all(
@@ -369,7 +411,7 @@ async function runConsensusCase(caseConfig, config) {
       callModel({
         provider: m.provider,
         model: m.model,
-        systemInstruction: "", // important for Gemini
+        systemInstruction: "",
         userPrompt: `
 You are a helpful AI assistant.
 
@@ -389,7 +431,7 @@ ${taskInput}
 
   const [c1, c2, c3] = candidateOutputs;
 
-const aggregationPrompt = `
+  const aggregationPrompt = `
 You are the aggregator in a multi-model evaluation pipeline.
 
 Your task is to evaluate THREE candidate answers and synthesize ONE final response that combines the best parts of all candidates.
@@ -505,6 +547,8 @@ Use this exact schema:
     parameters: config.parameters,
   });
 
+  const normalizedFinalOutput = normalizeAggregatorOutput(finalOutput, c1);
+
   return {
     case_id: caseConfig.id,
     prompt: generatorPrompt,
@@ -513,7 +557,7 @@ Use this exact schema:
       candidate_1: { raw_text: c1 },
       candidate_2: { raw_text: c2 },
       candidate_3: { raw_text: c3 },
-      final_output: finalOutput,
+      final_output: normalizedFinalOutput,
     },
   };
 }
