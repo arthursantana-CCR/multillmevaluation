@@ -183,7 +183,8 @@ function normalizeAggregatorOutput(rawText, fallbackText = "") {
 function resolveKnowledgePlaceholders(text, config) {
   if (!text || typeof text !== "string") return text;
 
-  return text.replace(/\{\{ccr\.(\w+)\}\}/g, (match, key) => {
+  // Existing: {{ccr.key}}
+  text = text.replace(/\{\{ccr\.(\w+)\}\}/g, (match, key) => {
     const knowledge = config.knowledge?.ccr?.[key];
     if (!knowledge) {
       console.warn(`⚠️ Unknown knowledge placeholder: {{ccr.${key}}}`);
@@ -191,6 +192,18 @@ function resolveKnowledgePlaceholders(text, config) {
     }
     return YAML.stringify(knowledge);
   });
+
+  // 🔹 NEW: {{lesson_plan}}
+  text = text.replace(/\{\{lesson_plan\}\}/g, () => {
+    const knowledge = config.knowledge?.lesson_plan;
+    if (!knowledge) {
+      console.warn(`⚠️ Unknown knowledge placeholder: {{lesson_plan}}`);
+      return "{{lesson_plan}}";
+    }
+    return YAML.stringify(knowledge);
+  });
+
+  return text;
 }
 
 async function loadKnowledge(config) {
