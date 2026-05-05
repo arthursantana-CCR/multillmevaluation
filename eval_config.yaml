@@ -67,6 +67,7 @@ system_instruction: |
 hallucination_rubric: knowledge/hallucination/rubric.yaml
 
 knowledge:
+  lesson_plan: knowledge/lesson_plan.yaml
   ccr:
     critical_thinking: knowledge/critical_thinking.yaml
     collaboration: knowledge/collaboration.yaml
