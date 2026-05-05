@@ -200,6 +200,12 @@ async function loadKnowledge(config) {
     config.hallucination_rubric = parsed.rubric;
   }
 
+  // 🔹 NEW: load lesson_plan knowledge file
+  if (typeof config.knowledge?.lesson_plan === "string" && config.knowledge.lesson_plan.endsWith(".yaml")) {
+    const raw = await fs.readFile(path.resolve(config.knowledge.lesson_plan), "utf8");
+    config.knowledge.lesson_plan = YAML.parse(raw);
+  }
+
   if (config.knowledge?.ccr) {
     for (const [key, filePath] of Object.entries(config.knowledge.ccr)) {
       if (typeof filePath === "string" && filePath.endsWith(".yaml")) {
