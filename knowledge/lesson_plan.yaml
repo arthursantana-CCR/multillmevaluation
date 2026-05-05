@@ -1,0 +1,34 @@
+id: lesson_plan
+label: "CCR Lesson Plan Guidelines"
+description: "Structural and pedagogical guidelines for generating lesson plans aligned with the CCR framework."
+
+guidelines: |
+  ## Format and length
+  - Target length: ~800 words for a 55-minute lesson plan.
+  - Use clear section headers: Learning Objectives, Materials, Lesson Outline, Assessment Summary.
+  - The Lesson Outline should have named, timed activities (e.g. "Warm-Up — 5 Minutes").
+
+  ## Structure
+  - Start with a header block: Grade, Duration, Subject.
+  - Learning Objectives: 3–4 bullet points using action verbs (analyze, evaluate, apply, reflect).
+  - Materials: a flat list of physical or digital items needed.
+  - Lesson Outline: 5–7 activities with timing that adds up to the total duration.
+  - Each activity must include: what happens, a CCR connection note, and an assessment note.
+  - Close with an Assessment Summary table mapping each subcompetency to its activity and observable evidence.
+
+  ## Activity design
+  - Each activity must explicitly target one or more named CCR subcompetencies (e.g. CRI1a, RES3b).
+  - State the competency connection in a dedicated paragraph labeled "Critical Thinking Connection" or equivalent.
+  - Include at least one warm-up and one metacognitive/reflection activity.
+  - Activities should vary in format: individual writing, pair work, group discussion, source analysis, structured debate.
+
+  ## Assessment
+  - Every subcompetency mentioned in the lesson must appear in the Assessment Summary table.
+  - Assessment notes must describe observable, differentiated behaviors at Level 1 and Level 2.
+  - Avoid vague descriptors — specify what a student says, writes, or produces.
+  - Include formative (in-activity) and summative (exit ticket or collected artifact) checkpoints.
+
+  ## Tone and language
+  - Write for a non-specialist teacher audience: clear, direct, jargon-light.
+  - Use present tense for activity descriptions ("Students write...", "The teacher asks...").
+  - Avoid hedging language ("might," "could consider") in structural instructions.
