@@ -82,7 +82,8 @@ task: |
   You are an expert educator. Use the CCR Critical Thinking framework below to design a 55-minute lesson plan for 7th grade students.
 
   The lesson must explicitly address each of the following Critical Thinking subcompetencies:
-  {{ccr.critical_thinking}}
+  {{ccr.critical_thinking}}. 
+  And follow the following lesson plan: {{lesson_plan}}.
 
   For each subcompetency (CRI1 through CRI5), include:
   - A specific activity or moment in the lesson that targets it
