@@ -80,9 +80,16 @@ knowledge:
 
 task: |
   Generate a 55-minute lesson to teach the following standard for middle school students in a traditional classroom setting:
+
   CCSS.ELA-Literacy.W.7.1 — Write arguments to support claims with clear reasons and relevant evidence, including acknowledging alternate or opposing claims and organizing reasoning logically.
 
-  The lesson must explicitly address each of the following creativity comptencies.
+  The lesson must explicitly address each of the following Critical Thinking subcompetencies:
+  {{ccr.creativity}}. 
+
+  For each subcompetency (CRE1 through CRE5), include:
+  - A specific activity or moment in the lesson that targets it
+  - How you would observe or assess it in students
+
   The lesson should plan have around 800 words.
 
 #cases:
