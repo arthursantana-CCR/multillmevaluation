@@ -227,6 +227,28 @@ Located at `knowledge/hallucination/rubric.yaml`. This file is loaded automatica
 
 To update the rubric, edit that file directly. The change applies to all future runs.
 
+### Lesson Plan Guidelines
+
+Located at `knowledge/lesson_plan.yaml`. This file defines structural and pedagogical guidelines for generating CCR-aligned lesson plans, including formatting rules, activity design requirements, assessment structure, and tone guidelines.
+
+To include the lesson plan guidelines in your task prompt, use the placeholder:
+
+```yaml
+task: |
+  You are an expert educator. Follow the lesson plan guidelines below and use the
+  CCR Critical Thinking framework to design a 55-minute lesson plan for 7th grade students.
+
+  {{lesson_plan}}
+
+  {{ccr.critical_thinking}}
+```
+
+| Placeholder | File |
+|---|---|
+| `{{lesson_plan}}` | knowledge/lesson_plan.yaml |
+
+To update the guidelines, edit `knowledge/lesson_plan.yaml` directly. The change applies to all future runs.
+
 ### CCR Frameworks
 
 Located directly in `knowledge/`. Each file defines a competency with subcompetencies and scoring levels.
