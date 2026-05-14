@@ -533,13 +533,20 @@ Separate the two parts with this exact delimiter on its own line:
 Do NOT output JSON.
 `;
 
-  const aggregatorRaw = await callModel({
+const aggregatorRaw = await callModel({
     provider: aggregator.provider,
     model: aggregator.model,
     systemInstruction: "",
     userPrompt: aggregationPrompt,
     parameters: config.parameters,
   });
+
+  // ── Split analysis from synthesized response ──
+  const delimiter = "---SYNTHESIS BEGIN---";
+  const delimiterIndex = aggregatorRaw.indexOf(delimiter);
+  const synthesizedText = delimiterIndex !== -1
+    ? aggregatorRaw.slice(delimiterIndex + delimiter.length).trim()
+    : aggregatorRaw;
 
   // ── STEP 2: Hallucination checker ──
   const hallucinationResult = await callReviewerWithRetry({
@@ -548,17 +555,17 @@ Do NOT output JSON.
     systemInstruction: config.system_instruction,
     baseUserPrompt: buildReviewerPrompt({
       config,
-      previousOutput: aggregatorRaw,
+      previousOutput: synthesizedText,
     }),
     parameters: config.parameters,
-    fallbackText: aggregatorRaw,
+    fallbackText: synthesizedText,
     config,
   });
 
   const finalOutput =
     hallucinationResult.status === "success"
-      ? hallucinationResult.parsed_review.corrected_answer || aggregatorRaw
-      : aggregatorRaw;
+      ? hallucinationResult.parsed_review.corrected_answer || synthesizedText
+      : synthesizedText;
 
   return {
     case_id: caseConfig.id,
