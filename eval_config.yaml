@@ -34,8 +34,8 @@ pipeline:
       provider: anthropic
       model: "claude-sonnet-4-6"
     hallucination_checker:
-      provider: openai
-      model: "gpt-4.1-mini"
+      provider: google
+      model: "gemini-2.5-flash"
 
 parameters:
   temperature: 0
