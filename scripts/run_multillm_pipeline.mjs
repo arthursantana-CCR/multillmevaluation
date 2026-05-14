@@ -513,7 +513,24 @@ PHASE 2 — SYNTHESIZE THE FINAL RESPONSE
 - Do NOT add new content not present in any candidate
 - The final response must fully satisfy the original task
 
-Output ONLY the final synthesized response. No preamble, no explanation, no JSON.
+PHASE 3 — OUTPUT
+
+Structure your output in two parts:
+
+PART 1 — SYNTHESIS ANALYSIS
+Provide a brief structured analysis of your synthesis decisions:
+- For each candidate (A, B, C), state roughly what percentage it contributed to the final response and which specific sections or strengths it contributed
+- Explain why certain sections were preferred over others
+- Note any sections that were excluded and why
+Keep this analysis to 150-200 words maximum.
+
+PART 2 — SYNTHESIZED RESPONSE
+Output the complete final synthesized response as plain text.
+
+Separate the two parts with this exact delimiter on its own line:
+---SYNTHESIS BEGIN---
+
+Do NOT output JSON.
 `;
 
   const aggregatorRaw = await callModel({
