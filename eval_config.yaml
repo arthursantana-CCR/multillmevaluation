@@ -30,8 +30,10 @@ pipeline:
         model: "gemini-2.5-flash"
       - provider: openai
         model: "gpt-4.1-mini"
-
     aggregator:
+      provider: anthropic
+      model: "claude-sonnet-4-6"
+    hallucination_checker:
       provider: anthropic
       model: "claude-sonnet-4-6"
 
