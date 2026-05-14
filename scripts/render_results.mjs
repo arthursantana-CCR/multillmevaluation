@@ -53,25 +53,33 @@ if (data.architecture === "consensus") {
     }
   }
 
-  // 🔹 Aggregator
-  if (outputs.final_output) {
-    md += section("Aggregator");
+// 🔹 Aggregator (synthesis)
+  if (outputs.aggregator_output) {
+    md += section("Aggregator (Synthesis)");
+    if (outputs.aggregator_output.raw_text?.includes("[ERROR")) {
+      md += `❌ ${outputs.aggregator_output.raw_text}`;
+    } else {
+      md += clean(outputs.aggregator_output.raw_text);
+    } 
+  }
 
-try {
-  const parsed = outputs.final_output;
+  // 🔹 Hallucination Checker
+  if (outputs.hallucination_check_output) {
+    md += section("Hallucination Checker");
 
-md += `### Evaluation\n`;
-md += `- Sources Used: ${(parsed.sources_used || []).join(", ")}\n`;
-md += `- Hallucinations: ${parsed.hallucinations_found}\n`;
-md += `- Types: ${(parsed.types || []).join(", ")}\n\n`;
+    if (outputs.hallucination_check_output.status === "failed") {
+      md += `❌ FAILED: ${outputs.hallucination_check_output.raw_text}`;
+    } else {
+      const r = outputs.hallucination_check_output.parsed_review;
 
-md += `### Justification\n${clean(parsed.justification)}\n\n`;
+      md += `### Evaluation\n`;
+      md += `- Hallucinations: ${r.hallucinations_found}\n`;
+      md += `- Types: ${(r.types || []).join(", ")}\n\n`;
 
-md += `### Final Output\n${clean(parsed.corrected_answer)}`;
+      md += `### Justification\n${clean(r.justification)}\n\n`;
 
-} catch {
-  md += "Error rendering aggregator output.";
-}
+      md += `### Final Output\n${clean(r.corrected_answer)}`;
+    }
   }
 
   // 🔹 Save files
