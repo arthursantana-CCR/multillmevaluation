@@ -258,10 +258,12 @@ async function main() {
   } else if (config.pipeline.architecture === "consensus") {
     const gens = config.pipeline.consensus.generators;
     const agg = config.pipeline.consensus.aggregator;
+    const hc = config.pipeline.consensus.hallucination_checker;
 
     modelSequence = [
       ...gens.map((m, i) => `${m.model} (generator_${i + 1})`),
       `${agg.model} (aggregator)`,
+      `${hc.model} (hallucination_checker)`,
     ];
   }
 
@@ -292,10 +294,15 @@ function validateConfig(config) {
     throw new Error("Missing pipeline config");
   }
 
-  // 🔹 NEW: evaluation tasks must provide cases
   if (config.task_type === "evaluation") {
     if (!config.cases || config.cases.length === 0) {
       throw new Error("Evaluation tasks require cases");
+    }
+  }
+
+  if (config.pipeline.architecture === "consensus") {
+    if (!config.pipeline.consensus?.hallucination_checker) {
+      throw new Error("Consensus architecture requires a hallucination_checker entry under pipeline.consensus");
     }
   }
 }
@@ -420,10 +427,9 @@ async function runSequentialCase(caseConfig, config) {
 // ================== CONSENSUS ==================
 
 async function runConsensusCase(caseConfig, config) {
-  const { generators, aggregator } = config.pipeline.consensus;
+  const { generators, aggregator, hallucination_checker } = config.pipeline.consensus;
 
   const taskInput = buildTaskInput({ config, caseConfig });
-  const generatorPrompt = taskInput;
 
   const candidateOutputs = await Promise.all(
     generators.map((m) =>
@@ -450,24 +456,20 @@ ${taskInput}
 
   const [c1, c2, c3] = candidateOutputs;
 
+  // ── STEP 1: Aggregator — synthesis only ──
   const aggregationPrompt = `
 You are the aggregator in a multi-model evaluation pipeline.
 
 Your task is to evaluate THREE candidate answers and synthesize ONE final response that combines the best parts of all candidates.
 
-You must be conservative, deterministic, and precise.
-Do NOT invent facts, citations, or content not present in any candidate.
-Do NOT add any text outside the JSON.
+Focus purely on quality, completeness, and coherence.
+Do NOT perform hallucination checking — that will be handled separately.
+Do NOT output JSON. Output only the final synthesized response as plain text.
 
 --------------------------------------------------
 TASK
 --------------------------------------------------
 ${taskInput}
-
---------------------------------------------------
-HALLUCINATION RUBRIC
---------------------------------------------------
-${config.hallucination_rubric}
 
 --------------------------------------------------
 CANDIDATES
@@ -487,7 +489,7 @@ REQUIRED PROCESS
 
 PHASE 1 — EVALUATE EACH CANDIDATE
 
-For each candidate (A, B, C), evaluate independently:
+For each candidate (A, B, C):
 
 1. Usability check
 A candidate is NOT usable if:
@@ -496,87 +498,62 @@ A candidate is NOT usable if:
 - it does not attempt to answer the task
 - it is mostly malformed or nonsensical
 
-2. Hallucination check
-Apply the hallucination rubric exactly as written.
-- Identify hallucinated sections specifically — do NOT discard the entire candidate because of one bad section
-- A clean section from a candidate with some hallucinations is still usable for synthesis
-- Only fully discard a candidate if it is entirely hallucinated or unusable
-
-3. Quality check
+2. Quality check
 For each usable candidate, assess:
 - Adherence to the task prompt
 - Completeness
 - Clarity and formatting
 - Pedagogical usefulness
 
---------------------------------------------------
 PHASE 2 — SYNTHESIZE THE FINAL RESPONSE
 
-Using your evaluation from Phase 1, construct ONE final response:
-
 - Draw the best sections from each candidate
-- Exclude any section identified as hallucinated
-- If one candidate is clearly strongest across all dimensions and contains no hallucinations, you may use it as-is
+- If one candidate is clearly strongest across all dimensions, you may use it as-is
 - Do NOT combine sections in a way that creates contradictions or inconsistencies
-- Do NOT add new content, explanations, or citations not present in any candidate
+- Do NOT add new content not present in any candidate
 - The final response must fully satisfy the original task
 
---------------------------------------------------
-SOURCES USED
---------------------------------------------------
-- Set "sources_used" to an array listing which candidates contributed to the final response (e.g. ["A", "B"] or ["A"] if only one was used)
-
---------------------------------------------------
-HALLUCINATION REPORTING
---------------------------------------------------
-- "hallucinations_found" and "types" must describe hallucinations found across ALL candidates during Phase 1
-- If no hallucinations were found in any candidate, return "hallucinations_found": false and "types": []
-
---------------------------------------------------
-JUSTIFICATION STYLE
---------------------------------------------------
-Your justification must be short and structured:
-- Summarize what each candidate contributed or why it was excluded
-- Note hallucination status per candidate briefly
-- Explain the synthesis decision
-Use 3-5 short sentences maximum.
-
---------------------------------------------------
-OUTPUT RULES
---------------------------------------------------
-Return ONLY valid JSON.
-Do not use markdown fences.
-Do not include any extra keys.
-Use this exact schema:
-
-{
-  "sources_used": ["A"] | ["B"] | ["C"] | ["A", "B"] | ["A", "C"] | ["B", "C"] | ["A", "B", "C"],
-  "justification": "string",
-  "hallucinations_found": true | false,
-  "types": ["string"] | [],
-  "corrected_answer": "string"
-}
+Output ONLY the final synthesized response. No preamble, no explanation, no JSON.
 `;
 
-  const finalOutput = await callModel({
+  const aggregatorRaw = await callModel({
     provider: aggregator.provider,
     model: aggregator.model,
-    systemInstruction: config.system_instruction,
+    systemInstruction: "",
     userPrompt: aggregationPrompt,
     parameters: config.parameters,
   });
 
-  const normalizedFinalOutput = normalizeAggregatorOutput(finalOutput, c1);
+  // ── STEP 2: Hallucination checker ──
+  const hallucinationResult = await callReviewerWithRetry({
+    provider: hallucination_checker.provider,
+    model: hallucination_checker.model,
+    systemInstruction: config.system_instruction,
+    baseUserPrompt: buildReviewerPrompt({
+      config,
+      previousOutput: aggregatorRaw,
+    }),
+    parameters: config.parameters,
+    fallbackText: aggregatorRaw,
+    config,
+  });
+
+  const finalOutput =
+    hallucinationResult.status === "success"
+      ? hallucinationResult.parsed_review.corrected_answer || aggregatorRaw
+      : aggregatorRaw;
 
   return {
     case_id: caseConfig.id,
-    prompt: generatorPrompt,
+    prompt: taskInput,
     model_sequence: [],
     outputs: {
       candidate_1: { raw_text: c1 },
       candidate_2: { raw_text: c2 },
       candidate_3: { raw_text: c3 },
-      final_output: normalizedFinalOutput,
+      aggregator_output: { raw_text: aggregatorRaw },
+      hallucination_check_output: hallucinationResult,
+      final_output: finalOutput,
     },
   };
 }
