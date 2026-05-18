@@ -541,12 +541,48 @@ const aggregatorRaw = await callModel({
     parameters: config.parameters,
   });
 
+  // ── Guard: aggregator empty or error ──
+  if (!aggregatorRaw || aggregatorRaw.trim() === "" || isModelError(aggregatorRaw)) {
+    console.warn("⚠️ Aggregator returned empty or error. Falling back to candidate 1.");
+    return {
+      case_id: caseConfig.id,
+      prompt: taskInput,
+      model_sequence: [],
+      outputs: {
+        candidate_1: { raw_text: c1 },
+        candidate_2: { raw_text: c2 },
+        candidate_3: { raw_text: c3 },
+        aggregator_output: { raw_text: aggregatorRaw, error: "empty_or_failed" },
+        hallucination_check_output: null,
+        final_output: c1,
+      },
+    };
+  }
+
   // ── Split analysis from synthesized response ──
   const delimiter = "---SYNTHESIS BEGIN---";
   const delimiterIndex = aggregatorRaw.indexOf(delimiter);
   const synthesizedText = delimiterIndex !== -1
     ? aggregatorRaw.slice(delimiterIndex + delimiter.length).trim()
     : aggregatorRaw;
+
+  // ── Guard: synthesized text empty after split ──
+  if (!synthesizedText || synthesizedText.trim() === "") {
+    console.warn("⚠️ Synthesized text is empty after delimiter split. Falling back to candidate 1.");
+    return {
+      case_id: caseConfig.id,
+      prompt: taskInput,
+      model_sequence: [],
+      outputs: {
+        candidate_1: { raw_text: c1 },
+        candidate_2: { raw_text: c2 },
+        candidate_3: { raw_text: c3 },
+        aggregator_output: { raw_text: aggregatorRaw, error: "delimiter_missing_or_empty_synthesis" },
+        hallucination_check_output: null,
+        final_output: c1,
+      },
+    };
+  }
 
   // ── STEP 2: Hallucination checker ──
   const hallucinationResult = await callReviewerWithRetry({
