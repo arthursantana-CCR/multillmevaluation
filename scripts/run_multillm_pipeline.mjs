@@ -733,6 +733,8 @@ async function callOpenAI({ model, systemInstruction, userPrompt, parameters }) 
   });
 
   const data = await res.json();
+  console.log("OPENAI RAW RESPONSE:");
+  console.log(JSON.stringify(data, null, 2));
   const text = data.choices?.[0]?.message?.content || "";
 
   if (typeof text === "string" && text && !text.trim().startsWith("{")) {
