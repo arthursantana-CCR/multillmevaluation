@@ -16,7 +16,7 @@ pipeline:
 
     - role: reviewer_2
       provider: openai
-      model: "gpt-4.1-mini"
+      model: "gpt-5.5"
 
     - role: final_reviewer
       provider: anthropic
@@ -29,7 +29,7 @@ pipeline:
       - provider: google
         model: "gemini-3.1-pro-preview"
       - provider: openai
-        model: "gpt-4.1-mini"
+        model: "gpt-5.5"
     aggregator:
       provider: anthropic
       model: "claude-opus-4-7"
