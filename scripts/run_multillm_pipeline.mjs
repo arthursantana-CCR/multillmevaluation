@@ -715,33 +715,58 @@ async function callModel(args) {
 }
 
 async function callOpenAI({ model, systemInstruction, userPrompt, parameters }) {
-  const res = await fetch("https://api.openai.com/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      model,
-      messages: [
-        { role: "system", content: systemInstruction },
-        { role: "user", content: userPrompt },
-      ],
-      temperature: parameters.temperature,
-      max_tokens: parameters.max_tokens,
-    }),
-  });
+  try {
+    const res = await fetch("https://api.openai.com/v1/responses", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        model,
+        input: [
+          {
+            role: "system",
+            content: systemInstruction,
+          },
+          {
+            role: "user",
+            content: userPrompt,
+          },
+        ],
+        temperature: parameters.temperature,
+        max_output_tokens: parameters.max_tokens,
+      }),
+    });
 
-  const data = await res.json();
-  console.log("OPENAI RAW RESPONSE:");
-  console.log(JSON.stringify(data, null, 2));
-  const text = data.choices?.[0]?.message?.content || "";
+    const data = await res.json();
 
-  if (typeof text === "string" && text && !text.trim().startsWith("{")) {
-    console.warn("⚠️ Non-JSON output detected from OpenAI model");
+    console.log("OPENAI RAW RESPONSE:");
+    console.log(JSON.stringify(data, null, 2));
+
+    // 🔹 Responses API parsing
+    const text =
+      data.output?.[0]?.content?.[0]?.text ||
+      data.output_text ||
+      "";
+
+    if (!text) {
+      console.error("OpenAI returned empty text:", JSON.stringify(data, null, 2));
+      return "[ERROR: OpenAI empty text]";
+    }
+
+    if (!text.trim().startsWith("{")) {
+      console.warn("⚠️ Non-JSON output detected from OpenAI model");
+    }
+
+    return text;
+
+  } catch (err) {
+    console.error("OPENAI FETCH ERROR:");
+    console.error(err);
+
+    return `[ERROR: ${err.message}]`;
   }
-
-  return text;
 }
 
 async function callAnthropic({ model, systemInstruction, userPrompt, parameters }) {
