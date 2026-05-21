@@ -735,7 +735,6 @@ async function callOpenAI({ model, systemInstruction, userPrompt, parameters }) 
             content: [{ type: "input_text", text: userPrompt }],
           },
         ],
-        temperature: parameters.temperature,
         max_output_tokens: parameters.max_tokens,
       }),
     });
@@ -765,8 +764,7 @@ async function callOpenAI({ model, systemInstruction, userPrompt, parameters }) 
           { role: "system", content: systemInstruction || "" },
           { role: "user", content: userPrompt },
         ],
-        temperature: parameters.temperature,
-        max_tokens: parameters.max_tokens,
+        max_completion_tokens: parameters.max_tokens,
       }),
     });
     const data = await res.json();
