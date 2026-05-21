@@ -740,9 +740,8 @@ async function callOpenAI({ model, systemInstruction, userPrompt, parameters }) 
     });
 
     const data = await res.json();
-    console.log("OPENAI RESPONSES API:", JSON.stringify(data, null, 2));
-
     const text = data.output?.[0]?.content?.[0]?.text || data.output_text || "";
+    console.log("OPENAI RESPONSES API: status ok, text length:", text.length);
     if (text) return text;
 
     console.warn("⚠️ Responses API returned empty. Trying Chat Completions...");
@@ -768,8 +767,9 @@ async function callOpenAI({ model, systemInstruction, userPrompt, parameters }) 
       }),
     });
     const data = await res.json();
-    console.log("OPENAI CHAT COMPLETIONS:", JSON.stringify(data, null, 2));
-    return data.choices?.[0]?.message?.content || "[ERROR: OpenAI empty text]";
+    const text = data.choices?.[0]?.message?.content || "";
+    console.log("OPENAI CHAT COMPLETIONS: status ok, text length:", text.length);
+    return text || "[ERROR: OpenAI empty text]";
   } catch (err) {
     return `[ERROR: ${err.message}]`;
   }
