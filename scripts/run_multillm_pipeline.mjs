@@ -725,15 +725,25 @@ async function callOpenAI({ model, systemInstruction, userPrompt, parameters }) 
       body: JSON.stringify({
         model,
         input: [
-          {
-            role: "system",
-            content: systemInstruction,
-          },
-          {
-            role: "user",
-            content: userPrompt,
-          },
-        ],
+  {
+    role: "system",
+    content: [
+      {
+        type: "input_text",
+        text: systemInstruction || "",
+      },
+    ],
+  },
+  {
+    role: "user",
+    content: [
+      {
+        type: "input_text",
+        text: userPrompt,
+      },
+    ],
+  },
+],
         temperature: parameters.temperature,
         max_output_tokens: parameters.max_tokens,
       }),
