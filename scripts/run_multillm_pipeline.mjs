@@ -715,6 +715,7 @@ async function callModel(args) {
 }
 
 async function callOpenAI({ model, systemInstruction, userPrompt, parameters }) {
+  // Try Responses API first
   try {
     const res = await fetch("https://api.openai.com/v1/responses", {
       method: "POST",
@@ -725,56 +726,53 @@ async function callOpenAI({ model, systemInstruction, userPrompt, parameters }) 
       body: JSON.stringify({
         model,
         input: [
-  {
-    role: "system",
-    content: [
-      {
-        type: "input_text",
-        text: systemInstruction || "",
-      },
-    ],
-  },
-  {
-    role: "user",
-    content: [
-      {
-        type: "input_text",
-        text: userPrompt,
-      },
-    ],
-  },
-],
+          {
+            role: "system",
+            content: [{ type: "input_text", text: systemInstruction || "" }],
+          },
+          {
+            role: "user",
+            content: [{ type: "input_text", text: userPrompt }],
+          },
+        ],
         temperature: parameters.temperature,
         max_output_tokens: parameters.max_tokens,
       }),
     });
 
     const data = await res.json();
+    console.log("OPENAI RESPONSES API:", JSON.stringify(data, null, 2));
 
-    console.log("OPENAI RAW RESPONSE:");
-    console.log(JSON.stringify(data, null, 2));
+    const text = data.output?.[0]?.content?.[0]?.text || data.output_text || "";
+    if (text) return text;
 
-    // 🔹 Responses API parsing
-    const text =
-      data.output?.[0]?.content?.[0]?.text ||
-      data.output_text ||
-      "";
-
-    if (!text) {
-      console.error("OpenAI returned empty text:", JSON.stringify(data, null, 2));
-      return "[ERROR: OpenAI empty text]";
-    }
-
-    if (!text.trim().startsWith("{")) {
-      console.warn("⚠️ Non-JSON output detected from OpenAI model");
-    }
-
-    return text;
-
+    console.warn("⚠️ Responses API returned empty. Trying Chat Completions...");
   } catch (err) {
-    console.error("OPENAI FETCH ERROR:");
-    console.error(err);
+    console.warn("⚠️ Responses API failed. Trying Chat Completions...", err.message);
+  }
 
+  // Fallback: Chat Completions API
+  try {
+    const res = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        model,
+        messages: [
+          { role: "system", content: systemInstruction || "" },
+          { role: "user", content: userPrompt },
+        ],
+        temperature: parameters.temperature,
+        max_tokens: parameters.max_tokens,
+      }),
+    });
+    const data = await res.json();
+    console.log("OPENAI CHAT COMPLETIONS:", JSON.stringify(data, null, 2));
+    return data.choices?.[0]?.message?.content || "[ERROR: OpenAI empty text]";
+  } catch (err) {
     return `[ERROR: ${err.message}]`;
   }
 }
@@ -794,15 +792,8 @@ async function callAnthropic({ model, systemInstruction, userPrompt, parameters 
       max_tokens: parameters.max_tokens,
     }),
   });
-
   const data = await res.json();
-  const text = data.content?.[0]?.text || "";
-
-  if (typeof text === "string" && text && !text.trim().startsWith("{")) {
-    console.warn("⚠️ Non-JSON output detected from Anthropic model");
-  }
-
-  return text;
+  return data.content?.[0]?.text || "";
 }
 
 async function callGemini({ model, systemInstruction, userPrompt, parameters }) {
