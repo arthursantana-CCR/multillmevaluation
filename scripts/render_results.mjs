@@ -53,19 +53,42 @@ if (data.architecture === "consensus") {
     }
   }
 
-// 🔹 Aggregator (synthesis)
+  // 🔹 Per-generator Hallucination Checks
+  for (let i = 1; i <= 3; i++) {
+    const hc = outputs[`hallucination_check_${i}`];
+
+    if (hc) {
+      md += section(`Hallucination Check ${i}`);
+
+      if (hc.status === "failed") {
+        md += `❌ FAILED: ${hc.raw_text}`;
+      } else {
+        const r = hc.parsed_review;
+
+        md += `### Evaluation\n`;
+        md += `- Hallucinations: ${r.hallucinations_found}\n`;
+        md += `- Types: ${(r.types || []).join(", ") || "none"}\n\n`;
+
+        md += `### Justification\n${clean(r.justification)}\n\n`;
+
+        md += `### Corrected Output\n${clean(r.corrected_answer)}`;
+      }
+    }
+  }
+
+  // 🔹 Aggregator (synthesis)
   if (outputs.aggregator_output) {
     md += section("Aggregator (Synthesis)");
     if (outputs.aggregator_output.raw_text?.includes("[ERROR")) {
       md += `❌ ${outputs.aggregator_output.raw_text}`;
     } else {
       md += clean(outputs.aggregator_output.raw_text);
-    } 
+    }
   }
 
-  // 🔹 Hallucination Checker
+  // 🔹 Hallucination Checker (final)
   if (outputs.hallucination_check_output) {
-    md += section("Hallucination Checker");
+    md += section("Hallucination Checker (Final)");
 
     if (outputs.hallucination_check_output.status === "failed") {
       md += `❌ FAILED: ${outputs.hallucination_check_output.raw_text}`;
@@ -74,7 +97,7 @@ if (data.architecture === "consensus") {
 
       md += `### Evaluation\n`;
       md += `- Hallucinations: ${r.hallucinations_found}\n`;
-      md += `- Types: ${(r.types || []).join(", ")}\n\n`;
+      md += `- Types: ${(r.types || []).join(", ") || "none"}\n\n`;
 
       md += `### Justification\n${clean(r.justification)}\n\n`;
 
