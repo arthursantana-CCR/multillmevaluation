@@ -22,14 +22,23 @@ pipeline:
       provider: anthropic
       model: "claude-opus-4-7"
 
-  consensus:
+consensus:
     generators:
       - provider: anthropic
         model: "claude-opus-4-7"
+        hallucination_checker:
+          provider: google
+          model: "gemini-3.1-pro-preview"
       - provider: google
         model: "gemini-3.1-pro-preview"
+        hallucination_checker:
+          provider: openai
+          model: "gpt-5.5"
       - provider: openai
         model: "gpt-5.5"
+        hallucination_checker:
+          provider: anthropic
+          model: "claude-opus-4-7"
     aggregator:
       provider: anthropic
       model: "claude-opus-4-7"
