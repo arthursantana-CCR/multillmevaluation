@@ -304,6 +304,11 @@ function validateConfig(config) {
     if (!config.pipeline.consensus?.hallucination_checker) {
       throw new Error("Consensus architecture requires a hallucination_checker entry under pipeline.consensus");
     }
+    for (const [i, gen] of config.pipeline.consensus.generators.entries()) {
+      if (!gen.hallucination_checker) {
+        throw new Error(`Generator ${i + 1} is missing a hallucination_checker entry`);
+      }
+    }
   }
 }
 
@@ -456,7 +461,31 @@ ${taskInput}
 
   const [c1, c2, c3] = candidateOutputs;
 
-  // ── STEP 1: Aggregator — synthesis only ──
+  // ── STEP 1: Per-generator hallucination checks ──
+  const [hc1Result, hc2Result, hc3Result] = await Promise.all(
+    [c1, c2, c3].map((candidate, i) => {
+      const hc = generators[i].hallucination_checker;
+      return callReviewerWithRetry({
+        provider: hc.provider,
+        model: hc.model,
+        systemInstruction: config.system_instruction,
+        baseUserPrompt: buildReviewerPrompt({
+          config,
+          previousOutput: candidate,
+        }),
+        parameters: config.parameters,
+        fallbackText: candidate,
+        config,
+      });
+    })
+  );
+
+  // ── Extract corrected answers for aggregator ──
+  const cleaned1 = hc1Result.status === "success" ? hc1Result.parsed_review.corrected_answer || c1 : c1;
+  const cleaned2 = hc2Result.status === "success" ? hc2Result.parsed_review.corrected_answer || c2 : c2;
+  const cleaned3 = hc3Result.status === "success" ? hc3Result.parsed_review.corrected_answer || c3 : c3;
+
+  // ── STEP 2: Aggregator — synthesis only ──
   const aggregationPrompt = `
 You are the aggregator in a multi-model evaluation pipeline.
 
@@ -475,13 +504,13 @@ ${taskInput}
 CANDIDATES
 --------------------------------------------------
 A:
-${c1}
+${cleaned1}
 
 B:
-${c2}
+${cleaned2}
 
 C:
-${c3}
+${cleaned3}
 
 --------------------------------------------------
 REQUIRED PROCESS
@@ -533,7 +562,7 @@ Separate the two parts with this exact delimiter on its own line:
 Do NOT output JSON.
 `;
 
-const aggregatorRaw = await callModel({
+  const aggregatorRaw = await callModel({
     provider: aggregator.provider,
     model: aggregator.model,
     systemInstruction: "",
@@ -552,9 +581,12 @@ const aggregatorRaw = await callModel({
         candidate_1: { raw_text: c1 },
         candidate_2: { raw_text: c2 },
         candidate_3: { raw_text: c3 },
+        hallucination_check_1: hc1Result,
+        hallucination_check_2: hc2Result,
+        hallucination_check_3: hc3Result,
         aggregator_output: { raw_text: aggregatorRaw, error: "empty_or_failed" },
         hallucination_check_output: null,
-        final_output: c1,
+        final_output: cleaned1,
       },
     };
   }
@@ -577,14 +609,17 @@ const aggregatorRaw = await callModel({
         candidate_1: { raw_text: c1 },
         candidate_2: { raw_text: c2 },
         candidate_3: { raw_text: c3 },
+        hallucination_check_1: hc1Result,
+        hallucination_check_2: hc2Result,
+        hallucination_check_3: hc3Result,
         aggregator_output: { raw_text: aggregatorRaw, error: "delimiter_missing_or_empty_synthesis" },
         hallucination_check_output: null,
-        final_output: c1,
+        final_output: cleaned1,
       },
     };
   }
 
-  // ── STEP 2: Hallucination checker ──
+  // ── STEP 3: Final hallucination checker ──
   const hallucinationResult = await callReviewerWithRetry({
     provider: hallucination_checker.provider,
     model: hallucination_checker.model,
@@ -611,6 +646,9 @@ const aggregatorRaw = await callModel({
       candidate_1: { raw_text: c1 },
       candidate_2: { raw_text: c2 },
       candidate_3: { raw_text: c3 },
+      hallucination_check_1: hc1Result,
+      hallucination_check_2: hc2Result,
+      hallucination_check_3: hc3Result,
       aggregator_output: { raw_text: aggregatorRaw },
       hallucination_check_output: hallucinationResult,
       final_output: finalOutput,
