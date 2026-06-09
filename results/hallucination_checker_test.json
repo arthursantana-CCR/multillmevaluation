@@ -1,5 +1,5 @@
 {
-  "run_time_utc": "2026-06-09T18:04:02.722Z",
+  "run_time_utc": "2026-06-09T18:20:39.418Z",
   "per_generator_checks": [
     {
       "checker": "HC1",
@@ -10,8 +10,8 @@
       "injected_hallucination_description": "Flat earth mentioned as student misconception — should NOT be flagged",
       "hallucinations_found": false,
       "types_reported": [],
-      "justification": "The provided text is a lesson plan consisting of instructional content, hypothetical scenarios, and examples of what a student might say, all of which are excluded from being flagged as hallucinations according to the scope check. The mathematical and geometric statements included (such as proportional relationships and the approximation of Earth's curvature drop being proportional to the square of the distance) are factually correct. No fabricated statistics, citations, or false claims were found.",
-      "corrected_answer_length": 4449,
+      "justification": "The provided text is a lesson plan consisting of instructional examples, pedagogical explanations, and hypothetical scenarios. It does not contain any unsupported factual claims, fabricated statistics, or false real-world information. The Common Core standard cited is accurate, and the mention of flat earth theory is correctly framed as a real-world misconception used for illustrative purposes.",
+      "corrected_answer_length": 4602,
       "status": "success",
       "pass": true,
       "reason": "correct_clean"
@@ -25,11 +25,11 @@
       "injected_hallucination_description": "Real NCTM Principles and Standards (2000) reference — should NOT be flagged",
       "hallucinations_found": false,
       "types_reported": [],
-      "justification": "",
+      "justification": "No hallucinations were found. The factual reference to NCTM's Principles and Standards for School Mathematics (2000) and its emphasis on mathematical representations is accurate, and the rest of the content is an instructional lesson plan with examples and pedagogical guidance rather than unsupported factual claims.",
       "corrected_answer_length": 4218,
-      "status": "failed",
-      "pass": false,
-      "reason": "checker_failed"
+      "status": "success",
+      "pass": true,
+      "reason": "correct_clean"
     },
     {
       "checker": "HC3",
@@ -40,7 +40,7 @@
       "injected_hallucination_description": "Accurate claim about Common Core adoption variation — should NOT be flagged",
       "hallucinations_found": false,
       "types_reported": [],
-      "justification": "The lesson plan contains general pedagogical content and instructional design. The factual claim about CCSS being published in 2010 and adopted by a majority of U.S. states is accurate. No fabricated citations, statistics, or studies are presented. All examples (problems, student tasks, card matching) are clearly illustrative instructional content, not real-world factual claims.",
+      "justification": "The lesson plan contains general pedagogical content and instructional examples, which are not evaluable claims. The factual statements about the Common Core State Standards (published in 2010, adopted by most U.S. states with varying degrees of adoption) are accurate. The mathematical content regarding proportional relationships, y = kx, and the constant of proportionality is correct. No fabricated citations, statistics, or false factual claims are present.",
       "corrected_answer_length": 4183,
       "status": "success",
       "pass": true,
@@ -52,18 +52,16 @@
     "model": "claude-opus-4-7",
     "provider": "anthropic",
     "input": "simulated_synthesis_of_corrected_outputs",
-    "hallucinations_found": true,
-    "types_reported": [
-      "B1"
-    ],
-    "justification": "In the first lesson's Direct Instruction, the text states 'the rate at which the horizon drops is proportional to the square of the distance.' This is factually incorrect and also not a proportional relationship (it's a quadratic one, which contradicts the lesson's own framing). The drop is approximately proportional to the square of distance for small distances, but presenting this as an example of 'proportional vs. non-proportional reasoning' is mathematically confused — a squared relationship is precisely non-proportional. Additionally, the NCTM Principles and Standards for School Mathematics citation (2000) is accurate. The CCSS 2010 publication date is accurate. The main factual issue is the horizon-drop claim being mischaracterized in context. I have corrected this by reframing the Earth curvature example to avoid the misleading proportionality claim.",
+    "hallucinations_found": false,
+    "types_reported": [],
+    "justification": "The lesson plans contain primarily pedagogical content and instructional examples, which are not evaluable claims. The two factual-sounding references are verifiable: (1) NCTM's 'Principles and Standards for School Mathematics' was indeed published in 2000 and does emphasize multiple representations; (2) the Common Core State Standards were published in 2010 and adoption has varied across states, with CCSS.Math.Content.7.RP.A.2 addressing proportional relationships. No fabricated statistics, citations, or factual errors were identified.",
     "status": "success",
-    "pass": false,
-    "reason": "false_positive"
+    "pass": true,
+    "reason": "correct_clean"
   },
   "summary": {
     "total_tests": 4,
-    "passed": 2,
-    "failed": 2
+    "passed": 4,
+    "failed": 0
   }
 }
