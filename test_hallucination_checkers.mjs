@@ -298,7 +298,10 @@ async function loadConfig(configPath) {
     config.hallucination_rubric = parsed.rubric;
   }
 
-  return config// ─────────────────────────────────────────────
+  return config;
+}
+
+// ─────────────────────────────────────────────
 // TEST LESSON PLANS — SUBTLE HALLUCINATIONS
 // Each plan is realistic and well-structured but contains one deliberate hallucination:
 //   LP1: B2 — Fabricated NCTM citation with statistic
