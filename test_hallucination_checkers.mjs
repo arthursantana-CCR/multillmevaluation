@@ -329,7 +329,7 @@ CRI1a — Clarifying Information: Students must articulate what makes a claim ch
 Assessment: Listen for students distinguishing between opinion and mathematically testable claims.
 
 Direct Instruction (10 min)
-Introduce proportional relationships: y = kx, constant ratio, graph through the origin. Use the example of Earth's curvature — the rate at which the horizon drops is proportional to the square of the distance, which is inconsistent with a flat surface. This is presented as a real-world application of proportional vs. non-proportional reasoning, not as a science lesson.
+Introduce proportional relationships: y = kx, constant ratio, graph through the origin. Use the example of Earth's curvature as a context where mathematical reasoning can test claims. A flat surface would predict no consistent drop in the horizon over distance, while a curved surface produces a measurable, predictable drop — a relationship that can be modeled and verified mathematically. This is not presented as a proportional relationship, but as an example of how mathematical reasoning can evaluate real-world claims.
 
 Guided Practice (15 min)
 Students work in pairs. Given three claims presented as "a student said...", they must determine whether each is testable using proportional reasoning and, if so, whether the proportional relationship holds.
