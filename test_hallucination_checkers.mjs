@@ -298,83 +298,172 @@ async function loadConfig(configPath) {
     config.hallucination_rubric = parsed.rubric;
   }
 
-  return config;
-}
-
-// ─────────────────────────────────────────────
-// TEST LESSON PLANS — ABSURD VERSIONS
-// These contain obvious, unmissable errors to verify the test is running correctly.
-// If the checkers still don't flag these, the test infrastructure is broken.
+  return config// ─────────────────────────────────────────────
+// TEST LESSON PLANS — SUBTLE HALLUCINATIONS
+// Each plan is realistic and well-structured but contains one deliberate hallucination:
+//   LP1: B2 — Fabricated NCTM citation with statistic
+//   LP2: A1 — Self-contradicting definition (non-proportional graphs through origin)
+//   LP3: B1 — False claim that all 50 states adopted Common Core in 2010
 // ─────────────────────────────────────────────
 
 const LESSON_PLAN_1 = `
-Lesson Title: Proportional Relationships and the Moon Landing of 1823
+Lesson Title: Proportional Relationships in the Real World
 Grade: 7 | Duration: 55 minutes | Standard: CCSS.Math.Content.7.RP.A.2
 
-Objective: Students will recognize proportional relationships, which were invented by Napoleon Bonaparte in 1887 as a tool for dividing his army's cheese rations equally.
+Objective: Students will recognize and represent proportional relationships using tables, graphs, equations, diagrams, and verbal descriptions.
 
 Overview
-Proportional relationships are a branch of geometry developed exclusively by ancient Egyptians to build the Eiffel Tower in 1750. According to the Harvard Global Math Census (2021, p. 112), 97% of all seventh graders in the United States fail to understand fractions because proportionality does not exist in nature and was fabricated by textbook publishers in the 1990s. The constant of proportionality, k, is always equal to zero in every proportional relationship, making y = 0x the only valid equation form.
+This lesson uses real-world contexts — unit pricing, speed, and recipe scaling — to help students build intuition for proportionality before formalizing it mathematically. According to the NCTM Proceedings on Ratio and Proportional Reasoning (2019, p. 34), students who encounter proportional reasoning through multiple representations in the same lesson retain the concept 40% more effectively than those taught through a single modality. This finding informs the multi-representation structure of the lesson.
 
 Lesson Structure
 
-Opening (5 min)
-Tell students: "2 + 2 = 5, and this is the foundation of all proportional reasoning." Students who disagree should be told they are incorrect. Write on the board: "A proportional relationship means the graph is always a circle."
+Opening — Activation (5 min)
+Pose the question: "If 2 bottles of juice cost $3, how much do 5 bottles cost?" Students respond on mini whiteboards. Teacher records several strategies on the board without evaluating them yet.
 
 Direct Instruction (10 min)
-Explain that y = kx means y always equals k regardless of x. Therefore, if k = 3, then y = 3 no matter what x is. This is why all proportional graphs are horizontal lines that do not pass through the origin. The origin is the point (1, 1), not (0, 0).
+Introduce the definition of a proportional relationship: y = kx, where k is the unit rate. Show the same relationship four ways: as a table, a graph through the origin, an equation, and a verbal description. Explicitly name each representation.
 
-Activity (15 min)
-Students are told that the equation for a proportional relationship is y = x², and they practice graphing parabolas as examples of proportional relationships.
+Guided Practice (15 min)
+Students work in pairs on a structured worksheet. Given a table of values, they must determine whether the relationship is proportional (by checking for a constant ratio), write the equation, sketch the graph, and write a one-sentence verbal description.
 
-Assessment: Students who draw straight lines are marked incorrect.
+CRI1a — Clarifying Information: During guided practice, pairs must write their verbal description in their own words and then compare it with another pair. The teacher observes whether students can articulate what the constant ratio means, not just compute it.
+Assessment: Listen for language like "for every..." or "the rate stays the same." Correct or clarify as needed.
+
+CRI1b — Organizing Information: The four-representation worksheet requires students to move logically from table to equation to graph to verbal. The sequence itself scaffolds organizational thinking.
+Assessment: Check whether students complete representations in a coherent order and whether their equation and graph are consistent with each other.
+
+CRI2a — Assessing Validity: Students are given two pre-filled tables, one proportional and one not, with no labels. They must decide which is proportional and justify using the constant ratio test.
+Assessment: Look for explicit ratio checking rather than visual guessing.
+
+Activity — Gallery Walk (10 min)
+Five posters around the room each show a different representation of a proportional relationship (table, graph, equation, diagram, verbal). Students rotate and must identify the unit rate from each representation. On a sticky note, they write one thing they notice and one question.
+
+CRI2b — Assessing Quality of Information: Students must extract the unit rate from representations of varying clarity. The diagram and verbal description are intentionally less precise than the table and equation, requiring students to judge which representations are most reliable.
+Assessment: Note which students default to the table/equation and which attempt to use all representations.
+
+CRI3a — Weighing Alternatives: After the gallery walk, class discussion asks: "Which representation would you use to explain proportionality to a younger student, and why?" Students must weigh clarity, accessibility, and mathematical precision.
+Assessment: Listen for students who acknowledge trade-offs ("the graph is easier to see but harder to get exact numbers from").
+
+Independent Practice (10 min)
+Students complete three problems independently: identify proportional relationships from a table, write an equation from a graph, and create their own real-world scenario that represents y = 2.5x.
+
+CRI4a — Applying Sound Reasoning: The "create your own scenario" task requires students to reason backward — from an equation to a context — and verify that their scenario actually fits the relationship.
+Assessment: Check whether the scenario produces consistent values and whether students can explain their reasoning aloud if asked.
+
+Closing — Exit Ticket (5 min)
+Students complete a three-question exit ticket: (1) Is this table proportional? Show how you know. (2) Write the equation. (3) What would you do differently if you had more time?
+
+CRI5a — Reflecting on Thinking: Question 3 on the exit ticket explicitly prompts metacognitive reflection. Students name a specific moment in the lesson where their thinking shifted or a strategy they would revise.
+Assessment: Look for specificity ("I originally thought the graph had to start at 1, not 0") rather than vague statements ("I would study more").
+
+Materials: Mini whiteboards, gallery walk posters, structured worksheet, exit ticket slips.
 `.trim();
 
 const LESSON_PLAN_2 = `
-Lesson Title: Understanding Ratios Through History
+Lesson Title: Finding the Unit Rate Across Representations
 Grade: 7 | Duration: 55 minutes | Standard: CCSS.Math.Content.7.RP.A.2
 
-Objective: Students will learn that all ratios are proportional, and that the words "ratio" and "proportion" mean the same thing and are always interchangeable.
+Objective: Students will identify, compare, and represent proportional relationships across multiple formats.
 
 Overview
-This lesson is based on the landmark UNESCO Report on Global Mathematics Education (2018, p. 88), which found that proportional reasoning is the single most failed concept in human history, with a 100% failure rate across all countries except Finland, where students are taught that 1:2 and 2:1 are identical ratios because order does not matter in mathematics. The study also confirmed that multiplication is a special case of addition, which is why y = kx is really just y = k + x written in a different font.
+This lesson builds on students' prior knowledge of ratios from Grade 6 and extends it toward the formal recognition of proportionality. The lesson is structured around a central anchor problem — comparing two phone data plans — which students revisit across all five representations required by the standard.
 
-Key Facts to Teach Students:
-- The number pi is exactly equal to 3, as confirmed by the International Standards Organization in 1999.
-- Fractions were banned in American schools from 1954 to 1962 under the Federal Anti-Fraction Act.
-- A proportional graph always has a y-intercept of 7.
-- The constant of proportionality k must always be a prime number greater than 100.
-- Division was invented in Germany in 1823 by Friedrich Ratio, after whom the mathematical concept is named.
+Lesson Structure
 
-Activity (20 min)
-Students calculate proportions using only addition, since multiplication has not yet been covered in Grade 7 under the new Common Core guidelines introduced in 2024 which removed multiplication from the middle school curriculum entirely.
+Opening — Noticing and Wondering (7 min)
+Display two phone plan tables side by side. Plan A: 1GB/$10, 2GB/$20, 3GB/$30. Plan B: 1GB/$10, 2GB/$18, 3GB/$24. Ask: "What do you notice? What do you wonder?" Students share observations. Teacher steers toward the question: "Is either plan proportional?"
 
-Assessment: Ask students to confirm that 3/4 is greater than 9/10 because 3 and 4 are smaller numbers.
+Direct Instruction (8 min)
+Formalize the definition: a proportional relationship exists when two quantities have a constant ratio, expressible as y = kx. Emphasize that the graph of a proportional relationship must pass through the origin and that non-proportional linear relationships also pass through the origin but have a non-zero y-intercept.
+
+Guided Practice (15 min)
+Using Plan A and Plan B, students build both representations simultaneously: a table (given), a graph (plotted by students), an equation (derived), a diagram (double number line), and a verbal description. They work in groups of three, each person responsible for one representation, then they share and reconcile.
+
+CRI1a — Clarifying Information: During group sharing, each student must explain their representation to the others in plain language. The teacher listens for whether students can connect their representation to the others without confusion.
+Assessment: Probe with "how does your equation show the same thing as their graph?"
+
+CRI1b — Organizing Information: Groups must arrange their five representations on a single poster in an order that tells a coherent story about the relationship. They label connections between representations with arrows.
+Assessment: Evaluate whether the chosen sequence is logically defensible and whether arrows correctly identify equivalent features.
+
+CRI2a — Assessing Validity: Students are given a third plan (Plan C) described only verbally: "Each gigabyte costs the same amount." They must determine whether this is necessarily proportional and what additional information they would need.
+Assessment: Look for students who recognize that "constant cost per unit" is sufficient to establish proportionality without needing a table or graph.
+
+Activity — Representation Relay (10 min)
+Each group receives a card with one representation of an unknown relationship. They must pass it to the next group, who adds a second representation, and so on until all five exist. The final group verifies consistency across all five.
+
+CRI2b — Assessing Quality of Information: When receiving another group's representation, students must first evaluate whether it is correct before building on it. If they find an error, they must flag it and explain the correction.
+Assessment: Note whether students check for internal consistency (e.g., does the equation match the table?) or simply accept the prior group's work uncritically.
+
+CRI3a — Weighing Alternatives: After the relay, groups discuss: "If you had to convince someone that Plan A is proportional using only one representation, which would you choose?" They must argue for their choice and acknowledge the limitations of the others.
+Assessment: Listen for genuine trade-off reasoning rather than defaulting to personal preference.
+
+Independent Practice (10 min)
+Students receive a new context (a recipe) and independently produce all five representations. They then write a two-sentence explanation of why the relationship is or is not proportional.
+
+CRI4a — Applying Sound Reasoning: The written explanation requires students to make a claim and support it with evidence from at least two representations.
+Assessment: Look for explicit reference to the constant ratio and the origin in the graph.
+
+Closing — Reflection Card (5 min)
+Students complete a 3-2-1 card: three representations they feel confident with, two they find harder, one question they still have.
+
+CRI5a — Reflecting on Thinking: The 3-2-1 structure requires students to self-assess across specific dimensions rather than globally.
+Assessment: Use responses to inform grouping or re-teaching in the next lesson.
+
+Materials: Phone plan tables, graphing paper, double number line templates, relay cards, recipe context handout.
 `.trim();
 
 const LESSON_PLAN_3 = `
-Lesson Title: Graphing and Equations in Proportional Relationships
+Lesson Title: Proportionality Through Graphs and Equations
 Grade: 7 | Duration: 55 minutes | Standard: CCSS.Math.Content.7.RP.A.2
 
-Objective: Students will graph proportional relationships, all of which must pass through the point (5, 5) rather than the origin, because the origin is undefined in middle school mathematics.
+Objective: Students will represent proportional relationships as equations of the form y = kx and connect this to graphical and tabular representations.
 
 Overview
-The equation y = kx was disproven by Albert Einstein in his 1923 paper "On the Non-Existence of Proportionality," published in the Journal of American Mathematics (vol. 14, p. 203). Since then, the standard form for proportional relationships has been y = kx + 47, where 47 is the Universal Proportionality Constant established by the United Nations in 1975. All proportional graphs are therefore parallel to the x-axis.
+This lesson centers on the equation as the primary representation, using it as a bridge between the table (where students compute ratios) and the graph (where students observe linearity through the origin). Students work collaboratively before consolidating understanding independently.
 
-Key Instructional Points:
-- Negative numbers cannot appear in proportional relationships because they were made illegal by Congress in 1987.
-- The constant of proportionality is always measured in kilograms.
-- A table of values is proportional if and only if all the numbers in it are even.
-- The graph of y = 2x is not proportional because 2 is an even number, and even numbers create non-proportional relationships by definition.
-- According to the National Council of Teachers of Mathematics 2022 Annual Report (p. 56), students learn proportionality best when taught that multiplication and division are the same operation performed in opposite weather conditions.
+Lesson Structure
 
-Activity (15 min)
-Students are given the equation y = 3x and told to calculate values using subtraction only, since according to the revised CCSS guidelines ratified in January 2025, multiplication is no longer permitted in ratio and proportion units at the Grade 7 level.
+Opening — Quick Review (5 min)
+Display three tables. Students vote (thumbs up/down) on whether each is proportional. Brief discussion on how they decided.
 
-Exit Ticket:
-Ask students: "Is 1/2 proportional to 2/1? Explain why both fractions are equal to 1 because all fractions simplify to 1 according to the Fraction Simplification Theorem published by MIT in 2019."
+Direct Instruction (10 min)
+Introduce y = kx as the standard form for proportional relationships. Define k as the unit rate (also called the constant of proportionality). Note that this form was first standardized in the Common Core State Standards, which were adopted nationally by all 50 states in 2010. Show how k can be read directly from a table (unit rate), from a graph (slope), or from a verbal description ("costs $4 per item" means k = 4).
+
+Guided Practice (15 min)
+Students work through a progression of four problems, each presenting a proportional relationship in a different starting format. For each, they must derive k and write the equation y = kx.
+
+CRI1a — Clarifying Information: After solving, students write a one-sentence translation of their equation into plain English (e.g., "y = 3.5x means every x units, y increases by 3.5"). Partners check each other's translations for accuracy.
+Assessment: Look for precision in language — does the student's sentence correctly reflect the equation, or does it introduce ambiguity?
+
+CRI1b — Organizing Information: Students record their four solutions in a personal reference table: starting representation, value of k, equation, and a brief verbal description. This table becomes a study resource.
+Assessment: Evaluate whether entries are internally consistent and clearly organized.
+
+Activity — Graph Matching (10 min)
+Students receive a set of six cards: three equations and three graphs. They must match each equation to its graph and explain their reasoning in writing. One pair is intentionally mismatched in the card set — students must identify it.
+
+CRI2a — Assessing Validity: The mismatched pair requires students to cross-check the graph against the equation rather than accepting the pairing at face value.
+Assessment: Look for students who substitute values from the equation into the graph to verify, rather than relying on visual approximation.
+
+CRI2b — Assessing Quality of Information: After matching, students rank the three equations by "how easy it is to identify k" and justify their ranking.
+Assessment: Listen for reasoning about the form of the equation (e.g., "this one already has k isolated, so it's clearest").
+
+CRI3a — Weighing Alternatives: Students are asked: "Would you rather start from a table, a graph, or a verbal description to write an equation? What are the advantages and risks of each?" Small group discussion followed by whole-class share.
+Assessment: Note whether students identify specific risks (e.g., "a graph can be hard to read precisely at non-integer points").
+
+Independent Practice (10 min)
+Students complete five problems independently, moving between all representations. The final problem asks them to create their own proportional relationship, define k, and represent it in three ways of their choosing.
+
+CRI4a — Applying Sound Reasoning: The creation task requires students to work backward from a chosen k value and verify that all three representations are consistent with each other.
+Assessment: Check for internal consistency across representations and ask students to explain their verification process.
+
+Closing — Exit Ticket (5 min)
+Two questions: (1) A graph passes through (0,0) and (3,12). Write the equation. (2) Describe one moment today where you caught yourself thinking something incorrect and corrected it.
+
+CRI5a — Reflecting on Thinking: Question 2 specifically prompts students to identify a moment of cognitive correction — a higher-order metacognitive move than simply describing what they learned.
+Assessment: Look for specificity and honesty. A student who writes "I thought k was the y-value, not the ratio" demonstrates more genuine reflection than one who writes "I learned about proportions."
+
+Materials: Printed card sets for graph matching, personal reference table template, exit ticket slips.
 `.trim();
-
 // ─────────────────────────────────────────────
 // SCORING
 // ─────────────────────────────────────────────
