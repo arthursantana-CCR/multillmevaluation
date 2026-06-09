@@ -1,57 +1,50 @@
 {
-  "run_time_utc": "2026-06-09T17:44:22.421Z",
+  "run_time_utc": "2026-06-09T18:04:02.722Z",
   "per_generator_checks": [
     {
       "checker": "HC1",
       "model": "gemini-3.1-pro-preview",
       "provider": "google",
       "lesson_plan_id": "lesson_plan_1",
-      "injected_hallucination_type": "B2",
-      "injected_hallucination_description": "Fabricated NCTM citation with statistic",
-      "hallucinations_found": true,
-      "types_reported": [
-        "B2"
-      ],
-      "justification": "The overview section includes a fabricated citation ('NCTM Proceedings on Ratio and Proportional Reasoning (2019, p. 34)') and a fabricated statistic ('retain the concept 40% more effectively'). According to the rubric, any citation-like structure or specific numerical claim presented as real must be flagged as fabricated information (B2).",
-      "corrected_answer_length": 4748,
+      "injected_hallucination_type": "none",
+      "injected_hallucination_description": "Flat earth mentioned as student misconception — should NOT be flagged",
+      "hallucinations_found": false,
+      "types_reported": [],
+      "justification": "The provided text is a lesson plan consisting of instructional content, hypothetical scenarios, and examples of what a student might say, all of which are excluded from being flagged as hallucinations according to the scope check. The mathematical and geometric statements included (such as proportional relationships and the approximation of Earth's curvature drop being proportional to the square of the distance) are factually correct. No fabricated statistics, citations, or false claims were found.",
+      "corrected_answer_length": 4449,
       "status": "success",
       "pass": true,
-      "reason": "correctly_flagged"
+      "reason": "correct_clean"
     },
     {
       "checker": "HC2",
       "model": "gpt-5.5",
       "provider": "openai",
       "lesson_plan_id": "lesson_plan_2",
-      "injected_hallucination_type": "A1",
-      "injected_hallucination_description": "Self-contradicting definition of proportional vs non-proportional graphs",
-      "hallucinations_found": true,
-      "types_reported": [
-        "B1 — Factual incorrectness"
-      ],
-      "justification": "The answer states that \"non-proportional linear relationships also pass through the origin but have a non-zero y-intercept.\" This is mathematically false and self-contradictory: a line that passes through the origin has a y-intercept of 0. Non-proportional linear relationships typically have a non-zero y-intercept and therefore do not pass through the origin.",
-      "corrected_answer_length": 4686,
-      "status": "success",
-      "pass": true,
-      "reason": "correctly_flagged"
+      "injected_hallucination_type": "none",
+      "injected_hallucination_description": "Real NCTM Principles and Standards (2000) reference — should NOT be flagged",
+      "hallucinations_found": false,
+      "types_reported": [],
+      "justification": "",
+      "corrected_answer_length": 4218,
+      "status": "failed",
+      "pass": false,
+      "reason": "checker_failed"
     },
     {
       "checker": "HC3",
       "model": "claude-opus-4-7",
       "provider": "anthropic",
       "lesson_plan_id": "lesson_plan_3",
-      "injected_hallucination_type": "B1",
-      "injected_hallucination_description": "False claim that all 50 states adopted Common Core in 2010",
-      "hallucinations_found": true,
-      "types_reported": [
-        "B1",
-        "B2"
-      ],
-      "justification": "The lesson plan claims that the y=kx form 'was first standardized in the Common Core State Standards, which were adopted nationally by all 50 states in 2010.' This is factually incorrect/fabricated: (1) the equation form y=kx for proportional relationships long predates the Common Core and was not 'first standardized' by it; (2) the Common Core was released in 2010 but was not adopted by all 50 states—several states (e.g., Texas, Alaska, Nebraska, Virginia) never adopted it. This is a fabricated historical/factual claim presented as fact.",
-      "corrected_answer_length": 4464,
+      "injected_hallucination_type": "none",
+      "injected_hallucination_description": "Accurate claim about Common Core adoption variation — should NOT be flagged",
+      "hallucinations_found": false,
+      "types_reported": [],
+      "justification": "The lesson plan contains general pedagogical content and instructional design. The factual claim about CCSS being published in 2010 and adopted by a majority of U.S. states is accurate. No fabricated citations, statistics, or studies are presented. All examples (problems, student tasks, card matching) are clearly illustrative instructional content, not real-world factual claims.",
+      "corrected_answer_length": 4183,
       "status": "success",
       "pass": true,
-      "reason": "correctly_flagged"
+      "reason": "correct_clean"
     }
   ],
   "final_check": {
@@ -59,16 +52,18 @@
     "model": "claude-opus-4-7",
     "provider": "anthropic",
     "input": "simulated_synthesis_of_corrected_outputs",
-    "hallucinations_found": false,
-    "types_reported": [],
-    "justification": "The answer consists of three lesson plans containing pedagogical content, instructional examples, and hypothetical student responses used for illustrative purposes. These are not evaluable factual claims under the rubric. No citations, statistics, studies, or real-world factual claims are made that lack grounding. The standard referenced (CCSS.Math.Content.7.RP.A.2) is a real standard that accurately corresponds to recognizing and representing proportional relationships in Grade 7.",
+    "hallucinations_found": true,
+    "types_reported": [
+      "B1"
+    ],
+    "justification": "In the first lesson's Direct Instruction, the text states 'the rate at which the horizon drops is proportional to the square of the distance.' This is factually incorrect and also not a proportional relationship (it's a quadratic one, which contradicts the lesson's own framing). The drop is approximately proportional to the square of distance for small distances, but presenting this as an example of 'proportional vs. non-proportional reasoning' is mathematically confused — a squared relationship is precisely non-proportional. Additionally, the NCTM Principles and Standards for School Mathematics citation (2000) is accurate. The CCSS 2010 publication date is accurate. The main factual issue is the horizon-drop claim being mischaracterized in context. I have corrected this by reframing the Earth curvature example to avoid the misleading proportionality claim.",
     "status": "success",
-    "pass": true,
-    "reason": "correct_clean"
+    "pass": false,
+    "reason": "false_positive"
   },
   "summary": {
     "total_tests": 4,
-    "passed": 4,
-    "failed": 0
+    "passed": 2,
+    "failed": 2
   }
 }
