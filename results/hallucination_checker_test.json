@@ -1,5 +1,5 @@
 {
-  "run_time_utc": "2026-06-09T17:11:14.749Z",
+  "run_time_utc": "2026-06-09T17:25:42.829Z",
   "per_generator_checks": [
     {
       "checker": "HC1",
@@ -8,13 +8,16 @@
       "lesson_plan_id": "lesson_plan_1",
       "injected_hallucination_type": "B2",
       "injected_hallucination_description": "Fabricated NCTM citation with statistic",
-      "hallucinations_found": false,
-      "types_reported": [],
-      "justification": "",
-      "corrected_answer_length": 1625,
-      "status": "failed",
-      "pass": false,
-      "reason": "checker_failed"
+      "hallucinations_found": true,
+      "types_reported": [
+        "B1",
+        "B2"
+      ],
+      "justification": "The lesson plan contains numerous factual errors (B1), such as claiming the Moon landing occurred in 1823, Napoleon invented proportional relationships in 1887, the Eiffel Tower was built by ancient Egyptians in 1750, 2+2=5, the origin is (1,1), and proportional relationships are circles or parabolas. It also contains fabricated information (B2), specifically the 'Harvard Global Math Census (2021)' and its associated statistics.",
+      "corrected_answer_length": 1137,
+      "status": "success",
+      "pass": true,
+      "reason": "correctly_flagged"
     },
     {
       "checker": "HC2",
@@ -23,13 +26,17 @@
       "lesson_plan_id": "lesson_plan_2",
       "injected_hallucination_type": "A1",
       "injected_hallucination_description": "Self-contradicting definition of proportional vs non-proportional graphs",
-      "hallucinations_found": false,
-      "types_reported": [],
-      "justification": "",
-      "corrected_answer_length": 1647,
-      "status": "failed",
-      "pass": false,
-      "reason": "checker_failed"
+      "hallucinations_found": true,
+      "types_reported": [
+        "B1",
+        "B2",
+        "A2"
+      ],
+      "justification": "The answer contains numerous demonstrably false and fabricated factual claims, including a fabricated UNESCO report and statistic, false claims about Finland, pi being exactly 3, an International Standards Organization ruling, a Federal Anti-Fraction Act, proportional graphs having y-intercepts of 7, constants of proportionality needing to be prime numbers greater than 100, division being invented in Germany in 1823 by Friedrich Ratio, and multiplication being removed from the middle school Common Core curriculum in 2024. It also states incorrect mathematical content, such as ratios and proportions always meaning the same thing, y = kx being equivalent to y = k + x, and 3/4 being greater than 9/10.",
+      "corrected_answer_length": 1984,
+      "status": "success",
+      "pass": true,
+      "reason": "correctly_flagged"
     },
     {
       "checker": "HC3",
@@ -38,13 +45,16 @@
       "lesson_plan_id": "lesson_plan_3",
       "injected_hallucination_type": "B1",
       "injected_hallucination_description": "False claim that all 50 states adopted Common Core in 2010",
-      "hallucinations_found": false,
-      "types_reported": [],
-      "justification": "Fallback: unable to parse model output.",
-      "corrected_answer_length": 1917,
+      "hallucinations_found": true,
+      "types_reported": [
+        "B1",
+        "B2"
+      ],
+      "justification": "The lesson plan contains numerous fabricated and factually incorrect claims presented as real: (1) Einstein never wrote a paper disproving y=kx; (2) there is no 'Universal Proportionality Constant' established by the UN in 1975; (3) Congress did not make negative numbers illegal in 1987; (4) the constant of proportionality is not always in kilograms; (5) tables are not proportional only if all values are even; (6) y=2x is a valid proportional relationship; (7) the NCTM 2022 report claim about multiplication/division and weather is fabricated; (8) CCSS was not revised in January 2025 to ban multiplication; (9) there is no 'Fraction Simplification Theorem' from MIT in 2019, and not all fractions equal 1; (10) proportional graphs pass through the origin, not (5,5); the origin is well-defined. These are fabricated citations and demonstrably false math claims.",
+      "corrected_answer_length": 1621,
       "status": "success",
-      "pass": false,
-      "reason": "missed_hallucination"
+      "pass": true,
+      "reason": "correctly_flagged"
     }
   ],
   "final_check": {
@@ -54,14 +64,14 @@
     "input": "simulated_synthesis_of_corrected_outputs",
     "hallucinations_found": false,
     "types_reported": [],
-    "justification": "Fallback: unable to parse model output.",
+    "justification": "The content consists of lesson plans containing general pedagogical explanations and mathematical facts about proportional relationships. All mathematical claims (y = kx, graphs passing through origin, constant of proportionality, 3/4 = 0.75, 9/10 = 0.9, etc.) are accurate. No fabricated citations, statistics, or sources are presented. The examples are clearly instructional and not presented as real-world factual claims requiring sourcing.",
     "status": "success",
     "pass": true,
     "reason": "correct_clean"
   },
   "summary": {
     "total_tests": 4,
-    "passed": 1,
-    "failed": 3
+    "passed": 4,
+    "failed": 0
   }
 }
