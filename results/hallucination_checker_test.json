@@ -1,5 +1,5 @@
 {
-  "run_time_utc": "2026-06-09T17:25:42.829Z",
+  "run_time_utc": "2026-06-09T17:44:22.421Z",
   "per_generator_checks": [
     {
       "checker": "HC1",
@@ -10,11 +10,10 @@
       "injected_hallucination_description": "Fabricated NCTM citation with statistic",
       "hallucinations_found": true,
       "types_reported": [
-        "B1",
         "B2"
       ],
-      "justification": "The lesson plan contains numerous factual errors (B1), such as claiming the Moon landing occurred in 1823, Napoleon invented proportional relationships in 1887, the Eiffel Tower was built by ancient Egyptians in 1750, 2+2=5, the origin is (1,1), and proportional relationships are circles or parabolas. It also contains fabricated information (B2), specifically the 'Harvard Global Math Census (2021)' and its associated statistics.",
-      "corrected_answer_length": 1137,
+      "justification": "The overview section includes a fabricated citation ('NCTM Proceedings on Ratio and Proportional Reasoning (2019, p. 34)') and a fabricated statistic ('retain the concept 40% more effectively'). According to the rubric, any citation-like structure or specific numerical claim presented as real must be flagged as fabricated information (B2).",
+      "corrected_answer_length": 4748,
       "status": "success",
       "pass": true,
       "reason": "correctly_flagged"
@@ -28,12 +27,10 @@
       "injected_hallucination_description": "Self-contradicting definition of proportional vs non-proportional graphs",
       "hallucinations_found": true,
       "types_reported": [
-        "B1",
-        "B2",
-        "A2"
+        "B1 — Factual incorrectness"
       ],
-      "justification": "The answer contains numerous demonstrably false and fabricated factual claims, including a fabricated UNESCO report and statistic, false claims about Finland, pi being exactly 3, an International Standards Organization ruling, a Federal Anti-Fraction Act, proportional graphs having y-intercepts of 7, constants of proportionality needing to be prime numbers greater than 100, division being invented in Germany in 1823 by Friedrich Ratio, and multiplication being removed from the middle school Common Core curriculum in 2024. It also states incorrect mathematical content, such as ratios and proportions always meaning the same thing, y = kx being equivalent to y = k + x, and 3/4 being greater than 9/10.",
-      "corrected_answer_length": 1984,
+      "justification": "The answer states that \"non-proportional linear relationships also pass through the origin but have a non-zero y-intercept.\" This is mathematically false and self-contradictory: a line that passes through the origin has a y-intercept of 0. Non-proportional linear relationships typically have a non-zero y-intercept and therefore do not pass through the origin.",
+      "corrected_answer_length": 4686,
       "status": "success",
       "pass": true,
       "reason": "correctly_flagged"
@@ -50,8 +47,8 @@
         "B1",
         "B2"
       ],
-      "justification": "The lesson plan contains numerous fabricated and factually incorrect claims presented as real: (1) Einstein never wrote a paper disproving y=kx; (2) there is no 'Universal Proportionality Constant' established by the UN in 1975; (3) Congress did not make negative numbers illegal in 1987; (4) the constant of proportionality is not always in kilograms; (5) tables are not proportional only if all values are even; (6) y=2x is a valid proportional relationship; (7) the NCTM 2022 report claim about multiplication/division and weather is fabricated; (8) CCSS was not revised in January 2025 to ban multiplication; (9) there is no 'Fraction Simplification Theorem' from MIT in 2019, and not all fractions equal 1; (10) proportional graphs pass through the origin, not (5,5); the origin is well-defined. These are fabricated citations and demonstrably false math claims.",
-      "corrected_answer_length": 1621,
+      "justification": "The lesson plan claims that the y=kx form 'was first standardized in the Common Core State Standards, which were adopted nationally by all 50 states in 2010.' This is factually incorrect/fabricated: (1) the equation form y=kx for proportional relationships long predates the Common Core and was not 'first standardized' by it; (2) the Common Core was released in 2010 but was not adopted by all 50 states—several states (e.g., Texas, Alaska, Nebraska, Virginia) never adopted it. This is a fabricated historical/factual claim presented as fact.",
+      "corrected_answer_length": 4464,
       "status": "success",
       "pass": true,
       "reason": "correctly_flagged"
@@ -64,7 +61,7 @@
     "input": "simulated_synthesis_of_corrected_outputs",
     "hallucinations_found": false,
     "types_reported": [],
-    "justification": "The content consists of lesson plans containing general pedagogical explanations and mathematical facts about proportional relationships. All mathematical claims (y = kx, graphs passing through origin, constant of proportionality, 3/4 = 0.75, 9/10 = 0.9, etc.) are accurate. No fabricated citations, statistics, or sources are presented. The examples are clearly instructional and not presented as real-world factual claims requiring sourcing.",
+    "justification": "The answer consists of three lesson plans containing pedagogical content, instructional examples, and hypothetical student responses used for illustrative purposes. These are not evaluable factual claims under the rubric. No citations, statistics, studies, or real-world factual claims are made that lack grounding. The standard referenced (CCSS.Math.Content.7.RP.A.2) is a real standard that accurately corresponds to recognizing and representing proportional relationships in Grade 7.",
     "status": "success",
     "pass": true,
     "reason": "correct_clean"
