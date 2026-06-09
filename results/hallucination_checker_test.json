@@ -1,5 +1,5 @@
 {
-  "run_time_utc": "2026-06-09T17:00:55.787Z",
+  "run_time_utc": "2026-06-09T17:11:14.749Z",
   "per_generator_checks": [
     {
       "checker": "HC1",
@@ -11,7 +11,7 @@
       "hallucinations_found": false,
       "types_reported": [],
       "justification": "",
-      "corrected_answer_length": 4897,
+      "corrected_answer_length": 1625,
       "status": "failed",
       "pass": false,
       "reason": "checker_failed"
@@ -26,7 +26,7 @@
       "hallucinations_found": false,
       "types_reported": [],
       "justification": "",
-      "corrected_answer_length": 4639,
+      "corrected_answer_length": 1647,
       "status": "failed",
       "pass": false,
       "reason": "checker_failed"
@@ -41,7 +41,7 @@
       "hallucinations_found": false,
       "types_reported": [],
       "justification": "Fallback: unable to parse model output.",
-      "corrected_answer_length": 4597,
+      "corrected_answer_length": 1917,
       "status": "success",
       "pass": false,
       "reason": "missed_hallucination"
