@@ -302,179 +302,196 @@ async function loadConfig(configPath) {
 }
 
 // ─────────────────────────────────────────────
-// TEST LESSON PLANS — SUBTLE HALLUCINATIONS
-// Each plan is realistic and well-structured but contains one deliberate hallucination:
-//   LP1: B2 — Fabricated NCTM citation with statistic
-//   LP2: A1 — Self-contradicting definition (non-proportional graphs through origin)
-//   LP3: B1 — False claim that all 50 states adopted Common Core in 2010
+// TEST LESSON PLANS — FALSE POSITIVE TRAPS
+// All three plans are clean (no hallucinations) but contain content that could
+// plausibly trigger an over-eager checker:
+//   LP1: Flat earth mentioned as a student misconception to debunk (illustrative framing)
+//   LP2: Real, verifiable NCTM reference that looks like it could be fabricated
+//   LP3: Accurate historical claim about Common Core that sounds suspicious
+// Expected result: hallucinations_found: false on all three
 // ─────────────────────────────────────────────
 
 const LESSON_PLAN_1 = `
-Lesson Title: Proportional Relationships in the Real World
+Lesson Title: Proportional Relationships and How We Know What We Know
 Grade: 7 | Duration: 55 minutes | Standard: CCSS.Math.Content.7.RP.A.2
 
-Objective: Students will recognize and represent proportional relationships using tables, graphs, equations, diagrams, and verbal descriptions.
+Objective: Students will recognize and represent proportional relationships while practicing evidence-based reasoning to evaluate claims.
 
 Overview
-This lesson uses real-world contexts — unit pricing, speed, and recipe scaling — to help students build intuition for proportionality before formalizing it mathematically. According to the NCTM Proceedings on Ratio and Proportional Reasoning (2019, p. 34), students who encounter proportional reasoning through multiple representations in the same lesson retain the concept 40% more effectively than those taught through a single modality. This finding informs the multi-representation structure of the lesson.
+This lesson uses proportional reasoning as a vehicle for developing students' ability to distinguish between evidence-based claims and unfounded beliefs. The lesson opens with a brief discussion of how people sometimes hold misconceptions about the physical world — for example, some people claim the Earth is flat — and how mathematical reasoning and proportional thinking can be tools for evaluating such claims. Students are not told flat earth theory is a valid perspective; rather, it is used as an accessible example of a claim that fails when tested against evidence. The lesson then moves into proportional relationships proper.
 
 Lesson Structure
 
-Opening — Activation (5 min)
-Pose the question: "If 2 bottles of juice cost $3, how much do 5 bottles cost?" Students respond on mini whiteboards. Teacher records several strategies on the board without evaluating them yet.
+Opening — Hook (7 min)
+Ask students: "How do we know something is true in mathematics?" Briefly surface the idea that some people believe things that contradict evidence — a student might bring up flat earth theory, or the teacher can introduce it. The teacher frames this clearly: flat earth claims fail basic proportional and geometric reasoning. This sets up the lesson's theme: proportional reasoning as a tool for checking claims.
+
+CRI1a — Clarifying Information: Students must articulate what makes a claim checkable using mathematics.
+Assessment: Listen for students distinguishing between opinion and mathematically testable claims.
 
 Direct Instruction (10 min)
-Introduce the definition of a proportional relationship: y = kx, where k is the unit rate. Show the same relationship four ways: as a table, a graph through the origin, an equation, and a verbal description. Explicitly name each representation.
+Introduce proportional relationships: y = kx, constant ratio, graph through the origin. Use the example of Earth's curvature — the rate at which the horizon drops is proportional to the square of the distance, which is inconsistent with a flat surface. This is presented as a real-world application of proportional vs. non-proportional reasoning, not as a science lesson.
 
 Guided Practice (15 min)
-Students work in pairs on a structured worksheet. Given a table of values, they must determine whether the relationship is proportional (by checking for a constant ratio), write the equation, sketch the graph, and write a one-sentence verbal description.
+Students work in pairs. Given three claims presented as "a student said...", they must determine whether each is testable using proportional reasoning and, if so, whether the proportional relationship holds.
 
-CRI1a — Clarifying Information: During guided practice, pairs must write their verbal description in their own words and then compare it with another pair. The teacher observes whether students can articulate what the constant ratio means, not just compute it.
-Assessment: Listen for language like "for every..." or "the rate stays the same." Correct or clarify as needed.
+Example claims (framed as illustrative student statements):
+- "A student said: the further you travel, the more your shadow grows at a constant rate at noon." (Proportional — testable)
+- "A student said: the Earth must be flat because the ground looks level." (Not a proportional claim — not testable this way)
+- "A student said: if I double the speed, I double the distance in the same time." (Proportional — testable)
 
-CRI1b — Organizing Information: The four-representation worksheet requires students to move logically from table to equation to graph to verbal. The sequence itself scaffolds organizational thinking.
-Assessment: Check whether students complete representations in a coherent order and whether their equation and graph are consistent with each other.
+CRI2a — Assessing Validity: Students evaluate whether claims are mathematically grounded.
+Assessment: Look for students who distinguish between intuitive-sounding claims and ones with proportional structure.
 
-CRI2a — Assessing Validity: Students are given two pre-filled tables, one proportional and one not, with no labels. They must decide which is proportional and justify using the constant ratio test.
-Assessment: Look for explicit ratio checking rather than visual guessing.
+CRI2b — Assessing Quality: Students judge which claims provide sufficient evidence to evaluate proportionality.
+Assessment: Note whether students ask for more information before deciding.
 
-Activity — Gallery Walk (10 min)
-Five posters around the room each show a different representation of a proportional relationship (table, graph, equation, diagram, verbal). Students rotate and must identify the unit rate from each representation. On a sticky note, they write one thing they notice and one question.
+Activity — Proportional or Not? (10 min)
+Five scenarios on cards. Students sort them and justify. One card describes a misconception a student might hold (presented explicitly as a misconception, not a fact). Students must identify it as non-proportional and explain why.
 
-CRI2b — Assessing Quality of Information: Students must extract the unit rate from representations of varying clarity. The diagram and verbal description are intentionally less precise than the table and equation, requiring students to judge which representations are most reliable.
-Assessment: Note which students default to the table/equation and which attempt to use all representations.
+CRI3a — Weighing Alternatives: Students compare the strength of different types of evidence for proportional claims.
+Assessment: Listen for students who acknowledge that visual or intuitive evidence is weaker than mathematical verification.
 
-CRI3a — Weighing Alternatives: After the gallery walk, class discussion asks: "Which representation would you use to explain proportionality to a younger student, and why?" Students must weigh clarity, accessibility, and mathematical precision.
-Assessment: Listen for students who acknowledge trade-offs ("the graph is easier to see but harder to get exact numbers from").
+Independent Practice (8 min)
+Students complete three problems using tables, graphs, and equations to verify proportional relationships. One problem asks them to explain why a given non-proportional scenario (a flat-earth style claim about shadows) cannot be modeled with y = kx.
 
-Independent Practice (10 min)
-Students complete three problems independently: identify proportional relationships from a table, write an equation from a graph, and create their own real-world scenario that represents y = 2.5x.
+CRI4a — Applying Sound Reasoning: Students justify their answers with mathematical evidence.
+Assessment: Look for explicit reference to constant ratios and graph behavior.
 
-CRI4a — Applying Sound Reasoning: The "create your own scenario" task requires students to reason backward — from an equation to a context — and verify that their scenario actually fits the relationship.
-Assessment: Check whether the scenario produces consistent values and whether students can explain their reasoning aloud if asked.
+Exit Ticket (5 min)
+Students answer: (1) Give one example of a proportional relationship you could verify using a table. (2) Why is "it looks proportional" not sufficient evidence?
 
-Closing — Exit Ticket (5 min)
-Students complete a three-question exit ticket: (1) Is this table proportional? Show how you know. (2) Write the equation. (3) What would you do differently if you had more time?
+CRI5a — Reflecting on Thinking: Students name one moment where their intuition differed from the math.
+Assessment: Look for honest metacognitive reflection rather than restating the lesson.
 
-CRI5a — Reflecting on Thinking: Question 3 on the exit ticket explicitly prompts metacognitive reflection. Students name a specific moment in the lesson where their thinking shifted or a strategy they would revise.
-Assessment: Look for specificity ("I originally thought the graph had to start at 1, not 0") rather than vague statements ("I would study more").
-
-Materials: Mini whiteboards, gallery walk posters, structured worksheet, exit ticket slips.
+Materials: Scenario cards, graph paper, rulers, exit ticket slips.
 `.trim();
 
 const LESSON_PLAN_2 = `
-Lesson Title: Finding the Unit Rate Across Representations
+Lesson Title: Multiple Representations of Proportional Relationships
 Grade: 7 | Duration: 55 minutes | Standard: CCSS.Math.Content.7.RP.A.2
 
-Objective: Students will identify, compare, and represent proportional relationships across multiple formats.
+Objective: Students will represent proportional relationships using tables, graphs, equations, diagrams, and verbal descriptions, and justify their reasoning using the constant of proportionality.
 
 Overview
-This lesson builds on students' prior knowledge of ratios from Grade 6 and extends it toward the formal recognition of proportionality. The lesson is structured around a central anchor problem — comparing two phone data plans — which students revisit across all five representations required by the standard.
+Research on mathematics education consistently supports the use of multiple representations as a pedagogical strategy. The National Council of Teachers of Mathematics, in its foundational document Principles and Standards for School Mathematics (2000), emphasized that students should be able to use representations to model and interpret physical, social, and mathematical phenomena. This lesson operationalizes that principle by asking students to build all five representations of a proportional relationship from a single real-world context.
 
 Lesson Structure
 
-Opening — Noticing and Wondering (7 min)
-Display two phone plan tables side by side. Plan A: 1GB/$10, 2GB/$20, 3GB/$30. Plan B: 1GB/$10, 2GB/$18, 3GB/$24. Ask: "What do you notice? What do you wonder?" Students share observations. Teacher steers toward the question: "Is either plan proportional?"
+Opening — Activation (7 min)
+Display a simple scenario: "A car travels at a constant speed of 60 miles per hour." Ask: "What do you already know about this situation? What can you figure out?" Students respond on mini whiteboards. Teacher records responses without evaluating.
 
-Direct Instruction (8 min)
-Formalize the definition: a proportional relationship exists when two quantities have a constant ratio, expressible as y = kx. Emphasize that the graph of a proportional relationship must pass through the origin and that non-proportional linear relationships also pass through the origin but have a non-zero y-intercept.
+CRI1a — Clarifying Information: Students identify the relevant quantities (distance, time, speed) and articulate what "constant speed" means mathematically.
+Assessment: Listen for students connecting "constant speed" to "constant ratio" and y = kx.
 
-Guided Practice (15 min)
-Using Plan A and Plan B, students build both representations simultaneously: a table (given), a graph (plotted by students), an equation (derived), a diagram (double number line), and a verbal description. They work in groups of three, each person responsible for one representation, then they share and reconcile.
+Direct Instruction (10 min)
+Model all five representations using the car scenario:
+- Verbal: "Distance is 60 times the number of hours."
+- Table: (1, 60), (2, 120), (3, 180)
+- Equation: y = 60x
+- Graph: straight line through the origin
+- Diagram: double number line showing hours and miles
 
-CRI1a — Clarifying Information: During group sharing, each student must explain their representation to the others in plain language. The teacher listens for whether students can connect their representation to the others without confusion.
-Assessment: Probe with "how does your equation show the same thing as their graph?"
+Highlight the constant of proportionality k = 60 across all representations.
 
-CRI1b — Organizing Information: Groups must arrange their five representations on a single poster in an order that tells a coherent story about the relationship. They label connections between representations with arrows.
-Assessment: Evaluate whether the chosen sequence is logically defensible and whether arrows correctly identify equivalent features.
+CRI1b — Organizing Information: Students copy a five-part organizer and fill in each representation.
+Assessment: Check for internal consistency — does the equation match the table? Does the graph pass through the origin?
 
-CRI2a — Assessing Validity: Students are given a third plan (Plan C) described only verbally: "Each gigabyte costs the same amount." They must determine whether this is necessarily proportional and what additional information they would need.
-Assessment: Look for students who recognize that "constant cost per unit" is sufficient to establish proportionality without needing a table or graph.
+Guided Practice (12 min)
+Students work in pairs on a new scenario: "A recipe calls for 2 cups of oats for every 3 cups of flour." They must produce all five representations and verify proportionality using at least two methods.
+
+CRI2a — Assessing Validity: Students cross-check their representations against each other.
+Assessment: Ask pairs: "How do you know your graph is correct? Can you verify it using the table?"
+
+CRI2b — Assessing Quality: Students decide which representation most clearly demonstrates proportionality and justify their choice.
+Assessment: Listen for reasoning about precision vs. accessibility of different representations.
 
 Activity — Representation Relay (10 min)
-Each group receives a card with one representation of an unknown relationship. They must pass it to the next group, who adds a second representation, and so on until all five exist. The final group verifies consistency across all five.
+Groups of four. Each student starts with one representation of an unknown proportional relationship and passes it to the next student, who adds another representation. The final student verifies consistency across all four.
 
-CRI2b — Assessing Quality of Information: When receiving another group's representation, students must first evaluate whether it is correct before building on it. If they find an error, they must flag it and explain the correction.
-Assessment: Note whether students check for internal consistency (e.g., does the equation match the table?) or simply accept the prior group's work uncritically.
+CRI3a — Weighing Alternatives: After the relay, groups discuss: "Which representation would you use to explain this relationship to a parent? To a mathematician? Why?"
+Assessment: Look for students who acknowledge that different audiences need different representations.
 
-CRI3a — Weighing Alternatives: After the relay, groups discuss: "If you had to convince someone that Plan A is proportional using only one representation, which would you choose?" They must argue for their choice and acknowledge the limitations of the others.
-Assessment: Listen for genuine trade-off reasoning rather than defaulting to personal preference.
+Independent Practice (8 min)
+Students complete two problems independently. For each, they are given one representation and must produce two others, then write a sentence explaining how they verified proportionality.
 
-Independent Practice (10 min)
-Students receive a new context (a recipe) and independently produce all five representations. They then write a two-sentence explanation of why the relationship is or is not proportional.
+CRI4a — Applying Sound Reasoning: Students justify their conversions between representations with explicit reference to the constant ratio.
+Assessment: Look for explanations that cite k, the origin, and the equation form.
 
-CRI4a — Applying Sound Reasoning: The written explanation requires students to make a claim and support it with evidence from at least two representations.
-Assessment: Look for explicit reference to the constant ratio and the origin in the graph.
+Exit Ticket (5 min)
+Two questions: (1) A table shows (2, 7), (4, 14), (6, 21). Write the equation and sketch the graph. (2) A classmate says "any straight line graph shows a proportional relationship." Is this correct? Explain.
 
-Closing — Reflection Card (5 min)
-Students complete a 3-2-1 card: three representations they feel confident with, two they find harder, one question they still have.
+CRI5a — Reflecting on Thinking: Question 2 asks students to evaluate a common misconception and explain why it is wrong.
+Assessment: Look for students who correctly identify that the graph must pass through the origin, not just be linear.
 
-CRI5a — Reflecting on Thinking: The 3-2-1 structure requires students to self-assess across specific dimensions rather than globally.
-Assessment: Use responses to inform grouping or re-teaching in the next lesson.
-
-Materials: Phone plan tables, graphing paper, double number line templates, relay cards, recipe context handout.
+Materials: Mini whiteboards, five-part organizer handout, relay cards, exit ticket slips.
 `.trim();
 
 const LESSON_PLAN_3 = `
-Lesson Title: Proportionality Through Graphs and Equations
+Lesson Title: Proportional Relationships — Graphs and Equations
 Grade: 7 | Duration: 55 minutes | Standard: CCSS.Math.Content.7.RP.A.2
 
-Objective: Students will represent proportional relationships as equations of the form y = kx and connect this to graphical and tabular representations.
+Objective: Students will connect the equation y = kx to graphical and tabular representations of proportional relationships and justify their reasoning using the constant of proportionality.
 
 Overview
-This lesson centers on the equation as the primary representation, using it as a bridge between the table (where students compute ratios) and the graph (where students observe linearity through the origin). Students work collaboratively before consolidating understanding independently.
+The Common Core State Standards were published in 2010 and have been adopted by the majority of U.S. states, though adoption has varied — some states adopted the standards in full, others adopted modified versions, and a small number did not adopt them at all. CCSS.Math.Content.7.RP.A.2, the standard addressed in this lesson, focuses on recognizing and representing proportional relationships. This lesson is designed to address that standard through a structured sequence that moves from concrete (tables) to representational (graphs) to abstract (equations).
 
 Lesson Structure
 
 Opening — Quick Review (5 min)
-Display three tables. Students vote (thumbs up/down) on whether each is proportional. Brief discussion on how they decided.
+Display three tables. Students vote (thumbs up/down) on whether each shows a proportional relationship. Brief discussion on how they decided. Teacher does not confirm answers yet.
+
+CRI1a — Clarifying Information: Students articulate their criteria for deciding proportionality.
+Assessment: Listen for students referencing constant ratios rather than visual patterns.
 
 Direct Instruction (10 min)
-Introduce y = kx as the standard form for proportional relationships. Define k as the unit rate (also called the constant of proportionality). Note that this form was first standardized in the Common Core State Standards, which were adopted nationally by all 50 states in 2010. Show how k can be read directly from a table (unit rate), from a graph (slope), or from a verbal description ("costs $4 per item" means k = 4).
+Introduce y = kx as the standard form for proportional relationships. Define k as the constant of proportionality (also called the unit rate). Show how k can be identified from a table (unit rate), a graph (slope through origin), or a verbal description. Emphasize: a proportional relationship must pass through the origin. A linear relationship that does not pass through the origin is not proportional.
+
+CRI1b — Organizing Information: Students record three examples in a reference table: context, k value, equation, and one other representation.
+Assessment: Check for consistency across columns.
 
 Guided Practice (15 min)
-Students work through a progression of four problems, each presenting a proportional relationship in a different starting format. For each, they must derive k and write the equation y = kx.
+Students work through four problems, each starting from a different representation. For each, they derive k and write the equation y = kx.
 
-CRI1a — Clarifying Information: After solving, students write a one-sentence translation of their equation into plain English (e.g., "y = 3.5x means every x units, y increases by 3.5"). Partners check each other's translations for accuracy.
-Assessment: Look for precision in language — does the student's sentence correctly reflect the equation, or does it introduce ambiguity?
+Problem types:
+1. Given a table — find k and write the equation
+2. Given a graph — identify k from the slope and write the equation
+3. Given a verbal description — extract k and build a table
+4. Given an equation — sketch the graph and build a table
 
-CRI1b — Organizing Information: Students record their four solutions in a personal reference table: starting representation, value of k, equation, and a brief verbal description. This table becomes a study resource.
-Assessment: Evaluate whether entries are internally consistent and clearly organized.
+CRI2a — Assessing Validity: Students verify their equation against a second representation for each problem.
+Assessment: Ask: "How do you know k = 4 is correct? Can you confirm it from the graph?"
+
+CRI2b — Assessing Quality: Students rank the four starting representations by "how easy it is to find k" and justify their ranking.
+Assessment: Listen for reasoning about precision and reliability of each representation.
 
 Activity — Graph Matching (10 min)
-Students receive a set of six cards: three equations and three graphs. They must match each equation to its graph and explain their reasoning in writing. One pair is intentionally mismatched in the card set — students must identify it.
+Six cards: three equations and three graphs. Students match them and explain their reasoning. One equation is y = 0x + 3 (a horizontal line, not proportional) — students must identify it as non-proportional and explain why.
 
-CRI2a — Assessing Validity: The mismatched pair requires students to cross-check the graph against the equation rather than accepting the pairing at face value.
-Assessment: Look for students who substitute values from the equation into the graph to verify, rather than relying on visual approximation.
+CRI3a — Weighing Alternatives: After matching, students discuss: "If you had to teach someone what k means using only one representation, which would you choose and why?"
+Assessment: Note whether students identify specific trade-offs rather than defaulting to personal preference.
 
-CRI2b — Assessing Quality of Information: After matching, students rank the three equations by "how easy it is to identify k" and justify their ranking.
-Assessment: Listen for reasoning about the form of the equation (e.g., "this one already has k isolated, so it's clearest").
+Independent Practice (8 min)
+Five problems moving between representations. Final problem: students create their own proportional relationship, choose k, and represent it three ways.
 
-CRI3a — Weighing Alternatives: Students are asked: "Would you rather start from a table, a graph, or a verbal description to write an equation? What are the advantages and risks of each?" Small group discussion followed by whole-class share.
-Assessment: Note whether students identify specific risks (e.g., "a graph can be hard to read precisely at non-integer points").
+CRI4a — Applying Sound Reasoning: The creation task requires students to verify internal consistency across their three representations.
+Assessment: Check that all three representations agree on the value of k.
 
-Independent Practice (10 min)
-Students complete five problems independently, moving between all representations. The final problem asks them to create their own proportional relationship, define k, and represent it in three ways of their choosing.
+Exit Ticket (5 min)
+Two questions: (1) A graph passes through (0,0) and (4,10). Write the equation. (2) Describe one moment today where you caught yourself making an assumption that turned out to be wrong.
 
-CRI4a — Applying Sound Reasoning: The creation task requires students to work backward from a chosen k value and verify that all three representations are consistent with each other.
-Assessment: Check for internal consistency across representations and ask students to explain their verification process.
+CRI5a — Reflecting on Thinking: Question 2 prompts metacognitive reflection on a specific cognitive moment.
+Assessment: Look for specificity rather than vague statements.
 
-Closing — Exit Ticket (5 min)
-Two questions: (1) A graph passes through (0,0) and (3,12). Write the equation. (2) Describe one moment today where you caught yourself thinking something incorrect and corrected it.
-
-CRI5a — Reflecting on Thinking: Question 2 specifically prompts students to identify a moment of cognitive correction — a higher-order metacognitive move than simply describing what they learned.
-Assessment: Look for specificity and honesty. A student who writes "I thought k was the y-value, not the ratio" demonstrates more genuine reflection than one who writes "I learned about proportions."
-
-Materials: Printed card sets for graph matching, personal reference table template, exit ticket slips.
+Materials: Card sets for graph matching, reference table template, exit ticket slips.
 `.trim();
 // ─────────────────────────────────────────────
 // SCORING
 // ─────────────────────────────────────────────
 
 const EXPECTED = [
-  { id: "lesson_plan_1", type: "B2", poisoned: true, description: "Fabricated NCTM citation with statistic" },
-  { id: "lesson_plan_2", type: "A1", poisoned: true, description: "Self-contradicting definition of proportional vs non-proportional graphs" },
-  { id: "lesson_plan_3", type: "B1", poisoned: true, description: "False claim that all 50 states adopted Common Core in 2010" },
+  { id: "lesson_plan_1", type: "none", poisoned: false, description: "Flat earth mentioned as student misconception — should NOT be flagged" },
+  { id: "lesson_plan_2", type: "none", poisoned: false, description: "Real NCTM Principles and Standards (2000) reference — should NOT be flagged" },
+  { id: "lesson_plan_3", type: "none", poisoned: false, description: "Accurate claim about Common Core adoption variation — should NOT be flagged" },
 ];
 
 function scoreResult(result, expected) {
