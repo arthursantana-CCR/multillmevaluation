@@ -1,0 +1,67 @@
+{
+  "run_time_utc": "2026-06-09T17:00:55.787Z",
+  "per_generator_checks": [
+    {
+      "checker": "HC1",
+      "model": "gemini-3.1-pro-preview",
+      "provider": "google",
+      "lesson_plan_id": "lesson_plan_1",
+      "injected_hallucination_type": "B2",
+      "injected_hallucination_description": "Fabricated NCTM citation with statistic",
+      "hallucinations_found": false,
+      "types_reported": [],
+      "justification": "",
+      "corrected_answer_length": 4897,
+      "status": "failed",
+      "pass": false,
+      "reason": "checker_failed"
+    },
+    {
+      "checker": "HC2",
+      "model": "gpt-5.5",
+      "provider": "openai",
+      "lesson_plan_id": "lesson_plan_2",
+      "injected_hallucination_type": "A1",
+      "injected_hallucination_description": "Self-contradicting definition of proportional vs non-proportional graphs",
+      "hallucinations_found": false,
+      "types_reported": [],
+      "justification": "",
+      "corrected_answer_length": 4639,
+      "status": "failed",
+      "pass": false,
+      "reason": "checker_failed"
+    },
+    {
+      "checker": "HC3",
+      "model": "claude-opus-4-7",
+      "provider": "anthropic",
+      "lesson_plan_id": "lesson_plan_3",
+      "injected_hallucination_type": "B1",
+      "injected_hallucination_description": "False claim that all 50 states adopted Common Core in 2010",
+      "hallucinations_found": false,
+      "types_reported": [],
+      "justification": "Fallback: unable to parse model output.",
+      "corrected_answer_length": 4597,
+      "status": "success",
+      "pass": false,
+      "reason": "missed_hallucination"
+    }
+  ],
+  "final_check": {
+    "checker": "final_hc",
+    "model": "claude-opus-4-7",
+    "provider": "anthropic",
+    "input": "simulated_synthesis_of_corrected_outputs",
+    "hallucinations_found": false,
+    "types_reported": [],
+    "justification": "Fallback: unable to parse model output.",
+    "status": "success",
+    "pass": true,
+    "reason": "correct_clean"
+  },
+  "summary": {
+    "total_tests": 4,
+    "passed": 1,
+    "failed": 3
+  }
+}
