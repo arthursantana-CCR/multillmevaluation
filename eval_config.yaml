@@ -104,7 +104,7 @@ task: |
 
 #cases:
 #  - id: "student_1"
-#    input: "Student text 1..."
+#     input: "Student text 1..."
 #
 #  - id: "student_2"
 #    input: "Student text 2..."
